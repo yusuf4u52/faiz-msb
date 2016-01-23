@@ -1,4 +1,5 @@
 <?php
+include('connection.php');
 error_reporting(0);
 
 $msgvar = "Start Thali\n";
@@ -36,7 +37,6 @@ $msgvar .= fread($myfile,filesize("updatedetails.txt"));
 ftruncate($myfile, 0);
 fclose($myfile);
 
-$link=mysqli_connect("mysql.hostinger.in","u380653844_yusuf","FaizPassword","u380653844_faiz") or die("Cannot Connect to the database!");
 $result = mysqli_query($link,"SELECT * FROM thalilist WHERE Active='1' ");
 $count=mysqli_num_rows($result);
 
