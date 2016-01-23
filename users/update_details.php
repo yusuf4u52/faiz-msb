@@ -1,6 +1,7 @@
 <?php
 
 // Start the session
+include('connection.php');
 session_start();
 if (is_null($_SESSION['fromLogin'])) {
 
@@ -10,7 +11,6 @@ if (is_null($_SESSION['fromLogin'])) {
 
 if (isset($_POST['submit']))
     {  
-$link=mysqli_connect("mysql.hostinger.in","u380653844_yusuf","FaizPassword","u380653844_faiz") or die("Cannot Connect to the database!");
 $result = mysqli_query($link,"UPDATE thalilist set NAME='" . $_POST["name"] . "',CONTACT='" . $_POST["contact"] . "',Full_Address='" . $_POST["address"] . "' WHERE Email_id = '".$_SESSION['email']."'");
 
 $myfile = fopen("updatedetails.txt", "a") or die("Unable to open file!");
