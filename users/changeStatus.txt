@@ -1,0 +1,5 @@
+Start thali number  -  -  - 
+Stop thali number 
+Start transport for  at address 
+Stop transport for 
+Update details for  - test name - 1232141 - kalimi masjid 
