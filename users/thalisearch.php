@@ -88,7 +88,12 @@ if($_POST)
 
     </div>
 
-
+    <div id="receiptForm" class="container">
+      <input type="text" name="receipt_number"/>
+      <input type="text" name="receipt_amount"/>
+      <input type="button" name="cancel" value="cancel" />
+      <input type="button" name="save" value="save"/>
+    </div>
 
     <div class="container">
 
@@ -214,6 +219,7 @@ if($_POST)
                 <thead>
 
                   <tr>
+                    <th>Pay Hoob</th>
                     <th>Thali No</th>
                     <th>Name</th>
                     <th>Mobile No</th>
@@ -233,7 +239,7 @@ if($_POST)
                     {
                   ?>
                   <tr>
-
+                    <td><a href="#" data-key="payhoob">Pay Hoob</a></td>
                     <td><?php echo $values['Thali']; ?></td>
                     <td><?php echo $values['NAME']; ?></td>
                     <td><?php echo $values['CONTACT']; ?></td>
@@ -243,8 +249,6 @@ if($_POST)
                     <td><?php echo $values['Thali_start_date']; ?></td>
                     <td><?php echo $values['Thali_stop_date']; ?></td>
                     <td><?php echo $values['Total_Pending']; ?></td>
-
-
                   </tr>
                   <?php } ?>
 
@@ -343,12 +347,40 @@ if($_POST)
 
     </div>
 
-
-
-
-
-    <script src="./src/jquery-1.10.2.min.js"></script>
-    <script src="./src/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="./src/bootstrap.min.js"></script>
     <script src="./src/custom.js"></script>
     <script type="//cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>
+<script>
+$(function(){
+  receiptForm.hide();
+  var receiptForm = $('#receiptForm');
+  $('[data-key="payhoob"]').click(function() {
+    receiptForm.show();
+  });
+  $('[name="save"]').click(function() {
+    var data = '';
+    $('input:text', receiptForm).each(function() {
+      data = data + $(this).attr('name') + '=' + $(this).val() + '&';
+    })
+    $.ajax({
+      method: 'post',
+      url: 'payhoob.php',
+      data: data,
+      success: function(data) {
+        if(data == 'success'){
+          alert('Hoob sucessfully updated.');
+          receiptForm.hide();
+          window.location.href = window.location.href; //reload
+        }
+      },
+      error: function() {
+
+      }
+    });
+  });
+
+});
+</script>
+
 </body></html>
