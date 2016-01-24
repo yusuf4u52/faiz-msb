@@ -51,6 +51,9 @@ if($_POST)
     <link rel="stylesheet" href="./src/bootstrap.css" media="screen">
 
     <link rel="stylesheet" href="./src/custom.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/css/bootstrap-modal.min.css"/>
+
+
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -345,13 +348,7 @@ if($_POST)
 
 
     <script src="./src/jquery-1.10.2.min.js"></script>
-
     <script src="./src/bootstrap.min.js"></script>
-
     <script src="./src/custom.js"></script>
-
-
-
-
-
+    <script type="//cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>
 </body></html>
