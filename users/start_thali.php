@@ -13,7 +13,7 @@ $count=mysqli_num_rows($result);
 
 if ($count == 0) {
 $update = mysqli_query($link,"UPDATE thalilist set Active='1' WHERE Email_id = '".$_SESSION['email']."'");
-$update = mysqli_query($link,"UPDATE thalilist set Thali_start_date='" . date("Y-m-d") . "' WHERE Email_id = '".$_SESSION['email']."'");
+$update = mysqli_query($link,"UPDATE thalilist set Thali_start_date='" . $_POST['start_date']; . "' WHERE Email_id = '".$_SESSION['email']."'");
 
 $myfile = fopen("startthali.txt", "a") or die("Unable to open file!");
 $txt="".$_SESSION['thali']." - ".$_SESSION['name']." - ".$_SESSION['contact']." - ".$_SESSION['address']."\n";
