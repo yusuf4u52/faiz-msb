@@ -89,8 +89,8 @@ if($_POST)
     </div>
 
     <div id="receiptForm" class="container">
-      <input type="text" name="receipt_number"/>
-      <input type="text" name="receipt_amount"/>
+      <input type="number" name="receipt_number" placeholder="Receipt #"/>
+      <input type="number" name="receipt_amount" placeholder="Receipt Amount"/>
       <input type="button" name="cancel" value="cancel" />
       <input type="button" name="save" value="save"/>
     </div>
@@ -347,39 +347,44 @@ if($_POST)
 
     </div>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-      <script src="./src/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="./src/bootstrap.min.js"></script>
     <script src="./src/custom.js"></script>
     <script type="//cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>
 <script>
 $(function(){
-  receiptForm.hide();
   var receiptForm = $('#receiptForm');
+  receiptForm.hide();
   $('[data-key="payhoob"]').click(function() {
     receiptForm.show();
   });
   $('[name="save"]').click(function() {
     var data = '';
-    $('input:text', receiptForm).each(function() {
+    $('input[type="number"]', receiptForm).each(function() {
       data = data + $(this).attr('name') + '=' + $(this).val() + '&';
-    })
+    });
     $.ajax({
       method: 'post',
-      url: 'payhoob.php',
+      url: '_payhoob.php',
       data: data,
       success: function(data) {
-        if(data == 'success'){
+        if(data == 'success') {
           alert('Hoob sucessfully updated.');
           receiptForm.hide();
           window.location.href = window.location.href; //reload
+        } else {
+          alert('Update failed. Please do not add receipt again unless you check system values properly');
         }
       },
       error: function() {
-
+        alert('Oops! Something went wrong.');
       }
     });
   });
 
+  $('[name="cancel"]').click(function() {
+    receiptForm.hide();
+  });
 });
 </script>
 
