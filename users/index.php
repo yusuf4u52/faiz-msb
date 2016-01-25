@@ -63,17 +63,15 @@ session_start();
         <div id="contentarea">
 
           <!--START PHP CODE-->
-
+        
           <form method="POST" action="start_thali.php">
-
-           <input type="submit" name="start_thali" value="Start Thali"/>
-
+            <input type="submit" name="start_thali" value="Start Thali"/>
+            <input type="hidden" gregdate name="start_date" value="<?php echo date("Y-m-d") ?>"/>
          </form>
 
          <form method="POST" action="stop_thali.php">
-
-           <input type="submit" name="stop_thali" value="Stop Thali"/>
-
+            <input type="submit" name="stop_thali" value="Stop Thali"/>
+            <input type="hidden" gregdate name="stop_date" value="<?php echo date("Y-m-d") ?>"/>
          </form>
 
          <form method="POST" action="start_transport.php">
@@ -176,7 +174,7 @@ if (is_null($_SESSION['fromLogin'])) {//send them back
 
     while (mysqli_stmt_fetch($stmt)) {
 
-      echo "<tr><td>".$thali."</td><td>".$name."</td><td>".$contact."</td><td>".$active."</td><td>".$transporter."</td><td>".$address."</td><td class=\"data-hijridate\">".$startdate."</td><td class=\"data-hijridate\">".$stopdate."</td><td>".$hubpending."</td></tr>";
+      echo "<tr><td>".$thali."</td><td>".$name."</td><td>".$contact."</td><td>".$active."</td><td>".$transporter."</td><td>".$address."</td><td hijridate>".$startdate."</td><td hijridate>".$stopdate."</td><td>".$hubpending."</td></tr>";
 
     }echo "</table>";
 
@@ -244,8 +242,10 @@ mysqli_close($link);
 
   </div>
 
-  <script src="javascript/hijri.js"></script>
-
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
+  <script src="javascript/moment-hijri.js"></script>
+  <script src="javascript/index.js"></script>
 </body>
 
 </html>					

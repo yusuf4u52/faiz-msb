@@ -14,7 +14,7 @@ $count=mysqli_num_rows($result);
 if ($count == 0) {
 
 $update = mysqli_query($link,"UPDATE thalilist set Active='0' WHERE Email_id = '".$_SESSION['email']."'");
-$update = mysqli_query($link,"UPDATE thalilist set Thali_stop_date='" . date("Y-m-d") . "' WHERE Email_id = '".$_SESSION['email']."'");
+$update = mysqli_query($link,"UPDATE thalilist set Thali_stop_date='" . $_POST['stop_date'] . "' WHERE Email_id = '".$_SESSION['email']."'");
 
 $myfile = fopen("stopthali.txt", "a") or die("Unable to open file!");
 $txt="".$_SESSION['thali']."\n";

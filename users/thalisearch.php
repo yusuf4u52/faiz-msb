@@ -2,7 +2,7 @@
 include('connection.php');
 session_start();
 
-if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com'))) {
+if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com','mustafamnr@gmail.com'))) {
  
 }
 else
@@ -51,6 +51,9 @@ if($_POST)
     <link rel="stylesheet" href="./src/bootstrap.css" media="screen">
 
     <link rel="stylesheet" href="./src/custom.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/css/bootstrap-modal.min.css"/>
+
+
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -85,7 +88,12 @@ if($_POST)
 
     </div>
 
-
+    <div id="receiptForm" class="container">
+      <input type="number" name="receipt_number" placeholder="Receipt #"/>
+      <input type="number" name="receipt_amount" placeholder="Receipt Amount"/>
+      <input type="button" name="cancel" value="cancel" />
+      <input type="button" name="save" value="save"/>
+    </div>
 
     <div class="container">
 
@@ -211,6 +219,7 @@ if($_POST)
                 <thead>
 
                   <tr>
+                    <th>Pay Hoob</th>
                     <th>Thali No</th>
                     <th>Name</th>
                     <th>Mobile No</th>
@@ -230,7 +239,7 @@ if($_POST)
                     {
                   ?>
                   <tr>
-
+                    <td><a href="#" data-key="payhoob">Pay Hoob</a></td>
                     <td><?php echo $values['Thali']; ?></td>
                     <td><?php echo $values['NAME']; ?></td>
                     <td><?php echo $values['CONTACT']; ?></td>
@@ -240,8 +249,6 @@ if($_POST)
                     <td><?php echo $values['Thali_start_date']; ?></td>
                     <td><?php echo $values['Thali_stop_date']; ?></td>
                     <td><?php echo $values['Total_Pending']; ?></td>
-
-
                   </tr>
                   <?php } ?>
 
@@ -340,18 +347,45 @@ if($_POST)
 
     </div>
 
-
-
-
-
-    <script src="./src/jquery-1.10.2.min.js"></script>
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="./src/bootstrap.min.js"></script>
-
     <script src="./src/custom.js"></script>
+    <script type="//cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>
+<script>
+$(function(){
+  var receiptForm = $('#receiptForm');
+  receiptForm.hide();
+  $('[data-key="payhoob"]').click(function() {
+    receiptForm.show();
+  });
+  $('[name="save"]').click(function() {
+    var data = '';
+    $('input[type="number"]', receiptForm).each(function() {
+      data = data + $(this).attr('name') + '=' + $(this).val() + '&';
+    });
+    $.ajax({
+      method: 'post',
+      url: '_payhoob.php',
+      data: data,
+      success: function(data) {
+        if(data == 'success') {
+          alert('Hoob sucessfully updated.');
+          receiptForm.hide();
+          window.location.href = window.location.href; //reload
+        } else {
+          alert('Update failed. Please do not add receipt again unless you check system values properly');
+        }
+      },
+      error: function() {
+        alert('Oops! Something went wrong.');
+      }
+    });
+  });
 
-
-
-
+  $('[name="cancel"]').click(function() {
+    receiptForm.hide();
+  });
+});
+</script>
 
 </body></html>
