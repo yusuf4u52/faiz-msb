@@ -9,21 +9,14 @@ session_start();
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
   <title>Welcome to Student Information Center:: Faiz ul Mawaid il Burhaniya</title>
-
   <link rel='stylesheet prefetch' href='//codepen.io/assets/reset/reset.css'>
-
   <link rel='stylesheet prefetch' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
-
   <link rel='stylesheet prefetch' href='http://faizulmawaidilburhaniyah.com/fmb/templates/fmb/css/resize.css'>
-
   <link rel='stylesheet prefetch' href='http://faizulmawaidilburhaniyah.com/fmb/templates/fmb/css/template.css'>
-
-
-
+  <!--  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script> -->
+  <script src="src/libs/angularjs.min.js"></script>
 </head>
 
 <body>
@@ -242,10 +235,12 @@ mysqli_close($link);
 
   </div>
 
+
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
   <script src="javascript/moment-hijri.js"></script>
   <script src="javascript/index.js"></script>
+
 </body>
 
 </html>					
