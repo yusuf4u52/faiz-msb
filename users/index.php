@@ -57,23 +57,23 @@ session_start();
 
           <!--START PHP CODE-->
         
-          <form method="POST" action="start_thali.php">
+          <form method="POST" action="start_thali.php" id="startThali">
             <input type="submit" name="start_thali" value="Start Thali"/>
             <input type="hidden" gregdate name="start_date" value="<?php echo date("Y-m-d") ?>"/>
          </form>
 
-         <form method="POST" action="stop_thali.php">
+         <form method="POST" action="stop_thali.php" id="stopThali">
             <input type="submit" name="stop_thali" value="Stop Thali"/>
             <input type="hidden" gregdate name="stop_date" value="<?php echo date("Y-m-d") ?>"/>
          </form>
 
-         <form method="POST" action="start_transport.php">
+         <form method="POST" action="start_transport.php" id="startTransport">
 
            <input type="submit" name="start_transport" value="Start Transport"/>
 
          </form>
 
-         <form method="POST" action="stop_transport.php">
+         <form method="POST" action="stop_transport.php" id="stopTransport">
 
            <input type="submit" name="stop_transport" value="Stop Transport"/>
 
@@ -235,6 +235,10 @@ mysqli_close($link);
 
   </div>
 
+  <script>
+   var thaliActive = <?php echo $active; ?>;
+   var thaliTranport = '<?php echo $transporter; ?>';
+  </script>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
