@@ -1,12 +1,6 @@
 <?php
 include('connection.php');
-session_start();
-
-if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com','mustafamnr@gmail.com'))) {
- 
-}
-else
-  header("Location: login.php");
+include('adminsession.php');
 
 if($_POST)
 {
@@ -349,6 +343,7 @@ if($_POST)
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="./src/bootstrap.min.js"></script>
+
     <script src="./src/custom.js"></script>
     <script type="//cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>
 <script>
