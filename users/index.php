@@ -79,7 +79,7 @@ session_start();
 
          </form>
 
-         <form method="POST" action="update_details.php">
+         <form action="update_details.php">
 
            <input type="submit" name="update_details" value="Update Details"/>
 
