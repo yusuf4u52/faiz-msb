@@ -2,58 +2,180 @@
 
 // Start the session
 include('connection.php');
+
 session_start();
 if (is_null($_SESSION['fromLogin'])) {
-
- //send them back
    header("Location: login.php");
 }
 
-if (isset($_POST['submit']))
+if ($_POST)
     {  
 $result = mysqli_query($link,"UPDATE thalilist set NAME='" . $_POST["name"] . "',CONTACT='" . $_POST["contact"] . "',Full_Address='" . $_POST["address"] . "' WHERE Email_id = '".$_SESSION['email']."'");
 
 $myfile = fopen("updatedetails.txt", "a") or die("Unable to open file!");
-$txt="".$_SESSION['thali']." - ".$_POST['name']." - ".$_POST['contact']." - ".$_POST['address']." \n";
+$txt= $_SESSION['thali']." - ".$_POST['name']." - ".$_POST['contact']." - ".$_POST['address']." \n";
 fwrite($myfile, $txt);
 fclose($myfile);
  
         header('Location: index.php');       
     }
+    else
+    {
+    	$query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
 
-if (isset($_POST['cancel']))	{
-	
-	        header('Location: index.php');       
-}
+ 
+     $data = mysqli_fetch_assoc(mysqli_query($link,$query));
+
+     extract($data);
+    }
+
 ?>
+<!DOCTYPE html>
 
-<html>
-<head>
-<title>Update Details</title>
-<link rel="stylesheet" type="text/css" href="styles.css" />
-</head>
-<body>
-<form name="update_details" method="post" action="">
-<div class="message"><?php if($message!="") { echo $message; } ?></div>
-<table border="0" cellpadding="10" cellspacing="1" width="500" align="center">
-<tr class="tableheader">
-<td align="center" colspan="2">Update Details Form</td>
-</tr>
-<tr class="tablerow">
-<td align="right">Name</td>
-<td><input type="text" name="name" size="35" value="<?php echo $_SESSION['name'];?>"></td>
-</tr>
-<tr class="tablerow">
-<td align="right">Contact</td>
-<td><input type="contact" name="contact" size="35" value="<?php echo $_SESSION['contact'];?>"></td>
-</tr>
-<tr class="tablerow">
-<td align="right">Address</td>
-<td><textarea name="address" rows="4" cols="37"><?php echo $_SESSION['address']; ?></textarea></td>
-</tr>
-<tr class="tableheader">
-<td align="center" colspan="2"><input type="submit" name="submit" value="Update"><input type="submit" name="cancel" value="Cancel"></td>
-</tr>
-</table>
-</form>
+<!-- saved from url=(0029)http://bootswatch.com/flatly/ -->
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+
+    <title>Bootswatch: Flatly</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="./src/bootstrap.css" media="screen">
+
+    <link rel="stylesheet" href="./src/custom.min.css">
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+    <!--[if lt IE 9]>
+
+      <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
+
+      <script src="../bower_components/respond/dest/respond.min.js"></script>
+
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+
+      <div class="container">
+
+        <div class="navbar-header">
+
+          <a class="navbar-brand">Faiz Students</a>
+
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="logout.php">Logout</a></li>
+          </ul>
+
+      </div>
+
+    </div>
+
+    <div class="container">
+
+      <!-- Forms
+
+      ================================================== -->
+
+        <div class="row">
+
+          <div class="col-lg-12">
+
+            <div class="page-header">
+
+              <h2 id="forms">Update info</h2>
+
+            </div>
+
+          </div>
+
+
+
+        <div class="row">
+
+          <div class="col-lg-6">
+
+            <div class="well bs-component">
+
+              <form class="form-horizontal" method="post">
+
+                <fieldset>
+
+
+                   <div class="form-group">
+
+                    <label for="inputName" class="col-lg-2 control-label">Name</label>
+
+                    <div class="col-lg-10">
+
+                      <input type="text" class="form-control" id="inputName" placeholder="Name"  name="name" value='<?php echo $NAME;?>'>
+
+                    </div>
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label for="inputContact" class="col-lg-2 control-label">Contact</label>
+
+                    <div class="col-lg-10">
+
+                      <input type="text" class="form-control" id="inputContact" placeholder="Contact" name="contact" value='<?php echo $CONTACT;?>'>
+
+                    </div>
+
+                  </div>
+
+
+
+                  <div class="form-group">
+
+                    <label for="inputAddress" class="col-lg-2 control-label">Address</label>
+
+                    <div class="col-lg-10">
+                      <textarea class="form-control" id="inputAddress" name="address"><?php echo $Full_Address;?></textarea>
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="form-group">
+
+                    <div class="col-lg-10 col-lg-offset-2">
+
+                      <button type="submit" class="btn btn-primary" name='submit'>Submit</button>
+
+                    </div>
+
+                  </div>
+
+                </fieldset>
+
+              </form>
+
+            </div>
+
+          </div>
+         
+        </div>
+
+      </div>
+
+    </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 </body></html>
