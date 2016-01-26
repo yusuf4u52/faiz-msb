@@ -16,6 +16,7 @@ for (var i = 0; i < els.length; i++) {
     var greg = el[prop];
     el[prop] = moment(greg, 'iYYYY-iM-iD').format('iD iMMMM iYYYY');
 }
+
 //toggle thaali stop/start
 $((thaliActive ? '#startThali' : '#stopThali')).hide();    
 

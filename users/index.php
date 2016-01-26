@@ -11,10 +11,8 @@ session_start();
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Welcome to Student Information Center:: Faiz ul Mawaid il Burhaniya</title>
-  <link rel='stylesheet prefetch' href='//codepen.io/assets/reset/reset.css'>
-  <link rel='stylesheet prefetch' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
-  <link rel='stylesheet prefetch' href='http://faizulmawaidilburhaniyah.com/fmb/templates/fmb/css/resize.css'>
-  <link rel='stylesheet prefetch' href='http://faizulmawaidilburhaniyah.com/fmb/templates/fmb/css/template.css'>
+  <link rel='stylesheet' href='/styles/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='/styles/css/faizst.css'>
   <!--  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script> -->
   <script src="src/libs/angularjs.min.js"></script>
 </head>
@@ -31,72 +29,65 @@ session_start();
 
           <div id="logo">
 
-            <a href="/users" title="Faiz-ul-Mawaid-il-Burhaniyah"><img src="http://faizulmawaidilburhaniyah.com/fmb/templates/fmb/images/logo.png" alt="Faiz-ul-Mawaid-il-Burhaniyah"></a>
-
-            Poona Students</div>
-
+            <a href="/users" title="Faiz-ul-Mawaid-il-Burhaniyah"><img src="/styles/img/logo.png" alt="Faiz-ul-Mawaid-il-Burhaniyah"></a>
+            Poona Students
           </div>
-
-
-
+          </div>
         </div>
-
-        <!--<div class="mainmenu">
-
-        </div>-->
-
-        <div class="clr"></div>
-
+      <!--<div class="mainmenu"></div>-->
       </div>
-
-
-
       <div class="container">
 
         <div id="contentarea">
 
           <!--START PHP CODE-->
-        
-          <form method="POST" action="start_thali.php" id="startThali">
+        <div class="row">
+          <div id="startThali" class="col-sm-3">
+           <form method="POST" action="start_thali.php">
             <input type="submit" name="start_thali" value="Start Thali"/>
             <input type="hidden" gregdate name="start_date" value="<?php echo date("Y-m-d") ?>"/>
          </form>
+        </div> 
 
-         <form method="POST" action="stop_thali.php" id="stopThali">
+
+        <div id="stopThali" class="col-sm-3">
+         <form method="POST" action="stop_thali.php">
             <input type="submit" name="stop_thali" value="Stop Thali"/>
             <input type="hidden" gregdate name="stop_date" value="<?php echo date("Y-m-d") ?>"/>
          </form>
+        </div>
 
-         <form method="POST" action="start_transport.php" id="startTransport">
+      <div id="startTransport" class="col-sm-3">
+         <form method="POST" action="start_transport.php">
 
            <input type="submit" name="start_transport" value="Start Transport"/>
 
          </form>
+      </div>
 
-         <form method="POST" action="stop_transport.php" id="stopTransport">
+      <div id="stopTransport" class="col-sm-3">
+         <form method="POST" action="stop_transport.php">
 
            <input type="submit" name="stop_transport" value="Stop Transport"/>
 
          </form>
-
+      </div>
+      <div class="col-sm-3">
          <form action="update_details.php">
 
            <input type="submit" name="update_details" value="Update Details"/>
 
          </form>
+      </div>        
+      <div class="col-sm-3"><a href = "logout.php">Logout</a></div>
+    </div>
 
-
-
-
-
-         <a href = "logout.php">Logout</a><br>
+         <br>
          <?php 
           if(in_array($_SESSION['email'], array('yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com')))
-          {
-            ?>
-            <a href = "thalisearch.php">Thali Search</a><?php
-          }
-         ?>
+          {?>
+            <a href = "thalisearch.php">Thali Search</a>
+    <?php }?>
 
 
          <br />
