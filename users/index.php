@@ -1,241 +1,227 @@
 <?php
+
 include('connection.php');
+
 session_start();
 
-?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Welcome to Student Information Center:: Faiz ul Mawaid il Burhaniya</title>
-  <link rel='stylesheet' href='/styles/css/bootstrap.min.css'>
-  <link rel='stylesheet' href='/styles/css/faizst.css'>
-  <!--  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script> -->
-  <script src="src/libs/angularjs.min.js"></script>
-</head>
-
-<body>
-
-  <div id="all">
-
-    <div id="header">
-
-      <div class="container" style="position: relative;">
-
-        <div class="header-inner">
-
-          <div id="logo">
-
-            <a href="/users" title="Faiz-ul-Mawaid-il-Burhaniyah"><img src="/styles/img/logo.png" alt="Faiz-ul-Mawaid-il-Burhaniyah"></a>
-            Poona Students
-          </div>
-          </div>
-        </div>
-      <!--<div class="mainmenu"></div>-->
-      </div>
-      <div class="container">
-
-        <div id="contentarea">
-
-          <!--START PHP CODE-->
-        <div class="row">
-          <div id="startThali" class="col-sm-3">
-           <form method="POST" action="start_thali.php">
-            <input type="submit" name="start_thali" value="Start Thali"/>
-            <input type="hidden" gregdate name="start_date" value="<?php echo date("Y-m-d") ?>"/>
-         </form>
-        </div> 
-
-
-        <div id="stopThali" class="col-sm-3">
-         <form method="POST" action="stop_thali.php">
-            <input type="submit" name="stop_thali" value="Stop Thali"/>
-            <input type="hidden" gregdate name="stop_date" value="<?php echo date("Y-m-d") ?>"/>
-         </form>
-        </div>
-
-      <div id="startTransport" class="col-sm-3">
-         <form method="POST" action="start_transport.php">
-
-           <input type="submit" name="start_transport" value="Start Transport"/>
-
-         </form>
-      </div>
-
-      <div id="stopTransport" class="col-sm-3">
-         <form method="POST" action="stop_transport.php">
-
-           <input type="submit" name="stop_transport" value="Stop Transport"/>
-
-         </form>
-      </div>
-      <div class="col-sm-3">
-         <form action="update_details.php">
-
-           <input type="submit" name="update_details" value="Update Details"/>
-
-         </form>
-      </div>        
-      <div class="col-sm-3"><a href = "logout.php">Logout</a></div>
-    </div>
-
-         <br>
-         <?php 
-          if(in_array($_SESSION['email'], array('yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com')))
-          {?>
-            <a href = "thalisearch.php">Thali Search</a>
-    <?php }?>
-
-
-         <br />
-
-         <br />
-
-         <br />
-
-         <table align="center" cellpadding="0" bgcolor="#FFFFFF" width="800" border="0">
-
-          <tr>
-
-            <td>
-
-              <p align="center">
-
-<?php 
-
-
-
-if (is_null($_SESSION['fromLogin'])) {//send them back
-
+if (is_null($_SESSION['fromLogin'])) {
  header("Location: login.php");
-
-} else {
-
-  echo "Welcome " . $_SESSION['email'] . ".";
-
-
-
-  if ($_SESSION['email'] == "admin") {
-
-    $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist";
-
-  } else {
-
-    $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
-
-  }
-
-  echo "
-
-  <table align=\"center\" border=\"0\" width=\"100%\">
-
-  <tr>
-
-  <td><b>Thali No.</b></td><td><b>Name</b></td><td><b>Contact</b></td><td><b>Active</b></td><td><b>Trasnporter</b></td><td><b>Address</b></td><td><b>Start Date</b></td><td><b>Stop Date</b></td><td><b>Hub Pending</b></td></tr> ";	
-
-
-
-  if ($stmt = mysqli_prepare($link, $query)) {
-
-
-
-    /* execute statement */
-
-    mysqli_stmt_execute($stmt);
-
-
-
-    /* bind result variables */
-
-    mysqli_stmt_bind_result($stmt, $thali, $name, $contact, $active, $transporter, $address, $startdate, $stopdate, $hubpending);
-
-
-
-    /* fetch values */
-
-    while (mysqli_stmt_fetch($stmt)) {
-
-      echo "<tr><td>".$thali."</td><td>".$name."</td><td>".$contact."</td><td>".$active."</td><td>".$transporter."</td><td>".$address."</td><td hijridate>".$startdate."</td><td hijridate>".$stopdate."</td><td>".$hubpending."</td></tr>";
-
-    }echo "</table>";
-
-
-
-    /* close statement */
-
-    mysqli_stmt_close($stmt);
-
-  }
-
-
-
-$_SESSION['thali'] = $thali;
-
-$_SESSION['address'] = $address;
-
-$_SESSION['name'] = $name;
-
-$_SESSION['contact'] = $contact;
-
-
-
-/* close connection */
-
-mysqli_close($link);
-
 }
 
+$query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
+
+$values = mysqli_fetch_assoc(mysqli_query($link,$query));
+
+if(empty($values['Thali']))
+{
+  session_unset();  
+  session_destroy();
+
+  $status = "Thali not activated yet, Please visit faiz to start your thali";
+  header("Location: login.php?status=$status");
+}
+// extract($data);
 ?>
+<!DOCTYPE html>
 
-          </p>
+<!-- saved from url=(0029)http://bootswatch.com/flatly/ -->
 
-          <td>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-          </tr>
+    <meta charset="utf-8">
 
-        </table>
+    <title>Bootswatch: Flatly</title>
 
-        <!--END PHP CODE-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      </div><!-- end contentarea -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="./src/bootstrap.css" media="screen">
+
+    <link rel="stylesheet" href="./src/custom.min.css">
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+    <!--[if lt IE 9]>
+
+      <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
+
+      <script src="../bower_components/respond/dest/respond.min.js"></script>
+
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+
+      <div class="container">
+
+        <div class="navbar-header">
+
+          <a class="navbar-brand">Faiz Students</a>
+
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+
+                   <?php
+          if(in_array($_SESSION['email'], array('murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com','mustafamnr@gmail.com')))
+          {
+            ?>
+
+            <li><a href = "thalisearch.php">Thali Search</a></li>
+            <li><a href = "../admin/index.php/examples/faiz">Admin</a></li>
+            <?php
+
+          }
+
+         ?>
+            <li><a href = "update_details.php">Update details</a></li>
+            <li><a href="logout.php">Logout</a></li>
+          </ul>
+
+      </div>
 
     </div>
 
+    <div class="container">
+
+      <!-- Forms
+
+      ================================================== -->
 
 
-    <div id="footer">
+        <div class="row">
 
-      <div id="footer-area" class="width">
+          <div class="col-lg-12">
+
+            <div class="page-header">
+
+              <h2 id="forms">Thali Details</h2>
+
+            </div>
+
+          </div>
+
+
+          <div  class="col-lg-12">
+         
+
+          <?php
+          if($values['Active'] == 0)
+          {
+          ?>
+          <form method="POST" action="start_thali.php" onsubmit='return confirm("Are you sure?");'>
+            <input type="submit" name="start_thali" value="Start Thali"  class="btn btn-success"/>
+            <input type="hidden" class='gregdate' name="start_date" value="<?php echo date("Y-m-d") ?>"/>
+         </form>
+         <?php
+        }
+        else
+        {
+         ?>
+       
+         <form method="POST" action="stop_thali.php" onsubmit='return confirm("Are you sure?");'>
+            <input type="submit" name="stop_thali" value="Stop Thali"  class="btn btn-danger"/>
+            <input type="hidden" class='gregdate' name="stop_date" value="<?php echo date("Y-m-d") ?>"/>
+         </form>
+
+         <?php } ?>
+
+         <br>
+         <?php
+          if($values['Transporter'] == 'Pick Up')
+          {
+          ?>
+         <form method="POST" action="start_transport.php" onsubmit='return confirm("Are you sure?");'>
+          <input type="submit" name="start_transport" value="Start Transport"  class="btn btn-success"/>
+          <input type="hidden" class='gregdate' name="start_date" value="<?php echo date("Y-m-d") ?>"/>
+         </form>
+         <?php
+        }
+        else
+        {
+          ?>
+
+
+         <form method="POST" action="stop_transport.php" onsubmit='return confirm("Are you sure?");'>
+           <input type="submit" name="stop_transport" value="Stop Transport"  class="btn btn-danger"/>
+         </form>
+
+         <?php 
+       }
+         ?>
+         <br>
+          </div>
 
 
 
-        <div class="copyright">
+        <div class="row">
 
-          <p>© 2016 Faiz-ul-Mawaid-il-Burhaniyah - Poona Students - Site by: <a href="http://faizstudents.com/" target="_blank">Faize Students Khidmat Guzaars</a></p>
+          <div class="col-lg-12">
 
+            <div class="well bs-component">
+                            <table class="table table-striped table-hover ">
+
+                <thead>
+
+                  <tr>
+                    <th>Thali No</th>
+                    <th>Name</th>
+                    <th>Mobile No</th>
+                    <th>Active</th>
+                    <th>Transporter</th>
+                    <th>Address</th>
+                    <th>Start Date</th>
+                    <th>Stop Date</th>
+                    <th>Hub pending</th>
+                  </tr>
+
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td><?php echo $values['Thali']; ?></td>
+                    <td><?php echo $values['NAME']; ?></td>
+                    <td><?php echo $values['CONTACT']; ?></td>
+                    <td><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></td>
+                    <td><?php echo $values['Transporter']; ?></td>
+                    <td><?php echo $values['Full_Address']; ?></td>
+                    <td class='hijridate'><?php echo $values['Thali_start_date']; ?></td>
+                    <td class='hijridate'><?php echo $values['Thali_stop_date']; ?></td>
+                    <td><?php echo $values['Total_Pending']; ?></td>
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+         
         </div>
 
       </div>
 
-      <!-- end footer -->
-
     </div>
 
-  </div>
+          <?php
+      if(isset($_GET['status']))
+      {
+      ?>
+      <script type="text/javascript">
+      alert('<?php echo $_GET['status']; ?>');
+      </script>
 
-  <script>
-   var thaliActive = <?php echo $active; ?>;
-   var thaliTranport = '<?php echo $transporter; ?>';
-  </script>
-
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+            <?php } ?>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
-  <script src="javascript/moment-hijri.js"></script>
+     <script src="javascript/moment-hijri.js"></script>
   <script src="javascript/index.js"></script>
 
-</body>
-
-</html>					
+</body></html>

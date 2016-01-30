@@ -2,18 +2,26 @@
 include('connection.php');
 session_start();
 
-if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com'))) {
+if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com','murtaza.sh@gmail.com'))) {
  
 }
 else
+{
   header("Location: login.php");
+}
 
     $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist";
 
-      $query.= " WHERE Transporter = 'Transporter'";
+      $query_new_transporter = $query . " WHERE Transporter = 'Transporter'  and active = 1";
     
 
-    $result = mysqli_query($link,$query);
+    $result = mysqli_query($link,$query_new_transporter);
+
+      $query_new_thali = $query . " WHERE Thali = '' and active = 1";
+    
+
+    $result_new_thali = mysqli_query($link,$query_new_thali);
+
     
 
     
@@ -89,7 +97,7 @@ else
 
             <div class="page-header">
 
-              <h2 id="tables">Thali Info</h2>
+              <h2 id="tables">Transporter request</h2>
 
             </div>
 
@@ -218,6 +226,140 @@ else
 
           </div>
 
+
+          <div class="col-lg-12">
+
+            <div class="page-header">
+
+              <h2 id="tables">New Thali</h2>
+
+            </div>
+
+            <div class="bs-component">
+
+              <table class="table table-striped table-hover ">
+
+                <thead>
+
+                  <tr>
+                    
+                    <th>Thali No</th>
+                    <th>Transporter</th>
+                    <th>Address</th>
+                    <th>Name</th>
+                    <th>Active</th>
+                    
+                  </tr>
+
+                </thead>
+
+                <tbody>
+                  <?php
+                    while($values = mysqli_fetch_assoc($result_new_thali))
+                    {
+                  ?>
+                  <tr>
+
+                    
+                    <td><?php echo $values['Thali']; ?></td>
+                    <td>
+                          <select class='transporter'>
+                            <option>Select</option>
+                            <option value='<?php echo $values['Thali']; ?>|Azhar Bhai'>Azhar Bhai</option>
+                            <option value='<?php echo $values['Thali']; ?>|Mustafa Bhai'>Mustafa Bhai</option>
+                            <option value='<?php echo $values['Thali']; ?>|Saifee Bhai'>Saifee bhai</option>
+                          </select>
+                    </td>
+                    <td><?php echo $values['Full_Address']; ?></td>
+                    <td><?php echo $values['NAME']; ?></td>
+                    <td><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></td>
+                    
+
+
+                  </tr>
+                  <?php } ?>
+
+                  <!-- <tr>
+
+                    <td>2</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                  </tr>
+
+                  <tr class="info">
+
+                    <td>3</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                  </tr>
+
+                  <tr class="success">
+
+                    <td>4</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                  </tr>
+
+                  <tr class="danger">
+
+                    <td>5</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                  </tr>
+
+                  <tr class="warning">
+
+                    <td>6</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                  </tr>
+
+                  <tr class="active">
+
+                    <td>7</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                    <td>Column content</td>
+
+                  </tr> -->
+
+                </tbody>
+
+              </table> 
+
+            </div><!-- /example -->
+            
+
+          </div>
+
       
 
 
@@ -242,7 +384,7 @@ else
   $(".transporter").change(function() {
 
             if(confirm('Are you sure?'))
-  {
+            {
             $.ajax({
               type: "POST",
               url: "savetransporter.php",
@@ -261,12 +403,6 @@ else
 });
     </script>
 
-    <script src="./src/bootstrap.min.js"></script>
-
-    <script src="./src/custom.js"></script>
-
-
-
-
+    
 
 </body></html>
