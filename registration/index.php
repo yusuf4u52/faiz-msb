@@ -1,6 +1,5 @@
 <?php
-$con=mysqli_connect("mysql.hostinger.in","u380653844_yusuf","FaizPassword","u380653844_faiz");
-
+include('../users/connection.php');
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -42,8 +41,8 @@ $sql = "INSERT INTO thalilist (
                                     '$transport'
                                     )";
   $msg = true;
-  mysqli_query($con,$sql) or die(mysqli_error($con));
-  mysqli_close($con);
+  mysqli_query($link,$sql) or die(mysqli_error($link));
+  mysqli_close($link);
 
 }
 ?>
@@ -51,7 +50,7 @@ $sql = "INSERT INTO thalilist (
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">\
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
@@ -88,9 +87,11 @@ $sql = "INSERT INTO thalilist (
 
     <div class="container drop-shadow">
       <?php if($msg):?>
-      <div class="alert alert-success">
-        <strong>Registration Successful!</strong> Please visit faiz to activate your thali.
-      </div>
+      
+      <!--   <strong>Registration Successful!</strong> Please visit faiz to activate your thali. -->
+        <script type="text/javascript">
+      alert('Data Submitted, Visit faiz to activate thali');
+      </script>
     <?php endif; ?>
 
       <div class="header" style="text-align: center; vertical-align: middle; font-weight:20px">
