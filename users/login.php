@@ -1,3 +1,63 @@
+
+<!DOCTYPE html>
+
+<!-- saved from url=(0029)http://bootswatch.com/flatly/ -->
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+
+    <title>Bootswatch: Flatly</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="./src/bootstrap.css" media="screen">
+
+    <link rel="stylesheet" href="./src/custom.min.css">
+
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+    <!--[if lt IE 9]>
+
+      <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
+
+      <script src="../bower_components/respond/dest/respond.min.js"></script>
+
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+
+      <div class="container">
+
+        <div class="navbar-header">
+
+          <a class="navbar-brand">Faiz Students</a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="container">
+
+      <!-- Forms
+
+      ================================================== -->
+
+
+        <div class="row">
+          <div  class="col-lg-12">
+
+
 <?php
 session_start(); //session start
 
@@ -59,23 +119,46 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 //Display user info or display login url as per the info we have.
 echo '<div style="margin:20px">';
 if (isset($authUrl)){ 
-	//show login url
-	echo '<div align="center">';
-	echo '<h1>Login with Google</h1>';
-	echo '<div><h3>Please click login button to connect to Google.</h3></div>';
-	echo '<a class="login" href="' . $authUrl . '"><img src="images/google-login-button.png" /></a>';
-	echo '</div>';
-	
+  //show login url
+  echo '<div align="center">';
+  echo '<h1>Login with Google</h1>';
+  echo '<div><h3>Please click login button to connect to Google.</h3></div>';
+  echo '<a class="login" href="' . $authUrl . '"><img src="images/google-login-button.png" /></a>';
+  echo '</div>';
+  
 } else {
-	
-	$user = $service->userinfo->get(); //get user info 
+  
+  $user = $service->userinfo->get(); //get user info 
 
-	$_SESSION['fromLogin'] = "true";
-	$_SESSION['email'] = $user->email;
-	header('Location: index.php');
+  $_SESSION['fromLogin'] = "true";
+  $_SESSION['email'] = $user->email;
+  header('Location: index.php');
 }
 echo '</div>';
 
 
 ?>
 
+
+
+
+
+          </div>
+
+
+      </div>
+
+    </div>
+
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <?php
+      if(isset($_GET['status']))
+      {
+      ?>
+      <script type="text/javascript">
+      alert('<?php echo $_GET['status']; ?>');
+      </script>
+
+            <?php } ?>
+
+</body></html>

@@ -18,7 +18,8 @@ $myfile = fopen("starttransport.txt", "a") or die("Unable to open file!");
 $txt="".$_SESSION['thali']." - ".$_SESSION['address']."\n";
 fwrite($myfile, $txt);
 fclose($myfile);
+$status = "Transport request submitted";
 }
-header('Location: index.php');
+header("Location: index.php?status=$status");
 }
 ?>

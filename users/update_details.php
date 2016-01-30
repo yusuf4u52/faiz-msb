@@ -10,7 +10,13 @@ if (is_null($_SESSION['fromLogin'])) {
 
 if ($_POST)
     {  
-$result = mysqli_query($link,"UPDATE thalilist set NAME='" . $_POST["name"] . "',CONTACT='" . $_POST["contact"] . "',Full_Address='" . $_POST["address"] . "' WHERE Email_id = '".$_SESSION['email']."'");
+$result = mysqli_query($link,"UPDATE thalilist set 
+                                      NAME='" . $_POST["name"] . "',
+                                      CONTACT='" . $_POST["contact"] . "',
+                                      Full_Address='" . $_POST["address"] . "',
+                                      WATAN='" . $_POST["watan"] . "',
+                                      ITS_No='" . $_POST["its"] . "'
+                                      WHERE Email_id = '".$_SESSION['email']."'");
 
 $myfile = fopen("updatedetails.txt", "a") or die("Unable to open file!");
 $txt= $_SESSION['thali']." - ".$_POST['name']." - ".$_POST['contact']." - ".$_POST['address']." \n";
@@ -21,10 +27,12 @@ fclose($myfile);
     }
     else
     {
-    	$query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
+    	$query="SELECT Thali, NAME, CONTACT,ITS_No, WATAN, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
 
  
      $data = mysqli_fetch_assoc(mysqli_query($link,$query));
+
+     // print_r($data); exit;
 
      extract($data);
     }
@@ -120,7 +128,31 @@ fclose($myfile);
 
                     <div class="col-lg-10">
 
-                      <input type="text" class="form-control" id="inputName" placeholder="Name"  name="name" value='<?php echo $NAME;?>'>
+                      <input type="text" class="form-control" id="inputName" placeholder="Name" required='required'  name="name" value='<?php echo $NAME;?>'>
+
+                    </div>
+
+                  </div>
+
+                   <div class="form-group">
+
+                    <label for="inputIts" class="col-lg-2 control-label">ITS Id</label>
+
+                    <div class="col-lg-10">
+
+                      <input type="text" class="form-control" id="inputIts" placeholder="its" required='required'  name="its" value='<?php echo $ITS_No;?>'>
+
+                    </div>
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label for="inputWatan" class="col-lg-2 control-label">Watan</label>
+
+                    <div class="col-lg-10">
+
+                      <input type="text" class="form-control" id="inputWatan" placeholder="watan" required='required'  name="watan" value='<?php echo $WATAN;?>'>
 
                     </div>
 
@@ -132,7 +164,7 @@ fclose($myfile);
 
                     <div class="col-lg-10">
 
-                      <input type="text" class="form-control" id="inputContact" placeholder="Contact" name="contact" value='<?php echo $CONTACT;?>'>
+                      <input type="text" class="form-control" id="inputContact" placeholder="Contact" required='required' name="contact" value='<?php echo $CONTACT;?>'>
 
                     </div>
 

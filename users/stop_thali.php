@@ -20,7 +20,9 @@ $myfile = fopen("stopthali.txt", "a") or die("Unable to open file!");
 $txt="".$_SESSION['thali']."\n";
 fwrite($myfile, $txt);
 fclose($myfile);
+
+$status = 'Stop Thali Successful';
 }
-header('Location: index.php');
+header("Location: index.php?status=$status");
 }
 ?>
