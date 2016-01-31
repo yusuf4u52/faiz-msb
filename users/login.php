@@ -7,7 +7,7 @@
 
     <meta charset="utf-8">
 
-    <title>Bootswatch: Flatly</title>
+    <title>Faiz ul Mawaid il Burhaniyah (Poona Students)</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 

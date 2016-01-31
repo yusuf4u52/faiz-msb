@@ -1,14 +1,7 @@
 <?php
 include('connection.php');
-session_start();
+include('adminsession.php');
 
-if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com','murtaza.sh@gmail.com'))) {
- 
-}
-else
-{
-  header("Location: login.php");
-}
 
     $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending, Email_Id FROM thalilist";
 
@@ -34,7 +27,7 @@ else
 
     <meta charset="utf-8">
 
-    <title>Bootswatch: Flatly</title>
+    <title>Faiz ul Mawaid il Burhaniyah (Poona Students)</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
