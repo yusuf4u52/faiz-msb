@@ -6,7 +6,7 @@ class Examples extends CI_Controller {
 	{
 		parent::__construct();
 		session_start();
-		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com','mustafamnr@gmail.com')))
+		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com','mustafamnr@gmail.com')))
 		{
 
 		}else
