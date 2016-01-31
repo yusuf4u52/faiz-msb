@@ -240,8 +240,8 @@ if($_POST)
                     <td><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></td>
                     <td><?php echo $values['Transporter']; ?></td>
                     <td><?php echo $values['Full_Address']; ?></td>
-                    <td><?php echo $values['Thali_start_date']; ?></td>
-                    <td><?php echo $values['Thali_stop_date']; ?></td>
+                    <td class="hijridate"><?php echo $values['Thali_start_date']; ?></td>
+                    <td class="hijridate"><?php echo $values['Thali_stop_date']; ?></td>
                     <td><?php echo $values['Total_Pending']; ?></td>
                   </tr>
                   <?php } ?>
