@@ -73,6 +73,7 @@ if(empty($values['Thali']))
           {
             ?>
 
+            <li><a href = "pendingactions.php">Pending Actions</a></li>
             <li><a href = "thalisearch.php">Thali Search</a></li>
             <li><a href = "../admin/index.php/examples/faiz">Admin</a></li>
             <?php
@@ -165,10 +166,8 @@ if(empty($values['Thali']))
           <div class="col-lg-12">
 
             <div class="well bs-component">
-                            <table class="table table-striped table-hover ">
-
+              <table class="table table-striped table-hover ">
                 <thead>
-
                   <tr>
                     <th>Thali No</th>
                     <th>Name</th>

@@ -10,9 +10,9 @@ else
   header("Location: login.php");
 }
 
-    $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist";
+    $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending, Email_Id FROM thalilist";
 
-      $query_new_transporter = $query . " WHERE Transporter = 'Transporter'  and active = 1";
+      $query_new_transporter = $query . " WHERE Transporter = 'Transporter'  and active = 1 and Thali <> '' and Thali is not null";
     
 
     $result = mysqli_query($link,$query_new_transporter);
@@ -145,78 +145,6 @@ else
                   </tr>
                   <?php } ?>
 
-                  <!-- <tr>
-
-                    <td>2</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="info">
-
-                    <td>3</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="success">
-
-                    <td>4</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="danger">
-
-                    <td>5</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="warning">
-
-                    <td>6</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="active">
-
-                    <td>7</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr> -->
-
                 </tbody>
 
               </table> 
@@ -258,17 +186,27 @@ else
                     while($values = mysqli_fetch_assoc($result_new_thali))
                     {
                   ?>
+                  <form action='activatethali.php' method='post'>
                   <tr>
 
                     
-                    <td><?php echo $values['Thali']; ?></td>
                     <td>
-                          <select class='transporter'>
+                      <input type='hidden' value='<?php echo $values['Email_Id']; ?>'>
+                      <input type='text' name='thalino' class="form-control"></td>
+                    <td>
+                        <?php if($values['Transporter'] == 'Transporter') { ?>
+                          <select name="transporter">
                             <option>Select</option>
-                            <option value='<?php echo $values['Thali']; ?>|Azhar Bhai'>Azhar Bhai</option>
-                            <option value='<?php echo $values['Thali']; ?>|Mustafa Bhai'>Mustafa Bhai</option>
-                            <option value='<?php echo $values['Thali']; ?>|Saifee Bhai'>Saifee bhai</option>
+                            <option value='Azhar Bhai'>Azhar Bhai</option>
+                            <option value='Mustafa Bhai'>Mustafa Bhai</option>
+                            <option value='Saifee Bhai'>Saifee bhai</option>
                           </select>
+                          <?php }
+                          else
+                          {
+                            echo "Pick up";
+                          }
+                          ?>
                     </td>
                     <td><?php echo $values['Full_Address']; ?></td>
                     <td><?php echo $values['NAME']; ?></td>
@@ -277,79 +215,8 @@ else
 
 
                   </tr>
+                </form>
                   <?php } ?>
-
-                  <!-- <tr>
-
-                    <td>2</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="info">
-
-                    <td>3</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="success">
-
-                    <td>4</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="danger">
-
-                    <td>5</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="warning">
-
-                    <td>6</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="active">
-
-                    <td>7</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr> -->
 
                 </tbody>
 
