@@ -37,6 +37,13 @@ $msgvar .= fread($myfile,filesize("updatedetails.txt"));
 ftruncate($myfile, 0);
 fclose($myfile);
 
+$msgvar .= "New registration\n";
+
+$myfile = fopen("newregistration.txt", "r+") or die("Unable to open file!");
+$msgvar .= fread($myfile,filesize("newregistration.txt"));
+ftruncate($myfile, 0);
+fclose($myfile);
+
 $result = mysqli_query($link,"SELECT * FROM thalilist WHERE Active='1' ");
 $count=mysqli_num_rows($result);
 

@@ -17,6 +17,11 @@ $msgvar = 'Salam %name%,<br><br>Your thali has been activated and your thali no 
 
 $msgvar = str_replace(array('%thali%','%name%'), array($_POST['thalino'],$_POST['name']), $msgvar);
 
+$myfile = fopen("newregistration.txt", "a") or die("Unable to open file!");
+$txt= $_POST['thalino']." - ".$_POST['name']."\n";
+fwrite($myfile, $txt);
+fclose($myfile);
+
 try {
     $mandrill = new Mandrill('BWDHEoe1pGlJ9yiH5xvUGw');
     $message = array(

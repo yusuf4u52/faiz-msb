@@ -4,8 +4,9 @@ include('connection.php');
 
 session_start();
 
-if (is_null($_SESSION['fromLogin'])) {
+if (!isset($_SESSION['fromLogin'])) {
  header("Location: login.php");
+ exit;
 }
 
 $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
@@ -30,7 +31,7 @@ if(empty($values['Thali']))
 
     <meta charset="utf-8">
 
-    <title>Bootswatch: Flatly</title>
+    <title>Faiz ul Mawaid il Burhaniyah (Poona Students)</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
