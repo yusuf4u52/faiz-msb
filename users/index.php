@@ -139,7 +139,7 @@ if(empty($values['Thali']))
           {
           ?>
          <form method="POST" action="start_transport.php" onsubmit='return confirm("Are you sure?");'>
-          <input type="submit" name="start_transport" value="Start Transport"  class="btn btn-success"/>
+          <input type="submit" name="start_transport" value="Request Transport"  class="btn btn-success"/>
           <input type="hidden" class='gregdate' name="start_date" value="<?php echo date("Y-m-d") ?>"/>
          </form>
          <?php
