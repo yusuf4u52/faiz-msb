@@ -17,7 +17,7 @@ else
 
     $result = mysqli_query($link,$query_new_transporter);
 
-      $query_new_thali = $query . " WHERE Thali = '' and active = 1";
+      $query_new_thali = $query . " WHERE (Thali = ''  or Thali is null) and active = 1";
     
 
     $result_new_thali = mysqli_query($link,$query_new_thali);
@@ -176,6 +176,7 @@ else
                     <th>Address</th>
                     <th>Name</th>
                     <th>Active</th>
+                    <th></th>
                     
                   </tr>
 
@@ -191,12 +192,13 @@ else
 
                     
                     <td>
-                      <input type='hidden' value='<?php echo $values['Email_Id']; ?>'>
-                      <input type='text' name='thalino' class="form-control"></td>
+                      <input type='hidden' value='<?php echo $values['Email_Id']; ?>' name='email'>
+                      <input type='hidden' value='<?php echo $values['NAME']; ?>' name='name'>
+                      <input type='text' name='thalino' class="form-control" required='required'></td>
                     <td>
                         <?php if($values['Transporter'] == 'Transporter') { ?>
-                          <select name="transporter">
-                            <option>Select</option>
+                          <select name="transporter"  required='required'>
+                            <option value=''>Select</option>
                             <option value='Azhar Bhai'>Azhar Bhai</option>
                             <option value='Mustafa Bhai'>Mustafa Bhai</option>
                             <option value='Saifee Bhai'>Saifee bhai</option>
@@ -211,8 +213,7 @@ else
                     <td><?php echo $values['Full_Address']; ?></td>
                     <td><?php echo $values['NAME']; ?></td>
                     <td><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></td>
-                    
-
+                    <td><input type='submit' value='Activate'></td>
 
                   </tr>
                 </form>
