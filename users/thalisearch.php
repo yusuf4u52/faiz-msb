@@ -257,11 +257,12 @@ if($_POST)
 
     </div>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="./src/bootstrap.min.js"></script>
-
-    <script src="./src/custom.js"></script>
-    <script type="//cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modal.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
+<script src="javascript/moment-hijri.js"></script>
+<script src="javascript/index.js"></script>
+<script src="./src/bootstrap.min.js"></script>
+<script src="./src/custom.js"></script>
 <script>
 $(function(){
   var receiptForm = $('#receiptForm');
