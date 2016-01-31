@@ -81,14 +81,6 @@ if($_POST)
       </div>
 
     </div>
-
-    <div id="receiptForm" class="container">
-      <input type="number" name="receipt_number" placeholder="Receipt #"/>
-      <input type="number" name="receipt_amount" placeholder="Receipt Amount"/>
-      <input type="button" name="cancel" value="cancel" />
-      <input type="button" name="save" value="save"/>
-    </div>
-
     <div class="container">
 
       <!-- Forms
@@ -208,6 +200,14 @@ if($_POST)
 
             <div class="bs-component">
 
+      <div id="receiptForm">
+        <input type="number" name="receipt_number" placeholder="Receipt #"/>
+        <input type="number" name="receipt_amount" placeholder="Receipt Amount"/>
+        <input type="hidden" class='gregdate' name="receipt_date" value="<?php echo date("Y-m-d") ?>"/>
+        <input type="hidden" name="receipt_thali"/>
+        <input type="button" name="cancel" value="cancel" />
+        <input type="button" name="save" value="save"/>
+      </div>
               <table class="table table-striped table-hover ">
 
                 <thead>
@@ -233,7 +233,7 @@ if($_POST)
                     {
                   ?>
                   <tr>
-                    <td><a href="#" data-key="payhoob">Pay Hoob</a></td>
+                    <td><a href="#" data-key="payhoob" data-thali="<?php echo $values['Thali']; ?>">Pay Hoob</a></td>
                     <td><?php echo $values['Thali']; ?></td>
                     <td><?php echo $values['NAME']; ?></td>
                     <td><?php echo $values['CONTACT']; ?></td>
@@ -245,96 +245,12 @@ if($_POST)
                     <td><?php echo $values['Total_Pending']; ?></td>
                   </tr>
                   <?php } ?>
-
-                  <!-- <tr>
-
-                    <td>2</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="info">
-
-                    <td>3</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="success">
-
-                    <td>4</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="danger">
-
-                    <td>5</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="warning">
-
-                    <td>6</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr>
-
-                  <tr class="active">
-
-                    <td>7</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                    <td>Column content</td>
-
-                  </tr> -->
-
                 </tbody>
-
               </table> 
-
-            </div><!-- /example -->
-            
-
+            </div>
           </div>
-
-      
-
-
-
           </div>
-<?php
-            endif;
-              ?>
+<?php endif; ?>
         </div>
 
       </div>
@@ -351,11 +267,12 @@ $(function(){
   var receiptForm = $('#receiptForm');
   receiptForm.hide();
   $('[data-key="payhoob"]').click(function() {
+    $('[name="receipt_thali"]', receiptForm).val($(this).attr('data-thali'));
     receiptForm.show();
   });
   $('[name="save"]').click(function() {
     var data = '';
-    $('input[type="number"]', receiptForm).each(function() {
+    $('input[type!="button"]', receiptForm).each(function() {
       data = data + $(this).attr('name') + '=' + $(this).val() + '&';
     });
     $.ajax({
@@ -367,7 +284,10 @@ $(function(){
           alert('Hoob sucessfully updated.');
           receiptForm.hide();
           window.location.href = window.location.href; //reload
-        } else {
+        // } else if(data == 'DuplicateReceiptNo') {
+        //   alert('Receipt number already exists in database');
+        } 
+        else {
           alert('Update failed. Please do not add receipt again unless you check system values properly');
         }
       },
