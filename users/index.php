@@ -214,7 +214,17 @@ if(empty($values['Thali']))
       {
       ?>
       <script type="text/javascript">
-      alert('<?php echo $_GET['status']; ?>');
+      <?php
+      if($_GET['status'] == 'Start Thali Successful')
+      {
+        $message = $_GET['status'].'. '.'Your pending hub : "'.$values['Total_Pending'].'"'; 
+      }
+      else
+      {
+        $message = $_GET['status'];
+      }
+      ?>
+      alert('<?php echo $message; ?>');
       </script>
 
             <?php } ?>
