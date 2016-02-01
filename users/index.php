@@ -13,12 +13,17 @@ $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_st
 
 $values = mysqli_fetch_assoc(mysqli_query($link,$query));
 
+$_SESSION['thali'] = $values['Thali'];
+$_SESSION['address'] = $values['Full_Address'];
+$_SESSION['name'] = $values['NAME'];
+$_SESSION['contact'] = $values['CONTACT'];
+
 if(empty($values['Thali']))
 {
   session_unset();  
   session_destroy();
 
-  $status = "Thali not activated yet, Please visit faiz to start your thali";
+  $status = "Ooops! Something went wrong. Send and email to help@faizstudents.com";
   header("Location: login.php?status=$status");
 }
 // extract($data);
