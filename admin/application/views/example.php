@@ -25,6 +25,12 @@ a:hover
 {
 	text-decoration: underline;
 }
+.datatables-add-button {
+    position: static;
+}
+.font-bold {
+    font-weight: bold;
+}
 </style>
     <link rel="stylesheet" href="../../../users/src/bootstrap.css" media="screen" />
 
@@ -39,7 +45,7 @@ a:hover
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/users/">Poona Students Faiz</a>
+                <a class="navbar-brand font-bold" href="/users/">Poona Students Faiz</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
