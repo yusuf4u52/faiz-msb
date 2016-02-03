@@ -156,50 +156,52 @@ if(empty($values['Thali']))
         <br />
 
         <div class="row">
-            <h1 id="forms">Thaali Details</h1>
+            <h1 class="col-xs-12">Thaali Details</h1>
         </div>
 
         <br />
 
         <div class="row">
-          <ul class="list-group">
-              <li class="list-group-item">
-                  <h6 class="list-group-item-heading text-muted">Thaali Number</h6>
-                  <p class="list-group-item-text"><?php echo $values['Thali']; ?></p>
-              </li>
-              <li class="list-group-item">
-                  <h6 class="list-group-item-heading text-muted">Name</h6>
-                  <p class="list-group-item-text"><?php echo $values['NAME']; ?></p>
-              </li>
-              <li class="list-group-item">
-                  <h6 class="list-group-item-heading text-muted">Mobile Number</h6>
-                  <p class="list-group-item-text"><?php echo $values['CONTACT']; ?></p>
-              </li>
-              <li class="list-group-item">
-                  <h6 class="list-group-item-heading text-muted">Is Active?</h6>
-                  <p class="list-group-item-text"><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></p>
-              </li>
-              <li class="list-group-item">
-                  <h6 class="list-group-item-heading text-muted">Transporter</h6>
-                  <p class="list-group-item-text"><?php echo $values['Transporter']; ?></p>
-              </li>
-              <li class="list-group-item">
-                  <h6 class="list-group-item-heading text-muted">Address</h6>
-                  <p class="list-group-item-text"><?php echo $values['Full_Address']; ?></p>
-              </li>
-              <li class="list-group-item">
-                  <h6 class="list-group-item-heading text-muted">Start Date</h6>
-                  <p class="list-group-item-text hijridate"><?php echo $values['Thali_start_date']; ?></p>
-              </li>
-              <li class="list-group-item">
-                  <h6 class="list-group-item-heading text-muted">Stop Date</h6>
-                  <p class="list-group-item-text hijridate"><?php echo $values['Thali_stop_date']; ?></p>
-              </li>
-              <li class="list-group-item">
-                  <h5 class="list-group-item-heading">Pending Hoob</h5>
-                  <p class="list-group-item-text"><?php echo $values['Total_Pending']; ?></p>
-              </li>
-          </ul>
+            <div class="col-xs-12">
+                <ul class="list-group col">
+                    <li class="list-group-item">
+                        <h6 class="list-group-item-heading text-muted">Thaali Number</h6>
+                        <p class="list-group-item-text"><strong><?php echo $values['Thali']; ?></strong></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="list-group-item-heading text-muted">Name</h6>
+                        <p class="list-group-item-text"><strong><?php echo $values['NAME']; ?></strong></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="list-group-item-heading text-muted">Mobile Number</h6>
+                        <p class="list-group-item-text"><strong><?php echo $values['CONTACT']; ?></strong></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="list-group-item-heading text-muted">Pending Hoob</h5>
+                        <p class="list-group-item-text"><strong><?php echo $values['Total_Pending']; ?></strong></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="list-group-item-heading text-muted">Is Active?</h6>
+                        <p class="list-group-item-text"><strong><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></strong></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="list-group-item-heading text-muted">Transporter</h6>
+                        <p class="list-group-item-text"><?php echo $values['Transporter']; ?></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="list-group-item-heading text-muted">Address</h6>
+                        <p class="list-group-item-text"><?php echo $values['Full_Address']; ?></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="list-group-item-heading text-muted">Start Date</h6>
+                        <p class="list-group-item-text hijridate"><?php echo $values['Thali_start_date']; ?></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="list-group-item-heading text-muted">Stop Date</h6>
+                        <p class="list-group-item-text hijridate"><?php echo $values['Thali_stop_date']; ?></p>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
