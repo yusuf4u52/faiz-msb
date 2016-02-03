@@ -58,8 +58,8 @@ $count1=mysqli_num_rows($result1);
 
 
 
-mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALUES ('" . $_SESSION['thali'] . "', 'Start Thali','" . $_POST['start_date'] . "')";
-	
+mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALUES ('" . $_SESSION['thali'] . "', 'Start Thali','" . $_POST['start_date'] . "'");
+
 $myfile = fopen("startthali.txt", "a") or die("Unable to open file!");
 
 $txt="".$_SESSION['thali']." - ".$_SESSION['name']." - ".$_SESSION['contact']." - ".$_SESSION['address']."\n";
