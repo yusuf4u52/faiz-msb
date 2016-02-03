@@ -162,7 +162,7 @@ if(empty($values['Thali']))
         <br />
 
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4">
                 <ul class="list-group col">
                     <li class="list-group-item">
                         <h6 class="list-group-item-heading text-muted">Thaali Number</h6>
