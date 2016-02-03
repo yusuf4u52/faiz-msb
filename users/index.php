@@ -52,9 +52,9 @@ if(empty($values['Thali']))
 
     <!--[if lt IE 9]>
 
-      <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
+      <script src="javascript/html5shiv-3.7.0.min.js"></script>
 
-      <script src="../bower_components/respond/dest/respond.min.js"></script>
+      <script src="javascript/respond-1.4.2.min.js"></script>
 
     <![endif]-->
 
@@ -230,12 +230,12 @@ if(empty($values['Thali']))
       }
       ?>
       alert('<?php echo $message; ?>');
+      <?php } ?>
       </script>
 
-            <?php } ?>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
-     <script src="javascript/moment-hijri.js"></script>
-  <script src="javascript/index.js"></script>
-
+      <script src="javascript/jquery-2.2.0.min.js"></script>
+      <script src="javascript/bootstrap-3.3.6.min.js"></script>
+      <script src="javascript/moment-2.11.1-min.js"></script>
+      <script src="javascript/moment-hijri.js"></script>
+      <script src="javascript/index.js"></script>
 </body></html>
