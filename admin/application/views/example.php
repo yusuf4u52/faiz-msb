@@ -28,6 +28,10 @@ a:hover
 </style>
 </head>
 <body>
+		  <ul>
+            <a href="/users/index.php">Home</a>
+            <a href="/users/logout.php">Logout</a>
+          </ul>
 	
 	<div style='height:20px;'></div>  
     <div>
