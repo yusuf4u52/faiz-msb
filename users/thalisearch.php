@@ -32,55 +32,55 @@ if($_POST)
 
 <!-- saved from url=(0029)http://bootswatch.com/flatly/ -->
 
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <meta charset="utf-8">
+        <meta charset="utf-8" />
 
-    <title>Faiz ul Mawaid il Burhaniyah (Poona Students)</title>
+        <title>Faiz ul Mawaid il Burhaniyah (Poona Students)</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <link rel="stylesheet" href="./src/bootstrap.css" media="screen">
+        <link rel="stylesheet" href="./src/bootstrap.css" media="screen" />
 
-    <link rel="stylesheet" href="./src/custom.min.css">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/css/bootstrap-modal.min.css"/>
+        <link rel="stylesheet" href="./src/custom.min.css" />
 
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
+        <!--[if lt IE 9]>
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <script src="javascript/html5shiv-3.7.0.min.js"></script>
 
-    <!--[if lt IE 9]>
+        <script src="javascript/respond-1.4.2.min.js"></script>
 
-      <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
-
-      <script src="../bower_components/respond/dest/respond.min.js"></script>
-
-    <![endif]-->
-
-  </head>
+        <![endif]-->
+    </head>
 
   <body>
 
-    <div class="navbar navbar-default navbar-fixed-top">
+  <nav class="navbar navbar-default">
+      <div class="container-fluid">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/users/">Poona Students Faiz</a>
+          </div>
 
-      <div class="container">
-
-        <div class="navbar-header">
-
-          <a class="navbar-brand">Faiz Students</a>
-
-        </div>
-
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="logout.php">Logout</a></li>
-          </ul>
-
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="logout.php">Logout</a></li>
+              </ul>
+          </div>
       </div>
+  </nav>
 
-    </div>
     <div class="container">
 
       <!-- Forms
@@ -257,51 +257,51 @@ if($_POST)
 
     </div>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
-<script src="javascript/moment-hijri.js"></script>
-<script src="javascript/index.js"></script>
-<script src="./src/bootstrap.min.js"></script>
-<script src="./src/custom.js"></script>
-<script>
-$(function(){
-  var receiptForm = $('#receiptForm');
-  receiptForm.hide();
-  $('[data-key="payhoob"]').click(function() {
-    $('[name="receipt_thali"]', receiptForm).val($(this).attr('data-thali'));
-    receiptForm.show();
-  });
-  $('[name="save"]').click(function() {
-    var data = '';
-    $('input[type!="button"]', receiptForm).each(function() {
-      data = data + $(this).attr('name') + '=' + $(this).val() + '&';
-    });
-    $.ajax({
-      method: 'post',
-      url: '_payhoob.php',
-      data: data,
-      success: function(data) {
-        if(data == 'success') {
-          alert('Hoob sucessfully updated.');
-          receiptForm.hide();
-          window.location.href = window.location.href; //reload
-        // } else if(data == 'DuplicateReceiptNo') {
-        //   alert('Receipt number already exists in database');
-        } 
-        else {
-          alert('Update failed. Please do not add receipt again unless you check system values properly');
-        }
-      },
-      error: function() {
-        alert('Oops! Something went wrong.');
-      }
-    });
-  });
+  <script src="javascript/jquery-2.2.0.min.js"></script>
+  <script src="javascript/bootstrap-3.3.6.min.js"></script>
+  <script src="javascript/moment-2.11.1-min.js"></script>
+  <script src="javascript/moment-hijri.js"></script>
+  <script src="javascript/index.js"></script>
+  <script src="./src/custom.js"></script>
+  <script>
+    $(function(){
+      var receiptForm = $('#receiptForm');
+      receiptForm.hide();
+      $('[data-key="payhoob"]').click(function() {
+        $('[name="receipt_thali"]', receiptForm).val($(this).attr('data-thali'));
+        receiptForm.show();
+      });
+      $('[name="save"]').click(function() {
+        var data = '';
+        $('input[type!="button"]', receiptForm).each(function() {
+          data = data + $(this).attr('name') + '=' + $(this).val() + '&';
+        });
+        $.ajax({
+          method: 'post',
+          url: '_payhoob.php',
+          data: data,
+          success: function(data) {
+            if(data == 'success') {
+              alert('Hoob sucessfully updated.');
+              receiptForm.hide();
+              window.location.href = window.location.href; //reload
+            // } else if(data == 'DuplicateReceiptNo') {
+            //   alert('Receipt number already exists in database');
+            }
+            else {
+              alert('Update failed. Please do not add receipt again unless you check system values properly');
+            }
+          },
+          error: function() {
+            alert('Oops! Something went wrong.');
+          }
+        });
+      });
 
-  $('[name="cancel"]').click(function() {
-    receiptForm.hide();
-  });
-});
-</script>
+      $('[name="cancel"]').click(function() {
+        receiptForm.hide();
+      });
+    });
+  </script>
 
 </body></html>
