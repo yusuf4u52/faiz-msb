@@ -1,4 +1,4 @@
-/
+
 // /! moment.js
 //! version : 2.11.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
