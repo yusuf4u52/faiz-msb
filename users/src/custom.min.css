@@ -5,3 +5,7 @@ body>.navbar{-webkit-transition:background-color 300ms ease-in;transition:backgr
         border-radius: 4px;
     }
 }
+
+.font-bold {
+    font-weight: bold;
+}
