@@ -80,7 +80,7 @@ if(empty($values['Thali']))
                         {
                     ?>
                     <li><a href="pendingactions.php">Pending Actions</a></li>
-                    <li><a href="thalisearch.php">Thali Search</a></li>
+                    <li><a href="thalisearch.php">Thaali Search</a></li>
                     <li><a href="../admin/index.php/examples/faiz">Admin</a></li>
                     <?php
                             }
@@ -94,147 +94,134 @@ if(empty($values['Thali']))
     </nav>
 
     <div class="container">
-
-      <!-- Forms
-
-      ================================================== -->
-
-
         <div class="row">
-
-          <div class="col-lg-12">
-
             <div class="page-header">
-
-              <h2 id="forms">Thali Details</h2>
-
+                <h2 id="forms">Thaali Details</h2>
             </div>
 
-          </div>
-
-
-          <div  class="col-lg-12">
-         
-
-          <?php
-          if($values['Active'] == 0)
-          {
-          ?>
-          <form method="POST" action="start_thali.php" onsubmit='return confirm("Are you sure?");'>
-            <input type="submit" name="start_thali" value="Start Thali"  class="btn btn-success"/>
-            <input type="hidden" class='gregdate' name="start_date" value="<?php echo date("Y-m-d") ?>"/>
-         </form>
-         <?php
-        }
-        else
-        {
-         ?>
-       
-         <form method="POST" action="stop_thali.php" onsubmit='return confirm("Are you sure?");'>
-            <input type="submit" name="stop_thali" value="Stop Thali"  class="btn btn-danger"/>
-            <input type="hidden" class='gregdate' name="stop_date" value="<?php echo date("Y-m-d") ?>"/>
-         </form>
-
-         <?php } ?>
-
-         <br>
-         <?php
-          if($values['Transporter'] == 'Pick Up')
-          {
-          ?>
-         <form method="POST" action="start_transport.php" onsubmit='return confirm("Are you sure?");'>
-          <input type="submit" name="start_transport" value="Request Transport"  class="btn btn-success"/>
-          <input type="hidden" class='gregdate' name="start_date" value="<?php echo date("Y-m-d") ?>"/>
-         </form>
-         <?php
-        }
-        else
-        {
-          ?>
-
-
-         <form method="POST" action="stop_transport.php" onsubmit='return confirm("Are you sure?");'>
-           <input type="submit" name="stop_transport" value="Stop Transport"  class="btn btn-danger"/>
-         </form>
-
-         <?php 
-       }
-         ?>
-         <br>
-          </div>
-
-
-
-        <div class="row">
-
-          <div class="col-lg-12">
-
-            <div class="well bs-component">
-              <table class="table table-striped table-hover ">
-                <thead>
-                  <tr>
-                    <th>Thali No</th>
-                    <th>Name</th>
-                    <th>Mobile No</th>
-                    <th>Active</th>
-                    <th>Transporter</th>
-                    <th>Address</th>
-                    <th>Start Date</th>
-                    <th>Stop Date</th>
-                    <th>Hub pending</th>
-                  </tr>
-
-                </thead>
-
-                <tbody>
-                  <tr>
-                    <td><?php echo $values['Thali']; ?></td>
-                    <td><?php echo $values['NAME']; ?></td>
-                    <td><?php echo $values['CONTACT']; ?></td>
-                    <td><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></td>
-                    <td><?php echo $values['Transporter']; ?></td>
-                    <td><?php echo $values['Full_Address']; ?></td>
-                    <td class='hijridate'><?php echo $values['Thali_start_date']; ?></td>
-                    <td class='hijridate'><?php echo $values['Thali_stop_date']; ?></td>
-                    <td><?php echo $values['Total_Pending']; ?></td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </div>
-         
         </div>
 
-      </div>
+        <div class="row">
+          <div class="col-xs-5 col-sm-3 col-md-2">
 
+              <?php
+                  if($values['Active'] == 0)
+                  {
+              ?>
+
+              <form method="POST" action="start_thali.php" onsubmit='return confirm("Are you sure?");'>
+                <input type="submit" name="start_thali" value="Start Thaali"  class="btn btn-success"/>
+                <input type="hidden" class='gregdate' name="start_date" value="<?php echo date("Y-m-d") ?>"/>
+              </form>
+
+              <?php
+                    }
+                    else
+                    {
+              ?>
+       
+              <form method="POST" action="stop_thali.php" onsubmit='return confirm("Are you sure?");'>
+                <input type="submit" name="stop_thali" value="Stop Thaali"  class="btn btn-danger"/>
+                <input type="hidden" class='gregdate' name="stop_date" value="<?php echo date("Y-m-d") ?>"/>
+              </form>
+
+              <?php } ?>
+
+          </div>
+
+          <div class="col-xs-5 col-xs-offset-2 col-sm-3 col-sm-offset-2 col-md-2 col-md-offset-1">
+
+              <?php
+                  if($values['Transporter'] == 'Pick Up')
+                  {
+              ?>
+
+              <form method="POST" action="start_transport.php" onsubmit='return confirm("Are you sure?");'>
+                <input type="submit" name="start_transport" value="Request Transport"  class="btn btn-success"/>
+                <input type="hidden" class='gregdate' name="start_date" value="<?php echo date("Y-m-d") ?>"/>
+              </form>
+
+              <?php
+                }
+                else
+                {
+              ?>
+
+              <form method="POST" action="stop_transport.php" onsubmit='return confirm("Are you sure?");'>
+                <input type="submit" name="stop_transport" value="Stop Transport"  class="btn btn-danger"/>
+              </form>
+
+              <?php
+                }
+              ?>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <ul class="list-group">
+              <li class="list-group-item">
+                  <h4 class="list-group-item-heading">Thaali Number</h4>
+                  <p class="list-group-item-text"><?php echo $values['Thali']; ?></p>
+              </li>
+              <li class="list-group-item">
+                  <h4 class="list-group-item-heading">Name</h4>
+                  <p class="list-group-item-text"><?php echo $values['NAME']; ?></p>
+              </li>
+              <li class="list-group-item">
+                  <h4 class="list-group-item-heading">Mobile Number</h4>
+                  <p class="list-group-item-text"><?php echo $values['CONTACT']; ?></p>
+              </li>
+              <li class="list-group-item">
+                  <h4 class="list-group-item-heading">Is Active?</h4>
+                  <p class="list-group-item-text"><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></p>
+              </li>
+              <li class="list-group-item">
+                  <h4 class="list-group-item-heading">Transporter</h4>
+                  <p class="list-group-item-text"><?php echo $values['Transporter']; ?></p>
+              </li>
+              <li class="list-group-item">
+                  <h4 class="list-group-item-heading">Address</h4>
+                  <p class="list-group-item-text"><?php echo $values['Full_Address']; ?></p>
+              </li>
+              <li class="list-group-item">
+                  <h4 class="list-group-item-heading">Start Date</h4>
+                  <p class="list-group-item-text hijridate"><?php echo $values['Thali_start_date']; ?></p>
+              </li>
+              <li class="list-group-item">
+                  <h4 class="list-group-item-heading">Stop Date</h4>
+                  <p class="list-group-item-text hijridate"><?php echo $values['Thali_stop_date']; ?></p>
+              </li>
+              <li class="list-group-item">
+                  <h4 class="list-group-item-heading">Pending Hoob</h4>
+                  <p class="list-group-item-text"><?php echo $values['Total_Pending']; ?></p>
+              </li>
+          </ul>
+        </div>
     </div>
 
-          <?php
+    <?php
       if(isset($_GET['status']))
       {
-      ?>
-      <script type="text/javascript">
-      <?php
-      if($_GET['status'] == 'Start Thali Successful')
-      {
-        $message = $_GET['status'].'. '.'Your pending hub : "'.$values['Total_Pending'].'"'; 
-      }
-      else
-      {
-        $message = $_GET['status'];
-      }
-      ?>
-      alert('<?php echo $message; ?>');
-      <?php } ?>
-      </script>
+    ?>
+        <script type="text/javascript">
+            <?php
+                if($_GET['status'] == 'Start Thali Successful') {
+                    $message = $_GET['status'].'. '.'Your pending hub : "'.$values['Total_Pending'].'"';
+                } else {
+                    $message = $_GET['status'];
+                }
+            ?>
 
-      <script src="javascript/jquery-2.2.0.min.js"></script>
-      <script src="javascript/bootstrap-3.3.6.min.js"></script>
-      <script src="javascript/moment-2.11.1-min.js"></script>
-      <script src="javascript/moment-hijri.js"></script>
-      <script src="javascript/index.js"></script>
-</body></html>
+            alert('<?php echo $message; ?>');
+        </script>
+    <?php } ?>
+
+    <script src="javascript/jquery-2.2.0.min.js"></script>
+    <script src="javascript/bootstrap-3.3.6.min.js"></script>
+    <script src="javascript/moment-2.11.1-min.js"></script>
+    <script src="javascript/moment-hijri.js"></script>
+    <script src="javascript/index.js"></script>
+
+  </body>
+</html>
