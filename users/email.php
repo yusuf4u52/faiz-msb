@@ -65,7 +65,7 @@ try {
         'to' => array(
             array(
                 'email' => 'help@faizstudents.com',
-                 )
+                 ),
             array(
                 'email' => 'bscalcuttawala@gmail.com',    
                  )
