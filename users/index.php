@@ -94,15 +94,11 @@ if(empty($values['Thali']))
     </nav>
 
     <div class="container">
-        <div class="row">
-            <div class="page-header">
-                <h2 id="forms">Thaali Details</h2>
-            </div>
-
-        </div>
+        <br />
+        <br />
 
         <div class="row">
-          <div class="col-xs-5 col-sm-3 col-md-2">
+          <div class="col-xs-6 col-sm-3 col-md-2">
 
               <?php
                   if($values['Active'] == 0)
@@ -129,7 +125,7 @@ if(empty($values['Thali']))
 
           </div>
 
-          <div class="col-xs-5 col-xs-offset-2 col-sm-3 col-sm-offset-2 col-md-2 col-md-offset-1">
+          <div class="col-xs-6 col-sm-3 col-md-2">
 
               <?php
                   if($values['Transporter'] == 'Pick Up')
@@ -157,43 +153,50 @@ if(empty($values['Thali']))
           </div>
         </div>
 
+        <br />
+
+        <div class="row">
+            <h1 id="forms">Thaali Details</h1>
+        </div>
+
+        <br />
 
         <div class="row">
           <ul class="list-group">
               <li class="list-group-item">
-                  <h4 class="list-group-item-heading">Thaali Number</h4>
+                  <h6 class="list-group-item-heading text-muted">Thaali Number</h6>
                   <p class="list-group-item-text"><?php echo $values['Thali']; ?></p>
               </li>
               <li class="list-group-item">
-                  <h4 class="list-group-item-heading">Name</h4>
+                  <h6 class="list-group-item-heading text-muted">Name</h6>
                   <p class="list-group-item-text"><?php echo $values['NAME']; ?></p>
               </li>
               <li class="list-group-item">
-                  <h4 class="list-group-item-heading">Mobile Number</h4>
+                  <h6 class="list-group-item-heading text-muted">Mobile Number</h6>
                   <p class="list-group-item-text"><?php echo $values['CONTACT']; ?></p>
               </li>
               <li class="list-group-item">
-                  <h4 class="list-group-item-heading">Is Active?</h4>
+                  <h6 class="list-group-item-heading text-muted">Is Active?</h6>
                   <p class="list-group-item-text"><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></p>
               </li>
               <li class="list-group-item">
-                  <h4 class="list-group-item-heading">Transporter</h4>
+                  <h6 class="list-group-item-heading text-muted">Transporter</h6>
                   <p class="list-group-item-text"><?php echo $values['Transporter']; ?></p>
               </li>
               <li class="list-group-item">
-                  <h4 class="list-group-item-heading">Address</h4>
+                  <h6 class="list-group-item-heading text-muted">Address</h6>
                   <p class="list-group-item-text"><?php echo $values['Full_Address']; ?></p>
               </li>
               <li class="list-group-item">
-                  <h4 class="list-group-item-heading">Start Date</h4>
+                  <h6 class="list-group-item-heading text-muted">Start Date</h6>
                   <p class="list-group-item-text hijridate"><?php echo $values['Thali_start_date']; ?></p>
               </li>
               <li class="list-group-item">
-                  <h4 class="list-group-item-heading">Stop Date</h4>
+                  <h6 class="list-group-item-heading text-muted">Stop Date</h6>
                   <p class="list-group-item-text hijridate"><?php echo $values['Thali_stop_date']; ?></p>
               </li>
               <li class="list-group-item">
-                  <h4 class="list-group-item-heading">Pending Hoob</h4>
+                  <h5 class="list-group-item-heading">Pending Hoob</h5>
                   <p class="list-group-item-text"><?php echo $values['Total_Pending']; ?></p>
               </li>
           </ul>
