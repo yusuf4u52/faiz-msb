@@ -10,7 +10,7 @@ include('adminsession.php');
 
     $result = mysqli_query($link,$query_new_transporter);
 
-      $query_new_thali = $query . " WHERE (Thali = ''  or Thali is null) and active = 1";
+      $query_new_thali = $query . " WHERE (Thali = ''  or Thali is null) and active = 0";
     
 
     $result_new_thali = mysqli_query($link,$query_new_thali);
