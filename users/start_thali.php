@@ -47,7 +47,7 @@ $count1=mysqli_num_rows($result1);
 				mysqli_query($link,"UPDATE thalilist set Dues='1200' WHERE Email_id = '".$_SESSION['email']."'");
 				mysqli_query($link,"UPDATE thalilist set TranspFee='180' WHERE Transporter != 'Pick Up' AND Email_id = '".$_SESSION['email']."'");
 			}
-			else
+			elseif ($capture >= 20 && $capture <= 26)
 			{	
 				mysqli_query($link,"UPDATE thalilist set Dues='600' WHERE Email_id = '".$_SESSION['email']."'");
 				mysqli_query($link,"UPDATE thalilist set TranspFee='90' WHERE Transporter != 'Pick Up' AND Email_id = '".$_SESSION['email']."'");
