@@ -10,17 +10,14 @@ if($_POST)
     {
       $query.= " WHERE Thali = '".addslashes($_POST['thalino'])."'";
     }
-    else if(!empty($_POST['mobile']))
-    {
-      $query.= " WHERE CONTACT = '".addslashes($_POST['mobile'])."'";
-    }
-    else if(!empty($_POST['its']))
-    {
-      $query.= " WHERE ITS_No = '".addslashes($_POST['its'])."'";
-    }
     else if(!empty($_POST['general']))
     {
-      $query.= " WHERE Email_ID LIKE '%".addslashes($_POST['general'])."%' or NAME LIKE '%".addslashes($_POST['general'])."%'";
+      $query.= " WHERE 
+                Email_ID LIKE '%".addslashes($_POST['general'])."%'
+                or NAME LIKE '%".addslashes($_POST['general'])."%'
+                or CONTACT LIKE '%".addslashes($_POST['general'])."%'
+                or ITS_No LIKE '%".addslashes($_POST['general'])."%'
+                ";
     }
 
     $result = mysqli_query($link,$query);
@@ -126,39 +123,11 @@ if($_POST)
 
                   <div class="form-group">
 
-                    <label for="inputIts" class="col-lg-2 control-label">Its No</label>
+                    <label for="inputGeneral" class="col-lg-2 control-label">Contact/ ITS no / Email / Name</label>
 
                     <div class="col-lg-10">
 
-                      <input type="text" class="form-control" id="inputIts" placeholder="Its No" name="its">
-
-                    </div>
-
-                  </div>
-
-
-
-                  <div class="form-group">
-
-                    <label for="inputMobile" class="col-lg-2 control-label">Mobile No</label>
-
-                    <div class="col-lg-10">
-
-                      <input type="text" class="form-control" id="inputMobile" placeholder="Mobile No"   name="mobile">
-
-                    </div>
-
-                  </div>
-
-
-
-                  <div class="form-group">
-
-                    <label for="inputGeneral" class="col-lg-2 control-label">Email / Name</label>
-
-                    <div class="col-lg-10">
-
-                      <input type="text" class="form-control" id="inputGeneral" placeholder="Email / Name"    name="general">
+                      <input type="text" class="form-control" id="inputGeneral" placeholder="Contact/ ITS no / Email / Name" name="general">
 
                     </div>
 
