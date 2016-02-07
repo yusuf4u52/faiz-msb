@@ -5,6 +5,7 @@ include('adminsession.php');
 require_once 'mandrill/Mandrill.php'; //Not required with Composer
 // print_r($_POST); exit;
 $values[] = "Thali = '".addslashes($_POST['thalino'])."'";
+$values[] = "Active = '1'";
 
 if(isset($_POST['transporter']))
 {
