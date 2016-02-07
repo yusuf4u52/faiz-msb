@@ -2,21 +2,21 @@
 include('connection.php');
 include('adminsession.php');
 
-if($_POST)
+if($_GET)
 {
     $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist";
 
-    if(!empty($_POST['thalino']))
+    if(!empty($_GET['thalino']))
     {
-      $query.= " WHERE Thali = '".addslashes($_POST['thalino'])."'";
+      $query.= " WHERE Thali = '".addslashes($_GET['thalino'])."'";
     }
-    else if(!empty($_POST['general']))
+    else if(!empty($_GET['general']))
     {
       $query.= " WHERE 
-                Email_ID LIKE '%".addslashes($_POST['general'])."%'
-                or NAME LIKE '%".addslashes($_POST['general'])."%'
-                or CONTACT LIKE '%".addslashes($_POST['general'])."%'
-                or ITS_No LIKE '%".addslashes($_POST['general'])."%'
+                Email_ID LIKE '%".addslashes($_GET['general'])."%'
+                or NAME LIKE '%".addslashes($_GET['general'])."%'
+                or CONTACT LIKE '%".addslashes($_GET['general'])."%'
+                or ITS_No LIKE '%".addslashes($_GET['general'])."%'
                 ";
     }
 
@@ -104,7 +104,7 @@ if($_POST)
 
             <div class="well bs-component">
 
-              <form class="form-horizontal" method="post">
+              <form class="form-horizontal">
 
                 <fieldset>
 
@@ -153,7 +153,7 @@ if($_POST)
 
           </div>
           <?php
-            if($_POST):
+            if($_GET):
               ?>
            <div class="col-lg-12">
 
