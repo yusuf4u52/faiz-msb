@@ -82,7 +82,6 @@ if(empty($values['Thali']))
                     <li><a href="pendingactions.php">Pending Actions</a></li>
                     <li><a href="thalisearch.php">Thaali Search</a></li>
                     <li><a href="../admin/index.php/examples/faiz">Admin</a></li>
-                    <li><a href="../monthchange/month_change.php">Month Change</a></li>      
                     <?php
                             }
                     ?>
