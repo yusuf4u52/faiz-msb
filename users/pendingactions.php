@@ -209,7 +209,7 @@ include('adminsession.php');
                     <td><?php echo $values['NAME']; ?></td>
                     <td><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></td>
                     <td><input type='submit' value='Activate'></td>
-
+                    <td><input type='submit' value='Reject' formaction="reject.php"></td>
                   </tr>
                 </form>
                   <?php } ?>
