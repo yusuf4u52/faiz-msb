@@ -2,6 +2,8 @@
 /*
 salaam <NAME>, your thali #<THALINO> has outstanding amount of Rs. <AMOUNT>. please pay
 */
+require 'credentials.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $records_raw = $_REQUEST['records'];
     $records = json_decode($records_raw, true);
@@ -14,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         extract($record);
         $message_formatted = str_replace(array("<THALINO>","<NAME>","<AMOUNT>"),array($thali,$name,$amount),$message_raw);
         $msg = urlencode($message_formatted);
-        $sms_api_url = "http://murtazafaizstudent.pythonanywhere.com/sendhttp.php?user=mustafamnr&password=mnr80211&mobiles=$contact&message=$msg&sender=FAIZST&route=Template";
+        $sms_api_url = "http://sms.myn2p.com/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$number&message=$message&sender=FAIZST&route=Template";
         array_push($apis,$sms_api_url);
     }
     //echo json_encode($apis);
