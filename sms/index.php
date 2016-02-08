@@ -1,5 +1,5 @@
 <?php
-require '../users/credentials.php';
+require 'credentials.php';
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
