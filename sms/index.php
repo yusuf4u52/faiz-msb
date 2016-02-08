@@ -1,108 +1,218 @@
 <?php
-error_reporting(0);
-$connect = mysql_connect("mysql.hostinger.in","u380653844_faiz","password"); 
-mysql_select_db("u380653844_sms",$connect); //select the table
-$query = "SELECT * FROM  `contact` WHERE  `amount` > 0 AND `active` = 1 AND 'number' <> ''";
+require 'credentials.php';
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-if($_POST)
-{
-	
-	$res = mysql_query($query);
-	while($data = mysql_fetch_assoc($res))
-	{
-		//$dataset = $data;
-		extract($data);
-		extract($_POST);
-		$message = stripslashes($message);
-		$name = explode(" ",$data['name']);
-		$name = $name[0];
-		$message = str_replace(array("<THALINO>","<NAME>","<AMOUNT>"),array($thali_no,$name,$amount),$message);
-		//echo $message."<br>";
-		$message = urlencode($message);
-		$result = file_get_contents("http://sms.myn2p.com/sendhttp.php?user=mustafamnr&password=mnr80211&mobiles=$number&message=$message&sender=FAIZST&route=Template");
-//$result = file_get_contents("http://sms.almasaarr.com/sendsms.php?username=mustafamnr&password=mnr80211&sender=FAIZST&mobile=$number&message=$message&type=1");
-
-
-		echo $result."<br>";
-	}
-}
-else if($_GET['truncate'])
-{
-	mysql_query("truncate table `contact`");
-} 
+        $stmt = $conn->prepare("SELECT distinct transporter from thalilist where Active=1"); 
+        $stmt->execute();
+        $stmt = $stmt->fetchAll();
+    }
+    catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+    $checkbox_html = "";
+    //var_dump($stmt);
+    for($i=0; $i<count($stmt); $i++)
+    {
+        $val = $stmt[$i][0];
+        $checkbox_html = $checkbox_html."\t<label><input type='checkbox' name = 'transporters[]' value='$val'/>$val</label>\n"; 
+    }
+    $checkbox_html.="\t<br>\n";
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head> 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
-<title>Send SMS</title> 
+<!DOCTYPE html>
+<html>
+   <head>
+       <title> SMS filtering </title>
+       <style type='text/css'>
+       .highlight{
+            background-color: #FFCF8B
+        }
+        table{
+            border-collapse: collapse;
+        }
+        td{
+            padding: 5px;
+        }
+        tbody#recipientTableBody tr:hover {
+            background-color: #FFCF8B;
+            font-weight: bold;
+        }
+       </style>
+       <script type='text/javascript' src = 'https://code.jquery.com/jquery-2.2.0.min.js'></script>
+       <script src="jquery.jqEasyCharCounter.min.js" type="text/javascript"></script>
+       <script type='text/javascript'>
+            $(document).ready(function(){
+                $.getScript("filter.js");
+                $.getScript("selection.js");
+                
+                $('.countable2').jqEasyCounter({
+                    'maxChars': 1000,
+                    'maxCharsWarning': 145
+                });
 
+                $('#submit').click(function(){
+                    //console.log("clicked");
+                    // sure = confirm("Are you sure?");
+                    // if(!sure) return;
+                    selected = getSelected();
+                    message = $('#message').val();
+                    //console.log(message);
+                    redirect = 'send.php';
+                    //console.log(JSON.stringify(selected));
+                    $.redirectPost(redirect, {"message":message, "records":JSON.stringify(selected)});
+                }); 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
-<script src="jquery.jqEasyCharCounter.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		
-		$('.countable2').jqEasyCounter({
-			'maxChars': 1000,
-			'maxCharsWarning': 145
-		});
-		
-});
-</script>
-<style>
-th
-{
-	font-weight:bold;
-}
-</style>
-</head> 
+                // jquery extend function
+                $.extend(
+                {
+                    redirectPost: function(location, args)
+                    {
+                        var form = '';
+                        $.each( args, function( key, value ) {
+                            form += "<input type='hidden' name='"+key+"' value='"+value+"'>";
+                        });
+                        form = '<form action="'+location+'" method="POST">'+form+'</form>';
+                        console.log(form);
+                        $(form).appendTo('body').submit();
+                    }
+                });
+            
+            });
+       </script>
+    </head>
+    <body>
 
-<body> 
+        <textarea name="message" style="height:150px; width:400px" class="countable2" id="message"></textarea>
+        <!-- <br> -->
+        <select id="holder">
+            <option value="<THALINO>">Thali Number</option>
+            <option value="<NAME>">Name</option>
+            <option value="<AMOUNT>">Amount</option>
+        </select>
+        <input type="button" name="add" value="Add" onClick='document.getElementById("message").value += document.getElementById("holder").value;'>
+        <input type="button" id="submit" value="Send Message">
 
-<form action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
+        <p> Apply filtering on amount to select the recipients</p>
+        <input type = 'text' id = 'amount_param2' value = '0' hidden />
+        <select id='amount_operator'>
+          <option value="none">None</option>
+          <option value="<">Less than</option>
+          <option value="<=">Less than or equal to</option>
+          <option value="=">Equal to</option>
+          <option value=">=">Greater than or equal to</option>
+          <option value=">">Greater than</option>
+          <option value="between">Between</option>
+        </select>
+        <input type='text' id = 'amount_param' value='0' hidden /><br>
 
-<textarea name="message" style="height:150px; width:400px" class="countable2" id="message"></textarea>
-<select id="holder">
-	<option value="<THALINO>">Thali Number</option>
-	<option value="<NAME>">Name</option>
-	<option value="<AMOUNT>">Amount</option>
-</select>
-<input type="button" name="add" value="Add" onClick='document.getElementById("message").value += document.getElementById("holder").value;'>
- <input type="submit" name="msg" value="Send Message" onclick="return confirm('Are you sure?')">
- <input type="button" name="msg" value="Import" onclick="window.location='import.php'">
+        <p> Apply filtering on transporter </p>
+        <select id='transporter_operator'>
+            <option value = "none">None</option>
+            <option value = "in">Equal to</option>
+            <option value = "not in"> Not equal to</option>
+        </select>
+        <div id='transporter_param' style="display:inline" >
+    <?php
+    echo $checkbox_html;
+    ?>
+        </div>
+        <br>
+        <button id='filterButton'>Filter</button>
+        <br>
+        <div id ='selectionButtons' hidden>
+        <input id = "b_toggle" type="button" value = "toggle"/>
+        <input id = "b_all" type="button" value = "select all"/>
+        <input id = "b_none" type = "button" value = "select none"/>
+        </div>
+        <p id = 'query_status'></p>
+        <p id='selection_status'></p>
+        <table style='' id = 'recipientTable'>
+        <thead>
+            <tr><th>#</th><th>Thali No.</th><th>Name</th><th>Mob No.</th><th>Transporter</th><th>Amount</th></tr>
+        </thead>
+        <tbody id = 'recipientTableBody'>
+        </tbody>
+        </table>
+    </body>
+</html>
 
-</form> 
 <?php
-	$res = mysql_query($query);
-	$count = mysql_num_rows($res);
+}
+else{
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //echo "Connected successfully"; 
+    }
+    catch(PDOException $e)
+    {
+        echo "Connection failed: " . $e->getMessage();
+    //return;
+    }
+    $query = "select thali, name, contact, transporter, total_pending from thalilist where Active=1 and contact is not null and ";
+    $condition = "1=1";
+    $amount_operator = $_REQUEST['amount_operator'];
+    $amount_param = $_REQUEST['amount_param'];
+    $amount_param2 = $_REQUEST['amount_param2'];
+    $transporter_operator = $_REQUEST['transporter_operator'];
+    $transporter_param = $_REQUEST['transporter_param']; // this will be an array
+    //var_dump( $transporter_param); returns zero length string
+    $field_amount = "total_pending";
+    $field_transporter = "Transporter";
+    switch($amount_operator)
+    {
+        case ">":
+        case ">=":
+        case "<":
+        case "<=":
+        case "=":
+            $condition = $field_amount." ".$amount_operator." ".$amount_param;
+        break;
+        case "between":
+            $condition = $field_amount." ".$amount_operator." ".$amount_param2." and ".$amount_param;
+        break;
+    }
+    $query = $query.$condition;
+    if(strlen($transporter_param) != 0)
+    {
+        $query = $query." and ";
+        $condition = "1=1";
+        switch($transporter_operator)
+        {
+            case 'in':
+            case 'not in':
+                $condition = $field_transporter." ".$transporter_operator." (".$transporter_param.")";
+            break;
+        }
+        $query = $query.$condition;
+    }
+    //echo "\n\nfinal sql string = ".$query."\n\n";
+    try{
+        $stmt = $conn->prepare($query);
+        //$stmt->debugDumpParams();
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch(PDOException $e)
+    {
+        echo "error ".$e->getMessage();
+    }
+    //print_r( $result);
+    $result2 = array(
+        'result' => 'success',
+        'query' => $query,
+        'data' => $result);
+    //echo print_r($result2);
+    $result_json = json_encode($result2);
+    echo $result_json;
+
+    
+    $conn = null;
+}
 ?>
-<table border="1">
-	<tr>
-	<td colspan="5"><?php echo $count;?> Records - <a href="?truncate=true">Truncate</a></td>
-	</tr>
-	<tr> 
-	<th>Thali No</th>
-	<th>Name</th>
-	<th>Amount</th>
-	<th>Month</th>
-	<th>Number</th>
-	</tr>
-	<?php
-	while($data = mysql_fetch_assoc($res))
-	{
-	?>
-	<tr>
-	<td><?php echo $data['thali_no'];?></td>
-	<td><?php echo $data['name'];?></td>
-	<td><?php echo $data['amount'];?></td>
-	<td>Zilkad</td>
-	<td><?php echo $data['number'];?></td>
-	</tr>
-	<?php
-	}
-	?>
-</table>
-</body> 
-</html> 
-	
