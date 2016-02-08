@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $stmt = $conn->prepare("SELECT distinct transporter from thalilist where Active=1"); 
+        $stmt = $conn->prepare("SELECT distinct Transporter from thalilist where Active=1"); 
         $stmt->execute();
         $stmt = $stmt->fetchAll();
     }
@@ -153,7 +153,7 @@ else{
         echo "Connection failed: " . $e->getMessage();
     //return;
     }
-    $query = "select thali, name, contact, transporter, total_pending from thalilist where Active=1 and contact is not null and ";
+    $query = "SELECT Thali, NAME, CONTACT, Transporter, Total_Pending from thalilist where Active=1 and CONTACT is not null and ";
     $condition = "1=1";
     $amount_operator = $_REQUEST['amount_operator'];
     $amount_param = $_REQUEST['amount_param'];
@@ -161,7 +161,7 @@ else{
     $transporter_operator = $_REQUEST['transporter_operator'];
     $transporter_param = $_REQUEST['transporter_param']; // this will be an array
     //var_dump( $transporter_param); returns zero length string
-    $field_amount = "total_pending";
+    $field_amount = "Total_Pending";
     $field_transporter = "Transporter";
     switch($amount_operator)
     {
