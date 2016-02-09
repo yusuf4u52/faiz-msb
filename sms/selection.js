@@ -37,10 +37,10 @@
                 $('#selection_status').html(selectionStatusString);
             });
             var getSelected = function(){
-                thaliObjects = $('tr.highlight td[name="thali"]');
-                nameObjects = $('tr.highlight td[name="name"]');
-                contactObjects = $('tr.highlight td[name="contact"]');
-                amountObjects = $('tr.highlight td[name="total_pending"]');
+                thaliObjects = $('tr.highlight td[name="Thali"]');
+                nameObjects = $('tr.highlight td[name="NAME"]');
+                contactObjects = $('tr.highlight td[name="CONTACT"]');
+                amountObjects = $('tr.highlight td[name="Total_Pending"]');
                 len = thaliObjects.length;
                 selected = []
                 for(i = 0; i<len; i++)

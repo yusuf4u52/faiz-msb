@@ -13,11 +13,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $apis = array();
     foreach($records as $record)
     {
-        extract($record);
+        //extract($record);
+        $number = $record['contact'];
+        $thali = $record['thali'];
+        $name = $record['name'];
+        $amount = $record['amount'];
         $message_formatted = str_replace(array("<THALINO>","<NAME>","<AMOUNT>"),array($thali,$name,$amount),$message_raw);
-        $msg = urlencode($message_formatted);
+        $message = urlencode($message_formatted);
         $sms_api_url = "http://sms.myn2p.com/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$number&message=$message&sender=FAIZST&route=Template";
+        //$sms_api_url = "http://murtazafaizstudent.pythonanywhere.com/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$number&message=$message&sender=FAIZST&route=Template";
         array_push($apis,$sms_api_url);
+
     }
     //echo json_encode($apis);
 ?>
@@ -31,18 +37,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         var urls = <?php echo json_encode($apis) ?>;
         var index = 0;
         var sid;
-        var success = function(result){
+        var success_fun = function(result){
             console.log("result");
             console.log(result);
+            updateStatus(result);
             updateStatus("sent");
         }
         var sendSms = function(url){
             url = urls[index];
             updateStatus("sending message for index: "+index);
             $.ajax({
-                "url": url,
-                "success": success,
-                "crossDomain":true,
+                url: url,
+                type: "GET",
+                success: success_fun,
+                crossDomain:true,
                 });
             index=index + 1;
             if(index>=urls.length)
@@ -64,7 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </head>
 <body>
-<input type='text' id='time' value = "1000"/>
+Time interval between each SMS:<input type='text' id='time' value = "0"/>milliseconds (1000ms = 1s)
+<br>
 <input type='button' id='setTime' value="start sending" />
 <ul id='status'></ul>
 </body>
