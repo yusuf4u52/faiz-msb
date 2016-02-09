@@ -62,7 +62,7 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
 
 $myfile = fopen("startthali.txt", "a") or die("Unable to open file!");
 
-$txt="".$_SESSION['thali']." - ".$_SESSION['name']." - ".$_SESSION['contact']." - ".$_SESSION['address']."\n";
+$txt="".$_SESSION['thali']." - ".$_SESSION['name']." - ".$_SESSION['contact']." - ".$_SESSION['transporter']." - ".$_SESSION['address']."\n";
 
 fwrite($myfile, $txt);
 

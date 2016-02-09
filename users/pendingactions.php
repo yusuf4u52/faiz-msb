@@ -189,6 +189,9 @@ include('adminsession.php');
                     <td>
                       <input type='hidden' value='<?php echo $values['Email_Id']; ?>' name='email'>
                       <input type='hidden' value='<?php echo $values['NAME']; ?>' name='name'>
+                      <input type='hidden' value='<?php echo $values['CONTACT']; ?>' name='contact'>
+                      <input type='hidden' value='<?php echo $values['Full_Address']; ?>' name='address'>
+                      <input type='hidden' value='<?php echo $values['Transporter']; ?>' name='trasnporter'>
                       <input type='text' name='thalino' class="form-control" required='required'></td>
                     <td>
                         <?php if($values['Transporter'] == 'Transporter') { ?>
