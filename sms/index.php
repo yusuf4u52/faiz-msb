@@ -5,6 +5,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+        /*
+        i want to filter records based on transporter
+        but how do i know that how many transporters are there
+        and what are their names?
+        the query below gives me just that
+        the problem is that if i have entries in transporter like
+        "Aziz bhai" and "Azizbhai"
+        then they will be treated as different transporters, therefore,
+        i request the faiz team to please be strict in entering transporter details
+        */
         $stmt = $conn->prepare("SELECT distinct Transporter from thalilist where Active=1"); 
         $stmt->execute();
         $stmt = $stmt->fetchAll();
@@ -13,6 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo "Error: " . $e->getMessage();
     }
     $conn = null;
+    /*
+    this variable takes care of creating checkboxes for transporter filter
+    note: if there are transporter fields having null values, then it displays nothing in label
+    */
     $checkbox_html = "";
     //var_dump($stmt);
     for($i=0; $i<count($stmt); $i++)
@@ -61,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     message = $('#message').val();
                     //console.log(message);
                     redirect = 'send.php';
-                    //console.log(JSON.stringify(selected));
+                    console.log(JSON.stringify(selected));
                     $.redirectPost(redirect, {"message":message, "records":JSON.stringify(selected)});
                 }); 
 
