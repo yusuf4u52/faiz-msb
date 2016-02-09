@@ -17,6 +17,7 @@ $_SESSION['thali'] = $values['Thali'];
 $_SESSION['address'] = $values['Full_Address'];
 $_SESSION['name'] = $values['NAME'];
 $_SESSION['contact'] = $values['CONTACT'];
+$_SESSION['transporter'] = $values['Transporter'];
 
 if(empty($values['Thali']))
 {
