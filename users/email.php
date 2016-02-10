@@ -37,7 +37,7 @@ $msgvar .= fread($myfile,filesize("updatedetails.txt"));
 ftruncate($myfile, 0);
 fclose($myfile);
 
-$msgvar .= "New registration\n";
+$msgvar .= "\nNew registration\n";
 
 $myfile = fopen("newregistration.txt", "r+") or die("Unable to open file!");
 $msgvar .= fread($myfile,filesize("newregistration.txt"));
@@ -61,10 +61,16 @@ try {
     $message = array(
         'html' => "<p>$msgvar</p>",
         'subject' => 'Start Stop update '.date('d/m/Y'),
-        'from_email' => 'help@faizstudents.com',
+        'from_email' => 'admin@faizstudents.com',
         'to' => array(
             array(
-                'email' => 'yusuf4u52@gmail.com'
+                'email' => 'help@faizstudents.com',
+                 ),
+            array(
+                'email' => 'Mustukotaliya53@gmail.com',
+                 ),
+            array(
+                'email' => 'bscalcuttawala@gmail.com',    
                  )
            )
      );

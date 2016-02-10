@@ -8,11 +8,10 @@ session_start();
 <?php
 // remove all session variables
 session_unset(); 
-
 // destroy the session 
-session_destroy(); 
+session_destroy();
 
-header('Location: /users/');
+header('Location: https://www.google.co.in/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://www.faizstudents.com/users/');
 
 ?>
 

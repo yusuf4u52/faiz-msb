@@ -5,6 +5,8 @@ include('adminsession.php');
 require_once 'mandrill/Mandrill.php'; //Not required with Composer
 // print_r($_POST); exit;
 $values[] = "Thali = '".addslashes($_POST['thalino'])."'";
+$values[] = "Active = '1'";
+$values[] = "Reg_Fee = '500'";
 
 if(isset($_POST['transporter']))
 {
@@ -18,7 +20,7 @@ $msgvar = 'Salam %name%,<br><br>Your thali has been activated and your thali no 
 $msgvar = str_replace(array('%thali%','%name%'), array($_POST['thalino'],$_POST['name']), $msgvar);
 
 $myfile = fopen("newregistration.txt", "a") or die("Unable to open file!");
-$txt= $_POST['thalino']." - ".$_POST['name']."\n";
+$txt= $_POST['thalino']." - ".$_POST['name']." - ".$_POST['contact']." - ".$_POST['transporter']." - ".$_POST['address']."\n";
 fwrite($myfile, $txt);
 fclose($myfile);
 
