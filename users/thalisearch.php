@@ -169,8 +169,14 @@ if($_GET)
 
             <div class="bs-component">
 
+            <?php 
+            $sql = mysqli_query($link,"SELECT MAX(`Receipt No`) from receipts");
+            $row = mysqli_fetch_row($sql);
+            $plusone = $row[0] + 1;
+            ?> 
+
       <div id="receiptForm">
-        <input type="number" name="receipt_number" placeholder="Receipt #"/>
+        <input type="number" name="receipt_number" value="<?php echo $plusone ?>"/>
         <input type="number" name="receipt_amount" placeholder="Receipt Amount"/>
         <input type="hidden" class='gregdate' name="receipt_date" value="<?php echo date("Y-m-d") ?>"/>
         <input type="hidden" name="receipt_thali"/>
