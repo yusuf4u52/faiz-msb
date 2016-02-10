@@ -31,6 +31,7 @@ mysqli_query($link,"UPDATE thalilist set Active='1' WHERE Email_id = '".$_SESSIO
 mysqli_query($link,"UPDATE thalilist set Thali_start_date='" . $_POST['start_date'] . "' WHERE Email_id = '".$_SESSION['email']."'");
 
 $capture = mb_substr($_POST['start_date'], -2);
+$capture=str_replace("-","0",$capture);
 
 $result1 = mysqli_query($link,"SELECT * from thalilist WHERE Dues=0 AND Email_id = '".$_SESSION['email']."'");
 $count1=mysqli_num_rows($result1);
