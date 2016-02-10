@@ -178,7 +178,7 @@ if($_GET)
       <div id="receiptForm">
         <input type="number" name="receipt_number" value="<?php echo $plusone ?>"/>
         <input type="number" name="receipt_amount" placeholder="Receipt Amount"/>
-        <input type="hidden" class='gregdate' name="receipt_date" value="<?php echo date("Y-m-d") ?>"/>
+        <input type="hidden" class="gregdate" name="receipt_date" value="<?php echo date("Y-m-d") ?>"/>
         <input type="hidden" name="receipt_thali"/>
         <input type="button" name="cancel" value="cancel" />
         <input type="button" name="save" value="save"/>
@@ -236,6 +236,7 @@ if($_GET)
   <script src="javascript/bootstrap-3.3.6.min.js"></script>
   <script src="javascript/moment-2.11.1-min.js"></script>
   <script src="javascript/moment-hijri.js"></script>
+  <script src="javascript/hijriDate.js"></script>
   <script src="javascript/index.js"></script>
   <script src="./src/custom.js"></script>
   <script>
