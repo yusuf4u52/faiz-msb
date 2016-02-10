@@ -4,14 +4,15 @@ for (var i = 0; i < els.length; i++) {
     var el = els[i];
     var prop = (el.tagName == 'INPUT') ? 'value' : 'innerText';
     var greg = el[prop];
-    el[prop] = moment(greg, 'YYYY-MM-DD').add(1,'day').format('iYYYY-iM-iD');
+    var hijri = HijriDate.fromGregorian(new Date(greg));
+    el[prop] =  hijri.year + '-' + ((+hijri.month) + (+1)) + '-' + hijri.day;
+    el[prop] =  moment(el[prop], 'YYYY-MM-DD').format('YYYY-MM-DD');
 }
 
 var els = $('.hijridate');
 for (var i = 0; i < els.length; i++) {
     var el = els[i];
     var prop = (el.tagName == 'INPUT') ? 'value' : 'innerText';
-    console.log(prop);
-    var greg = el[prop];
-    el[prop] = moment(greg, 'iYYYY-iM-iD').format('iD iMMMM iYYYY');
+    var hijri = el[prop];
+    el[prop] = moment(hijri, 'iYYYY-iM-iD').format('iD iMMMM iYYYY');
 }

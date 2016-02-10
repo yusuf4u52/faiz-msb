@@ -108,7 +108,7 @@ if(empty($values['Thali']))
 
               <form method="POST" action="start_thali.php" onsubmit='return confirm("Are you sure?");'>
                 <input type="submit" name="start_thali" value="Start Thaali"  class="btn btn-success"/>
-                <input type="hidden" class='gregdate' name="start_date" value="<?php echo date("Y-m-d") ?>"/>
+                <input type="hidden" class="gregdate" name="start_date" value="<?php echo date("Y-m-d") ?>"/>
               </form>
 
               <?php
@@ -119,7 +119,7 @@ if(empty($values['Thali']))
        
               <form method="POST" action="stop_thali.php" onsubmit='return confirm("Are you sure?");'>
                 <input type="submit" name="stop_thali" value="Stop Thaali"  class="btn btn-danger"/>
-                <input type="hidden" class='gregdate' name="stop_date" value="<?php echo date("Y-m-d") ?>"/>
+                <input type="hidden" class="gregdate" name="stop_date" value="<?php echo date("Y-m-d") ?>"/>
               </form>
 
               <?php } ?>
@@ -135,7 +135,7 @@ if(empty($values['Thali']))
 
               <form method="POST" action="start_transport.php" onsubmit='return confirm("Are you sure?");'>
                 <input type="submit" name="start_transport" value="Request Transport"  class="btn btn-success"/>
-                <input type="hidden" class='gregdate' name="start_date" value="<?php echo date("Y-m-d") ?>"/>
+                <input type="hidden" class="gregdate" name="start_date" value="<?php echo date("Y-m-d") ?>"/>
               </form>
 
               <?php
@@ -227,6 +227,7 @@ if(empty($values['Thali']))
     <script src="javascript/bootstrap-3.3.6.min.js"></script>
     <script src="javascript/moment-2.11.1-min.js"></script>
     <script src="javascript/moment-hijri.js"></script>
+    <script src="javascript/hijriDate.js"></script>
     <script src="javascript/index.js"></script>
 
   </body>
