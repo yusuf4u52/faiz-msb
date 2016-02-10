@@ -158,6 +158,14 @@ include('adminsession.php');
 
             </div>
 
+            <?php 
+            $sql = mysqli_query($link,"SELECT MAX(Thali) from thalilist");
+            $row = mysqli_fetch_row($sql);
+            $plusone = $row[0] + 1;
+
+            echo "Thali No. :: $plusone  can be given" ;
+            ?> 
+
             <div class="bs-component">
 
               <table class="table table-striped table-hover ">
