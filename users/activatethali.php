@@ -29,10 +29,13 @@ try {
     $message = array(
         'html' => $msgvar,
         'subject' => "Student's Faiz - Thali activated",
-        'from_email' => 'help@faizstudents.com',
+        'from_email' => 'admin@faizstudents.com',
         'to' => array(
             array(
                 'email' => $_POST['email']
+                 ),
+            array(
+                'email' => 'help@faizstudents.com'
                  )
            )
      );

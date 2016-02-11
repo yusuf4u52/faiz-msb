@@ -16,7 +16,7 @@ try {
     $mandrill = new Mandrill('BWDHEoe1pGlJ9yiH5xvUGw');
     $message = array(
         'html' => $msgvar,
-        'subject' => "Student's Faiz - Thali activated",
+        'subject' => "Student's Faiz - Thali Not Activated",
         'from_email' => 'admin@faizstudents.com',
         'to' => array(
             array(
