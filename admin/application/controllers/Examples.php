@@ -41,6 +41,19 @@ class Examples extends CI_Controller {
     $this->_example_output($output);
 }
 
+function receipts()
+{
+    $crud = new grocery_CRUD();
+    $crud->set_theme('datatables');
+    $crud->set_table('receipts');
+    $crud->unset_edit();
+    $crud->unset_delete();
+
+    $output = $crud->render();
+ 
+    $this->_example_output($output);
+}
+
 	public function index()
 	{
 		$this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
