@@ -5,13 +5,6 @@ class Examples extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		session_start();
-		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com')))
-		{
-
-		}else
-		 header("Location: http://www.faizstudents.com/users/login.php");
-
 		$this->load->database();
 		$this->load->helper('url');
 
@@ -32,6 +25,13 @@ class Examples extends CI_Controller {
 
 	function faiz()
 {
+	session_start();
+		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com')))
+		{
+
+		}else
+		 header("Location: http://www.faizstudents.com/users/login.php");
+
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
     $crud->set_table('thalilist');
@@ -43,12 +43,19 @@ class Examples extends CI_Controller {
 
 function receipts()
 {
+	session_start();
+		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('bscalcuttawala@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com')))
+		{
+
+		}else
+		 header("Location: http://www.faizstudents.com/users/login.php");
+
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
     $crud->set_table('receipts');
     $crud->unset_edit();
     $crud->unset_delete();
-    $crud->columns('Receipt No','Thali No','Amount','Date');
+    $crud->columns('Receipt_No','Thali_No','Amount','Date');
 
     $output = $crud->render();
  

@@ -170,7 +170,7 @@ if($_GET)
             <div class="bs-component">
 
             <?php 
-            $sql = mysqli_query($link,"SELECT MAX(`Receipt No`) from receipts");
+            $sql = mysqli_query($link,"SELECT MAX(`Receipt_No`) from receipts");
             $row = mysqli_fetch_row($sql);
             $plusone = $row[0] + 1;
             ?> 
