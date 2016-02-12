@@ -51,7 +51,7 @@ $msgvar .= "\n Count \n $count ";
 
 // Remove Duplicate 
 
-$msgvar = implode("\n",array_unique(explode("\n", $msgvar)));
+// $msgvar = implode("\n",array_unique(explode("\n", $msgvar)));
 
 $myfile = fopen("requestarchive.txt", "a") or die("Unable to open file!");
 $txt= date('d/m/Y')."\n".$msgvar."\n";
