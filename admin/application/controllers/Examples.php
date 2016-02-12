@@ -48,6 +48,7 @@ function receipts()
     $crud->set_table('receipts');
     $crud->unset_edit();
     $crud->unset_delete();
+    $crud->columns('Receipt No','Thali No','Amount','Date');
 
     $output = $crud->render();
  
