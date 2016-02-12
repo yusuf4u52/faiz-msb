@@ -1,4 +1,4 @@
 users/connection.php
 users/*.txt
 .idea
-sms/credentails.php
+sms/credentials.php
