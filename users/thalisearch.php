@@ -255,6 +255,7 @@ if($_GET)
         $.ajax({
           method: 'post',
           url: '_payhoob.php',
+          async: 'false',
           data: data,
           success: function(data) {
             if(data == 'success') {
@@ -269,7 +270,7 @@ if($_GET)
             }
           },
           error: function() {
-            alert('Oops! Something went wrong.');
+            alert('Try again');
           }
         });
       });
