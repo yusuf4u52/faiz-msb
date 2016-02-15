@@ -26,131 +26,427 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     /*
     this variable takes care of creating checkboxes for transporter filter
     note: if there are transporter fields having null values, then it displays nothing in label
+
+<select multiple class="form-control hidden" id="transporter_param">
+        <option>1s</option>
+        <option>2d</option>
+        <option>3a</option>
+        <option>4f</option>
+        <option>5a</option>
+      </select>
+
     */
-    $checkbox_html = "";
+    $multiselect_html = "";
     //var_dump($stmt);
     for($i=0; $i<count($stmt); $i++)
     {
         $val = $stmt[$i][0];
-        $checkbox_html = $checkbox_html."\t<label><input type='checkbox' name = 'transporters[]' value='$val'/>$val</label>\n"; 
+        $multiselect_html = $multiselect_html."\t<option>$val</option>\n"; 
     }
-    $checkbox_html.="\t<br>\n";
+    $root_urls = array(
+        "real" => "http://sms.myn2p.com/sendhttp.php?",
+        "telegram" => "http://murtazafaizstudent.pythonanywhere.com/sendhttp.php?",
+        "email" => "http://murtazafaizstudent.pythonanywhere.com/sendsmtp?");
+    //$multiselect_html.="\t<br>\n";
 ?>
 <!DOCTYPE html>
-<html>
-   <head>
-       <title> SMS filtering </title>
-       <style type='text/css'>
-       .highlight{
-            background-color: #FFCF8B
-        }
-        table{
-            border-collapse: collapse;
-        }
-        td{
-            padding: 5px;
-        }
-        tbody#recipientTableBody tr:hover {
-            background-color: #FFCF8B;
-            font-weight: bold;
-        }
-       </style>
-       <script type='text/javascript' src = 'https://code.jquery.com/jquery-2.2.0.min.js'></script>
-       <script src="jquery.jqEasyCharCounter.min.js" type="text/javascript"></script>
-       <script type='text/javascript'>
-            $(document).ready(function(){
-                $.getScript("filter.js");
-                $.getScript("selection.js");
-                
-                $('.countable2').jqEasyCounter({
-                    'maxChars': 1000,
-                    'maxCharsWarning': 145
-                });
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>The Faiz Se3 System</title>
 
-                $('#submit').click(function(){
-                    //console.log("clicked");
-                    // sure = confirm("Are you sure?");
-                    // if(!sure) return;
-                    selected = getSelected();
-                    message = $('#message').val();
-                    //console.log(message);
-                    redirect = 'send.php';
-                    console.log(JSON.stringify(selected));
-                    $.redirectPost(redirect, {"message":message, "records":JSON.stringify(selected)});
-                }); 
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <style>
+    .jumbotron {
+      padding-right: 30px !important;
+      padding-left: 30px !important;
+    }
+    .row-eq-height {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+    }
+    .no-padded-span {
+      padding: 0px !important;
+    }
+    .fill {
+      min-height: 100%;
+      height: 100%;
+    }
+    body{
+      background-color: LightYellow
+    }
+    .label-as-badge {
+      border-radius: 1em;
+      float: right;
+    }
+    </style>
+  </head>
+  <body>
+    
+    <!--
+      now i need to divide my page into three parts
+      1. filtering
+      2. selection
+      3. sending
+    -->
+    <div class='container-fluid'>
+      <div class = 'row'>
+        
+        <!-- ############## FILTERING ############## -->
+        <div class = 'col-lg-3'>
+          <div class="jumbotron text-center">
+            <h1>Search <span class = "glyphicon glyphicon-search"></span></h1>      
+            <p>Set your target recipients!</p>
+          </div>
+          <div class='content'>
+            <!-- <div class = 'container'> -->
+                <div class="form-group">
+                <div class = 'text-center'><!-- <p>Add placeholders or templates </p> --><!-- <h2><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></h2> --></div>
+                  <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                      <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle my-tooltip" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title='insert templates'>
+                          Lazy
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                          <li><a href='#' id='template_warning'><i class="fa fa-exclamation fa-lg fa-fw"></i>Warning</as></li>
+                          <li><a href="#" id='template_urgent'><i class="fa fa-exclamation-triangle fa-lg fa-fw"></i>Urgent</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="#" id='template_delay'><i class="fa fa-clock-o fa-lg fa-fw"></i>Delay</a></li>
+                          <li><a href="#" id='template_na'>
+                            <span class="fa-stack fa-lg">
+                              <i class="fa fa-motorcycle fa-stack-1x"></i>
+                              <i class="fa fa-ban fa-stack-2x text-danger"></i>
+                            </span>
+                            N/A</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='<NAME>' id="placeholder_name"><i class='fa fa-user fa-lg'></i></button>
+                    </div>
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='<THALI>' id="placeholder_thali"><i class='fa fa-hashtag fa-lg'></i></button>
+                    </div>
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='<AMOUNT>' id="placeholder_amount"><i class='fa fa-usd fa-lg'></i></button>
+                    </div>
+                  </div>
+                  <textarea class="form-control" rows="5" id="message" placeholder="Write the message here..."></textarea>                  
+                </div>  
+            <!-- </div> -->
+            <div class = 'form-group'>
+              <!-- <div class='text-center'><p>Apply filtering on amount:</p></div> -->
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group hidden" role="group">
+                  <input type="text" class="form-control" value = '0' id='amount_param2'>
+                </div>
+                <div class="btn-group" role="group">
+                  <div class='input-group'>
+                    <span class="input-group-addon"><i class='fa  fa-inr fa-lg fa-fw'></i></span>
+                    <select class='form-control' id='amount_operator'>
+                      <option value="none">None</option>
+                      <option value="<">Less than</option>
+                      <option value="<=">Less than or equal to</option>
+                      <option value="=">Equal to</option>
+                      <option value=">=">Greater than or equal to</option>
+                      <option value=">">Greater than</option>
+                      <option value="between">Between</option>
+                    </select>
 
-                // jquery extend function
-                $.extend(
-                {
-                    redirectPost: function(location, args)
-                    {
-                        var form = '';
-                        $.each( args, function( key, value ) {
-                            form += "<input type='hidden' name='"+key+"' value='"+value+"'>";
-                        });
-                        form = '<form action="'+location+'" method="POST">'+form+'</form>';
-                        console.log(form);
-                        $(form).appendTo('body').submit();
-                    }
-                });
+                  </div>
+                </div>
+                <div class="btn-group hidden" role="group">
+                  <input type="text" class="form-control" value = '0' id='amount_param'>
+                </div>
+              </div>
+            </div>
+
+            <div class = 'form-group'>
+              <!-- <div class='text-center'><p>Apply filtering on transporter:</p></div> -->
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group hidden" role="group">
+                  <input type="text" class="form-control" value = '0' id='amount_param2'>
+                </div>
+                <div class="btn-group" role="group">
+                  <div class='input-group'>
+                    <span class="input-group-addon"><i class='fa  fa-motorcycle fa-lg fa-fw'></i></span>
+                    <select class='form-control' id='transporter_operator'>
+                      <option value = "none">None</option>
+                      <option value = "in">Equal to</option>
+                      <option value = "not in"> Not equal to</option>
+                    </select>
+                  </div>
+                  
+                <select multiple class="form-control hidden" id="transporter_param">
+                <?php echo $multiselect_html ?>
+                </select>
+                </div>
+                <div class="btn-group hidden" role="group">
+                  <input type="text" class="form-control" value = '0' id='amount_param'>
+                </div>
+              </div>
+            </div>
+
+            <div class='form-group'>
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                  <button class='btn btn-primary btn-lg' id='filter'>Filter <span class="glyphicon glyphicon-filter" aria-hidden="true"></span><span style="float:right;"><span class="badge" id='query_status'></span></span></button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ############## SELECTION ############## -->
+        <div class = 'col-lg-5'>
+          <div class="jumbotron text-center">
+            <h1>Select <span class = "glyphicon glyphicon-check"></span></h1>      
+            <p>Whom do you want to send SMS to?</p>
+          </div>
+
+          <div class='content'>
+          <div id = 'selection_status' class="alert alert-info text-center" role="alert">Filter and then Select</div>
+            <div class="btn-group btn-group-justified hidden" role="group" id='b_selection'>
+              <div class="btn-group" role="group">
+                <button id='b_all' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+              </div>
+              <div class="btn-group" role="group">
+                <button id='b_none' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+              </div>
+              <div class="btn-group" role="group">
+                <button id='b_toggle' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+              </div>
+            </div>
+            <div class='table-responsiv'> <!-- i have disabled this, non responsive is better -->
+              <table class='table' id = 'recipientTable'>
+                <thead>
+                    <tr><th>#</th><th>Thali No.</th><th>Name</th><th>Mob No.</th><th>Transporter</th><th>Amount</th></tr>
+                </thead>
+                <tbody id = 'recipientTableBody'>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ############## SENDING ############## -->
+
+        <div class = 'col-lg-4'>
+          <div class="jumbotron text-center">
+            <h1>Send <span class = "glyphicon glyphicon-send"></span></h1>      
+            <p>Are you ready? If not try MOCK SEND!</p>
             
-            });
-       </script>
-    </head>
-    <body>
+          </div>
+          <div class='content'>
+            <div class='form-group'>
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group hidden" role="group">
+                  <input type="text" class="form-control" placeholder="Chat id or Email" id='send_param2'>
+                </div>
+                <div class="btn-group" role="group">
+                  <select class='form-control' id='send_operator'>
+                    <option value="sms">SMS</option>
+                    <option value="mock">MOCK</option>
+                  </select>
+                </div>
+                  <div class="btn-group" role="group">
+                    <div class='input-group'>
+                      <input type="text" class="form-control" placeholder="milliseconds" value = '500' id='send_param' data-toggle='tooltip' data-original-title='Set the interval (1s = 1000ms)'>
+                      <span class="input-group-addon">ms</span>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class='form-group'>
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                  <button class='btn btn-danger btn-lg' id='send'>Send</button>
+                </div>
+              </div>
 
-        <textarea name="message" style="height:150px; width:400px" class="countable2" id="message"></textarea>
-        <!-- <br> -->
-        <select id="holder">
-            <option value="<THALINO>">Thali Number</option>
-            <option value="<NAME>">Name</option>
-            <option value="<AMOUNT>">Amount</option>
-        </select>
-        <input type="button" name="add" value="Add" onClick='document.getElementById("message").value += document.getElementById("holder").value;'>
-        <input type="button" id="submit" value="Send Message">
+            </div>
+            <div class='dontknow'>
+              <ul class='list-group' id='status'></ul>
+            </div>
 
-        <p> Apply filtering on amount to select the recipients</p>
-        <input type = 'text' id = 'amount_param2' value = '0' hidden />
-        <select id='amount_operator'>
-          <option value="none">None</option>
-          <option value="<">Less than</option>
-          <option value="<=">Less than or equal to</option>
-          <option value="=">Equal to</option>
-          <option value=">=">Greater than or equal to</option>
-          <option value=">">Greater than</option>
-          <option value="between">Between</option>
-        </select>
-        <input type='text' id = 'amount_param' value='0' hidden /><br>
-
-        <p> Apply filtering on transporter </p>
-        <select id='transporter_operator'>
-            <option value = "none">None</option>
-            <option value = "in">Equal to</option>
-            <option value = "not in"> Not equal to</option>
-        </select>
-        <div id='transporter_param' style="display:inline" >
-    <?php
-    echo $checkbox_html;
-    ?>
+          </div>
         </div>
-        <br>
-        <button id='filterButton'>Filter</button>
-        <br>
-        <div id ='selectionButtons' hidden>
-        <input id = "b_toggle" type="button" value = "toggle"/>
-        <input id = "b_all" type="button" value = "select all"/>
-        <input id = "b_none" type = "button" value = "select none"/>
-        </div>
-        <p id = 'query_status'></p>
-        <p id='selection_status'></p>
-        <table style='' id = 'recipientTable'>
-        <thead>
-            <tr><th>#</th><th>Thali No.</th><th>Name</th><th>Mob No.</th><th>Transporter</th><th>Amount</th></tr>
-        </thead>
-        <tbody id = 'recipientTableBody'>
-        </tbody>
-        </table>
-    </body>
+
+
+
+
+       </div>
+
+     </div>
+    
+    <!-- Latest compiled and minified CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="jquery.jqEasyCharCounter.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+        $('.my-tooltip').tooltip();
+
+        var rootUrls = <?php echo json_encode($root_urls) ?>;
+        var params = null;
+        var sid;
+        var index=0;
+        var defaultUrl = rootUrls["real"];
+        var extra = "";
+        var selected = null;
+        $.getScript("filter.js");
+        $.getScript("selection.js");
+        $('#send_operator').change(function(){
+          switch($(this).val())
+          {
+            case 'sms':
+              $('#send_param2').parent().addClass("hidden");
+              $('#send_param').parent().removeClass("hidden");
+            break;
+            case 'mock':
+              $('#send_param2').parent().removeClass("hidden");
+              $('#send_param').parent().removeClass("hidden");
+            break;
+            // default:
+            //   $("#send_param").parent().addClass("hidden");
+            //   $("#send_param2").parent().addClass("hidden");
+          }
+        });
+        $("#send").on('click', function(){
+          selected = getSelected();
+          selectedRecords = JSON.stringify(getSelected());
+          timeInterval = $("#send_param").val();
+          message = $('#message').val();
+          requestObj = $.post("send.php", { 
+            records: selectedRecords,
+            message: message
+          });
+          requestObj.done(function(data){
+            var json = null;
+            try{
+              json = JSON.parse(data);
+            }catch(err){
+              document.write(data);
+              return;
+            }
+            if(json['result'] == "success"){
+              params = json['params'];
+              //now our usual logic will go here!
+              timeInterval = parseInt($("#send_param").val());
+              //check what we are sending here?
+              if($("#send_operator").val()=='sms'){
+                //this is an sms now, so make a modal
+                // and ask for user confirmation
+                extra = "&chatid=163349099";
+                $("#status").html("");
+                updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
+                sid = setInterval(sendSms.bind(null, defaultUrl, extra), timeInterval);  
+
+              }
+              else{
+                // this is a mock message, validate the input first
+                var mock_param = $("#send_param2").val();
+                if(mock_param.match("^[+-]?\\d+$") != null)
+                {
+                    console.log("number");
+                    extra = "&chatid="+mock_param;
+                    url = rootUrls['telegram'];
+                }
+                else if(mock_param.match("^[\\w.]+@[\\w.]+$"))
+                {
+                    console.log("email");
+                    extra = "&email="+mock_param;
+                    url = rootUrls['email'];
+                }
+                else{
+                    alert("Invalid input! either enter a telegram chat id or an email address");
+                    return;
+                }
+                $("#status").html("");
+                updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
+                sid = setInterval(sendSms.bind(null, url, extra), timeInterval); 
+
+              }
+            }
+            else {
+              alert("there was some error in retrieving the urls");
+            }
+          });
+        });
+
+        var sendSms = function(gateway, extra){
+            url = gateway+params[index]+extra;
+            // console.log("url");
+            //console.log(url);
+            //console.log(extra);
+            name_field = selected[index]['name'];
+            number_field = selected[index]['contact'];
+            updateStatus("("+(index+1)+") sending message to "+name_field+" on "+number_field, index);
+            $.ajax({
+                url: url,
+                beforeSend: function(jqxhr, settings) {
+                    jqxhr.name_field = name_field;
+                    jqxhr.number_field = number_field;
+                    jqxhr.index_field = index;
+                },
+                type: "GET",
+                complete: function(e) {
+                    // updateStatus("<b>sent to "+e.name_field+" on "+e.number_field +"</b>", e.index_field);
+                    updateStatus(' <span class="label label-success label-as-badge"><i class="fa fa-check fa-lg"></i></span>', e.index_field);
+                },
+                crossDomain:true,
+                error: function(xhrobj, status, text){
+                  console.log(xhrobj);
+                  //console.log(xhrobj.responseText);
+                  console.log(status);
+                  //console.log(text);
+                }
+                });
+            index=index + 1;
+            if(index>=params.length)
+            {
+                clearInterval(sid);
+                updateStatus("stopped timer", -1);
+                index = 0;
+            }
+        }
+
+        var updateStatus = function(status, index){
+            //console.log("updateStatus was called with "+status+" "+index);
+            className='list-group-item';
+            if(index < 0)
+            {
+                $("#status").append("<li class='"+className+"''>"+status+"</li>");
+                return;
+            }
+            var li = $("#status li.classSent"+index);
+            // console.log("li length");
+            // console.log(li.length);
+            if(li.length) 
+                li.append(status);
+            else {
+                $("#status").append("<li class = 'classSent"+index+" "+className+"' >"+status+"</li>");
+            }
+            
+        }
+      });
+    </script>
+  </body>
 </html>
 
 <?php

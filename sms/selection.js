@@ -1,5 +1,7 @@
+            
+            var highlight_class = "success";
             var clickHandler = function(row){
-                row.toggleClass('highlight');
+                row.toggleClass(highlight_class);
                 row.trigger("bgChange");
             }
             $('tbody#recipientTableBody').on('click', 'tr', function(){
@@ -20,27 +22,27 @@
             });
             $('#b_all').click(function(){
                 $.each($('tbody#recipientTableBody tr'), function(){
-                    $(this).addClass("highlight");
+                    $(this).addClass(highlight_class);
                     $(this).trigger("bgChange");
                 });
             });
             $("#b_none").click(function(){
                 $.each($('tbody#recipientTableBody tr'), function(){
-                    $(this).removeClass("highlight");
+                    $(this).removeClass(highlight_class);
                     $(this).trigger("bgChange");
                 });
             });
             $('tbody#recipientTableBody').on("bgChange", "tr", function(){
-                var selectedRecords = $('tbody#recipientTableBody tr.highlight');
+                var selectedRecords = $('tbody#recipientTableBody tr.'+highlight_class);
                 var len = selectedRecords.length;
                 var selectionStatusString = "Selected "+len+" record(s).";
                 $('#selection_status').html(selectionStatusString);
             });
             var getSelected = function(){
-                thaliObjects = $('tr.highlight td[name="Thali"]');
-                nameObjects = $('tr.highlight td[name="NAME"]');
-                contactObjects = $('tr.highlight td[name="CONTACT"]');
-                amountObjects = $('tr.highlight td[name="Total_Pending"]');
+                thaliObjects = $('tr.'+highlight_class+' td[name="Thali"]');
+                nameObjects = $('tr.'+highlight_class+' td[name="NAME"]');
+                contactObjects = $('tr.'+highlight_class+' td[name="CONTACT"]');
+                amountObjects = $('tr.'+highlight_class+' td[name="Total_Pending"]');
                 len = thaliObjects.length;
                 selected = []
                 for(i = 0; i<len; i++)
@@ -57,5 +59,6 @@
                     selection['amount'] = amount;
                     selected.push(selection);
                 }
+                //console.log(selected);
                 return selected;
             }
