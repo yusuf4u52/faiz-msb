@@ -1,22 +1,81 @@
+	$('#message').jqEasyCounter({
+		'maxChars': 1000,
+		'maxCharsWarning': 145
+	});
 
-	//alert("jquery loaded!");
-	$('#transporter_param').hide();
-	var getCheckedTransporters = function(){
-		var t = $("input:checkbox:checked[name='transporters[]']").map(function(){
-				return "'"+this.value+"'";
-			}).get().join();
-		return t;
+	$("button[id^='placeholder_']").each(function (i, el) {
+		$(el).on('click', function(){
+			$("#message").val($("#message").val() + $(this).attr('data-original-title'));
+	  	});
+	});
+	var templates = {
+		"warning": "Salam <NAME> bhai, Thali#<THALI> Ur hub <AMOUNT> is pending for current month. Pls contribute before ^ to get uninterrupted transport.",
+		"urgent": "Salam <NAME> bhai, Thali#<THALI> LAST DAY to contribute your hub <AMOUNT>, Transportation will be discontinued from tomorrow onwards.",
+		"delay": "Salam <NAME> bhai, your transporter ^ is delayed. Your thali (<THALI>) is delayed by ^ hours. Sorry for inconvenience.",
+		"na": "Salam <NAME> bhai, your transporter ^ is ^. Plz pick up your thali(<THALI>) before ^ from Faiz. Sorry for inconvenience."
 	}
 
-	$('#filterButton').click(function(){
-		//alert("you clicked me");
-		//get the values from user
+	$("a[id^='template_']").each(function(i, el){
+		// console.log("clicked"+$(this).attr("id"));
+		text = $(el).attr("id").replace("template_","");
+		text = templates[text];
+		$(el).on('click', function(){
+			$("#message").val(templates[$(this).attr("id").replace("template_", "")]);
+		})
+	});
+
+  	$('#amount_operator').change(function(){
+		switch($(this).val())
+		{
+			case '>':
+			case '<':
+		 	case '>=':
+			case '<=':
+			case '=':
+				$('#amount_param').parent().removeClass("hidden");
+				$('#amount_param2').parent().addClass("hidden");
+			break;
+			case 'between':
+				$('#amount_param').parent().removeClass("hidden");
+				$('#amount_param2').parent().removeClass("hidden");
+		  	break;
+			case 'none':
+				$('#amount_param').parent().addClass("hidden");
+				$('#amount_param2').parent().addClass("hidden");
+			break;
+		}
+  	});
+  
+	$('#transporter_operator').change(function(){
+		switch($(this).val())
+		{
+			case 'none':
+				$('#transporter_param').addClass("hidden");
+			break;
+			case 'not in':
+			case 'in':
+				$('#transporter_param').removeClass("hidden");
+			break;
+		}
+	});
+
+	var getSelectedTransporters = function() {
+		if(!$("#transporter_param").val())
+			return "";
+		var t = $("#transporter_param").val().map(function(val, i){
+			return "'"+val+"'";
+		}).join(",");
+		return t;          
+	}
+
+	$('#filter').click(function(){
+	//alert("you clicked me");
+	//get the values from user
 		amount_operator = $('#amount_operator').val();
 		amount_param = $('#amount_param').val();
-		console.log("amount_param is "+amount_param);
 		amount_param2 = $('#amount_param2').val();
 		transporter_operator = $("#transporter_operator").val();
-		transporter_param = getCheckedTransporters();
+		transporter_param = getSelectedTransporters();
 		requestObj = $.post("index.php", { 
 			'amount_operator':amount_operator,
 			'amount_param':amount_param,
@@ -33,12 +92,12 @@
 				//alert(err);
 				return;
 			}
-			
+		  
 			//alert(json['query']);
 			if(json['result'] == "success")
 			{
-				// now populate the table with new records!
-				//$("#recipientTable td").parent().remove();
+			// now populate the table with new records!
+			//$("#recipientTable td").parent().remove();
 				$('#recipientTableBody').html("");
 				var html = "";
 				var records = json['data'];
@@ -53,54 +112,18 @@
 					html+="</tr>\n";
 				}
 				$('#recipientTableBody').html(html);
-				$('#query_status').html("Fetched "+records.length+" record(s)");
+				$('#query_status').html(records.length);
 				if(records.length > 0) {
-					$('#selectionButtons').show();
+					$('#b_selection').removeClass("hidden");
 				}
 				else{
-					$('#selectionButtons').hide();
+					$('#b_selection').addClass("hidden");
 				}
 			}
 			else
 			{
 				alert("there was some error in retrieving the records");
 			}
-			//alert(json['result']);
+		  //alert(json['result']);
 		});
 	});
-
-	$('#amount_operator').change(function(){
-		switch($(this).val())
-		{
-			case '>':
-			case '<':
-			case '>=':
-			case '<=':
-			case '=':
-				$('#amount_param').show();
-				$('#amount_param2').hide();
-			break;
-			case 'between':
-				$('#amount_param').show();
-				$('#amount_param2').show();
-			break;
-			case 'none':
-				$('#amount_param').hide();
-				$('#amount_param2').hide();
-			break;
-		}
-	});
-
-	$('#transporter_operator').change(function(){
-		switch($(this).val())
-		{
-			case 'none':
-				$('#transporter_param').hide();
-			break;
-			case 'not in':
-			case 'in':
-				$('#transporter_param').show();
-			break;
-		}
-	});
-	//$('#filterButton').click();
