@@ -15,6 +15,12 @@ include('adminsession.php');
 
     $result_new_thali = mysqli_query($link,$query_new_thali);
 
+
+    $last_thali_no = mysqli_fetch_assoc(mysqli_query($link,'SELECT Thali FROM `thalilist` order by Thali DESC LIMIT 0,1'));
+
+
+    $last_thali_no = (int)$last_thali_no['Thali'];
+
     
 
     
@@ -200,7 +206,7 @@ include('adminsession.php');
                       <input type='hidden' value='<?php echo $values['CONTACT']; ?>' name='contact'>
                       <input type='hidden' value='<?php echo $values['Full_Address']; ?>' name='address'>
                       <input type='hidden' value='<?php echo $values['Transporter']; ?>' name='trasnporter'>
-                      <input type='text' name='thalino' class="form-control" required='required'></td>
+                      <input type='text' name='thalino' class="" required='required' value='<?php echo ++$last_thali_no; ?>'></td>
                     <td>
                         <?php if($values['Transporter'] == 'Transporter') { ?>
                           <select name="transporter"  required='required'>
