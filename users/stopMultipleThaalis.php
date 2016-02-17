@@ -64,7 +64,7 @@ include('adminsession.php');
 
             <div class="page-header">
 
-              <h2 id="forms">Thali Search</h2>
+              <h2 id="forms">Stop multiple thaalis at once (use carefully). Enter only comma saperated thaali numbers e.g. 1,2,3.</h2>
 
             </div>
             <div class="col-lg-6">
@@ -82,7 +82,7 @@ include('adminsession.php');
 
                     <div class="col-lg-10">
 
-                      <input type="text" class="form-control" id="thaliNumbers" placeholder="Thali No" name="thalino">
+                      <input type="text" class="form-control" id="thaliNumbers" placeholder="Enter comma saperated thaali numbers" >
                       <input type="hidden" class="gregdate" id="stopDate" value="<?php echo date("Y-m-d") ?>"/>
                     </div>
 
@@ -126,7 +126,12 @@ include('adminsession.php');
   <script>
     $(function(){
       $('#stopThaliButton').click(function() {
-        var thaliNumbers = $('#thaliNumbers').val().split(',');
+        var regext = /^[0-9,]+$/;
+        if(!regext.test($('#thaliNumbers').val().replace(/(^,)|(,$)/g, ""))) {
+          alert('Please enter only numbers and comma.');
+          return false;
+        }
+        var thaliNumbers = $('#thaliNumbers').val().replace(/(^,)|(,$)/g, "").split(',');
         for (var i = thaliNumbers.length - 1; i >= 0; i--) {
           var thaliNumber = thaliNumbers[i];
           if(confirm('Stop thaali #' + thaliNumber + ' ?')){
