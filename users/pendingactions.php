@@ -15,11 +15,10 @@ include('adminsession.php');
 
     $result_new_thali = mysqli_query($link,$query_new_thali);
 
+    $sql = mysqli_query($link,"SELECT MAX(Thali) from thalilist");
+    $last_thali_no = mysqli_fetch_row($sql);
 
-    $last_thali_no = mysqli_fetch_assoc(mysqli_query($link,'SELECT Thali FROM `thalilist` order by Thali DESC LIMIT 0,1'));
-
-
-    $last_thali_no = (int)$last_thali_no['Thali'];
+    $last_thali_no = (int)$last_thali_no[0];
 
     
 
@@ -162,15 +161,7 @@ include('adminsession.php');
 
               <h2 id="tables">New Thali</h2>
 
-            </div>
-
-            <?php 
-            $sql = mysqli_query($link,"SELECT MAX(Thali) from thalilist");
-            $row = mysqli_fetch_row($sql);
-            $plusone = $row[0] + 1;
-
-            echo "Thali No. :: $plusone  can be given" ;
-            ?> 
+            </div> 
 
             <div class="bs-component">
 
