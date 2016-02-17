@@ -4,6 +4,11 @@
 if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('murtaza52@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com','murtaza.sh@gmail.com','mustafamnr@gmail.com'))) {
  
 }
-else
+else {
   header("Location: login.php");
+  exit; 
+  //some learnings on PHP ;)
+  //http://stackoverflow.com/q/6334033/148271
+  //http://stackoverflow.com/q/3553698/148271
+}
 ?>
