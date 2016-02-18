@@ -53,11 +53,6 @@ function receipts()
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
     $crud->set_table('receipts');
-    if ($_SESSION['email'] = 'bscalcuttawala@gmail.com')
-    {
-    	$crud->unset_edit();
-    	$crud->unset_delete();
-    }	
     $crud->columns('Receipt_No','Thali_No','Amount','Date');
 
     $output = $crud->render();
