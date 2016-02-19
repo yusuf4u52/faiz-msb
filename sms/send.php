@@ -7,7 +7,7 @@ therefore in one second 2 people receive the message
 the above observations were taken for murtazafaizstudent.pythonanywhere.com domain
 for sms.myn2p, the delay will be more
 */
-require 'credentials.php';
+require '_credentials.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $records_raw = $_REQUEST['records'];

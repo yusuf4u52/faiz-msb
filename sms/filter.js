@@ -71,6 +71,7 @@
 	$('#filter').click(function(){
 	//alert("you clicked me");
 	//get the values from user
+		$("#query_status").html('<i class="fa fa-refresh fa-spin"></i>');
 		amount_operator = $('#amount_operator').val();
 		amount_param = $('#amount_param').val();
 		amount_param2 = $('#amount_param2').val();

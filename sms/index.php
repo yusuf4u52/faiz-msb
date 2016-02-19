@@ -1,5 +1,5 @@
 <?php
-require 'credentials.php';
+require '_credentials.php';
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -86,10 +86,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       border-radius: 1em;
       float: right;
     }
+    body { padding-bottom: 70px; }
+    }
     </style>
   </head>
   <body>
-    
+    <div class="modal fade" tabindex="-1" role="dialog" id='sure_modal'>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Send SMS</h4>
+          </div>
+          <div class="modal-body">
+            <p>This request cannot be undone. Are you absolutely sure?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Na hamna rehwado</button>
+            <button type="button" class="btn btn-primary" id='send_sure' data-dismiss='modal'>Ha bhai, sure chhu.</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
     <!--
       now i need to divide my page into three parts
       1. filtering
@@ -101,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         
         <!-- ############## FILTERING ############## -->
         <div class = 'col-lg-3'>
-          <div class="jumbotron text-center">
+          <div class="jumbotron text-center" id='jumbo_search'>
             <h1>Search <span class = "glyphicon glyphicon-search"></span></h1>      
             <p>Set your target recipients!</p>
           </div>
@@ -117,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                           <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                          <li><a href='#' id='template_warning'><i class="fa fa-exclamation fa-lg fa-fw"></i>Warning</as></li>
+                          <li><a href='#' id='template_warning'><i class="fa fa-exclamation fa-lg fa-fw"></i>Warning</a></li>
                           <li><a href="#" id='template_urgent'><i class="fa fa-exclamation-triangle fa-lg fa-fw"></i>Urgent</a></li>
                           <li role="separator" class="divider"></li>
                           <li><a href="#" id='template_delay'><i class="fa fa-clock-o fa-lg fa-fw"></i>Delay</a></li>
@@ -210,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         <!-- ############## SELECTION ############## -->
         <div class = 'col-lg-5'>
-          <div class="jumbotron text-center">
+          <div class="jumbotron text-center" id='jumbo_select'>
             <h1>Select <span class = "glyphicon glyphicon-check"></span></h1>      
             <p>Whom do you want to send SMS to?</p>
           </div>
@@ -243,22 +264,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <!-- ############## SENDING ############## -->
 
         <div class = 'col-lg-4'>
-          <div class="jumbotron text-center">
+          <div class="jumbotron text-center" id='jumbo_send'>
             <h1>Send <span class = "glyphicon glyphicon-send"></span></h1>      
             <p>Are you ready? If not try MOCK SEND!</p>
             
           </div>
           <div class='content'>
+            <!-- <div class='form-group' id = 'balance_form_group'>
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                  <button class='btn btn-info btn-lg' id='balance'>Check Balance<span style="float:right;"><span class="badge" id='balance_badge'></span></span></button>
+                </div>
+              </div>
+            </div> -->
             <div class='form-group'>
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group hidden" role="group">
                   <input type="text" class="form-control" placeholder="Chat id or Email" id='send_param2'>
                 </div>
                 <div class="btn-group" role="group">
-                  <select class='form-control' id='send_operator'>
-                    <option value="sms">SMS</option>
-                    <option value="mock">MOCK</option>
-                  </select>
+                    <button class='btn btn-info' id='balance' data-toggle='tooltip' data-placement='top' data-original-title='Check Balance' disabled="disabled">Balance</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <select class='form-control' id='send_operator'>
+                      <option value="sms">SMS</option>
+                      <option value="mock">MOCK</option>
+                    </select>
                 </div>
                   <div class="btn-group" role="group">
                     <div class='input-group'>
@@ -289,6 +320,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
        </div>
 
      </div>
+     <nav class="navbar navbar-default navbar-fixed-bottom hidden-lg">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class='pull-left' href="#">
+            <img alt="Brand" src="fmb.jpg" height='50px'>
+          </a>
+          <a href="#jumbo_search" class='navbar-brand'>
+            Search
+          </a>
+          <a href="#jumbo_select" class='navbar-brand'>
+            Select
+          </a>
+          <a href="#jumbo_send" class='navbar-brand'>
+            Send
+          </a>
+        </div>
+      </div>
+    </nav>
     
     <!-- Latest compiled and minified CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -317,15 +366,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             case 'sms':
               $('#send_param2').parent().addClass("hidden");
               $('#send_param').parent().removeClass("hidden");
+              $("#balance").parent().removeClass("hidden");
             break;
             case 'mock':
               $('#send_param2').parent().removeClass("hidden");
               $('#send_param').parent().removeClass("hidden");
+              $("#balance").parent().addClass("hidden");
             break;
             // default:
             //   $("#send_param").parent().addClass("hidden");
             //   $("#send_param2").parent().addClass("hidden");
           }
+
         });
         $("#send").on('click', function(){
           selected = getSelected();
@@ -350,13 +402,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
               timeInterval = parseInt($("#send_param").val());
               //check what we are sending here?
               if($("#send_operator").val()=='sms'){
-                //this is an sms now, so make a modal
-                // and ask for user confirmation
-                extra = "&chatid=163349099";
-                $("#status").html("");
-                updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
-                sid = setInterval(sendSms.bind(null, defaultUrl, extra), timeInterval);  
-
+                $("#sure_modal").modal();
               }
               else{
                 // this is a mock message, validate the input first
@@ -388,6 +434,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
           });
         });
+
+        $("#send_sure").on('click', function(){
+          extra = "&chatid=163349099";
+          timeInterval = parseInt($("#send_param").val());
+          $("#status").html("");
+          updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
+          sid = setInterval(sendSms.bind(null, defaultUrl, extra), timeInterval);  
+        })
 
         var sendSms = function(gateway, extra){
             url = gateway+params[index]+extra;
@@ -423,6 +477,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 clearInterval(sid);
                 updateStatus("stopped timer", -1);
                 index = 0;
+                updateBalance();
             }
         }
 
@@ -441,9 +496,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 li.append(status);
             else {
                 $("#status").append("<li class = 'classSent"+index+" "+className+"' >"+status+"</li>");
-            }
-            
+            }          
         }
+        var updateBalance = function() {
+          $.get("_getBalance.php", function(data) {
+              $("#balance").html("<strong>Bal: </strong>"+data);
+            });
+        }
+        updateBalance();
+        //http://sms.myn2p.com/api/balance.php?authkey=56933A7SlpSID5577e45a&type=TEMPLATE
+        // balance api
       });
     </script>
   </body>
