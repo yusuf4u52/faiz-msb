@@ -71,7 +71,7 @@ if(empty($values['Thali']))
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand font-bold" href="/users/">Faiz ul Mawaid il Burhaniyah (Poona Students)</a>
+                <a class="navbar-brand font-bold" href="/users/">FMB (Poona Students)</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
