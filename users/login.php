@@ -35,7 +35,7 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand font-bold" href="/users/">Poona Students Faiz</a>
+          <a class="navbar-brand font-bold" href="/users/">Faiz ul Mawaid il Burhaniyah (Poona Students)</a>
         </div>
       </div>
     </nav>
