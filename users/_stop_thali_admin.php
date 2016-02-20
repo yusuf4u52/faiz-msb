@@ -12,7 +12,7 @@ if ($count == 0) {
   mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALUES ('" . $_POST['thaali_id'] . "', 'Stop Thali','" . $_POST['stop_date'] . "')");
 
   $myfile = fopen("stopthali.txt", "a") or die("Unable to open file!");
-  $txt="".$_SESSION['thali']." via admin\n";
+  $txt="".$_POST['thaali_id']." via admin\n";
   fwrite($myfile, $txt);
   fclose($myfile);
   //$status = 'Stop Thali Successful';
