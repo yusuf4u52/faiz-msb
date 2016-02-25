@@ -41,6 +41,24 @@ class Examples extends CI_Controller {
     $this->_example_output($output);
 }
 
+function notpickedup()
+{
+	session_start();
+		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com')))
+		{
+
+		}else
+		 header("Location: http://www.faizstudents.com/users/login.php");
+
+    $crud = new grocery_CRUD();
+    $crud->set_theme('datatables');
+    $crud->set_table('not_picked_up');
+
+    $output = $crud->render();
+ 
+    $this->_example_output($output);
+}
+
 function receipts()
 {
 	session_start();

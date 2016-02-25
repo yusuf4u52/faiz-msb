@@ -30,6 +30,7 @@ a:hover
 <body>
 		  <ul>
             <a href="/users/index.php">Home</a>
+            <a href="/admin/index.php/examples/notpickedup">NotPickedUp</a>
             <a href="/users/logout.php">Logout</a>
           </ul>
 	
