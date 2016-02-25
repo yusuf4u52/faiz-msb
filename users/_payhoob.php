@@ -11,6 +11,9 @@ if($_POST)
   $sql = "UPDATE thalilist set Paid = Paid + '" . $_POST['receipt_amount'] . "' WHERE thali = '" . $_POST['receipt_thali']."'";
   mysqli_query($link, $sql) or die(mysqli_error($link));
 
+  $sql = "UPDATE thalilist set Zabihat = Zabihat + '" . $_POST['zabihat'] . "' WHERE thali = '" . $_POST['receipt_thali']."'";
+  mysqli_query($link, $sql) or die(mysqli_error($link));
+
   $sql = mysqli_query($link,"SELECT SUM(`Amount`) from receipts");
   $row = mysqli_fetch_row($sql);
   $amount = $row[0];
