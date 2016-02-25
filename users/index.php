@@ -27,7 +27,6 @@ if(empty($values['Thali']))
   $status = "Ooops! Something went wrong. Send and email to help@faizstudents.com";
   header("Location: login.php?status=$status");
 }
-// extract($data);
 ?>
 <!DOCTYPE html>
 
@@ -231,6 +230,8 @@ if(empty($values['Thali']))
     <script src="javascript/moment-hijri.js"></script>
     <script src="javascript/hijriDate.js"></script>
     <script src="javascript/index.js"></script>
-
+    <div align="center">
+    <a href="mailto:help@faizstudents.com">help@faizstudents.com</a><br><br>
+    </div>
   </body>
 </html>
