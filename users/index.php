@@ -4,7 +4,7 @@ include('connection.php');
 
 session_start();
 
-include('_authcheck.php');
+include('_authCheck.php');
 
 $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
 
