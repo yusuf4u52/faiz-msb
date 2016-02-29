@@ -1,13 +1,13 @@
 <?php
-include('connection.php');
 include('_authcheck.php');
+include('connection.php');
 //TODO:Do your DB operations and other processing here
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
   <?php include('_head.php'); ?>
-  <!--TODO: add extra includes here if required only on this page -->
+  <!--TODO: add extra includes/CSS/JS here if required only on this page -->
   </head>
   <body>
     <?php include('_nav.php'); ?>

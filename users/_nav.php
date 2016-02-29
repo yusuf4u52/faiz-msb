@@ -20,11 +20,10 @@
           <li><a href="thalisearch.php">Thaali Search</a></li>
           <li><a href="stopMultipleThaalis.php">Stop Multiple Thaalis</a></li>
           <li><a href="../admin/index.php/examples/faiz">Admin</a></li>
-          <li><a href="../admin/index.php/examples/receipts">Receipts</a></li>
           <?php
         }
         ?>
-
+        <li><a href="hoobHistory.php">Paid Receipts</a></li>
         <li><a href="update_details.php">Update details</a></li>
         <li><a href="logout.php">Logout</a></li>
       </ul>
