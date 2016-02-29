@@ -1,5 +1,5 @@
 <?php
-include('_authcheck.php');
+include('_authCheck.php');
 include('connection.php');
 ?>
 <!DOCTYPE html>

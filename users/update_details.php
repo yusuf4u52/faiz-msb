@@ -1,12 +1,7 @@
 <?php
 
-// Start the session
+include('_authCheck.php');
 include('connection.php');
-
-session_start();
-if (is_null($_SESSION['fromLogin'])) {
-   header("Location: login.php");
-}
 
 if ($_POST)
     {  
