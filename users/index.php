@@ -4,10 +4,7 @@ include('connection.php');
 
 session_start();
 
-if (!isset($_SESSION['fromLogin'])) {
- header("Location: login.php");
- exit;
-}
+include('_authcheck.php');
 
 $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
 
@@ -34,66 +31,12 @@ if(empty($values['Thali']))
 
 <html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-        <meta charset="utf-8" />
-
-        <title>Faiz ul Mawaid il Burhaniyah (Poona Students)</title>
-
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <link rel="stylesheet" href="./src/bootstrap.css" media="screen" />
-
-        <link rel="stylesheet" href="./src/custom.min.css" />
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-
-        <!--[if lt IE 9]>
-
-        <script src="javascript/html5shiv-3.7.0.min.js"></script>
-
-        <script src="javascript/respond-1.4.2.min.js"></script>
-
-        <![endif]-->
+  <?php include('_head.php'); ?>
   </head>
 
   <body>
 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand font-bold" href="/users/">FMB (Poona Students)</a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <?php
-                        if(in_array($_SESSION['email'], array('murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','bscalcuttawala@gmail.com','mustafamnr@gmail.com')))
-                        {
-                    ?>
-                    <li><a href="pendingactions.php">Pending Actions</a></li>
-                    <li><a href="thalisearch.php">Thaali Search</a></li>
-                    <li><a href="stopMultipleThaalis.php">Stop Multiple Thaalis</a></li>
-                    <li><a href="../admin/index.php/examples/faiz">Admin</a></li>
-                    <li><a href="../admin/index.php/examples/receipts">Receipts</a></li>
-                    <?php
-                            }
-                    ?>
-
-                    <li><a href="update_details.php">Update details</a></li>
-                    <li><a href="logout.php">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include('_nav.php'); ?>
 
     <div class="container">
         <br />
@@ -224,12 +167,8 @@ if(empty($values['Thali']))
         </script>
     <?php } ?>
 
-    <script src="javascript/jquery-2.2.0.min.js"></script>
-    <script src="javascript/bootstrap-3.3.6.min.js"></script>
-    <script src="javascript/moment-2.11.1-min.js"></script>
-    <script src="javascript/moment-hijri.js"></script>
-    <script src="javascript/hijriDate.js"></script>
-    <script src="javascript/index.js"></script>
+    <?php include('_bottomJS.php'); ?>
+
     <div align="center">
     <a href="mailto:help@faizstudents.com">help@faizstudents.com</a><br><br>
     </div>
