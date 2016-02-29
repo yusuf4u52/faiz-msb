@@ -1,5 +1,4 @@
 <?php
-
 include('_authCheck.php');
 include('connection.php');
 
