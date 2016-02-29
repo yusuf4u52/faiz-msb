@@ -2,6 +2,7 @@
 include('connection.php');
 include('adminsession.php');
 
+
 error_reporting(0);
 
     $mh_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_Moharram"));
@@ -66,12 +67,83 @@ error_reporting(0);
 
     $result = mysqli_query($link,"select * from hisab");
 
+
+    $sf_breakup = mysqli_query($link, "SELECT * FROM account") or die(mysqli_error($link));
+
 ?>
 <html>
 <head>
-  <link rel="stylesheet" href="./src/bootstrap.css" media="screen" />
+<?php include('_head.php'); ?>
+</head>
   <body>
-    <div class="container">
+<?php include('_nav.php'); ?>
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Enter the amount given to SF</h4>
+      </div>
+      <div class="modal-body">
+        <div id="hisabform">
+        <input type="number" name="Amount" placeholder="Amount to SF"/>
+        <input type="text" class="gregdate" name="sf_amount_date" value="<?php echo date("Y-m-d") ?>"/>
+        <input type="hidden" name="Month"/>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" name="cancel">Close</button>
+        <button type="button" class="btn btn-primary" name="save">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="sfbreakup">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Amount given to SF</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped table-hover table-responsive">
+
+                <thead>
+
+                  <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Month</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                    <?php
+                    while($valuesnew = mysqli_fetch_assoc($sf_breakup))
+                    {
+                    ?>
+                    <tr>
+                    <td><?php echo $valuesnew['Date']; ?></td>
+                    <td><?php echo $valuesnew['Type']; ?></td>
+                    <td><?php echo $valuesnew['Amount']; ?></td>
+                    <td><?php echo $valuesnew['Month']; ?></td>
+                  </tr>                 
+                   <?php } ?>
+              
+                </tbody>
+              </table> 
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+     <div class="container">
 <table class="table table-striped table-hover table-responsive">
 
                 <thead>
@@ -98,7 +170,7 @@ error_reporting(0);
                     <tr>
                     <td><?php echo $values['Months']; ?></td>
                     <td><?php echo $values['Hub_Received']; ?></td>
-                    <td><?php echo $values['Amount_for_Jaman_to_SF']; ?></td>
+                    <td><a data-toggle="modal" href="#sfbreakup"><?php echo $values['Amount_for_Jaman_to_SF']; ?></a>&nbsp;<a href="#" data-key="payhisab" data-month="<?php echo $values['Months']; ?>"><img src="images/add.png" style="width:20px;height:20px;"></a></td>
                     <td><?php echo $values['Fixed_Cost']; ?></td>
                     <td><?php echo $values['Total_Savings']; ?></td>
                     <td><?php echo $values['Frm_MaulaTUS']; ?></td>
@@ -111,6 +183,52 @@ error_reporting(0);
                 </tbody>
               </table> 
 </div>
+<?php include('_bottomJS.php'); ?>
+<script>
+$(function(){
+      $(function(){
+      var hisabform = $('#myModal');
+      hisabform.hide();
+      $('[data-key="payhisab"]').click(function() {
+        $('[name="Month"]', hisabform).val($(this).attr('data-month'));
+        hisabform.show();
+      });
+      $('[name="save"]').click(function() {
+        var data = '';
+        $('input[type!="button"]', hisabform).each(function() {
+          data = data + $(this).attr('name') + '=' + $(this).val() + '&';
+        });
+        $.ajax({
+          method: 'post',
+          url: '_payhisab.php',
+          async: 'false',
+          data: data,
+          success: function(data) {
+            if(data == 'success') {
+              hisabform.hide();
+              window.location.href = window.location.href; //reload
+            // } else if(data == 'DuplicateReceiptNo') {
+            //   alert('Receipt number already exists in database');
+            }
+            else {
+              alert('Update failed. Please do not add receipt again unless you check system values properly');
+            }
+          },
+          error: function() {
+            alert('Try again');
+          }
+        });
+      });
+
+      $('[name="cancel"]').click(function() {
+        hisabform.hide();
+      });
+
+
+      
+      });
+    });
+  </script>
+
 </body>
-</head>
 </html>
