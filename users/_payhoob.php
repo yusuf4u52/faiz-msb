@@ -22,6 +22,8 @@ if($_POST)
   $row = mysqli_fetch_row($sql);
   $paid = $row[0];
 
+  require "emailTest.php";
+
   if ($amount == $paid)
   echo "success";
 
