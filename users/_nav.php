@@ -35,7 +35,6 @@
         <?php
         }
         ?>           
-        <li><a href="hoobHistory.php">Paid Receipts</a></li>
         <li><a href="update_details.php">Update details</a></li>
         <li><a href="logout.php">Logout</a></li>
       </ul>

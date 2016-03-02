@@ -123,7 +123,7 @@ if(empty($values['Thali']))
                     </li>
                     <li class="list-group-item">
                         <h5 class="list-group-item-heading text-muted">Pending Hoob</h5>
-                        <p class="list-group-item-text"><strong><?php echo $values['Total_Pending']; ?></strong></p>
+                        <p class="list-group-item-text"><a href="hoobHistory.php"><strong><?php echo $values['Total_Pending']; ?></strong></a></p>
                     </li>
                     <li class="list-group-item">
                         <h6 class="list-group-item-heading text-muted">Is Active?</h6>
