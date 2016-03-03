@@ -1,6 +1,7 @@
 <?php
 require_once 'connection.php';
 include('adminsession.php');
+require '_credentials.php';
 // require_once 'mandrill/Mandrill.php'; //Not required with Composer
 // print_r($_POST); exit;
 /*
