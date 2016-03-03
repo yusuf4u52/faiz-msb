@@ -15,9 +15,9 @@ if(isset($_POST['transporter']))
 
 mysqli_query($link,"UPDATE thalilist set ".implode(',', $values)." WHERE Email_id = '".$_POST['email']."'");
 
-$msgvar = 'Salam %name%,<br><br>Your thali has been activated and your thali no is : <b>%thali%</b>.<br>You would now be able to log in to <b>www.faizstudents.com --> Update details</b> and view your information using your gmail id.<br>You also have option to Start/Stop thali and update your Details. For any queries please mail us at <b>help@faizstudents.com.</b><br><br>Regards,<br>Faiz Team';
+$msgvar = 'Salam %name%,<br><br>Your thali has been activated and your thali no is : <b>%thali%</b>.<br>You would now be able to log in to <b>www.faizstudents.com --> Update details</b> and view your information using your gmail id.<br>You also have option to Start/Stop thali and update your Details. Please click below link to join our Google Group http://groups.google.com/group/faizstudents/boxsubscribe?email=%email% <br>For any queries please mail us at <b>help@faizstudents.com.</b><br><br>Regards,<br>Faiz Team';
 
-$msgvar = str_replace(array('%thali%','%name%'), array($_POST['thalino'],$_POST['name']), $msgvar);
+$msgvar = str_replace(array('%thali%','%name%','%email%'), array($_POST['thalino'],$_POST['name'],$_POST['email']), $msgvar);
 
 $myfile = fopen("newregistration.txt", "a") or die("Unable to open file!");
 $txt= $_POST['thalino']." - ".$_POST['name']." - ".$_POST['contact']." - ".$_POST['transporter']." - ".$_POST['address']."\n";
