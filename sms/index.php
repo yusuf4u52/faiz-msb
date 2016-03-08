@@ -352,11 +352,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $('.my-tooltip').tooltip();
 
         var rootUrls = <?php echo json_encode($root_urls) ?>;
-        var ordinary = '163349099'
         var params = null;
         var sid;
         var index=0;
-        var defaultUrl = rootUrls["telegram"];
+        var defaultUrl = rootUrls["real"];
         var extra = "";
         var selected = null;
         $.getScript("filter.js");
@@ -380,11 +379,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
           }
 
         });
-        var mockHandler = function(extra, url){
+        $("#send").on('click', function(){
+          selected = getSelected();
           selectedRecords = JSON.stringify(getSelected());
           timeInterval = $("#send_param").val();
           message = $('#message').val();
-          requestObj = $.post("_send.php", { 
+          requestObj = $.post("send.php", { 
             records: selectedRecords,
             message: message
           });
@@ -400,61 +400,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
               params = json['params'];
               //now our usual logic will go here!
               timeInterval = parseInt($("#send_param").val());
-              $("#status").html("");
-              updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
-              sid = setInterval(sendSms.bind(null, url, extra), timeInterval);
+              //check what we are sending here?
+              if($("#send_operator").val()=='sms'){
+                $("#sure_modal").modal();
+              }
+              else{
+                // this is a mock message, validate the input first
+                var mock_param = $("#send_param2").val();
+                if(mock_param.match("^[+-]?\\d+$") != null)
+                {
+                    console.log("number");
+                    extra = "&chatid="+mock_param;
+                    url = rootUrls['telegram'];
+                }
+                else if(mock_param.match("^[\\w.]+@[\\w.]+$"))
+                {
+                    console.log("email");
+                    extra = "&email="+mock_param;
+                    url = rootUrls['email'];
+                }
+                else{
+                    alert("Invalid input! either enter a telegram chat id or an email address");
+                    return;
+                }
+                $("#status").html("");
+                updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
+                sid = setInterval(sendSms.bind(null, url, extra), timeInterval); 
+
+              }
+            }
+            else {
+              alert("there was some error in retrieving the urls");
             }
           });
-        }
-        var smsHandler = function(){
-          selectedRecords = JSON.stringify(getSelected());
-          message = $('#message').val();
-          requestObj = $.post("_send.php", { 
-            records: selectedRecords,
-            message: message
-          });
-          console.log("requestposted");
-          requestObj.done(function(data){
-            console.log(data);
-            updateStatus(data, -1);
-          }); 
-        }
-        $("#send").on('click', function(){
-          selected = getSelected();
-          if (selected.length<1) {
-            alert("kone mokalso? bhut ne? select karo pehla!");
-            return; 
-          }
-          //time_interval validation here
-          msgType = $("#send_operator").val();
-          if (msgType=='sms') {
-            $("#sure_modal").modal();
-          }
-          else if(msgType=='mock') {
-            var mock_param = $("#send_param2").val();
-            var extra, url;
-            if(mock_param.match("^[+-]?\\d+$") != null)
-            {
-                console.log("number");
-                extra = "&chatid="+mock_param;
-                url = rootUrls['telegram'];
-            }
-            else if(mock_param.match("^[\\w.]+@[\\w.]+$"))
-            {
-                console.log("email");
-                extra = "&email="+mock_param;
-                url = rootUrls['email'];
-            }
-            else{
-                alert("Invalid input! either enter a telegram chat id or an email address");
-                return;
-            }
-            mockHandler(extra, url);
-          }
-          return;
         });
 
-        $("#send_sure").on('click', smsHandler);
+        $("#send_sure").on('click', function(){
+          extra = "&chatid=163349099";
+          timeInterval = parseInt($("#send_param").val());
+          $("#status").html("");
+          updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
+          sid = setInterval(sendSms.bind(null, defaultUrl, extra), timeInterval);  
+        })
 
         var sendSms = function(gateway, extra){
             url = gateway+params[index]+extra;
