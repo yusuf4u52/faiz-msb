@@ -1,6 +1,6 @@
 <?php
 include('../users/connection.php');
-include('../users/adminsession.php')
+include('../users/adminsession.php');
 
 $query = file_get_contents("month_change.sql");
 
