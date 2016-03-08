@@ -409,7 +409,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         var smsHandler = function(){
           selectedRecords = JSON.stringify(getSelected());
           message = $('#message').val();
-          requestObj = $.post("_sendBatch.php", { 
+          requestObj = $.post("_send.php", { 
             records: selectedRecords,
             message: message
           });
