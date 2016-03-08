@@ -1,6 +1,6 @@
-CREATE TABLE receipts_jamadalAwwal AS SELECT * FROM receipts;
+CREATE TABLE receipts_JamadalAwwal AS SELECT * FROM receipts;
 TRUNCATE TABLE receipts;
-CREATE TABLE thalilist_jamadalAwwal AS SELECT * FROM thalilist;
+CREATE TABLE thalilist_JamadalAwwal AS SELECT * FROM thalilist;
 UPDATE thalilist SET Previous_Due = Total_Pending;
 UPDATE thalilist SET Dues = 0, Zabihat = 0, Reg_Fee = 0, TranspFee = 0, Paid = 0;
 UPDATE thalilist SET Dues = 1800 where Active = 1;
