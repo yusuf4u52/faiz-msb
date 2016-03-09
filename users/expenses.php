@@ -81,13 +81,28 @@ error_reporting(0);
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Enter the amount given to SF</h4>
+        <h4 class="modal-title">Enter the amount</h4>
       </div>
       <div class="modal-body">
         <div id="hisabform">
-        <input type="number" name="Amount" placeholder="Amount to SF"/>
-        <input type="text" class="gregdate" name="sf_amount_date" value="<?php echo date("Y-m-d") ?>"/>
+        <input type="number" name="Amount" placeholder="Amount"/>
+        
+        <select name="salary">
+                            <option value='Cash'>Cash</option>
+                            <option value='Zabihat'>Zabihat</option>
+                            <option value='BB Salary'>BB Salary</option>
+                            <option value='SF Salary'>SF Salary</option>
+                            <option value='SF Transport'>SF Transport</option>
+                            <option value='MB Transport'>MB Transport</option>
+                            <option value='AZ Transport'>AZ Transport</option>
+                            <option value='Miraj Salary'>Miraj Salary</option>
+                            <option value='Light Bill'>Light Bill</option>
+                            <option value='Rent'>Rent</option>
+                            <option value='Aapa'>Aapa</option>
+                            <option value='Others'>Others</option>
+        </select>
         <input type="hidden" name="Month"/>
+        <input type="text" class="gregdate" name="sf_amount_date" value="<?php echo date("Y-m-d") ?>"/>
       </div>
       </div>
       <div class="modal-footer">
@@ -103,7 +118,7 @@ error_reporting(0);
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Amount given to SF</h4>
+        <h4 class="modal-title">Expense Breakdown</h4>
       </div>
       <div class="modal-body">
         <table class="table table-striped table-hover table-responsive">
@@ -158,6 +173,7 @@ error_reporting(0);
                     <th>Zabihat Students</th>
                     <th>Used</th>
                     <th>Remaining</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
 
@@ -170,13 +186,15 @@ error_reporting(0);
                     <tr>
                     <td><?php echo $values['Months']; ?></td>
                     <td><?php echo $values['Hub_Received']; ?></td>
-                    <td><a data-toggle="modal" href="#sfbreakup"><?php echo $values['Amount_for_Jaman_to_SF']; ?></a>&nbsp;<a href="#" data-key="payhisab" data-month="<?php echo $values['Months']; ?>"><img src="images/add.png" style="width:20px;height:20px;"></a></td>
+                    <td><?php echo $values['Amount_for_Jaman_to_SF']; ?></a></td>
                     <td><?php echo $values['Fixed_Cost']; ?></td>
                     <td><?php echo $values['Total_Savings']; ?></td>
                     <td><?php echo $values['Frm_MaulaTUS']; ?></td>
                     <td><?php echo $values['Frm_Students']; ?></td>
                     <td><?php echo $values['Used']; ?></td>
                     <td><?php echo $values['Remaining']; ?></td>
+                    <td><a href="#" data-key="payhisab" data-month="<?php echo $values['Months']; ?>"><img src="images/add.png" style="width:20px;height:20px;"></a>&nbsp;<a data-toggle="modal" href="#sfbreakup"><img src="images/view.png" style="width:20px;height:20px;"></a></td>
+                    <td></td>
                   </tr>                 
                    <?php } ?>
               
@@ -201,7 +219,7 @@ $(function(){
       });
       $('[name="save"]').click(function() {
         var data = '';
-        $('input[type!="button"]', hisabform).each(function() {
+        $('input[type!="button"],select', hisabform).each(function() {
           data = data + $(this).attr('name') + '=' + $(this).val() + '&';
         });
         $.ajax({
