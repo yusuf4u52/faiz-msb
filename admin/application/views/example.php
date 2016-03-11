@@ -26,13 +26,11 @@ a:hover
 	text-decoration: underline;
 }
 </style>
+<?php include('../users/_head.php'); ?>
+
 </head>
 <body>
-		  <ul>
-            <a href="/users/index.php">Home</a>
-            <a href="/admin/index.php/examples/notpickedup">NotPickedUp</a>
-            <a href="/users/logout.php">Logout</a>
-          </ul>
+<?php include('../users/_nav.php'); ?>
 	
 	<div style='height:20px;'></div>  
     <div>
