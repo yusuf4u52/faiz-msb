@@ -16,11 +16,13 @@
         if(in_array($_SESSION['email'], array('murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com')))
         {
           ?>
-          <li><a href="pendingactions.php">Pending Actions</a></li>
-          <li><a href="thalisearch.php">Thaali Search</a></li>
-          <li><a href="stopMultipleThaalis.php">Stop Multiple Thaalis</a></li>
-          <li><a href="../admin/index.php/examples/faiz">Admin</a></li>
-          <li><a href="../admin/index.php/examples/receipts">Receipts</a></li>
+          <li><a href="/users/pendingactions.php">Pending Actions</a></li>
+          <li><a href="/users/thalisearch.php">Thaali Search</a></li>
+          <li><a href="/users/stopMultipleThaalis.php">Stop Multiple Thaalis</a></li>
+          <li><a href="/admin/index.php/examples/faiz">Admin</a></li>
+          <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
+          <li><a href="/admin/index.php/examples/notpickedup">NotPickedUp</a></li>
+          <li><a href="/sms/">SMS</a></li>
           <?php
         }
         ?>
@@ -31,7 +33,7 @@
         <li><a href="pendingactions.php">Pending Actions</a></li>
         <li><a href="thalisearch.php">Thaali Search</a></li>
         <li><a href="stopMultipleThaalis.php">Stop Multiple Thaalis</a></li>
-        <li><a href="../admin/index.php/examples/receipts">Receipts</a></li>
+        <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
         <?php
         }
         ?>           
