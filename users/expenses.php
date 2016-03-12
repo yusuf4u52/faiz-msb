@@ -4,71 +4,14 @@ include('adminsession.php');
 
 
 error_reporting(0);
+$months = array('Moharram','Safar','RabiulAwwal','RabiulAkhar','JamadalAwwal','JamadalAkhar','Rajab','Shaban','Ramazan','Shawwal','Zilqad','Zilhaj');
 
-    $mh_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_Moharram"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$mh_hub[0]."' WHERE Months = 'Moharram'");
-    $mh_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_Moharram"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$mh_zabihat[0]."'  WHERE Months = 'Moharram'");
-
-    $sf_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_Safar"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$sf_hub[0]."' WHERE Months = 'Safar'");
-    $sf_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_Safar"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$sf_zabihat[0]."' WHERE Months = 'Safar'"); 
-
-    $ra1_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_RabiulAwwal"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$ra1_hub[0]."' WHERE Months = 'RabiulAwwal'");
-    $ra1_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_RabiulAwwal"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$ra1_zabihat[0]."' WHERE Months = 'RabiulAwwal'");
-
-    $ra2_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_RabiulAkhar"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$ra2_hub[0]."' WHERE Months = 'RabiulAkhar'");
-    $ra2_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_RabiulAkhar"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$ra2_zabihat[0]."' WHERE Months = 'RabiulAkhar'");
-
-    $ja1_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_JamadalAwwal"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$ja1_hub[0]."' WHERE Months = 'JamadalAwwal'");
-    $ja1_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_JamadalAwwal"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$ja1_zabihat[0]."' WHERE Months = 'JamadalAwwal'");
-
-    $ja2_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_JamadalAkhar"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$ja2_hub[0]."' WHERE Months = 'JamadalAkhar'");
-    $ja2_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_JamadalAkhar"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$ja2_zabihat[0]."' WHERE Months = 'JamadalAkhar'");
-
-    $rjb_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_Rajab"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$rjb_hub[0]."' WHERE Months = 'Rajab'");
-    $rjb_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_Rajab"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$rjb_zabihat[0]."' WHERE Months = 'Rajab'");   
-
-    $shb_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_Shaban"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$shb_hub[0]."' WHERE Months = 'Shaban'");
-    $shb_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_Shaban"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$shb_zabihat[0]."' WHERE Months = 'Shaban'");
-
-    $rmz_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_Ramazan"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$rmz_hub[0]."' WHERE Months = 'Ramazan'");
-    $rmz_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_Ramazan"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$rmz_zabihat[0]."' WHERE Months = 'Ramazan'");
-
-    $shw_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_Shawwal"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$shw_hub[0]."' WHERE Months = 'Shawwal'");
-    $shw_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_Shawwal"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$shw_zabihat[0]."' WHERE Months = 'Shawwal'");
-
-    $zq_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_Zilqad"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$zq_hub[0]."' WHERE Months = 'Zilqad'");
-    $zq_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_Zilqad"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$zq_zabihat[0]."' WHERE Months = 'Zilqad'");
-
-    $zh_hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid) FROM thalilist_Zilhaj"));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$zh_hub[0]."' WHERE Months = 'Zilhaj'");
-    $zh_zabihat = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Zabihat) FROM thalilist_Zilhaj"));
-    mysqli_query($link, "UPDATE hisab set Frm_Students = '".$zh_zabihat[0]."' WHERE Months = 'Zilhaj'");
-
+foreach ($months as $value) {
+    $hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid),SUM(Zabihat) FROM thalilist_".$value));
+    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$hub[0]."',Frm_Students = '".$hub[1]."' WHERE Months = '".$value."'");
+}
+     
     $result = mysqli_query($link,"select * from hisab");
-
-
-    $sf_breakup = mysqli_query($link, "SELECT * FROM account") or die(mysqli_error($link));
 
 ?>
 <html>
@@ -113,8 +56,12 @@ error_reporting(0);
   </div>
 </div>
 
-
-<div class="modal" id="sfbreakup">
+<!-- month wise expense -->
+<?php 
+foreach ($months as $month) {
+  $sf_breakup = mysqli_query($link, "SELECT * FROM account where Month = '".$month."'") or die(mysqli_error($link));
+?>
+<div class="modal" id="sfbreakup-<?php echo $month; ?>">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -158,6 +105,8 @@ error_reporting(0);
     </div>
   </div>
 </div>
+<?php } ?>
+<!-- month wise expense ends -->
      <div class="container">
 <table class="table table-striped table-hover table-responsive">
 
@@ -193,7 +142,8 @@ error_reporting(0);
                     <td><?php echo $values['Frm_Students']; ?></td>
                     <td><?php echo $values['Used']; ?></td>
                     <td><?php echo $values['Remaining']; ?></td>
-                    <td><a href="#" data-key="payhisab" data-month="<?php echo $values['Months']; ?>"><img src="images/add.png" style="width:20px;height:20px;"></a>&nbsp;<a data-toggle="modal" href="#sfbreakup"><img src="images/view.png" style="width:20px;height:20px;"></a></td>
+                    <td><a href="#" data-key="payhisab" data-month="<?php echo $values['Months']; ?>"><img src="images/add.png" style="width:20px;height:20px;"></a>&nbsp;
+                        <a data-key="Monthview" data-month="<?php echo $values['Months']; ?>" data-toggle="modal" href="#sfbreakup-<?php echo $values['Months']; ?>"><img src="images/view.png" style="width:20px;height:20px;"></a></td>
                     <td></td>
                   </tr>                 
                    <?php } ?>
