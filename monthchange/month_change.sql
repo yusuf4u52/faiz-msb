@@ -5,6 +5,7 @@ UPDATE thalilist SET Previous_Due = Total_Pending;
 UPDATE thalilist SET Dues = 0, Zabihat = 0, Reg_Fee = 0, TranspFee = 0, Paid = 0;
 UPDATE thalilist SET Dues = 1800 where Active = 1;
 UPDATE thalilist SET TranspFee = 250 where Active = 1 AND Transporter != 'Pick Up';
+UPDATE settings SET `value` = `value` + 1 WHERE `settings`.`key` = 'current_month';
 
 -- Customization
 

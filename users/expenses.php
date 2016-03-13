@@ -4,11 +4,31 @@ include('adminsession.php');
 
 
 error_reporting(0);
+
+$current_month = mysqli_fetch_row(mysqli_query($link,"select `value` from `settings` where `key` = 'current_month'"));
+$current_month = (int)$current_month[0];
+
 $months = array('Moharram','Safar','RabiulAwwal','RabiulAkhar','JamadalAwwal','JamadalAkhar','Rajab','Shaban','Ramazan','Shawwal','Zilqad','Zilhaj');
 
-foreach ($months as $value) {
-    $hub = mysqli_fetch_row(mysqli_query($link,"SELECT SUM(Paid),SUM(Zabihat) FROM thalilist_".$value));
-    mysqli_query($link, "UPDATE hisab set Hub_Received = '".$hub[0]."',Frm_Students = '".$hub[1]."' WHERE Months = '".$value."'");
+foreach ($months as $key => $value) {
+
+    if($key == $current_month - 1)
+    {
+      $query = "SELECT SUM(Paid),SUM(Zabihat) FROM thalilist";
+    }
+    else
+    {
+      $query = "SELECT SUM(Paid),SUM(Zabihat) FROM thalilist_".$value;
+    }
+
+    $hub = mysqli_fetch_row(mysqli_query($link,$query));
+    if(!empty($hub))
+      mysqli_query($link, "UPDATE hisab set Hub_Received = '".$hub[0]."',Frm_Students = '".$hub[1]."' WHERE Months = '".$value."'");
+
+    if($key == $current_month - 1)
+    {
+      break;
+    }
 }
      
     $result = mysqli_query($link,"select * from hisab");
@@ -108,7 +128,7 @@ foreach ($months as $month) {
 <?php } ?>
 <!-- month wise expense ends -->
      <div class="container">
-<table class="table table-striped table-hover table-responsive">
+<table class="table table-striped table-bordered table-hover table-responsive">
 
                 <thead>
 
@@ -117,7 +137,7 @@ foreach ($months as $month) {
                     <th>Hub Received</th>
                     <th>Amount Given</th>
                     <th>Fixed Cost</th>
-                    <th>Total Savings</th>
+                    <th class='success'>Total Savings</th>
                     <th>Zabihat Maula(TUS)</th>
                     <th>Zabihat Students</th>
                     <th>Used</th>
@@ -129,25 +149,34 @@ foreach ($months as $month) {
                 <tbody>
 
                     <?php
+                    $yearly_total_savings = 0;
                     while($values = mysqli_fetch_assoc($result))
                     {
+                      $yearly_total_savings += (int)$values['Total_Savings'];
                     ?>
                     <tr>
                     <td><?php echo $values['Months']; ?></td>
                     <td><?php echo $values['Hub_Received']; ?></td>
                     <td><?php echo $values['Amount_for_Jaman_to_SF']; ?></a></td>
                     <td><?php echo $values['Fixed_Cost']; ?></td>
-                    <td><?php echo $values['Total_Savings']; ?></td>
+                    <td class='success'><?php echo $values['Total_Savings']; ?></td>
                     <td><?php echo $values['Frm_MaulaTUS']; ?></td>
                     <td><?php echo $values['Frm_Students']; ?></td>
                     <td><?php echo $values['Used']; ?></td>
                     <td><?php echo $values['Remaining']; ?></td>
                     <td><a href="#" data-key="payhisab" data-month="<?php echo $values['Months']; ?>"><img src="images/add.png" style="width:20px;height:20px;"></a>&nbsp;
                         <a data-key="Monthview" data-month="<?php echo $values['Months']; ?>" data-toggle="modal" href="#sfbreakup-<?php echo $values['Months']; ?>"><img src="images/view.png" style="width:20px;height:20px;"></a></td>
-                    <td></td>
+                   
                   </tr>                 
                    <?php } ?>
-              
+                  <tr>
+                    <td colspan='3'></td>
+                    <td><strong>Cash In Hand</strong></td>
+                    <td class='success'><strong><?php echo $yearly_total_savings; ?></strong></td>
+                    <td colspan='5'></td>
+          
+                   
+                  </tr>                 
                 </tbody>
               </table> 
 </div>
