@@ -158,7 +158,7 @@ if($_GET)
                   </tr>
                 </thead>
 
-                <tbody id='thalidetails'>
+                <tbody>
                   <?php
                     while($values = mysqli_fetch_assoc($result))
                     {
@@ -239,7 +239,7 @@ if($_GET)
         });
       });
       <?php if($_GET): ?>
-        window.location = '#thalidetails';
+        window.location = '#tables';
       <?php endif; ?>
     });
   </script>
