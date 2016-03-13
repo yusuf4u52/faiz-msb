@@ -36,5 +36,6 @@ a:hover
     <div>
 		<?php echo $output; ?>
     </div>
+    <script src="/users/javascript/bootstrap-3.3.6.min.js"></script>
 </body>
 </html>
