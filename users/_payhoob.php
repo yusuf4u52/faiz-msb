@@ -1,7 +1,7 @@
 <?php
 include('connection.php');
 include('adminsession.php');
-include('_credentials.php');
+include('../sms/_credentials.php');
 
 if($_POST)
 {

@@ -139,7 +139,7 @@ if($_GET)
         <input type="button" name="cancel" value="cancel" />
         <input type="button" name="save" value="save"/>
       </div>
-              <table class="table table-striped table-hover ">
+              <table class="table table-striped table-hover">
 
                 <thead>
 
@@ -158,7 +158,7 @@ if($_GET)
                   </tr>
                 </thead>
 
-                <tbody>
+                <tbody id='thalidetails'>
                   <?php
                     while($values = mysqli_fetch_assoc($result))
                     {
@@ -238,6 +238,9 @@ if($_GET)
           }
         });
       });
+      <?php if($_GET): ?>
+        window.location = '#thalidetails';
+      <?php endif; ?>
     });
   </script>
 
