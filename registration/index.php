@@ -21,7 +21,7 @@ if($_POST)
   extract($data);
 
 $transport = ($transport == 'Yes') ? 'Transporter' : 'Pick Up';
-
+$occupation = ($occupation == 'Student') ? 'Student' : 'Working';
 
 $sql = "INSERT INTO thalilist (
                                         `NAME`,
@@ -30,7 +30,9 @@ $sql = "INSERT INTO thalilist (
                                         `Full_Address`,
                                         `Email_ID`,
                                         `WATAN`,
-                                        `Transporter`)
+                                        `Transporter`,
+                                        `Occupation`
+                                        )
                             VALUES (
                                     '$firstname $fathername $lastname',
                                     '$mobile',
@@ -38,7 +40,8 @@ $sql = "INSERT INTO thalilist (
                                     '$address',
                                     '$email',
                                     '$watan',
-                                    '$transport'
+                                    '$transport',
+                                    '$occupation'
                                     )";
   $msg = true;
   mysqli_query($link,$sql) or die(mysqli_error($link));
