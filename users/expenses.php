@@ -153,6 +153,7 @@ foreach ($months as $month) {
                     while($values = mysqli_fetch_assoc($result))
                     {
                       $yearly_total_savings += (int)$values['Total_Savings'];
+                      $yearly_zabihat_savings += (int)$values['Remaining'];
                     ?>
                     <tr>
                     <td><?php echo $values['Months']; ?></td>
@@ -173,8 +174,10 @@ foreach ($months as $month) {
                     <td colspan='3'></td>
                     <td><strong>Cash In Hand</strong></td>
                     <td class='success'><strong><?php echo $yearly_total_savings; ?></strong></td>
-                    <td colspan='5'></td>
-          
+                    <td colspan='2'></td>
+                    <td><strong>Zabihat</strong></td>
+                    <td><strong><?php echo $yearly_zabihat_savings; ?></strong></td>
+                    <td colspan='1'></td>
                    
                   </tr>                 
                 </tbody>
