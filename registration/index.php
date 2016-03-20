@@ -32,6 +32,12 @@ $sql = "INSERT INTO thalilist (
                                         `WATAN`,
                                         `Transporter`,
                                         `Occupation`
+                                       ,`Gender`
+                                       ,`Area`
+                                       ,`WhatsApp`
+                                       ,`College`
+                                       ,`Field`
+                                       ,`Permanent_Residence`
                                         )
                             VALUES (
                                     '$firstname $fathername $lastname',
@@ -42,6 +48,12 @@ $sql = "INSERT INTO thalilist (
                                     '$watan',
                                     '$transport',
                                     '$occupation'
+                                    ,'$gender'
+                                    ,'$area'
+                                    ,'$whatsapp'
+                                    ,'$college'
+                                    ,'$field'
+                                    ,'$permanent_residence'
                                     )";
   $msg = true;
   mysqli_query($link,$sql) or die(mysqli_error($link));
@@ -104,6 +116,10 @@ $sql = "INSERT INTO thalilist (
       <form method="post">
         <div class='col-xs-12'>
             <div class="form-group col-xs-4">
+              <label for="its">ITS Id <a class="required">*</a></label>
+              <input type="text" class="form-control" id="its" name="its" pattern="[0-9]{8}" required>
+            </div>
+            <div class="form-group col-xs-4">
               <label for="firstname">First Name <a class="required">*</a></label>
               <input type="text" class="form-control" id="firstname" name="firstname" required>
             </div>
@@ -115,9 +131,14 @@ $sql = "INSERT INTO thalilist (
               <label for="lastname">Last Name <a class="required">*</a></label>
               <input type="text" class="form-control" id="lastname" name="lastname" required>
             </div>
-            <div class="form-group col-xs-4">
-              <label for="its">ITS Id <a class="required">*</a></label>
-              <input type="text" class="form-control" id="its" name="its" pattern="[0-9]{8}" required>
+            <div class="form-group col-xs-12">
+              <label>Gender <a class="required">*</a> : </label>
+              <label class="radio-inline">
+                <input type="radio" name="gender" value="Male" required />Male
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="gender" value="Female" required />Female
+              </label>
             </div>
             <div class="form-group col-xs-12">
               <label for="address">Address <a class="required">*</a></label>
@@ -128,9 +149,38 @@ $sql = "INSERT INTO thalilist (
               <textarea class="form-control" rows="3" id="address" name="address" required></textarea>
               <p class="help-block">Please enter in this order-FLAT No, Floor No, Bldg No, SOCIETY Name, ROAD, Nearest LANDMARK</p>
             </div>
+
+            <div class="form-group col-xs-6">
+              <label for="area">Area <a class="required">*</a></label>
+              <select class="form-control" id="area" name="area" required>
+                <option disabled selected value> -- select an option -- </option>
+                <option value="Bhagyoday Nagar">Bhagyoday Nagar</option>
+                <option value="Bhawani Peth">Bhawani Peth</option>
+                <option value="Camp">Camp</option>
+                <option value="City">City</option>
+                <option value="Fakhri Hills">Fakhri Hills</option>
+                <option value="Fatima Nagar">Fatima Nagar</option>
+                <option value="Ghorpadi">Ghorpadi</option>
+                <option value="Kondhwa">Kondhwa</option>
+                <option value="Kondhwa Budruk">Kondhwa Budruk</option>
+                <option value="Kothrud">Kothrud</option>
+                <option value="Market Yard">Market Yard</option>
+                <option value="Mitha Nagar">Mitha Nagar</option>
+                <option value="NIBM">NIBM</option>
+                <option value="Salunke Vihar">Salunke Vihar</option>
+                <option value="Tilak Nagar">Tilak Nagar</option>
+                <option value="Undri">Undri</option>
+                <option value="Wanawadi">Wanawadi</option>
+                <option value="(not present in the list)">(not present in the list)</option>
+              </select>
+            </div>
             <div class="form-group col-xs-6">
               <label for="mobile">Mobile Number <a class="required">*</a></label>
               <input type="text" class="form-control" id="mobile" name="mobile" pattern="[0-9]{10}" required>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="whatsapp">WhatsApp Number <a class="required">*</a></label>
+              <input type="text" class="form-control" id="whatsapp" name="whatsapp" pattern="0{2}[0-9]{8,20}" required placeholder="00[CountryCode][MobileNumber]">
             </div>
             <div class="form-group col-xs-6">
               <label for="email">Email Address <a class="required">*</a></label>(only Gmail)
@@ -139,6 +189,11 @@ $sql = "INSERT INTO thalilist (
             <div class="form-group col-xs-6">
               <label for="watan">Watan <a class="required">*</a></label>
               <input type="text" class="form-control" id="watan" name="watan" required>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="permanent_residence">Permanent Residence</label>
+              <input type="text" class="form-control" id="permanent_residence" name="permanent_residence">
+              <p class="help-block">If different from Watan e.g. Kuwait, Dubai, Mumbai, Surat etc</p>
             </div>
             <div class="form-group col-xs-12">
               <label>Transport Required <a class="required">*</a> : </label>
@@ -157,6 +212,14 @@ $sql = "INSERT INTO thalilist (
               <label class="radio-inline">
                 <input type="radio" name="occupation" value="Working Professional" required>Working Professional
               </label>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="college">Full College/Company Name <a class="required">*</a></label>
+              <input type="text" class="form-control" id="college" name="college" required>
+            </div>
+            <div class="form-group col-xs-6">
+              <label for="field">Field/Stream of Study <a class="required">*</a></label>
+              <input type="text" class="form-control" id="field" name="field" required>
             </div>
             <div class="form-group col-xs-12" style="text-align: center; vertical-align: middle; font-weight:20px">
               <button type="submit" class="btn btn-success">Submit Request</button>
