@@ -1,6 +1,6 @@
 <?php
-include('/users/connection.php');
-require_once '/users/mandrill/Mandrill.php'; 
+include('../users/connection.php');
+require_once '../users/mandrill/Mandrill.php'; 
 
 if (mysqli_connect_errno())
   {
