@@ -30,15 +30,15 @@
         if(in_array($_SESSION['email'], array('bscalcuttawala@gmail.com')))
         {
         ?>
-        <li><a href="pendingactions.php">Pending Actions</a></li>
-        <li><a href="thalisearch.php">Thaali Search</a></li>
-        <li><a href="stopMultipleThaalis.php">Stop Multiple Thaalis</a></li>
+        <li><a href="/users/pendingactions.php">Pending Actions</a></li>
+        <li><a href="/users/thalisearch.php">Thaali Search</a></li>
+        <li><a href="/users/stopMultipleThaalis.php">Stop Multiple Thaalis</a></li>
         <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
         <?php
         }
         ?>           
-        <li><a href="update_details.php">Update details</a></li>
-        <li><a href="logout.php">Logout</a></li>
+        <li><a href="/users/update_details.php">Update details</a></li>
+        <li><a href="/users/logout.php">Logout</a></li>
       </ul>
     </div>
   </div>
