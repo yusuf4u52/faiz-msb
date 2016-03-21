@@ -79,7 +79,6 @@ if(empty($values['Thali']))
 
               <form method="POST" action="start_transport.php" onsubmit='return confirm("Are you sure?");' data-key="LazyLoad" class="hidden">
                 <input type="submit" name="start_transport" value="Request Transport"  class="btn btn-success"/>
-                <input type="hidden" class="gregdate" name="start_date" value="<?php echo date("Y-m-d") ?>"/>
               </form>
 
               <?php
@@ -88,7 +87,7 @@ if(empty($values['Thali']))
                 {
               ?>
 
-              <form method="POST" action="stop_transport.php" onsubmit='return confirm("Are you sure?");'>
+              <form method="POST" action="stop_transport.php" onsubmit='return confirm("Are you sure?");' data-key="LazyLoad" class="hidden">
                 <input type="submit" name="stop_transport" value="Stop Transport"  class="btn btn-danger"/>
               </form>
 
