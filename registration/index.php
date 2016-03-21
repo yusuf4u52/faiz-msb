@@ -1,30 +1,21 @@
 <?php
 include('../users/connection.php');
-require_once '../users/mandrill/Mandrill.php'; 
-
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
-
   $msg = false;
-
 if($_POST)
 {
   $raw_data = $_POST;
-
   function sanitize($v)
   {
     return addslashes($v);
   }
-
   $data = array_map("sanitize",$raw_data);
-
   extract($data);
-
 $transport = ($transport == 'Yes') ? 'Transporter' : 'Pick Up';
 $occupation = ($occupation == 'Student') ? 'Student' : 'Working';
-
 $sql = "INSERT INTO thalilist (
                                         `NAME`,
                                         `CONTACT`,
@@ -60,34 +51,6 @@ $sql = "INSERT INTO thalilist (
   $msg = true;
   mysqli_query($link,$sql) or die(mysqli_error($link));
   mysqli_close($link);
-
-$msgvar = 'Salam %name%,<br><br>Your registration form has been sucessfully submitted.<br>Visit Faiz office and complete further formalities.<br> Address : <br> Shop Near Gold Gym,<br>Lane adjacent to Satyanand Hospital,<br>Between Badshah Nagar and Sheetal Petrol Pump, Kondhwa. <br> Office Timings - 9:00 AM to 11:00 AM <br><br> Please mail us at <b>help@faizstudents.com.</b> for any queries<br><br>Regards,<br>Faiz Team';
-
-$msgvar = str_replace(array('%name%'), array($_POST['name']), $msgvar);
-
-try {
-    $mandrill = new Mandrill('BWDHEoe1pGlJ9yiH5xvUGw');
-    $message = array(
-        'html' => $msgvar,
-        'subject' => "Registeration Received - Visit faiz to complete formalities.",
-        'from_email' => 'admin@faizstudents.com',
-        'to' => array(
-            array(
-                'email' => $_POST['email']
-                 ),
-            array(
-                'email' => 'help@faizstudents.com'
-                 )
-           )
-     );
-
-    $result = $mandrill->messages->send($message);
-} catch(Mandrill_Error $e) {
-    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
-    throw $e;
-}
-
-
 }
 ?>
 <!DOCTYPE html>
@@ -123,7 +86,6 @@ try {
         {
           color: red;
         }
-
     </style>
   </head>
 
