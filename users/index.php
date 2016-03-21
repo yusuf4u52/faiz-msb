@@ -136,14 +136,27 @@ if(empty($values['Thali']))
                         <h6 class="list-group-item-heading text-muted">Address</h6>
                         <p class="list-group-item-text"><?php echo $values['Full_Address']; ?></p>
                     </li>
+
+                    <?php
+                      if($values['Active'] == 1)
+                        {
+                    ?>
                     <li class="list-group-item">
                         <h6 class="list-group-item-heading text-muted">Start Date</h6>
                         <p class="list-group-item-text hijridate"><?php echo $values['Thali_start_date']; ?></p>
                     </li>
+
+                    <?php
+                      }
+                      else
+                      {
+                      ?>
                     <li class="list-group-item">
                         <h6 class="list-group-item-heading text-muted">Stop Date</h6>
                         <p class="list-group-item-text hijridate"><?php echo $values['Thali_stop_date']; ?></p>
                     </li>
+
+                    <?php } ?>
                 </ul>
             </div>
         </div>
