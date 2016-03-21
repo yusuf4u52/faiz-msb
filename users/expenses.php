@@ -14,11 +14,11 @@ foreach ($months as $key => $value) {
 
     if($key == $current_month - 1)
     {
-      $query = "SELECT SUM(Paid),SUM(Zabihat) FROM thalilist";
+      $query = "SELECT SUM(Paid)-SUM(Zabihat),SUM(Zabihat) FROM thalilist";
     }
     else
     {
-      $query = "SELECT SUM(Paid),SUM(Zabihat) FROM thalilist_".$value;
+      $query = "SELECT SUM(Paid)-SUM(Zabihat),SUM(Zabihat) FROM thalilist_".$value;
     }
 
     $hub = mysqli_fetch_row(mysqli_query($link,$query));
