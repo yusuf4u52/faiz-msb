@@ -5,6 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="stylesheet" href="/users/src/bootstrap.css" media="screen" />
 <link rel="stylesheet" href="/users/src/custom.min.css" />
+<link rel="icon" href="/users/images/icon.png">
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 <script src="javascript/html5shiv-3.7.0.min.js"></script>
