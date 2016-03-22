@@ -11,12 +11,19 @@ $result = mysqli_query($link,"UPDATE thalilist set
                                       WATAN='" . $_POST["watan"] . "',
                                       ITS_No='" . $_POST["its"] . "'
                                       WHERE Email_id = '".$_SESSION['email']."'");
+                          
+                        if ($_POST['address'] != $_SESSION['old_address'])
+                         {
 
-$myfile = fopen("updatedetails.txt", "a") or die("Unable to open file!");
-$txt= $_SESSION['thali']." - ".$_POST['name']." - ".$_POST['contact']." - ".$_POST['address']." \n";
-fwrite($myfile, $txt);
-fclose($myfile);
- 
+                        $myfile = fopen("updatedetails.txt", "a") or die("Unable to open file!");
+                        $txt= $_SESSION['thali']." - ".$_POST['name']." - ".$_POST['contact']." - ".$_POST['address']." \n";
+                        fwrite($myfile, $txt);
+                        fclose($myfile);
+
+                        mysqli_query($link,"UPDATE thalilist set Transporter='Transporter' where Email_id = '".$_SESSION['email']."'");
+
+                         }
+        unset($_SESSION['old_address']);                 
         header('Location: index.php');       
     }
     else
@@ -29,6 +36,7 @@ fclose($myfile);
      // print_r($data); exit;
 
      extract($data);
+     $_SESSION['old_address'] = $Full_Address;
     }
 
 ?>
