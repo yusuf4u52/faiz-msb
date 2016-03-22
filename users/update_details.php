@@ -12,11 +12,17 @@ $result = mysqli_query($link,"UPDATE thalilist set
                                       ITS_No='" . $_POST["its"] . "'
                                       WHERE Email_id = '".$_SESSION['email']."'");
 
-$myfile = fopen("updatedetails.txt", "a") or die("Unable to open file!");
-$txt= $_SESSION['thali']." - ".$_POST['name']." - ".$_POST['contact']." - ".$_POST['address']." \n";
-fwrite($myfile, $txt);
-fclose($myfile);
- 
+                        if ($_POST["address"] == $Full_Address)
+                         {
+
+                        $myfile = fopen("updatedetails.txt", "a") or die("Unable to open file!");
+                        $txt= $_SESSION['thali']." - ".$_POST['name']." - ".$_POST['contact']." - ".$_POST['address']." \n";
+                        fwrite($myfile, $txt);
+                        fclose($myfile);
+
+                        mysqli_query($link,"UPDATE thalilist set Transporter='Transporter'");
+
+                         }
         header('Location: index.php');       
     }
     else
