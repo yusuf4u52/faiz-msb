@@ -4,13 +4,14 @@ include('connection.php');
 
 if ($_POST)
     {  
-$result = mysqli_query($link,"UPDATE thalilist set 
+      $_POST['address'] = str_replace("'", "", $_POST['address']);
+      mysqli_query($link,"UPDATE thalilist set 
                                       NAME='" . $_POST["name"] . "',
                                       CONTACT='" . $_POST["contact"] . "',
                                       Full_Address='" . $_POST["address"] . "',
                                       WATAN='" . $_POST["watan"] . "',
                                       ITS_No='" . $_POST["its"] . "'
-                                      WHERE Email_id = '".$_SESSION['email']."'");
+                                      WHERE Email_id = '".$_SESSION['email']."'") or die(mysqli_error($link));
                           
                         if ($_POST['address'] != $_SESSION['old_address'])
                          {
