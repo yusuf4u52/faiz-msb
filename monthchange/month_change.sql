@@ -1,6 +1,6 @@
-CREATE TABLE receipts_JamadalAkhar AS SELECT * FROM receipts;
+CREATE TABLE receipts_%month% AS SELECT * FROM receipts;
 TRUNCATE TABLE receipts;
-CREATE TABLE thalilist_JamadalAkhar AS SELECT * FROM thalilist;
+CREATE TABLE thalilist_%month% AS SELECT * FROM thalilist;
 UPDATE thalilist SET Previous_Due = Total_Pending;
 UPDATE thalilist SET Dues = 0, Zabihat = 0, Reg_Fee = 0, TranspFee = 0, Paid = 0;
 UPDATE thalilist SET Dues = 1800 where Active = 1;

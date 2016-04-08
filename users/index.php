@@ -70,7 +70,7 @@ if(empty($values['Thali']))
           <div class="col-xs-6 col-sm-3 col-md-2">
 
               <?php
-                  if($values['Transporter'] == 'Pick Up')
+                  if($values['Transporter'] == 'Pick Up' && $values['Active'] == 1)
                   {
               ?>
 
@@ -80,7 +80,7 @@ if(empty($values['Thali']))
 
               <?php
                 }
-                else
+                else if($values['Active'] == 1)
                 {
               ?>
 
