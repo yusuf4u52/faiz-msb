@@ -15,10 +15,11 @@ $_SESSION['transporter'] = $values['Transporter'];
 
 if(empty($values['Thali']))
 {
+  $some_email = $_SESSION['email'];
   session_unset();  
   session_destroy();
 
-  $status = "Sorry! Either '".$_SESSION['email']."' doesn't exist in our system OR you dont have an active thali. Send and email to help@faizstudents.com";
+  $status = "Sorry! Either $some_email is not registered with us OR your thali is not active. Send and email to help@faizstudents.com";
   header("Location: login.php?status=$status");
 }
 ?>
