@@ -18,7 +18,7 @@ if(empty($values['Thali']))
   session_unset();  
   session_destroy();
 
-  $status = "Sorry! Either ".$_SESSION['email']." doesn't exist in our system OR you dont have an active thali. Send and email to help@faizstudents.com";
+  $status = "Sorry! Either '".$_SESSION['email']."' doesn't exist in our system OR you dont have an active thali. Send and email to help@faizstudents.com";
   header("Location: login.php?status=$status");
 }
 ?>
