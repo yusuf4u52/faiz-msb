@@ -3,7 +3,7 @@
 include('connection.php');
 include('_authCheck.php');
 
-$query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
+$query="SELECT Thali,yearly_commitment, NAME,Dues, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
 
 $values = mysqli_fetch_assoc(mysqli_query($link,$query));
 
@@ -21,6 +21,14 @@ if(empty($values['Thali']))
 
   $status = "Sorry! Either $some_email is not registered with us OR your thali is not active. Send and email to help@faizstudents.com";
   header("Location: login.php?status=$status");
+}
+else if($values['yearly_commitment'] == 1 && empty($values['Dues']))
+{
+  header("Location: selectyearlyhub.php"); 
+}
+else if($values['yearly_commitment'] == 1)
+{
+  $monthly_breakdown = (int)$values['Dues']/8; 
 }
 ?>
 <!DOCTYPE html>
@@ -99,15 +107,10 @@ if(empty($values['Thali']))
 
         <div class="row">
             <h1 class="col-xs-12">Thaali Details</h1>
-        </div>
-
-        <br />
-
-        <div class="row">
             <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4">
                 <ul class="list-group col">
                     <li class="list-group-item">
-                        <h6 class="list-group-item-heading text-muted">Thaali Number</h6>
+                        <h6 class="list-group-item-head ing text-muted">Thaali Number</h6>
                         <p class="list-group-item-text"><strong><?php echo $values['Thali']; ?></strong></p>
                     </li>
                     <li class="list-group-item">
@@ -157,6 +160,59 @@ if(empty($values['Thali']))
                     <?php } ?>
                 </ul>
             </div>
+            <!-- Break down -->
+            <?php
+              if(isset($monthly_breakdown)):
+            ?>
+            <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4">
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4">
+              <h1 class="col-xs-12">Hub Breakdown</h1>
+                <table class='table table-striped'>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>27th June 2016</td>
+                      <td><?php echo $monthly_breakdown; ?></td>
+                    </tr>
+                    <tr>
+                      <td>31st July 2016</td>
+                      <td><?php echo $monthly_breakdown; ?></td>
+                    </tr>
+                    <tr>
+                      <td>29th August 2016</td>
+                      <td><?php echo $monthly_breakdown; ?></td>
+                    </tr>
+                    <tr>
+                      <td>19th September 2016</td>
+                      <td><?php echo $monthly_breakdown; ?></td>
+                    </tr>
+                    <tr>
+                      <td>17th October 2016</td>
+                      <td><?php echo $monthly_breakdown; ?></td>
+                    </tr>
+                    <tr>
+                      <td>20th November 2016</td>
+                      <td><?php echo $monthly_breakdown; ?></td>
+                    </tr>
+                    <tr>
+                      <td>11th December 2016</td>
+                      <td><?php echo $monthly_breakdown; ?></td>
+                    </tr>
+                    <tr>
+                      <td>18th January 2017</td>
+                      <td><?php echo $monthly_breakdown; ?></td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          <?php endif;?>
+            <!-- Break down -->
         </div>
     </div>
 
