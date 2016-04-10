@@ -86,7 +86,7 @@ if(empty($values['Thali']))
               ?>
 
               <form method="POST" action="stop_transport.php" onsubmit='return confirm("Are you sure?");' data-key="LazyLoad" class="hidden">
-                <input type="submit" name="stop_transport" value="Stop Transport"  class="btn btn-danger"/>
+                <input type="submit" name="stop_transport" value="Request Pickup"  class="btn btn-danger"/>
               </form>
 
               <?php
