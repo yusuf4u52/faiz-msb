@@ -22,7 +22,7 @@
           <li><a href="/admin/index.php/examples/faiz">Admin</a></li>
           <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
           <li><a href="/admin/index.php/examples/notpickedup">NotPickedUp</a></li>
-          <li><a href="/sms/">SMS</a></li>
+          <li><a target="_blank" href="/sms/">SMS</a></li>
           <?php
         }
         ?>
