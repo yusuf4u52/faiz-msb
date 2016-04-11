@@ -85,6 +85,7 @@ else if($values['yearly_commitment'] == 1)
 
               <form method="POST" action="start_transport.php" onsubmit='return confirm("Are you sure?");' data-key="LazyLoad" class="hidden">
                 <input type="submit" name="start_transport" value="Request Transport"  class="btn btn-success"/>
+                <input type="hidden" class="gregdate" name="start_date" value="<?php echo date("Y-m-d") ?>"/>
               </form>
 
               <?php
@@ -95,6 +96,7 @@ else if($values['yearly_commitment'] == 1)
 
               <form method="POST" action="stop_transport.php" onsubmit='return confirm("Are you sure?");' data-key="LazyLoad" class="hidden">
                 <input type="submit" name="stop_transport" value="Request Pickup"  class="btn btn-danger"/>
+                <input type="hidden" class="gregdate" name="stop_date" value="<?php echo date("Y-m-d") ?>"/>
               </form>
 
               <?php
