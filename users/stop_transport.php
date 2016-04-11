@@ -14,11 +14,13 @@ $count=mysqli_num_rows($result);
 if ($count == 0) {
 $update = mysqli_query($link,"UPDATE thalilist set Transporter='Pick Up' WHERE Email_id = '".$_SESSION['email']."'");
 
+mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALUES ('" . $_SESSION['thali'] . "', 'Stop Transport','" . $_POST['stop_date'] . "')");
+
 $myfile = fopen("stoptransport.txt", "a") or die("Unable to open file!");
 $txt="".$_SESSION['thali']."\n";
 fwrite($myfile, $txt);
 fclose($myfile);
-$status = "Transport request submitted";
+$status = "Pick Up request submitted";
 }
 header("Location: index.php?status=$status");
 }
