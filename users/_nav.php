@@ -18,7 +18,7 @@
           ?>
           <li><a href="/users/pendingactions.php">Pending Actions</a></li>
           <li><a href="/users/thalisearch.php">Thaali Search</a></li>
-          <li><a href="/users/stopMultipleThaalis.php">Stop Multiple Thaalis</a></li>
+          <li><a href="/users/expenses.php">Expenses</a></li>
           <li><a href="/admin/index.php/examples/faiz">Admin</a></li>
           <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
           <li><a href="/admin/index.php/examples/notpickedup">NotPickedUp</a></li>
