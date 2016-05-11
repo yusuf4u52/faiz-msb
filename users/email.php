@@ -1,5 +1,8 @@
 <?php
 include('connection.php');
+require 'mailgun-php/vendor/autoload.php';
+use Mailgun\Mailgun;
+
 error_reporting(0);
 
 if (filesize('startthali.txt') != 0)
@@ -85,31 +88,12 @@ $txt= date('d/m/Y')."\n".$msgvar."\n";
 fwrite($myfile, $txt);
 fclose($myfile);
 
-require_once 'mandrill/Mandrill.php'; //Not required with Composer
 $msgvar = str_replace("\n", "<br>", $msgvar);
-try {
-    $mandrill = new Mandrill('BWDHEoe1pGlJ9yiH5xvUGw');
-    $message = array(
-        'html' => "<p>$msgvar</p>",
-        'subject' => 'Start Stop update '.date('d/m/Y'),
-        'from_email' => 'admin@faizstudents.com',
-        'to' => array(
-            array(
-                'email' => 'help@faizstudents.com',
-                 ),
-            array(
-                'email' => 'Mustukotaliya53@gmail.com',
-                 ),
-            array(
-                'email' => 'bscalcuttawala@gmail.com',    
-                 )
-           )
-     );
 
-    $result = $mandrill->messages->send($message);
-} catch(Mandrill_Error $e) {
-    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
-    throw $e;
-}
+$mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
+                                'to'      => 'mustukotaliya53@gmail.com','bscalcuttawala@gmail.com', 
+                                'cc'      => 'help@faizstudents.com',   
+                                'subject' => 'Start Stop update '.date('d/m/Y'),
+                                'html'    => $msgvar));
 
 ?>	
