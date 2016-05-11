@@ -2,8 +2,8 @@
 
 include('connection.php');
 include('adminsession.php');
-require_once 'mandrill/Mandrill.php'; //Not required with Composer
-// print_r($_POST); exit;
+require 'mailgun-php/vendor/autoload.php';
+use Mailgun\Mailgun;
 
 
 mysqli_query($link,"DELETE from thalilist WHERE Email_id = '".$_POST['email']."'");
@@ -12,27 +12,16 @@ $msgvar = 'Salam %name%,<br><br>Your thaali has not been activated as we are not
 
 $msgvar = str_replace(array('%name%'), array($_POST['name']), $msgvar);
 
-try {
-    $mandrill = new Mandrill('BWDHEoe1pGlJ9yiH5xvUGw');
-    $message = array(
-        'html' => $msgvar,
-        'subject' => "Student's Faiz - Thali Not Activated",
-        'from_email' => 'admin@faizstudents.com',
-        'to' => array(
-            array(
-                'email' => $_POST['email']
-                 ),
-            array(
-                'email' => 'help@faizstudents.com'
-                 )
-           )
-     );
+$mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
+$domain = "mg.faizstudents.com";
 
-    $result = $mandrill->messages->send($message);
-} catch(Mandrill_Error $e) {
-    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
-    throw $e;
-}
+# Now, compose and send your message.
+$mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
+                                'to'      =>  $_POST['email'], 
+                                'cc'      => 'help@faizstudents.com',   
+                                'subject' => "Student's Faiz - Thali Not Activated", 
+                                'html'    => $msgvar));
+
 
 header("Location: pendingactions.php");
 ?>
