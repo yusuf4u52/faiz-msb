@@ -217,6 +217,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
               </div>
             </div>
 
+            <div class = 'form-group'>
+              <!-- added this div for active/inactive support -->
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group hidden" role="group">
+                  <input type="text" class="form-control" value = '0' id='amount_param2'>
+                </div>
+                <div class="btn-group" role="group">
+                  <div class='input-group'>
+                    <span class="input-group-addon"><i class='fa fa-stop-circle fa-lg fa-fw'></i></span>
+                    <select class='form-control' id='active_operator'>
+                      <option value = "active">Active</option>
+                      <option value = "inactive">Inactive</option>
+                      <option value = "all">All</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class='form-group'>
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
@@ -525,7 +544,7 @@ else{
         echo "Connection failed: " . $e->getMessage();
     //return;
     }
-    $query = "SELECT Thali, NAME, CONTACT, Transporter, Total_Pending from thalilist where Active=1 and CONTACT is not null and ";
+    $query = "SELECT Thali, NAME, CONTACT, Transporter, Total_Pending from thalilist where CONTACT is not null and ";
     $condition = "1=1";
     $amount_operator = $_REQUEST['amount_operator'];
     $amount_param = $_REQUEST['amount_param'];
@@ -533,6 +552,7 @@ else{
     $transporter_operator = $_REQUEST['transporter_operator'];
     $transporter_param = $_REQUEST['transporter_param']; // this will be an array
     //var_dump( $transporter_param); returns zero length string
+    $active_operator = $_REQUEST['active_operator'];
     $field_amount = "Total_Pending";
     $field_transporter = "Transporter";
     switch($amount_operator)
@@ -562,6 +582,18 @@ else{
         }
         $query = $query.$condition;
     }
+    $query = $query." and Active in ";
+    $condition = "";
+    switch($active_operator) {
+      case "active":
+        $condition = '("1")';
+        break;
+      case "inactive":
+        $condition = '("0")';
+      case "all":
+        $condition = '("1", "0")';
+    }
+    $query = $query.$condition;
     //echo "\n\nfinal sql string = ".$query."\n\n";
     try{
         $stmt = $conn->prepare($query);
