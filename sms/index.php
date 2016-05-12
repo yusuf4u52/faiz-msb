@@ -590,6 +590,7 @@ else{
         break;
       case "inactive":
         $condition = '("0")';
+        break;
       case "all":
         $condition = '("1", "0")';
     }
