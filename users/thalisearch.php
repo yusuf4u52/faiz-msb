@@ -212,7 +212,7 @@ if($_GET)
             if(data == 'success') {
               alert('Hoob sucessfully updated.');
               receiptForm.hide();
-              window.location.href = window.location.href; //reload
+              location.reload();
             // } else if(data == 'DuplicateReceiptNo') {
             //   alert('Receipt number already exists in database');
             }
@@ -234,7 +234,7 @@ if($_GET)
       $('[data-key="stopthaali"]').click(function() {
         stopThali_admin($(this).attr('data-thali'), $('[name="receipt_date"]').val(), function(data){
           if(data==='success') {
-            window.location.href = window.location.href;
+            location.reload();
           }
         });
       });
