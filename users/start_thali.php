@@ -1,31 +1,11 @@
 <?php
-
 include('connection.php');
-
 session_start();
-
-
-
-
 if (is_null($_SESSION['fromLogin'])) {
-
-
-
- //send them back
-
+ //send them back\
    header("Location: login.php");
-
 }
 
-else {
-
-$result = mysqli_query($link,"SELECT * from thalilist WHERE Active='1' AND Email_id = '".$_SESSION['email']."'");
-
-$count=mysqli_num_rows($result);
-$status = 'Already Active';
-
-
-if ($count == 0) {
 
 mysqli_query($link,"UPDATE thalilist set Active='1' WHERE Email_id = '".$_SESSION['email']."'");
 mysqli_query($link,"UPDATE thalilist set Thali_start_date='" . $_POST['start_date'] . "' WHERE Email_id = '".$_SESSION['email']."'");
@@ -56,24 +36,13 @@ $count1=mysqli_num_rows($result1);
 
 						}
 
-
-
-
+mysqli_query($link,"update change_table set processed = 1 where Thali = '" . $_SESSION['thali'] . "' and `Operation` in ('Start Thali','Stop Thali') and processed = 0");
 mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALUES ('" . $_SESSION['thali'] . "', 'Start Thali','" . $_POST['start_date'] . "')");
 
-$myfile = fopen("startthali.txt", "a") or die("Unable to open file!");
-
-$txt="".$_SESSION['thali']." - ".$_SESSION['name']." - ".$_SESSION['contact']." - ".$_SESSION['transporter']." - ".$_SESSION['address']."\n";
-
-fwrite($myfile, $txt);
-
-fclose($myfile);
 $status = 'Start Thali Successful';
-
- }
 
 header("Location: index.php?status=$status");
 
-}
+
 
 ?>

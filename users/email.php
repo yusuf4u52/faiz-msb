@@ -2,60 +2,42 @@
 include('connection.php');
 require 'mailgun-php/vendor/autoload.php';
 use Mailgun\Mailgun;
-
 error_reporting(0);
 
-if (filesize('startthali.txt') != 0)
+$sql = mysqli_query($link,"SELECT t.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id 
+						from change_table as c
+						inner join thalilist as t on c.Thali = t.Thali
+						WHERE c.processed = 0");
+$request = array();
+$processed_ids = array(); 
+echo "<pre>";
+while($row = mysqli_fetch_assoc($sql))
 {
-$msgvar = "Start Thali\n";
-
-$myfile = fopen("startthali.txt", "r+") or die("Unable to open file!");
-$readfile = fread($myfile,filesize("startthali.txt"));
-// Remove Duplicate 
-$msgvar .= implode("\n",array_unique(explode("\n", $readfile)));
-ftruncate($myfile, 0);
-fclose($myfile);
+	$request[$row['Operation']][] = $row;
+	$processed[] = $row['id'];
 }
 
-if (filesize('stopthali.txt') != 0)
-{
-$msgvar .= "\nStop Thali\n";
-
-$myfile = fopen("stopthali.txt", "r+") or die("Unable to open file!");
-$readfile = fread($myfile,filesize("stopthali.txt"));
-// Remove Duplicate 
-$msgvar .= implode("\n",array_unique(explode("\n", $readfile)));
-ftruncate($myfile, 0);
-fclose($myfile);
+foreach ($request as $key => $value) {
+	$msgvar .= $key."\n";
+	if(in_array($key, array('Start Thali','Start Transport')))
+	{
+		foreach ($value as $thaliuser) {
+			$msgvar .= 	sprintf("%s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address']);
+		}	
+	}
+	else if(in_array($key, array('Stop Thali','Stop Transport')))
+	{
+		foreach ($value as $thaliuser) {
+			$msgvar .= 	sprintf("%s\n",$thaliuser['Thali']);
+		}
+	}
+	$msgvar .= 	"\n";
 }
-
-if (filesize('starttransport.txt') != 0)
-{
-$msgvar .= "\nStart Transport\n";
-
-$myfile = fopen("starttransport.txt", "r+") or die("Unable to open file!");
-$readfile = fread($myfile,filesize("starttransport.txt"));
-// Remove Duplicate 
-$msgvar .= implode("\n",array_unique(explode("\n", $readfile)));
-ftruncate($myfile, 0);
-fclose($myfile);
-}
-
-if (filesize('stoptransport.txt') != 0)
-{
-$msgvar .= "\nStop Transport\n";
-
-$myfile = fopen("stoptransport.txt", "r+") or die("Unable to open file!");
-$readfile = fread($myfile,filesize("stoptransport.txt"));
-// Remove Duplicate 
-$msgvar .= implode("\n",array_unique(explode("\n", $readfile)));
-ftruncate($myfile, 0);
-fclose($myfile);
-}
+mysqli_query($link,"update change_table set processed = 1 where id in (".implode(',', $processed).")");
 
 if (filesize('updatedetails.txt') != 0)
 {
-$msgvar .= "\nUpdate Details\n";
+$msgvar .= "Update Details\n";
 
 $myfile = fopen("updatedetails.txt", "r+") or die("Unable to open file!");
 $readfile = fread($myfile,filesize("updatedetails.txt"));
