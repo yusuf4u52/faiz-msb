@@ -77,12 +77,14 @@
 		amount_param2 = $('#amount_param2').val();
 		transporter_operator = $("#transporter_operator").val();
 		transporter_param = getSelectedTransporters();
+		active_operator = $('#active_operator').val();
 		requestObj = $.post("index.php", { 
 			'amount_operator':amount_operator,
 			'amount_param':amount_param,
 			'amount_param2':amount_param2,
 			'transporter_operator':transporter_operator,
-			'transporter_param':transporter_param
+			'transporter_param':transporter_param,
+			'active_operator':active_operator
 		});
 		requestObj.done(function(data){
 			var json = null;
