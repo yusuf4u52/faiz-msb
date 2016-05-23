@@ -66,7 +66,6 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
                                 'cc'      => 'help@faizstudents.com',   
                                 'subject' => 'New Registration Successful, Visit Faiz to activate the thali',
                                 'html'    => $msgvar));
-
 }
 ?>
 <!DOCTYPE html>
