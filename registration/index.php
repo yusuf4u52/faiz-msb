@@ -1,5 +1,7 @@
 <?php
 include('../users/connection.php');
+require '../users/mailgun-php/vendor/autoload.php';
+use Mailgun\Mailgun;
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -51,6 +53,20 @@ $sql = "INSERT INTO thalilist (
   $msg = true;
   mysqli_query($link,$sql) or die(mysqli_error($link));
   mysqli_close($link);
+
+$msgvar = "Salaam ".$firstname.",<br><br>New Registration form for Faiz ul Mawaid il Burhaniyah Thali has been successfully submitted.<br>
+<b>Please visit faiz to get the thali activated.</b><br>
+For any concerns mail help@faizstudents.com";
+
+$mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
+$domain = "mg.faizstudents.com";
+
+$mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
+                                'to'      =>  $email, 
+                                'cc'      => 'help@faizstudents.com',   
+                                'subject' => 'New Registration Successful, Visit Faiz to activate the thali',
+                                'html'    => $msgvar));
+
 }
 ?>
 <!DOCTYPE html>
