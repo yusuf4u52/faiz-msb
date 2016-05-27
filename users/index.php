@@ -3,7 +3,7 @@
 include('connection.php');
 include('_authCheck.php');
 
-$query="SELECT Thali,yearly_commitment, NAME,Dues, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
+$query="SELECT Thali, yearly_commitment, NAME, Dues, yearly_hub, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
 
 $values = mysqli_fetch_assoc(mysqli_query($link,$query));
 
@@ -22,13 +22,13 @@ if(empty($values['Thali']))
   $status = "Sorry! Either $some_email is not registered with us OR your thali is not active. Send and email to help@faizstudents.com";
   header("Location: login.php?status=$status");
 }
-else if($values['yearly_commitment'] == 1 && empty($values['Dues']))
+else if($values['yearly_commitment'] == 1 && empty($values['yearly_hub']))
 {
   header("Location: selectyearlyhub.php"); 
 }
 else if($values['yearly_commitment'] == 1)
 {
-  $monthly_breakdown = (int)$values['Dues']/8; 
+  $monthly_breakdown = (int)$values['yearly_hub']/8; 
 }
 ?>
 <!DOCTYPE html>
@@ -170,6 +170,7 @@ else if($values['yearly_commitment'] == 1)
             </div>
             <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4">
               <h1 class="col-xs-12">Hub Breakdown</h1>
+              <h5 class="col-xs-12">The niyaaz amount will be payable throughout the year on the following 8 miqaats. You can either pay the whole amount in Lailat ul Qadr or pay it during the year.</h5>
                 <table class='table table-striped'>
                   <thead>
                     <tr>
@@ -179,35 +180,35 @@ else if($values['yearly_commitment'] == 1)
                   </thead>
                   <tbody>
                     <tr>
-                      <td>27th June 2016</td>
+                      <td>Lailatul Qadr (27th June 2016)</td>
                       <td><?php echo $monthly_breakdown; ?></td>
                     </tr>
                     <tr>
-                      <td>31st July 2016</td>
+                      <td>Urs Syedi Abdulqadir Hakimuddin (AQ) (31st July 2016)</td>
                       <td><?php echo $monthly_breakdown; ?></td>
                     </tr>
                     <tr>
-                      <td>29th August 2016</td>
+                      <td>Milad Of Syedna Taher Saifuddin (RA) (29th August 2016)</td>
                       <td><?php echo $monthly_breakdown; ?></td>
                     </tr>
                     <tr>
-                      <td>19th September 2016</td>
+                      <td>Eid-e-Ghadeer-e-Khum (19th September 2016)</td>
                       <td><?php echo $monthly_breakdown; ?></td>
                     </tr>
                     <tr>
-                      <td>17th October 2016</td>
+                      <td>Urs Syedna Hatim (RA) (17th October 2016)</td>
                       <td><?php echo $monthly_breakdown; ?></td>
                     </tr>
                     <tr>
-                      <td>20th November 2016</td>
+                      <td>Chehlum Imam Husain (S.A) (20th November 2016)</td>
                       <td><?php echo $monthly_breakdown; ?></td>
                     </tr>
                     <tr>
-                      <td>11th December 2016</td>
+                      <td>Milad Rasulullah (SAW) (11th December 2016)</td>
                       <td><?php echo $monthly_breakdown; ?></td>
                     </tr>
                     <tr>
-                      <td>18th January 2017</td>
+                      <td>Milad Syedna Mohammed Burhanuddin (RA) (18th January 2017)</td>
                       <td><?php echo $monthly_breakdown; ?></td>
                     </tr>
                   </tbody>
