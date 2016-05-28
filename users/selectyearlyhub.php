@@ -18,8 +18,9 @@ include('_authCheck.php');
             <h4 class="col-xs-12">Please select the total niyaaz amount that you will contribute for the full year.</h4>
         </div>
           <a class="row" href='selectyearlyhub_action.php?option=1'><button type="button" class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>21,000/-</button></a>
-          <a class="row" href='selectyearlyhub_action.php?option=2'><button type="button" class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>27,000/-</button></a>
-          <a class="row" href='selectyearlyhub_action.php?option=3'><button type="button" class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>53,000/-</button></a>
+          <a class="row" href='selectyearlyhub_action.php?option=2'><button type="button" class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>24,000/-</button></a>
+          <a class="row" href='selectyearlyhub_action.php?option=3'><button type="button" class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>27,000/-</button></a>
+          <a class="row" href='selectyearlyhub_action.php?option=4'><button type="button" class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>53,000/-</button></a>
     </div>
 
     <?php include('_bottomJS.php'); ?>
