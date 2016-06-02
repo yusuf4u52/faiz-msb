@@ -85,7 +85,7 @@ include('adminsession.php');
                     </td>
                     <td><?php echo $values['Full_Address']; ?></td>
                     <td><?php echo $values['NAME']; ?></td>
-                    <td><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></td>
+                    <td><?php echo $values['CONTACT']; ?></td>
                     
 
 
