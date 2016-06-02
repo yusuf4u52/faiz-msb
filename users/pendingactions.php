@@ -130,7 +130,7 @@ include('adminsession.php');
                     <th>Transporter</th>
                     <th>Address</th>
                     <th>Name</th>
-                    <th>Active</th>
+                    <th>Mobile</th>
                     <th></th>
                     
                   </tr>
