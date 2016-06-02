@@ -93,13 +93,30 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
             background-attachment: fixed;
         }
         .container {
-            background-color: #FCFCE4;
+            background-image: url(../users/images/icon-gray.png);
+            background-size: 30px 30px;
+            background-clip: border-box;
             padding-top: 1em;
             padding-bottom: 1em;
+
+            border: 1px dotted #ddd;
+            border-radius: 10px;
+
+            -webkit-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.78);
+            -moz-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.78);
+            box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.78);
         }
         .required
         {
           color: red;
+        }
+
+        .font-size-13-px {
+          font-size: 13px;
+        }
+
+        .color-brown {
+          color: brown;
         }
     </style>
   </head>
@@ -116,28 +133,37 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
     <?php endif; ?>
 
       <div class="header" style="text-align: center; vertical-align: middle; font-weight:20px">
-        <h2 class="text-muted"><strong>Thali Registration</strong></h2>
+        <h4 class="color-brown"><strong>Faiz ul Mawaid il Burhaniyah</strong></h4>
+        <h5 class="color-brown">(Poona Students)</h5>
+        <h4 style="margin-top: 20px;"><strong>Thaali Registration</strong></h4>
       </div>
 
       <form method="post">
         <div class='col-xs-12'>
-            <div class="form-group col-xs-4">
-              <label for="its">ITS Id <a class="required">*</a></label>
-              <input type="text" class="form-control" id="its" name="its" pattern="[0-9]{8}" required>
+
+            <div class="row">
+              <div class="form-group col-xs-6 col-md-3">
+                <label for="its">ITS ID <a class="required">*</a></label>
+                <input type="text" class="form-control" id="its" name="its" pattern="[0-9]{8}" required>
+              </div>
             </div>
-            <div class="form-group col-xs-4">
-              <label for="firstname">First Name <a class="required">*</a></label>
-              <input type="text" class="form-control" id="firstname" name="firstname" required>
+
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="firstname">First Name <a class="required">*</a></label>
+                <input type="text" class="form-control" id="firstname" name="firstname" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="fathername">Father's Name <a class="required">*</a></label>
+                <input type="text" class="form-control" id="fathername" name="fathername" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="lastname">Last Name <a class="required">*</a></label>
+                <input type="text" class="form-control" id="lastname" name="lastname" required>
+              </div>
             </div>
-            <div class="form-group col-xs-4">
-              <label for="fathername">Father's Name <a class="required">*</a></label>
-              <input type="text" class="form-control" id="fathername" name="fathername" required>
-            </div>
-            <div class="form-group col-xs-4">
-              <label for="lastname">Last Name <a class="required">*</a></label>
-              <input type="text" class="form-control" id="lastname" name="lastname" required>
-            </div>
-            <div class="form-group col-xs-12">
+
+            <div class="form-group">
               <label>Gender <a class="required">*</a> : </label>
               <label class="radio-inline">
                 <input type="radio" name="gender" value="Male" required />Male
@@ -146,17 +172,20 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
                 <input type="radio" name="gender" value="Female" required />Female
               </label>
             </div>
-            <div class="form-group col-xs-12">
-              <label for="address">Address <a class="required">*</a></label>
+
+            <hr />
+
+            <div class="form-group">
+              <label for="address">Current Address <a class="required">*</a></label>
               <!-- <input type="text" class="form-control" id="address1" name="address1" required>
               <input type="text" class="form-control" id="address2" name="address2" required style="margin-top : 5px">
               <input type="text" class="form-control" id="address3" name="address3" required style="margin-top : 5px"> -->
 
               <textarea class="form-control" rows="3" id="address" name="address" required></textarea>
-              <p class="help-block">Please enter in this order-FLAT No, Floor No, Bldg No, SOCIETY Name, ROAD, Nearest LANDMARK</p>
+              <p class="help-block "><em>(Please enter in this order-FLAT No, Floor No, Bldg No, SOCIETY Name, ROAD, Nearest LANDMARK)</em></p>
             </div>
 
-            <div class="form-group col-xs-6">
+            <div class="form-group">
               <label for="area">Area <a class="required">*</a></label>
               <select class="form-control" id="area" name="area" required>
                 <option disabled selected value> -- select an option -- </option>
@@ -180,28 +209,8 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
                 <option value="(not present in the list)">(not present in the list)</option>
               </select>
             </div>
-            <div class="form-group col-xs-6">
-              <label for="mobile">Mobile Number <a class="required">*</a></label>
-              <input type="text" class="form-control" id="mobile" name="mobile" pattern="[0-9]{10}" required>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="whatsapp">WhatsApp Number <a class="required">*</a></label>
-              <input type="text" class="form-control" id="whatsapp" name="whatsapp" pattern="0{2}[0-9]{8,20}" required placeholder="00[CountryCode][MobileNumber]">
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="email">Email Address <a class="required">*</a></label>(only Gmail)
-              <input type="email" class="form-control" id="Email" name="email" pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@gmail.com$" required>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="watan">Watan <a class="required">*</a></label>
-              <input type="text" class="form-control" id="watan" name="watan" required>
-            </div>
-            <div class="form-group col-xs-6">
-              <label for="permanent_residence">Permanent Residence</label>
-              <input type="text" class="form-control" id="permanent_residence" name="permanent_residence">
-              <p class="help-block">If different from Watan e.g. Kuwait, Dubai, Mumbai, Surat etc</p>
-            </div>
-            <div class="form-group col-xs-12">
+
+            <div class="form-group">
               <label>Transport Required <a class="required">*</a> : </label>
               <label class="radio-inline">
                 <input type="radio" name="transport" value="Yes" required>Yes
@@ -210,7 +219,38 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
                 <input type="radio" name="transport" value="No" required>No
               </label>
             </div>
-            <div class="form-group col-xs-12">
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="mobile">Mobile Number <a class="required">*</a></label>
+                <input type="tel" maxlength="10" class="form-control" id="mobile" name="mobile" pattern="[0-9]{10}" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="whatsapp">WhatsApp Number <a class="required">*</a></label>
+                <input type="number" class="form-control" id="whatsapp" name="whatsapp" pattern="0{2}[0-9]{8,20}" required placeholder="00[CountryCode][MobileNumber]">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address <a class="required">*</a></label>(only Gmail)
+              <input type="email" class="form-control" id="Email" name="email" pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@gmail.com$" required>
+            </div>
+            
+            <hr />
+
+            <div class="form-group">
+              <label for="watan">Watan <a class="required">*</a></label>
+              <input type="text" class="form-control" id="watan" name="watan" required>
+            </div>
+            <div class="form-group">
+              <label for="permanent_residence">Permanent Residence Address</label>
+              <input type="text" class="form-control" id="permanent_residence" name="permanent_residence">
+              <p class="help-block">If different from Watan e.g. Kuwait, Dubai, Mumbai, Surat etc</p>
+            </div>
+            
+            <hr />
+
+            <div class="form-group font-size-13-px">
               <label>Occupation <a class="required">*</a> : </label>
               <label class="radio-inline">
                 <input type="radio" name="occupation" value="Student" required>Student
@@ -219,15 +259,18 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
                 <input type="radio" name="occupation" value="Working Professional" required>Working Professional
               </label>
             </div>
-            <div class="form-group col-xs-6">
-              <label for="college">Full College/Company Name <a class="required">*</a></label>
-              <input type="text" class="form-control" id="college" name="college" required>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="college">Full College/Company Name <a class="required">*</a></label>
+                <input type="text" class="form-control" id="college" name="college" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="field">Field/Stream of Study <a class="required">*</a></label>
+                <input type="text" class="form-control" id="field" name="field" required>
+              </div>
             </div>
-            <div class="form-group col-xs-6">
-              <label for="field">Field/Stream of Study <a class="required">*</a></label>
-              <input type="text" class="form-control" id="field" name="field" required>
-            </div>
-            <div class="form-group col-xs-12" style="text-align: center; vertical-align: middle; font-weight:20px">
+            <div class="form-group" style="text-align: center; vertical-align: middle; font-weight:20px;margin-top: 25px;">
               <button type="submit" class="btn btn-success">Submit Request</button>
             </div>
         </div>
