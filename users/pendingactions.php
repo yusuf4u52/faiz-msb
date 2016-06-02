@@ -85,7 +85,7 @@ include('adminsession.php');
                     </td>
                     <td><?php echo $values['Full_Address']; ?></td>
                     <td><?php echo $values['NAME']; ?></td>
-                    <td><?php echo $values['CONTACT']; ?></td>
+                    <td><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></td>
                     
 
 
@@ -170,7 +170,7 @@ include('adminsession.php');
                     </td>
                     <td><?php echo $values['Full_Address']; ?></td>
                     <td><?php echo $values['NAME']; ?></td>
-                    <td><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></td>
+                    <td><?php echo $values['CONTACT']; ?></td>
                     <td><input type='submit' value='Activate'></td>
                     <td><input type='submit' value='Reject' formaction="reject.php"></td>
                   </tr>
