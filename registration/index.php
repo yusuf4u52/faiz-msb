@@ -2,14 +2,16 @@
 include('../users/connection.php');
 require '../users/mailgun-php/vendor/autoload.php';
 use Mailgun\Mailgun;
+session_start();
+
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
-  $msg = false;
 if($_POST)
 {
   $raw_data = $_POST;
+  $_SESSION['mail'] = $_POST['email'];
   function sanitize($v)
   {
     return addslashes($v);
@@ -50,7 +52,6 @@ $sql = "INSERT INTO thalilist (
                                     ,'$field'
                                     ,'$permanent_residence'
                                     )";
-  $msg = true;
   mysqli_query($link,$sql) or die(mysqli_error($link));
   mysqli_close($link);
 
@@ -66,6 +67,9 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
                                 'cc'      => 'help@faizstudents.com',   
                                 'subject' => 'New Registration Successful, Visit Faiz to activate the thali',
                                 'html'    => $msgvar));
+
+   header("Location: selectyearlyhub.php");
+
 }
 ?>
 <!DOCTYPE html>
@@ -124,14 +128,6 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
   <body>
 
     <div class="container drop-shadow">
-      <?php if($msg):?>
-      
-      <!--   <strong>Registration Successful!</strong> Please visit faiz to activate your thali. -->
-        <script type="text/javascript">
-      alert('Data Submitted, Visit faiz to activate thali');
-      </script>
-    <?php endif; ?>
-
       <div class="header" style="text-align: center; vertical-align: middle; font-weight:20px">
         <h4 class="color-brown"><strong>Faiz ul Mawaid il Burhaniyah</strong></h4>
         <h5 class="color-brown">(Poona Students)</h5>
@@ -271,7 +267,7 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
               </div>
             </div>
             <div class="form-group" style="text-align: center; vertical-align: middle; font-weight:20px;margin-top: 25px;">
-              <button type="submit" class="btn btn-success">Submit Request</button>
+              <button type="submit" class="btn btn-success">Next</button>
             </div>
         </div>
       </form>
