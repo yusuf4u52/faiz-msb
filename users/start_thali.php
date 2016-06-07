@@ -12,12 +12,9 @@ mysqli_query($link,"UPDATE thalilist set Thali_start_date='" . $_POST['start_dat
 
 // $capture = mb_substr($_POST['start_date'], -2);
 // $capture=str_replace("-","0",$capture);
-
 // $result1 = mysqli_query($link,"SELECT * from thalilist WHERE Dues=0 AND Email_id = '".$_SESSION['email']."'");
 // $count1=mysqli_num_rows($result1);
-
-// 		if ($count1 == 1) {
-
+// if ($count1 == 1) {
 // 			if ($capture >= 1 && $capture <= 10)
 // 			{
 // 				mysqli_query($link,"UPDATE thalilist set Dues='1800' WHERE Email_id = '".$_SESSION['email']."'");
@@ -33,8 +30,7 @@ mysqli_query($link,"UPDATE thalilist set Thali_start_date='" . $_POST['start_dat
 // 				mysqli_query($link,"UPDATE thalilist set Dues='600' WHERE Email_id = '".$_SESSION['email']."'");
 // 				mysqli_query($link,"UPDATE thalilist set TranspFee='90' WHERE Transporter != 'Pick Up' AND Email_id = '".$_SESSION['email']."'");
 // 			}
-
-						}
+// }
 
 mysqli_query($link,"update change_table set processed = 1 where Thali = '" . $_SESSION['thali'] . "' and `Operation` in ('Start Thali','Stop Thali') and processed = 0");
 mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALUES ('" . $_SESSION['thali'] . "', 'Start Thali','" . $_POST['start_date'] . "')");
