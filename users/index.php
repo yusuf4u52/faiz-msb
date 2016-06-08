@@ -22,13 +22,13 @@ if(empty($values['Thali']))
   $status = "Sorry! Either $some_email is not registered with us OR your thali is not active. Send and email to help@faizstudents.com";
   header("Location: login.php?status=$status");
 }
-else if($values['yearly_commitment'] == 1 && empty($values['yearly_hub']))
+else if($values['yearly_commitment'] == 1 && empty($values['yearly_hub']) && $values['Active'] == 1)
 {
   header("Location: selectyearlyhub.php"); 
 }
-else if($values['yearly_commitment'] == 1)
+else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
 {
-  $monthly_breakdown = (int)$values['yearly_hub']/8; 
+  $monthly_breakdown = (int)$values['Total_Pending']/8; 
 }
 ?>
 <!DOCTYPE html>
