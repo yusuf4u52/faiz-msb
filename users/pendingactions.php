@@ -152,6 +152,7 @@ include('adminsession.php');
                       <input type='hidden' value='<?php echo $values['CONTACT']; ?>' name='contact'>
                       <input type='hidden' value='<?php echo $values['Full_Address']; ?>' name='address'>
                       <input type='hidden' value='<?php echo $values['Transporter']; ?>' name='trasnporter'>
+                      <input type="hidden" class="gregdate" name="start_date" value="<?php echo date("Y-m-d") ?>"/>
                       <input type='text' size=8 name='thalino' class='' required='required'></td>
                     <td>
                         <?php if($values['Transporter'] == 'Transporter') { ?>
@@ -197,12 +198,9 @@ include('adminsession.php');
 
     </div>
 
-    <script src="javascript/jquery-2.2.0.min.js"></script>
-    <script src="javascript/bootstrap-3.3.6.min.js"></script>
-
-    <script type="text/javascript">
-
+    <?php include('_bottomJS.php'); ?>
     
+    <script type="text/javascript">
       $(function() {
   // Handler for .ready() called.
   
