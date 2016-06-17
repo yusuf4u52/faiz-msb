@@ -1,6 +1,16 @@
 <?php
 include('connection.php');
 include('_authCheck.php');
+
+$query="SELECT yearly_hub FROM thalilist where Email_id = '".$_SESSION['email']."'";
+
+$values = mysqli_fetch_assoc(mysqli_query($link,$query));
+
+if(!empty($values['yearly_hub']))
+{
+  header("Location: index.php"); 
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
