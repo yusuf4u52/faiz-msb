@@ -17,17 +17,19 @@ if(isset($_POST['transporter']))
 } 
 
 mysqli_query($link,"UPDATE thalilist set ".implode(',', $values)." WHERE Email_id = '".$_POST['email']."'");
+mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`,`processed`) VALUES ('" . $_POST['thalino'] . "', 'Start Thali','" . $_POST['start_date'] . "',1)");
+
 
 $msgvar = "Salaam %name%,<br><br>Mubarak for starting your Faiz ul Mawaid il Burhaniyah Thaali -<br><br>Your Thali No. will be : <b>%thali%</b><br><br>
 1) If you need any help please email us on help@faizstudents.com or WhatsApp us on 9049378652, 9503054797.
 <br>
 2) You can start / stop your thaali and update your details from the site - http://www.faizstudents.com/users/
 <br>
-2) Please ping +919860225717 to join the Faiz WhatsApp Group. All Faiz announcements are sent through it so please join it.
+2) Please ping +919503054797 to join the Faiz WhatsApp Group. All Faiz announcements are sent through it so please join it.
 <br>
 3) Subscribe to the Google mailing list - https://groups.google.com/forum/#!forum/faizstudents/join - This group can be used to send enquiries regarding vancancies, looking for roomates etc.
 <br>
-4) Please ensure your hub is paid before the first of every Hijri Month. Transport will not be available from first Saturday of every month if hubs are pending. If you have any problems in paying the hub please contact us in advance.
+4) Please ensure your hub is paid on each Miqaat listed on the site. If you have any problems in paying the hub please contact us in advance.
 <br>
 5) Please ensure you return a washed tiffin everyday. If your tiffin is unwashed / partially washed or not returned, your thaali will not be delivered the next day. In this case you will have to pick it up from Faiz, your thaali will not be delivered that day. However the bhai doing delivery will come to take the empty tiffin, so that your thaali can be delivered the next day. He will only take one empty tiffin.
 <br>
