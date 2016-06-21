@@ -1,6 +1,7 @@
 <?php
 include('connection.php');
 include('adminsession.php');
+include('../sms/_credentials.php');
 
 if($_POST)
 {
@@ -11,6 +12,13 @@ if($_POST)
    	{
 		mysqli_query($link,"UPDATE thalilist set Reg_Fee = Reg_Fee + 200 WHERE Thali = '$thali'") or die(mysqli_error($link));
 		mysqli_query($link,"INSERT INTO not_picked_up (`Thali_no`, `Date`, `Reason`, `Fine` ) VALUES ( '$thali', '" . $_POST['fineDate'] . "' , 'Not Picked Up' , 200)");
+
+		$sql = mysqli_query($link,"SELECT CONTACT from thalilist where Thali='$thali'");
+		$row = mysqli_fetch_row($sql);
+		$sms_to = $row[0];
+		$sms_body = "Thali $thali, You did not pickup your thali today.You have been fined Rs 200 for not treating maulas neamat with respect it deserves.";
+		$sms_body = urlencode($sms_body);
+		$result = file_get_contents("http://sms.myn2p.com/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$sms_to&message=$sms_body&sender=FAIZST&route=Template");
 	}
 	echo ("<SCRIPT LANGUAGE='JavaScript'>
     window.alert('Fine of 200 added successfully');
