@@ -28,7 +28,61 @@ else if($values['yearly_commitment'] == 1 && empty($values['yearly_hub']) && $va
 }
 else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
 {
-  $monthly_breakdown = (int)$values['Total_Pending']/8; 
+  $reciepts_query_result_total = mysqli_fetch_assoc(mysqli_query($link,"SELECT sum(`Amount`) as total FROM `receipts` where Thali_No = '".$_SESSION['thali']."'"));
+  $number_of_reciepts = $number_of_reciepts_variable = mysqli_num_rows(mysqli_query($link,"SELECT * FROM `receipts` where Thali_No = '".$_SESSION['thali']."'"));
+  $total_amount_paid = $reciepts_query_result_total['total'];
+
+  $installment = (int)$values['Total_Pending']/8;
+
+
+  $_miqaats = array(
+                    '2016-06-27' => 'Lailatul Qadr (27th June 2016)',
+                    '2016-07-31' => 'Urs Syedi Abdulqadir Hakimuddin (AQ) (31st July 2016)',
+                    '2016-08-29' => 'Milad Of Syedna Taher Saifuddin (RA) (29th August 2016)',
+                    '2016-09-19' => 'Eid-e-Ghadeer-e-Khum (19th September 2016)',
+                    '2016-10-17' => 'Urs Syedna Hatim (RA) (17th October 2016)',
+                    '2016-11-20' => 'Chehlum Imam Husain (S.A) (20th November 2016)',
+                    '2016-12-11' => 'Milad Rasulullah (SAW) (11th December 2016)',
+                    '2017-01-18' => 'Milad Syedna Mohammed Burhanuddin (RA) (18th January 2017)'
+                    );
+
+  if(($number_of_reciepts * $installment) > $total_amount_paid)  
+  {
+    $difference = ($number_of_reciepts * $installment) - $total_amount_paid; 
+  }
+  else if(($number_of_reciepts * $installment) < $total_amount_paid)
+  {
+    $number_of_reciepts_variable = floor($total_amount_paid / $installment);
+    $difference = ($total_amount_paid % $installment) * -1; 
+  }
+  else if(($number_of_reciepts * $installment) == $total_amount_paid)
+  {
+    $difference = 0; 
+  }
+
+  $i = 1;
+   $miqaats = array();
+  $miqaats_past = array();
+  foreach ($_miqaats as $mdate => $miqaat) {
+    if($i <= $number_of_reciepts)
+    {
+      $miqaats_past[$mdate] = $miqaat;
+    }
+    else
+    {
+
+      $month_installment = $installment;
+      if($i == ($number_of_reciepts + 1))
+      {
+        $month_installment += $difference; 
+      }
+
+      $miqaats[] = array(
+                        $mdate,$miqaat,ceil($month_installment)
+                        );
+    }
+    $i++;
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -176,7 +230,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
               
               <!-- Break down -->
               <?php
-                if(isset($monthly_breakdown)):
+                if(isset($installment)):
               ?>
 
                 <div class="panel panel-default" style="margin-top: 20px;">
@@ -198,38 +252,21 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                           </tr>
                         </thead>
                         <tbody>
+                          <?php foreach ($miqaats_past as $miqaat) {
+                          ?>
                           <tr>
-                            <td>Lailatul Qadr (27th June 2016)</td>
-                            <td><?php echo $monthly_breakdown; ?></td>
+                            <td><?php echo $miqaat; ?></td>
+                            <td>--</td>
                           </tr>
+                         <?php } ?>
+
+                          <?php foreach ($miqaats as $miqaat) {
+                          ?>
                           <tr>
-                            <td>Urs Syedi Abdulqadir Hakimuddin (AQ) (31st July 2016)</td>
-                            <td><?php echo $monthly_breakdown; ?></td>
+                            <td><?php echo $miqaat[1]; ?></td>
+                            <td><?php echo $miqaat[2]; ?></td>
                           </tr>
-                          <tr>
-                            <td>Milad Of Syedna Taher Saifuddin (RA) (29th August 2016)</td>
-                            <td><?php echo $monthly_breakdown; ?></td>
-                          </tr>
-                          <tr>
-                            <td>Eid-e-Ghadeer-e-Khum (19th September 2016)</td>
-                            <td><?php echo $monthly_breakdown; ?></td>
-                          </tr>
-                          <tr>
-                            <td>Urs Syedna Hatim (RA) (17th October 2016)</td>
-                            <td><?php echo $monthly_breakdown; ?></td>
-                          </tr>
-                          <tr>
-                            <td>Chehlum Imam Husain (S.A) (20th November 2016)</td>
-                            <td><?php echo $monthly_breakdown; ?></td>
-                          </tr>
-                          <tr>
-                            <td>Milad Rasulullah (SAW) (11th December 2016)</td>
-                            <td><?php echo $monthly_breakdown; ?></td>
-                          </tr>
-                          <tr>
-                            <td>Milad Syedna Mohammed Burhanuddin (RA) (18th January 2017)</td>
-                            <td><?php echo $monthly_breakdown; ?></td>
-                          </tr>
+                         <?php } ?>
                         </tbody>
                       </table>
                     </div>
