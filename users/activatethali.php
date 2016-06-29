@@ -16,7 +16,7 @@ if(isset($_POST['transporter']))
 	$values[] = "Transporter = '".addslashes($_POST['transporter'])."'";	
 } 
 
-mysqli_query($link,"UPDATE thalilist set ".implode(',', $values)." WHERE Email_id = '".$_POST['email']."'");
+mysqli_query($link,"UPDATE thalilist set ".implode(',', $values)." WHERE Email_id = '".$_POST['email']."'") or die(mysqli_error($link));
 mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`,`processed`) VALUES ('" . $_POST['thalino'] . "', 'Start Thali','" . $_POST['start_date'] . "',1)");
 
 
