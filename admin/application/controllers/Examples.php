@@ -26,7 +26,7 @@ class Examples extends CI_Controller {
 	function faiz()
 {
 	session_start();
-		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com')))
+		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('mustukotaliya53@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com')))
 		{
 
 		}else
@@ -35,6 +35,15 @@ class Examples extends CI_Controller {
     $crud = new grocery_CRUD();
     $crud->set_theme('datatables');
     $crud->set_table('thalilist');
+
+    if ($_SESSION['email'] =='mustukotaliya53@gmail.com')
+    {
+    $crud->unset_edit();
+    $crud->unset_delete();
+    $crud->where('Transporter', 'Mustafa Bhai') && $crud->where('Active', '1');
+    $crud->columns('Thali','NAME','CONTACT','Active','Transporter','Full_Address');
+	}
+
 
     $output = $crud->render();
  
