@@ -40,7 +40,15 @@
         <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
         <?php
         }
-        ?>           
+        ?>
+        <?php
+        if(in_array($_SESSION['email'], array('mustukotaliya53@gmail.com')))
+        {
+        ?>
+        <li><a href="/admin/index.php/examples/faiz">My Transport List</a></li>      
+        <?php
+        }
+        ?>             
         <li><a href="/users/update_details.php">Update details</a></li>
         <li><a href="/users/logout.php">Logout</a></li>
       </ul>
