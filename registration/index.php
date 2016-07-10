@@ -55,8 +55,10 @@ $sql = "INSERT INTO thalilist (
   mysqli_query($link,$sql) or die(mysqli_error($link));
   mysqli_close($link);
 
-$msgvar = "Salaam ".$firstname.",<br><br>New Registration form for Faiz ul Mawaid il Burhaniyah Thali has been successfully submitted.<br>
-<b>Please visit faiz to get the thali activated.</b><br>
+$msgvar = "Salaam ".$firstname."bhai,<br><br>New Registration form for Faiz ul Mawaid il Burhaniyah thali has been successfully submitted.<br>
+<b>Please visit faiz with xerox of ITS card and 3000 hub to get the thali activated.</b><br><br>
+Faiz Address<br>Shop Near Gold Gym,<br>Lane adjacent to Satyanand Hospital,<br>Between Badshah Nagar and Sheetal Petrol Pump<br><br>
+Office Time - 9 to 11 AM, Monday to Saturday.<br>
 For any concerns mail help@faizstudents.com";
 
 $mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
@@ -64,7 +66,6 @@ $domain = "mg.faizstudents.com";
 
 $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
                                 'to'      =>  $email, 
-                                'cc'      => 'help@faizstudents.com',   
                                 'subject' => 'New Registration Successful, Visit Faiz to activate the thali',
                                 'html'    => $msgvar));
 
