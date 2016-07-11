@@ -56,7 +56,7 @@ $sql = "INSERT INTO thalilist (
   mysqli_close($link);
 
 $msgvar = "Salaam ".$firstname."bhai,<br><br>New Registration form for Faiz ul Mawaid il Burhaniyah thali has been successfully submitted.<br>
-<b>Please visit faiz with xerox of ITS card and 3000 hub to get the thali activated.</b><br><br>
+<b>Please visit faiz with xerox of ITS card and 3000 Hub + 500 Registration to get the thali activated.</b><br><br>
 Faiz Address<br>Shop Near Gold Gym,<br>Lane adjacent to Satyanand Hospital,<br>Between Badshah Nagar and Sheetal Petrol Pump<br><br>
 Office Time - 9 to 11 AM, Monday to Saturday.<br>
 For any concerns mail help@faizstudents.com";
