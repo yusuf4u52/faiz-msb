@@ -56,7 +56,6 @@ $domain = "mg.faizstudents.com";
 # Now, compose and send your message.
 $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
                                 'to'      =>  $_POST['email'], 
-                                'cc'      => 'help@faizstudents.com',   
                                 'subject' => "Student's Faiz - Thali Activated", 
                                 'html'    => $msgvar));
 
