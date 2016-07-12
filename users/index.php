@@ -70,7 +70,6 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
  $hub_baki = (count($miqaats_past) * $installment) - $total_amount_paid;
 
  $miqaats[0][2] += $hub_baki;
-
 }
 ?>
 <!DOCTYPE html>
