@@ -3,7 +3,7 @@
 include('connection.php');
 include('_authCheck.php');
 
-$query="SELECT Thali, yearly_commitment, NAME, Dues, yearly_hub, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
+$query="SELECT Thali, yearly_commitment, NAME, Dues, Paid, yearly_hub, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
 
 $values = mysqli_fetch_assoc(mysqli_query($link,$query));
 
@@ -32,7 +32,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
   $number_of_reciepts = $number_of_reciepts_variable = mysqli_num_rows(mysqli_query($link,"SELECT * FROM `receipts` where Thali_No = '".$_SESSION['thali']."'"));
   $total_amount_paid = $reciepts_query_result_total['total'];
 
-  $installment = (int)$values['Total_Pending']/8;
+  $installment = (int)($values['Total_Pending'] + $values['Paid'])/8;
 
 
   $_miqaats = array(
@@ -46,25 +46,13 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                     '2017-01-18' => 'Milad Syedna Mohammed Burhanuddin (RA) (18th January 2017)'
                     );
 
-  if(($number_of_reciepts * $installment) > $total_amount_paid)  
-  {
-    $difference = ($number_of_reciepts * $installment) - $total_amount_paid; 
-  }
-  else if(($number_of_reciepts * $installment) < $total_amount_paid)
-  {
-    $number_of_reciepts_variable = floor($total_amount_paid / $installment);
-    $difference = ($total_amount_paid % $installment) * -1; 
-  }
-  else if(($number_of_reciepts * $installment) == $total_amount_paid)
-  {
-    $difference = 0; 
-  }
-
-  $i = 1;
-   $miqaats = array();
+  $miqaats = array();
   $miqaats_past = array();
   foreach ($_miqaats as $mdate => $miqaat) {
-    if($i <= $number_of_reciepts)
+
+  $todays_date = date("Y-m-d");
+
+    if($mdate < $todays_date)
     {
       $miqaats_past[$mdate] = $miqaat;
     }
@@ -72,17 +60,17 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
     {
 
       $month_installment = $installment;
-      if($i == ($number_of_reciepts + 1))
-      {
-        $month_installment += $difference; 
-      }
-
       $miqaats[] = array(
                         $mdate,$miqaat,ceil($month_installment)
                         );
     }
-    $i++;
   }
+
+ 
+ $hub_baki = (count($miqaats_past) * $installment) - $total_amount_paid;
+
+ $miqaats[0][2] += $hub_baki;
+
 }
 ?>
 <!DOCTYPE html>
