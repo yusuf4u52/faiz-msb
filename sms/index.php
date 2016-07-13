@@ -544,7 +544,7 @@ else{
         echo "Connection failed: " . $e->getMessage();
     //return;
     }
-    $query = "SELECT Thali, NAME, CONTACT, Transporter, Total_Pending from thalilist where CONTACT is not null and ";
+    $query = "SELECT Thali, NAME, CONTACT, Transporter, next_install from thalilist where CONTACT is not null and ";
     $condition = "1=1";
     $amount_operator = $_REQUEST['amount_operator'];
     $amount_param = $_REQUEST['amount_param'];
@@ -553,7 +553,7 @@ else{
     $transporter_param = $_REQUEST['transporter_param']; // this will be an array
     //var_dump( $transporter_param); returns zero length string
     $active_operator = $_REQUEST['active_operator'];
-    $field_amount = "Total_Pending";
+    $field_amount = "next_install";
     $field_transporter = "Transporter";
     switch($amount_operator)
     {
