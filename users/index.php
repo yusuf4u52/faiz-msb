@@ -70,6 +70,9 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
  $hub_baki = (count($miqaats_past) * $installment) - $total_amount_paid;
 
  $miqaats[0][2] += $hub_baki;
+
+ $next_install = $miqaats[0][2];
+ mysqli_query($link,"UPDATE thalilist set next_install ='$next_install' WHERE Email_id = '".$_SESSION['email']."'");
 }
 ?>
 <!DOCTYPE html>
