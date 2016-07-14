@@ -71,6 +71,9 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
 
  $miqaats[0][2] += $hub_baki;
 
+ if ($miqaats[0][2] > 0) {
+ $miqaats[0][2] = round($miqaats[0][2],-2);
+ }
  $next_install = $miqaats[0][2];
  mysqli_query($link,"UPDATE thalilist set next_install ='$next_install' WHERE Email_id = '".$_SESSION['email']."'");
 }
