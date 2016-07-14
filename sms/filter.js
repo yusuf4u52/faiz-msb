@@ -72,13 +72,15 @@
 	//alert("you clicked me");
 	//get the values from user
 		$("#query_status").html('<i class="fa fa-refresh fa-spin"></i>');
+		amount_type = $('input[name=amount_type]:checked', '#amount_type_form').val()
 		amount_operator = $('#amount_operator').val();
 		amount_param = $('#amount_param').val();
 		amount_param2 = $('#amount_param2').val();
 		transporter_operator = $("#transporter_operator").val();
 		transporter_param = getSelectedTransporters();
 		active_operator = $('#active_operator').val();
-		requestObj = $.post("index.php", { 
+		requestObj = $.post("index.php", {
+			'amount_type':amount_type,
 			'amount_operator':amount_operator,
 			'amount_param':amount_param,
 			'amount_param2':amount_param2,
