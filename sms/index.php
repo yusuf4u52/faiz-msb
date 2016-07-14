@@ -166,6 +166,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <!-- </div> -->
             <div class = 'form-group'>
               <!-- <div class='text-center'><p>Apply filtering on amount:</p></div> -->
+              <form id="amount_type_form" class='form-group'>
+                <label class="radio-inline">
+                  <input type="radio" name="amount_type" value="next_install" checked>Next Installment
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="amount_type" value="Total_Pending">Total Amount
+                </label>
+              </form>
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group hidden" role="group">
                   <input type="text" class="form-control" value = '0' id='amount_param2'>
@@ -544,7 +552,8 @@ else{
         echo "Connection failed: " . $e->getMessage();
     //return;
     }
-    $query = "SELECT Thali, NAME, CONTACT, Transporter, next_install from thalilist where CONTACT is not null and ";
+    $amount_type = $_REQUEST['amount_type'];
+    $query = "SELECT Thali, NAME, CONTACT, Transporter, $amount_type from thalilist where CONTACT is not null and ";
     $condition = "1=1";
     $amount_operator = $_REQUEST['amount_operator'];
     $amount_param = $_REQUEST['amount_param'];
@@ -553,7 +562,7 @@ else{
     $transporter_param = $_REQUEST['transporter_param']; // this will be an array
     //var_dump( $transporter_param); returns zero length string
     $active_operator = $_REQUEST['active_operator'];
-    $field_amount = "next_install";
+    $field_amount = $amount_type;
     $field_transporter = "Transporter";
     switch($amount_operator)
     {
