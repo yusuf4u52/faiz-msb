@@ -42,7 +42,7 @@
                 thaliObjects = $('tr.'+highlight_class+' td[name="Thali"]');
                 nameObjects = $('tr.'+highlight_class+' td[name="NAME"]');
                 contactObjects = $('tr.'+highlight_class+' td[name="CONTACT"]');
-                amountObjects = $('tr.'+highlight_class+' td[name="Total_Pending"]');
+                amountObjects = $('tr.'+highlight_class+' td[name="Total_Pending"],td[name="next_install"]');
                 len = thaliObjects.length;
                 selected = []
                 for(i = 0; i<len; i++)
