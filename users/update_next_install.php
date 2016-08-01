@@ -25,7 +25,8 @@ while($row = mysqli_fetch_assoc($result)){
   $installment = (int)($values['Total_Pending'] + $values['Paid'])/8;
   $todays_date = date("Y-m-d");
 
-  if ($thaliactivedate > $_miqaats[0][0]) {
+
+  if ($thaliactivedate > '1437-09-19') {
 	    $installment = (int)($values['Total_Pending'] + $values['Paid'])/7;
   }					
 
