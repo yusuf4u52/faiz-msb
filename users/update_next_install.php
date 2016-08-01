@@ -10,6 +10,7 @@ while($row = mysqli_fetch_assoc($result)){
   if($row['yearly_commitment'] == 1 && !empty($row['yearly_hub'])) {
   $reciepts_query_result_total = mysqli_fetch_assoc(mysqli_query($link,"SELECT sum(`Amount`) as total FROM `receipts` where Thali_No = '".$row['Thali']."'"));
   $total_amount_paid = $reciepts_query_result_total['total'];
+  $thaliactivedate = mysqli_fetch_assoc(mysqli_query($link,"SELECT Date FROM `change_table` where Thali = '".$row['Thali']."' AND operation = 'Start Thali' ORDER BY id limit 1"));
 
   $_miqaats = array(
                     '2016-06-27' => 'Lailatul Qadr (27th June 2016)',
@@ -22,12 +23,12 @@ while($row = mysqli_fetch_assoc($result)){
                     '2017-01-18' => 'Milad Syedna Mohammed Burhanuddin (RA) (18th January 2017)'
                     );
                     
-  $installment = (int)($values['Total_Pending'] + $values['Paid'])/8;
+  $installment = (int)($row['Total_Pending'] + $row['Paid'])/8;
   $todays_date = date("Y-m-d");
 
 
-  if ($thaliactivedate > '1437-09-19') {
-	    $installment = (int)($values['Total_Pending'] + $values['Paid'])/7;
+  if ($thaliactivedate < '1437-09-19') {
+	    $installment = (int)($row['Total_Pending'] + $row['Paid'])/7;
   }					
 
   $miqaats = array();
@@ -58,6 +59,7 @@ while($row = mysqli_fetch_assoc($result)){
  }
  $next_install = $miqaats[0][2];
  mysqli_query($link,"UPDATE thalilist set next_install ='$next_install' WHERE Thali = '".$row['Thali']."'");
+
  } 
  }
  ?>
