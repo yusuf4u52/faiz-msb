@@ -23,12 +23,12 @@ while($row = mysqli_fetch_assoc($result)){
                     '2017-01-18' => 'Milad Syedna Mohammed Burhanuddin (RA) (18th January 2017)'
                     );
                     
-  $installment = (int)($values['Total_Pending'] + $values['Paid'])/8;
+  $installment = (int)($row['Total_Pending'] + $row['Paid'])/8;
   $todays_date = date("Y-m-d");
 
 
-  if ($thaliactivedate > '1437-09-19') {
-	    $installment = (int)($values['Total_Pending'] + $values['Paid'])/7;
+  if ($thaliactivedate < '1437-09-19') {
+	    $installment = (int)($row['Total_Pending'] + $row['Paid'])/7;
   }					
 
   $miqaats = array();
@@ -59,6 +59,7 @@ while($row = mysqli_fetch_assoc($result)){
  }
  $next_install = $miqaats[0][2];
  mysqli_query($link,"UPDATE thalilist set next_install ='$next_install' WHERE Thali = '".$row['Thali']."'");
+
  } 
  }
  ?>

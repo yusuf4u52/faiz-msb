@@ -46,8 +46,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
   $installment = (int)($values['Total_Pending'] + $values['Paid'])/8;
   $todays_date = date("Y-m-d");
 
-
-  if ($thaliactivedate > '1437-09-19') {
+  if ($thaliactivedate < '1437-09-19') {
 	    $installment = (int)($values['Total_Pending'] + $values['Paid'])/7;
   }					
   
