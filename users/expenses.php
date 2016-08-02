@@ -14,16 +14,19 @@ foreach ($months as $key => $value) {
 
     if($key == $current_month - 1)
     {
-      $query = "SELECT SUM(Paid)-SUM(Zabihat),SUM(Zabihat) FROM thalilist";
+      $query = "SELECT SUM(Amount) FROM receipts";
+      $zabihat = "SELECT SUM(Zabihat) FROM thalilist";
     }
     else
     {
-      $query = "SELECT SUM(Paid)-SUM(Zabihat),SUM(Zabihat) FROM thalilist_".$value;
+      $query = "SELECT SUM(Amount) FROM receipts_".$value;
+      $zabihat = "SELECT SUM(Zabihat) FROM thalilist_".$value;;
     }
 
     $hub = mysqli_fetch_row(mysqli_query($link,$query));
+    $hub1 = mysqli_fetch_row(mysqli_query($link,$zabihat));
     if(!empty($hub))
-      mysqli_query($link, "UPDATE hisab set Hub_Received = '".$hub[0]."',Frm_Students = '".$hub[1]."' WHERE Months = '".$value."'") or die(mysqli_error($link));
+      mysqli_query($link, "UPDATE hisab set Hub_Received = '".$hub[0]."',Frm_Students = '".$hub1[0]."' WHERE Months = '".$value."'") or die(mysqli_error($link));
 
     if($key == $current_month - 1)
     {
