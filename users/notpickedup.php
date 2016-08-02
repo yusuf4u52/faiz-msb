@@ -10,8 +10,8 @@ if($_POST)
 
    	foreach($singlethali as $thali) 
    	{
-		mysqli_query($link,"UPDATE thalilist set Reg_Fee = Reg_Fee + 200 WHERE Thali = '$thali'") or die(mysqli_error($link));
-		mysqli_query($link,"INSERT INTO not_picked_up (`Thali_no`, `Date`, `Reason`, `Fine` ) VALUES ( '$thali', '" . $_POST['fineDate'] . "' , 'Not Picked Up' , 200)");
+		mysqli_query($link,"UPDATE thalilist set Reg_Fee = Reg_Fee + 200 WHERE Thali = '$thali'") or die(mysqli_error($link)) or die(mysqli_error($link));
+		mysqli_query($link,"INSERT INTO not_picked_up (`Thali_no`, `Date`, `Reason`, `Fine` ) VALUES ( '$thali', '" . $_POST['fineDate'] . "' , 'Not Picked Up' , 200)") or die(mysqli_error($link));
 
 		$sql = mysqli_query($link,"SELECT CONTACT from thalilist where Thali='$thali'");
 		$row = mysqli_fetch_row($sql);
