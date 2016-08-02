@@ -23,7 +23,7 @@ foreach ($months as $key => $value) {
 
     $hub = mysqli_fetch_row(mysqli_query($link,$query));
     if(!empty($hub))
-      mysqli_query($link, "UPDATE hisab set Hub_Received = '".$hub[0]."',Frm_Students = '".$hub[1]."' WHERE Months = '".$value."'");
+      mysqli_query($link, "UPDATE hisab set Hub_Received = '".$hub[0]."',Frm_Students = '".$hub[1]."' WHERE Months = '".$value."'") or die(mysqli_error($link));
 
     if($key == $current_month - 1)
     {

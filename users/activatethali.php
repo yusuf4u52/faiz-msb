@@ -17,7 +17,7 @@ if(isset($_POST['transporter']))
 } 
 
 mysqli_query($link,"UPDATE thalilist set ".implode(',', $values)." WHERE Email_id = '".$_POST['email']."'") or die(mysqli_error($link));
-mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`,`processed`) VALUES ('" . $_POST['thalino'] . "', 'Start Thali','" . $_POST['start_date'] . "',1)");
+mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`,`processed`) VALUES ('" . $_POST['thalino'] . "', 'Start Thali','" . $_POST['start_date'] . "',1)") or die(mysqli_error($link));
 
 
 $msgvar = "Salaam %name%,<br><br>Mubarak for starting your Faiz ul Mawaid il Burhaniyah Thaali -<br><br>Your Thali No. will be : <b>%thali%</b><br><br>
