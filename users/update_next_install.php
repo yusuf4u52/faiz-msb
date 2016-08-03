@@ -27,10 +27,10 @@ while($row = mysqli_fetch_assoc($result)){
   $todays_date = date("Y-m-d");
 
 
-  if ($thaliactivedate < '1437-09-23') {
+  if ($thaliactivedate < '1437-09-23' && !empty($thaliactivedate)) {
 	    $installment = (int)($row['Total_Pending'] + $row['Paid'])/7;
   }
-  elseif ($thaliactivedate < '1437-10-27') {
+  elseif ($thaliactivedate < '1437-10-27' && !empty($thaliactivedate)) {
       $installment = (int)($row['Total_Pending'] + $row['Paid'])/6;
   }					
 

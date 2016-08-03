@@ -46,10 +46,10 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
   $installment = (int)($values['Total_Pending'] + $values['Paid'])/8;
   $todays_date = date("Y-m-d");
 
-  if ($thaliactivedate < '1437-09-23') {
+  if ($thaliactivedate < '1437-09-23' && !empty($thaliactivedate)) {
 	    $installment = (int)($values['Total_Pending'] + $values['Paid'])/7;
   }
-  elseif ($thaliactivedate < '1437-10-27') {
+  elseif ($thaliactivedate < '1437-10-27' && !empty($thaliactivedate)) {
       $installment = (int)($values['Total_Pending'] + $values['Paid'])/6;
   }
   
