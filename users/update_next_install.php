@@ -61,7 +61,8 @@ while($row = mysqli_fetch_assoc($result)){
  $miqaats[0][2] = round($miqaats[0][2],-2);
  }
  $next_install = $miqaats[0][2];
- mysqli_query($link,"UPDATE thalilist set next_install ='$next_install' WHERE Thali = '".$row['Thali']."'");
+ mysqli_query($link,"UPDATE thalilist set next_install ='$next_install' WHERE Thali = '".$row['Thali']."'") or die(mysqli_error($link));
+ mysqli_query($link,"UPDATE thalilist set prev_install_pending ='$hub_baki' WHERE Email_id = '".$_SESSION['email']."'") or die(mysqli_error($link));
 
  } 
  }
