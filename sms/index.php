@@ -170,9 +170,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
               <!-- <div class='text-center'><p>Apply filtering on amount:</p></div> -->
               <form id="amount_type_form" class='form-group'>
                 <label class="radio-inline">
-                  <input type="radio" name="amount_type" value="next_install" checked>Next Installment
+                  <input type="radio" name="amount_type" value="prev_install_pending">Previous Pending
                 </label>
                 <label class="radio-inline">
+                  <input type="radio" name="amount_type" value="next_install" checked>Next Installment
+                </label>
+                 <label class="radio-inline">
                   <input type="radio" name="amount_type" value="Total_Pending">Total Amount
                 </label>
               </form>
