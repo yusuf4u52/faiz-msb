@@ -45,12 +45,11 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
 
   $installment = (int)($values['Total_Pending'] + $values['Paid'])/8;
   $todays_date = date("Y-m-d");
+  $miqaat_gone = 0;
 
-  if ($thaliactivedate < '1437-09-23' && !empty($thaliactivedate)) {
+  if ($thaliactivedate > '1437-09-23' && !empty($thaliactivedate)) {
 	    $installment = (int)($values['Total_Pending'] + $values['Paid'])/7;
-  }
-  elseif ($thaliactivedate < '1437-10-27' && !empty($thaliactivedate)) {
-      $installment = (int)($values['Total_Pending'] + $values['Paid'])/6;
+      $miqaat_gone = 1;
   }
   
   $miqaats = array();
@@ -72,7 +71,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
   }
 
  
- $hub_baki = (count($miqaats_past) * $installment) - $total_amount_paid;
+ $hub_baki = ((count($miqaats_past) - $miqaat_gone) * $installment) - $total_amount_paid;
 
  $miqaats[0][2] += $hub_baki;
 
