@@ -25,14 +25,12 @@ while($row = mysqli_fetch_assoc($result)){
                     
   $installment = (int)($row['Total_Pending'] + $row['Paid'])/8;
   $todays_date = date("Y-m-d");
-
+  $miqaat_gone = 0;
 
   if ($thaliactivedate < '1437-09-23' && !empty($thaliactivedate)) {
 	    $installment = (int)($row['Total_Pending'] + $row['Paid'])/7;
-  }
-  elseif ($thaliactivedate < '1437-10-27' && !empty($thaliactivedate)) {
-      $installment = (int)($row['Total_Pending'] + $row['Paid'])/6;
-  }					
+      $miqaat_gone = 1;
+  }				
 
   $miqaats = array();
   $miqaats_past = array();
@@ -53,7 +51,7 @@ while($row = mysqli_fetch_assoc($result)){
   }
 
  
- $hub_baki = (count($miqaats_past) * $installment) - $total_amount_paid;
+ $hub_baki = ((count($miqaats_past) - $miqaat_gone) * $installment) - $total_amount_paid;
 
  $miqaats[0][2] += $hub_baki;
 
@@ -61,6 +59,8 @@ while($row = mysqli_fetch_assoc($result)){
  $miqaats[0][2] = round($miqaats[0][2],-2);
  }
  $next_install = $miqaats[0][2];
+
+
  mysqli_query($link,"UPDATE thalilist set next_install ='$next_install' WHERE Thali = '".$row['Thali']."'") or die(mysqli_error($link));
  mysqli_query($link,"UPDATE thalilist set prev_install_pending ='$hub_baki' WHERE Thali = '".$row['Thali']."'") or die(mysqli_error($link));
 
