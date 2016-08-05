@@ -30,7 +30,8 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
 {
   $reciepts_query_result_total = mysqli_fetch_assoc(mysqli_query($link,"SELECT sum(`Amount`) as total FROM `receipts` where Thali_No = '".$_SESSION['thali']."'"));
   $total_amount_paid = $reciepts_query_result_total['total'];
-  $thaliactivedate = mysqli_fetch_assoc(mysqli_query($link,"SELECT Date FROM `change_table` where Thali = '".$_SESSION['thali']."' AND operation = 'Start Thali' ORDER BY id limit 1"));
+  $thaliactivedate_query = mysqli_fetch_assoc(mysqli_query($link,"SELECT Date FROM `change_table` where Thali = '".$_SESSION['thali']."' AND operation = 'Start Thali' ORDER BY id limit 1"));
+  $thaliactivedate = $thaliactivedate_query['Date'];
 
   $_miqaats = array(
                     '2016-06-27' => 'Lailatul Qadr (27th June 2016)',
