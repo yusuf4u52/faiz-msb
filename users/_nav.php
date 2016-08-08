@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <?php
-        if(in_array($_SESSION['email'], array('mesaifee52@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com', 'ismailsidhpuri@gmail.com')))
+        if(in_array($_SESSION['email'], array('nationalminerals52@gmail.com','mesaifee52@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com', 'ismailsidhpuri@gmail.com')))
         {
           ?>
           <li><a href="/users/pendingactions.php">Pending Actions</a></li>
@@ -48,7 +48,15 @@
         <li><a href="/admin/index.php/examples/faiz">My Transport List</a></li>      
         <?php
         }
-        ?>             
+        ?>
+         <?php
+        if(in_array($_SESSION['email'], array('husainpoonawala1995@gmail.com')))
+        {
+        ?>
+        <li><a href="/users/pendingactions.php">Pending Actions</a></li>
+        <?php
+        }
+        ?>              
         <li><a href="/users/update_details.php">Update details</a></li>
         <li><a href="/users/logout.php">Logout</a></li>
       </ul>
