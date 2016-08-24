@@ -80,7 +80,8 @@ include('adminsession.php');
                             <option>Select</option>
                             <option value='<?php echo $values['Thali']; ?>|Azhar Bhai'>Azhar Bhai</option>
                             <option value='<?php echo $values['Thali']; ?>|Mustafa Bhai'>Mustafa Bhai</option>
-                            <option value='<?php echo $values['Thali']; ?>|Saifee Bhai'>Saifee bhai</option>
+                            <option value='<?php echo $values['Thali']; ?>|Haider Bhai'>Haider Bhai</option>
+                            <option value='<?php echo $values['Thali']; ?>|Nasir Bhai'>Nasir Bhai</option>
                           </select>
                     </td>
                     <td><?php echo $values['Full_Address']; ?></td>
@@ -160,7 +161,8 @@ include('adminsession.php');
                             <option value=''>Select</option>
                             <option value='Azhar Bhai'>Azhar Bhai</option>
                             <option value='Mustafa Bhai'>Mustafa Bhai</option>
-                            <option value='Saifee Bhai'>Saifee bhai</option>
+                            <option value='Haider Bhai'>Haider Bhai</option>
+                            <option value='Nasir Bhai'>Nasir Bhai</option>
                           </select>
                           <?php }
                           else
