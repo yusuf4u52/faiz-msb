@@ -2,7 +2,7 @@
 
 require '../users/mailgun-php/vendor/autoload.php';
 use Mailgun\Mailgun;
-require '_credentials.php';
+require '../sms/_credentials.php';
     //ENTER THE RELEVANT INFO BELOW
     $mysqlUserName      = $username;
     $mysqlPassword      = $password;
@@ -98,8 +98,7 @@ require '_credentials.php';
     $mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
     $domain = "mg.faizstudents.com";
     $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
-                                    'to'      => 'faizstudentsbackup@gmail.com', 
-                                    'cc'      => 'help@faizstudents.com',   
+                                    'to'      => 'help@faizstudents.com', 
                                     'subject' => $subject,
                                     'html'    => "Please find the attachment named $remoteName"
                                     ), array(
