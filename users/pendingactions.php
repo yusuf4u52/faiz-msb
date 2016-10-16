@@ -78,9 +78,9 @@ include('adminsession.php');
                     <td>
                           <select class='transporter'>
                             <option>Select</option>
-                            <option value='<?php echo $values['Thali']; ?>|Azhar Bhai'>Azhar Bhai</option>
-                            <option value='<?php echo $values['Thali']; ?>|Mustafa Bhai'>Mustafa Bhai</option>
-                            <option value='<?php echo $values['Thali']; ?>|Haider Bhai'>Haider Bhai</option>
+                            <option value='<?php echo $values['Thali']; ?>|Ayub Bhai'>Ayub Bhai</option>
+                            <option value='<?php echo $values['Thali']; ?>|Aziz Bhai'>Aziz Bhai</option>
+                            <option value='<?php echo $values['Thali']; ?>|Burhan Bhai'>Burhan Bhai</option>
                             <option value='<?php echo $values['Thali']; ?>|Nasir Bhai'>Nasir Bhai</option>
                           </select>
                     </td>
@@ -159,9 +159,9 @@ include('adminsession.php');
                         <?php if($values['Transporter'] == 'Transporter') { ?>
                           <select name="transporter"  required='required'>
                             <option value=''>Select</option>
-                            <option value='Azhar Bhai'>Azhar Bhai</option>
-                            <option value='Mustafa Bhai'>Mustafa Bhai</option>
-                            <option value='Haider Bhai'>Haider Bhai</option>
+                            <option value='Ayub Bhai'>Ayub Bhai</option>
+                            <option value='Aziz Bhai'>Aziz Bhai</option>
+                            <option value='Burhan Bhai'>Burhan Bhai</option>
                             <option value='Nasir Bhai'>Nasir Bhai</option>
                           </select>
                           <?php }
