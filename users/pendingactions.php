@@ -6,7 +6,7 @@ include('adminsession.php');
     $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending, Email_Id FROM thalilist";
     $query_new_transporter = $query . " WHERE Transporter = 'Transporter'  and active = 1 and Thali <> '' and Thali is not null";
     $result = mysqli_query($link,$query_new_transporter);
-    $query_new_thali = $query . " WHERE (Thali = ''  or Thali is null) and active = 0";
+    $query_new_thali = $query . " WHERE (Thali = ''  or Thali is null) and Active = 0";
     $result_new_thali = mysqli_query($link,$query_new_thali);  
 
     
