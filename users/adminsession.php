@@ -7,8 +7,5 @@ if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('husa
 else {
   header("Location: login.php");
   exit; 
-  //some learnings on PHP ;)
-  //http://stackoverflow.com/q/6334033/148271
-  //http://stackoverflow.com/q/3553698/148271
 }
 ?>
