@@ -195,7 +195,25 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                       </li>
                       <li class="list-group-item">
                           <h6 class="list-group-item-heading text-muted">Transporter</h6>
-                          <p class="list-group-item-text"><?php echo $values['Transporter']; ?></p>
+                          <p class="list-group-item-text">
+                          <?php 
+                              if ($values['Transporter'] == "Haider Bhai") {
+                                  echo "".$values['Transporter']." | +918421887642" ;
+                              }    
+                              elseif ($values['Transporter'] == "Burhan Bhai") {
+                                  echo "".$values['Transporter']." | +917083406689" ;
+                              }
+                              elseif ($values['Transporter'] == "Nasir Bhai") {
+                                  echo "".$values['Transporter']." | +919923344709" ;
+                              }
+                              elseif ($values['Transporter'] == "Azhar Bhai") {
+                                  echo "".$values['Transporter']." | +919766262652" ;
+                              }
+                              elseif ($values['Transporter'] == "Aziz Bhai") {
+                                  echo "".$values['Transporter']." | +919139333422" ;
+                              }
+                          ?>
+                          </p>
                       </li>
                       <li class="list-group-item">
                           <h6 class="list-group-item-heading text-muted">Address</h6>
