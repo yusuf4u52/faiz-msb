@@ -5,6 +5,9 @@ require '../backup/_email_backup.php';
 use Mailgun\Mailgun;
 error_reporting(0);
 
+$day = date("D");
+if ($day != 'Sat') {
+
 $sql = mysqli_query($link,"SELECT t.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id 
 						from change_table as c
 						inner join thalilist as t on c.Thali = t.Thali
@@ -82,4 +85,5 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
                                 'subject' => 'Start Stop update '.date('d/m/Y'),
                                 'html'    => $msgvar));
 
+}
 ?>	
