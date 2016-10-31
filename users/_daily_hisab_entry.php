@@ -25,15 +25,15 @@ $result1=mysqli_query($link,"SELECT * FROM daily_hisab_items where date='".$valu
     Date :
   </li>
   <li class="list-group-item">
-    <span class="badge"><?php echo $values['dish_with_roti']; ?></span>
+    <span class="badge"><?php echo $values['thalicount']; ?></span>
     Thali Count :
   </li>
   <li class="list-group-item">
-    <span class="badge"><?php echo $values['dish_with_rice']; ?></span>
+    <span class="badge"><?php echo $values['dish_with_roti']; ?></span>
     Dish with Roti :
   </li>
   <li class="list-group-item">
-    <span class="badge"><?php echo $values['thalicount']; ?></span>
+    <span class="badge"><?php echo $values['dish_with_rice']; ?></span>
     Dish with Rice :
   </li>
 </ul>
