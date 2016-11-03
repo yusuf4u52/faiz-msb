@@ -7,6 +7,13 @@ $values = mysqli_fetch_assoc($result);
 
 $result1=mysqli_query($link,"SELECT * FROM daily_hisab_items where date='".$values['date']."'") or die(mysqli_error($link));
 
+$result2=mysqli_fetch_assoc(mysqli_query($link,"SELECT SUM(amount) as total FROM sf_hisab where type = 'Dr'"));
+$result3=mysqli_fetch_assoc(mysqli_query($link,"SELECT SUM(amount) as total FROM sf_hisab where type = 'Cr'"));
+$spent = $result2['total'];
+$cash = $result3['total'];
+
+$cashinhand = $cash - $spent;
+
 ?>
 
 <html>
@@ -178,7 +185,7 @@ $result1=mysqli_query($link,"SELECT * FROM daily_hisab_items where date='".$valu
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add Items</h4>
+        <h4 class="modal-title">Add Items &nbsp (Cash In Hand | <?php echo $cashinhand; ?>)</h4>
       </div>
       <div class="modal-body">
 
