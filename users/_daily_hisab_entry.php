@@ -120,34 +120,42 @@ $result1=mysqli_query($link,"SELECT * FROM daily_hisab_items where date='".$valu
         <h4 class="modal-title">Add Items</h4>
       </div>
       <div class="modal-body">
-	
-	<form class="form-horizontal" method="post" action="saveitems.php">
-	<fieldset>
-    <div class="form-group">
-      <div class="col-lg-6">
-        <input type="hidden" class="form-control" name="date1" value="<?php echo $values['date'] ?>">
-      </div>
+
+<form method="post" action="saveitems.php">
+<fieldset>
+	<input type="hidden" class="form-control" name="date1" value="<?php echo $values['date'] ?>">
+    <div class="form-group col-xs-4 col-md-4">
+        <label for="item" class="control-label">Item</label>
+        <input type="text" value='' class="form-control" id="item" name="row[]"><br>
+        <input type="text" value='' class="form-control" id="item" name="row1[]"><br>
+        <input type="text" value='' class="form-control" id="item" name="row2[]"><br>
+        <input type="text" value='' class="form-control" id="item" name="row3[]"><br>
+        <input type="text" value='' class="form-control" id="item" name="row4[]"><br>
+        <input type="text" value='' class="form-control" id="item" name="row5[]"><br>
+        <input type="text" value='' class="form-control" id="item" name="row6[]">
     </div>
-    <div class="form-group">
-      <label for="item" class="col-lg-3 control-label">Item</label>
-      <div class="col-lg-6">
-        <input type="text" class="form-control" name="item">
-      </div>
+    <div class="form-group col-xs-4 col-md-4">
+        <label for="quantity" class="control-label">Quantity</label>
+        <input type="text" value='' class="form-control" id="quantity" name="row[]"><br>
+        <input type="text" value='' class="form-control" id="quantity" name="row1[]"><br>
+        <input type="text" value='' class="form-control" id="quantity" name="row2[]"><br>
+        <input type="text" value='' class="form-control" id="quantity" name="row3[]"><br>
+        <input type="text" value='' class="form-control" id="quantity" name="row4[]"><br>
+        <input type="text" value='' class="form-control" id="quantity" name="row5[]"><br>
+        <input type="text" value='' class="form-control" id="quantity" name="row6[]">
     </div>
-    <div class="form-group">
-      <label for="quantity" class="col-lg-3 control-label">Quantity</label>
-      <div class="col-lg-6">
-        <input type="text" class="form-control" name="quantity">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="amount" class="col-lg-3 control-label">Amount</label>
-      <div class="col-lg-6">
-        <input type="number" class="form-control" name="amount">
-      </div>
+    <div class="form-group col-xs-4 col-md-4">
+        <label for="amount" class="control-label">Amount</label>
+        <input type="number" value='' class="form-control" id="amount" name="row[]"><br>
+        <input type="number" value='' class="form-control" id="amount" name="row1[]"><br>
+        <input type="number" value='' class="form-control" id="amount" name="row2[]"><br>
+        <input type="number" value='' class="form-control" id="amount" name="row3[]"><br>
+        <input type="number" value='' class="form-control" id="amount" name="row4[]"><br>
+        <input type="number" value='' class="form-control" id="amount" name="row5[]"><br>
+        <input type="number" value='' class="form-control" id="amount" name="row6[]">
+
     </div>
     </fieldset>
-      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save changes</button>
