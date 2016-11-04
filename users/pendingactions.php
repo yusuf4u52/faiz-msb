@@ -78,7 +78,6 @@ include('adminsession.php');
                     <td>
                           <select class='transporter'>
                             <option>Select</option>
-                            <option value='<?php echo $values['Thali']; ?>|Ayub Bhai'>Ayub Bhai</option>
 							              <option value='<?php echo $values['Thali']; ?>|Azhar Bhai'>Azhar Bhai</option>
                             <option value='<?php echo $values['Thali']; ?>|Aziz Bhai'>Aziz Bhai</option>
                             <option value='<?php echo $values['Thali']; ?>|Burhan Bhai'>Burhan Bhai</option>

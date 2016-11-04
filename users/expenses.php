@@ -62,6 +62,7 @@ foreach ($months as $key => $value) {
                             <option value='HaiderBhai Tr'>HaiderBhai Tr</option>
                             <option value='AzharBhai Tr'>AzharBhai Tr</option>
                             <option value='AzizBhai Tr'>AzizBhai Tr</option>
+                            <option value='NasirBhai Tr'>NasirBhai Tr</option>
                             <option value='Miraj Salary'>Miraj Salary</option>
                             <option value='Light Bill'>Light Bill</option>
                             <option value='Rent'>Rent</option>
