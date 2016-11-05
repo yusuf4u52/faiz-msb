@@ -6,7 +6,9 @@ use Mailgun\Mailgun;
 error_reporting(0);
 
 $day = date("D");
-if ($day != 'Sat') {
+if ($day == 'Sat') {
+	exit;
+}
 
 $sql = mysqli_query($link,"SELECT t.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id 
 						from change_table as c
@@ -17,26 +19,30 @@ $processed_ids = array();
 echo "<pre>";
 while($row = mysqli_fetch_assoc($sql))
 {
-	$request[$row['Operation']][] = $row;
+	$request[$row['Transporter']][$row['Operation']][] = $row;
 	$processed[] = $row['id'];
 }
 
-foreach ($request as $key => $value) {
-	$msgvar .= $key."\n";
-	if(in_array($key, array('Start Thali','Start Transport')))
-	{
-		foreach ($value as $thaliuser) {
-			$msgvar .= 	sprintf("%s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address']);
-		}	
-	}
-	else if(in_array($key, array('Stop Thali','Stop Transport')))
-	{
-		foreach ($value as $thaliuser) {
-			$msgvar .= 	sprintf("%s\n",$thaliuser['Thali']);
+foreach ($request as $transporter_name => $thalis) {
+	$msgvar .= "<b>".$transporter_name."</b>\n";
+	foreach ($thalis as $operation_type => $thali_details) {
+		$msgvar .= $operation_type."\n";
+		if(in_array($operation_type, array('Start Thali','Start Transport')))
+		{
+			foreach ($thali_details as $thaliuser) {
+				$msgvar .= 	sprintf("%s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address']);
+			}	
 		}
+		else if(in_array($operation_type, array('Stop Thali','Stop Transport')))
+		{
+			foreach ($thali_details as $thaliuser) {
+				$msgvar .= 	sprintf("%s\n",$thaliuser['Thali']);
+			}
+		}
+		$msgvar .= 	"\n";
 	}
-	$msgvar .= 	"\n";
 }
+
 mysqli_query($link,"update change_table set processed = 1 where id in (".implode(',', $processed).")");
 
 if (filesize('updatedetails.txt') != 0)
@@ -85,5 +91,5 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
                                 'subject' => 'Start Stop update '.date('d/m/Y'),
                                 'html'    => $msgvar));
 
-}
+
 ?>	
