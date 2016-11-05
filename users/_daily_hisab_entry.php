@@ -2,10 +2,7 @@
 include('connection.php');
 include('adminsession.php');
 
-$result=mysqli_query($link,"SELECT * FROM daily_hisab order by id DESC limit 1") or die(mysqli_error($link));
-$values = mysqli_fetch_assoc($result);
-
-$result1=mysqli_query($link,"SELECT * FROM daily_hisab_items where date='".$values['date']."'") or die(mysqli_error($link));
+$result=mysqli_query($link,"SELECT dh.*,SUM(dhi.amount) as total_amount FROM daily_hisab as dh INNER JOIN daily_hisab_items as dhi on dh.`date` = dhi.`date` group by `dhi`.`date` order by `dh`.`date`") or die(mysqli_error($link));
 
 $result2=mysqli_fetch_assoc(mysqli_query($link,"SELECT SUM(amount) as total FROM sf_hisab where type = 'Dr'"));
 $result3=mysqli_fetch_assoc(mysqli_query($link,"SELECT SUM(amount) as total FROM sf_hisab where type = 'Cr'"));
@@ -25,44 +22,34 @@ $cashinhand = $cash - $spent;
 <body>
 <?php include('_nav.php'); ?>
 <div class="container">
-<div class="col-lg-4">
-<ul class="list-group">
-  <li class="list-group-item">
-    <span class="badge"><?php echo $values['date']; ?></span>
-    Date :
-  </li>
-  <li class="list-group-item">
-    <span class="badge"><?php echo $values['thalicount']; ?></span>
-    Thali Count :
-  </li>
-  <li class="list-group-item">
-    <span class="badge"><?php echo $values['dish_with_roti']; ?></span>
-    Dish with Roti :
-  </li>
-  <li class="list-group-item">
-    <span class="badge"><?php echo $values['dish_with_rice']; ?></span>
-    Dish with Rice :
-  </li>
-</ul>
-</div>
 
-  <table class="table table-striped table-hover ">
+  <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th>Item</th>
-      <th>Quantity</th>
-      <th>Amount</th>
+      <th>Date</th>
+      <th>Dish with Roti</th>
+      <th>Dish with Rice</th>
+      <th>Thali count</th>
+      <th>Total amount</th>
+      <th>Per thali cost</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
   <?php
-    while($values1 = mysqli_fetch_assoc($result1))
+  $dates = array();
+    while($values = mysqli_fetch_assoc($result))
                     {
-                    	?>
+    $dates[] = $values['date'];  
+                      ?>
     <tr>
-      <td><?php echo $values1['items']; ?></td>
-      <td><?php echo $values1['quantity']; ?></td>
-      <td><?php echo $values1['amount']; ?></td>
+      <td><?php echo $values['date']; ?></td>
+      <td><?php echo $values['dish_with_roti']; ?></td>
+      <td><?php echo $values['dish_with_rice']; ?></td>
+      <td><?php echo $values['thalicount']; ?></td>
+      <td><?php echo $values['total_amount']; ?></td>
+      <td><?php echo round((int)$values['total_amount'] / (int)$values['thalicount']); ?></td>
+      <td><button type="button" class="btn btn-primary" data-target="#detailed-<?php echo $values['date']; ?>" data-toggle="modal">View Details</button></td>
     </tr>
     <?php } ?>
   </tbody>
@@ -72,7 +59,47 @@ $cashinhand = $cash - $spent;
 <button type="button" class="btn btn-primary" data-target="#sfhisab" data-toggle="modal">SF Purchases</button>
 </div>
 
-
+<?php
+    foreach($dates as $value)
+                    {
+                      ?>
+    <div class="modal" id="detailed-<?php echo $value; ?>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><?php echo $value; ?></h4>
+      </div>
+      <div class="modal-body">
+      <!-- Detailed hisab -->
+        <table class="table table-striped table-hover ">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+        <?php
+        $result1=mysqli_query($link,"SELECT * FROM daily_hisab_items where `date`='".$value."'") or die(mysqli_error($link));
+          while($values1 = mysqli_fetch_assoc($result1))
+                          {
+                            ?>
+          <tr>
+            <td><?php echo $values1['items']; ?></td>
+            <td><?php echo $values1['quantity']; ?></td>
+            <td><?php echo $values1['amount']; ?></td>
+          </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+      <!-- detailed hisab end -->
+    </div>
+  </div>
+</div>
+</div>
+    <?php } ?>
 
 <div class="modal" id="adddish">
   <div class="modal-dialog">
@@ -82,9 +109,9 @@ $cashinhand = $cash - $spent;
         <h4 class="modal-title">Add Dish</h4>
       </div>
       <div class="modal-body">
-	
-	<form class="form-horizontal" method="post" action="savedish.php">
-	<fieldset>
+  
+  <form class="form-horizontal" method="post" action="savedish.php">
+  <fieldset>
     <div class="form-group">
       <label for="inputEmail" class="col-lg-3 control-label">Date</label>
       <div class="col-lg-6">
@@ -121,9 +148,6 @@ $cashinhand = $cash - $spent;
 </div>
 </div>
 
-
-
-
 <div class="modal" id="additems">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -135,7 +159,7 @@ $cashinhand = $cash - $spent;
 
 <form method="post" action="saveitems.php">
 <fieldset>
-	<input type="hidden" class="form-control" name="date1" value="<?php echo $values['date'] ?>">
+  <input type="hidden" class="form-control" name="date1" value="<?php echo $values['date'] ?>">
     <div class="form-group col-xs-4 col-md-4">
         <label for="item" class="control-label">Item</label>
         <input type="text" value='' class="form-control" id="item" name="row[]"><br>
@@ -191,7 +215,7 @@ $cashinhand = $cash - $spent;
 
 <form method="post" action="sf_hisab.php">
 <fieldset>
-	<div class="form-group">
+  <div class="form-group">
       <label for="inputEmail" class="col-lg-3 control-label">Date</label>
       <div class="col-lg-6">
         <input type="text" class="form-control gregdate" name="date1" value="<?php echo date("Y-m-d") ?>"/>
