@@ -27,7 +27,7 @@ foreach ($request as $transporter_name => $thalis) {
 	$msgvar .= "<b>".$transporter_name."</b>\n";
 	foreach ($thalis as $operation_type => $thali_details) {
 		$msgvar .= $operation_type."\n";
-		if(in_array($operation_type, array('Start Thali','Start Transport')))
+		if(in_array($operation_type, array('Start Thali','Start Transport','Update Address','New Thali')))
 		{
 			foreach ($thali_details as $thaliuser) {
 				$msgvar .= 	sprintf("%s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address']);
@@ -42,38 +42,12 @@ foreach ($request as $transporter_name => $thalis) {
 		$msgvar .= 	"\n";
 	}
 }
-
 mysqli_query($link,"update change_table set processed = 1 where id in (".implode(',', $processed).")");
-
-if (filesize('updatedetails.txt') != 0)
-{
-$msgvar .= "Update Details\n";
-
-$myfile = fopen("updatedetails.txt", "r+") or die("Unable to open file!");
-$readfile = fread($myfile,filesize("updatedetails.txt"));
-// Remove Duplicate 
-$msgvar .= implode("\n",array_unique(explode("\n", $readfile)));
-ftruncate($myfile, 0);
-fclose($myfile);
-}
-
-if (filesize('newregistration.txt') != 0)
-{
-$msgvar .= "\nNew registration\n";
-
-$myfile = fopen("newregistration.txt", "r+") or die("Unable to open file!");
-$readfile = fread($myfile,filesize("newregistration.txt"));
-// Remove Duplicate 
-$msgvar .= implode("\n",array_unique(explode("\n", $readfile)));
-ftruncate($myfile, 0);
-fclose($myfile);
-}
 
 $result = mysqli_query($link,"SELECT * FROM thalilist WHERE Active='1' ");
 $count=mysqli_num_rows($result);
 
 $msgvar .= "\n Count \n $count ";
-
 
 $myfile = fopen("requestarchive.txt", "a") or die("Unable to open file!");
 $txt= date('d/m/Y')."\n".$msgvar."\n";

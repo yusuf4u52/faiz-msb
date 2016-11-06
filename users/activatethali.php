@@ -17,6 +17,7 @@ if(isset($_POST['transporter']))
 } 
 
 mysqli_query($link,"UPDATE thalilist set ".implode(',', $values)." WHERE Email_id = '".$_POST['email']."'") or die(mysqli_error($link));
+mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`,`processed`) VALUES ('" . $_POST['thalino'] . "', 'New Thali','" . $_POST['start_date'] . "',0)") or die(mysqli_error($link));
 mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`,`processed`) VALUES ('" . $_POST['thalino'] . "', 'Start Thali','" . $_POST['start_date'] . "',1)") or die(mysqli_error($link));
 
 
@@ -43,12 +44,6 @@ Abeede Sayedna (TUS)<br>
 Faiz Khidmat Team<br>";
 
 $msgvar = str_replace(array('%thali%','%name%','%email%'), array($_POST['thalino'],$_POST['name'],$_POST['email']), $msgvar);
-
-$myfile = fopen("newregistration.txt", "a") or die("Unable to open file!");
-$txt= $_POST['thalino']." - ".$_POST['name']." - ".$_POST['contact']." - ".$_POST['transporter']." - ".$_POST['address']."\n";
-fwrite($myfile, $txt);
-fclose($myfile);
-
 
 $mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
 $domain = "mg.faizstudents.com";

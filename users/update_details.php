@@ -13,17 +13,13 @@ if ($_POST)
                                       ITS_No='" . $_POST["its"] . "'
                                       WHERE Email_id = '".$_SESSION['email']."'") or die(mysqli_error($link));
                           
-                        if ($_POST['address'] != $_SESSION['old_address'])
-                         {
+if ($_POST['address'] != $_SESSION['old_address'])
+{
+mysqli_query($link,"UPDATE thalilist set Transporter='Transporter' where Email_id = '".$_SESSION['email']."'");
+mysqli_query($link,"update change_table set processed = 1 where Thali = '" . $_SESSION['thali'] . "' and `Operation` in ('Update Thali') and processed = 0") or die(mysqli_error($link));
+mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALUES ('" . $_SESSION['thali'] . "', 'Update Address','" . $_POST['date1'] . "')") or die(mysqli_error($link));
+}
 
-                        $myfile = fopen("updatedetails.txt", "a") or die("Unable to open file!");
-                        $txt= $_SESSION['thali']." - ".$_POST['name']." - ".$_POST['contact']." - ".$_POST['address']." \n";
-                        fwrite($myfile, $txt);
-                        fclose($myfile);
-
-                        mysqli_query($link,"UPDATE thalilist set Transporter='Transporter' where Email_id = '".$_SESSION['email']."'");
-
-                         }
         unset($_SESSION['old_address']);                 
         header('Location: index.php');       
     }
@@ -48,7 +44,7 @@ if ($_POST)
 <html lang="en">
   <head>
   <?php include('_head.php'); ?>
-
+  <?php include('_bottomJS.php'); ?>
   </head>
 
   <body>
@@ -128,6 +124,7 @@ if ($_POST)
                     <div class="col-lg-10">
 
                       <input type="text" class="form-control" id="inputContact" placeholder="Contact" required='required' name="contact" value='<?php echo $CONTACT;?>'>
+                      <input type="hidden" class="gregdate" name="date1" value="<?php echo date("Y-m-d") ?>"/>
 
                     </div>
 
@@ -171,7 +168,6 @@ if ($_POST)
 
     </div>
 
-    <script src="javascript/jquery-2.2.0.min.js"></script>
-    <script src="javascript/bootstrap-3.3.6.min.js"></script>
+
   </body>
 </html>
