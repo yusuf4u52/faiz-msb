@@ -159,7 +159,7 @@ $cashinhand = $cash - $spent;
 
 <form method="post" action="saveitems.php">
 <fieldset>
-  <input type="hidden" class="form-control" name="date1" value="<?php echo $values['date'] ?>">
+  <input type="hidden" class="form-control gregdate" name="date1" value="<?php echo date("Y-m-d") ?>">
     <div class="form-group col-xs-4 col-md-4">
         <label for="item" class="control-label">Item</label>
         <input type="text" value='' class="form-control" id="item" name="row[]"><br>
