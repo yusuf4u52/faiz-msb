@@ -60,7 +60,7 @@ $mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
 $domain = "mg.faizstudents.com";
 
 $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
-                                'to'      => 'ummihaider@gmail.com,burhanik72@gmail,bscalcuttawala@gmail.com', 
+                                'to'      => 'ummihaider@gmail.com,burhanik72@gmail.com,bscalcuttawala@gmail.com', 
                                 'cc'      => 'help@faizstudents.com',   
                                 'subject' => 'Start Stop update '.date('d/m/Y'),
                                 'html'    => $msgvar));
