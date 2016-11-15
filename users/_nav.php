@@ -21,7 +21,7 @@
           <li><a href="/users/thalisearch.php">Thaali Search</a></li>
           <li><a href="/users/requestarchive.txt">CR NR</a></li>
           <li><a href="/users/stopMultipleThaalis.php">Stop Thali</a></li>
-          <li><a href="/users/expenses.php">Expenses</a></li>
+          <li><a href="/users/expenses_new.php">Expenses</a></li>
           <li><a href="/admin/index.php/examples/faiz">Admin</a></li>
           <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
           <li><a href="/users/notpickedup.php">NotPickedUp</a></li>
