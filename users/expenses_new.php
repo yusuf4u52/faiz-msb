@@ -24,13 +24,6 @@ $months = array(
 <html>
 <head>
 <?php include('_head.php'); ?>
-<script src="javascript/jquery-2.2.0.min.js"></script>
-<script src="javascript/bootstrap-3.3.6.min.js"></script>
-<script src="javascript/moment-2.11.1-min.js"></script>
-<script src="javascript/moment-hijri.js"></script>
-<script src="javascript/hijriDate.js"></script>
-<script src="javascript/index.js"></script>
-<script src="./src/custom.js"></script>
 </head>
   <body>
 <?php include('_nav.php'); ?>
@@ -146,18 +139,18 @@ foreach ($months as $key => $month) {
   <tbody>
   	
   	<?php
-    
+    $yearly_total_savings = 96000;
   	foreach ($months as $key => $value) {
   	  $key == $key + 1;
 	  $result = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM receipts where Date like '%-$key-%'");
 	  $hub_received = mysqli_fetch_assoc($result);
 
-	  $result1 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Date like '%-$key-%' AND Type = 'Cash'");
+	  $result1 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Month = '".$value."' AND Type = 'Cash'");
 	  $cash_paid = mysqli_fetch_assoc($result1);
 
-	  $result2 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Date like '%-$key-%' AND Type != 'Cash'");
+	  $result2 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Month = '".$value."' AND Type != 'Cash'");
 	  $fixed_cost = mysqli_fetch_assoc($result2);
-
+	  $yearly_total_savings += $hub_received['Amount'] - $cash_paid['Amount'] - $fixed_cost['Amount'];
 	
     ?>
     <tr>
@@ -165,13 +158,60 @@ foreach ($months as $key => $month) {
 	<td><?php echo $hub_received['Amount']; ?></td>
 	<td><?php echo $cash_paid['Amount']; ?></td>
 	<td><?php echo $fixed_cost['Amount']; ?></td>
-	<td><?php echo $hub_received['Amount'] - $cash_paid['Amount'] - $fixed_cost['Amount']; ?></td>
-<td><a href="#" data-key="payhisab" data-month="<?php echo $value; ?>"><img src="images/add.png" style="width:20px;height:20px;"></a>&nbsp;
-                        <a data-key="Monthview" data-month="<?php echo $value; ?>" data-toggle="modal" href="#sfbreakup-<?php echo $value; ?>"><img src="images/view.png" style="width:20px;height:20px;"></a></td>	</tr>
+	<td class="success"><?php echo $hub_received['Amount'] - $cash_paid['Amount'] - $fixed_cost['Amount']; ?></td>
+	<td><a href="#" data-key="payhisab" data-month="<?php echo $value; ?>"><img src="images/add.png" style="width:20px;height:20px;"></a>&nbsp;
+        <a data-key="Monthview" data-month="<?php echo $value; ?>" data-toggle="modal" href="#sfbreakup-<?php echo $value; ?>"><img src="images/view.png" style="width:20px;height:20px;"></a></td>	</tr>
 	<?php } ?>
+	<tr>
+    <td colspan='3'></td>
+    <td><strong>Cash In Hand</strong></td>
+    <td class='success'><strong><?php echo $yearly_total_savings; ?></strong></td>
+    <td colspan='1'></td>
+    </tr>    	
   </tbody>
 </table>
+
+<table class="table table-striped table-hover table-responsive table-bordered">
+  <thead>
+    <tr>
+		<th>Zabihat Maula(TUS)</th>
+        <th>Zabihat Students</th>
+		<th>Used</th>
+		<th>Remaining</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  	
+  	<?php
+    
+	  $result = mysqli_query($link,"SELECT SUM(Zabihat) as Amount FROM thalilist");
+	  $zab_students = mysqli_fetch_assoc($result);
+
+	  $result1 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Type = 'Zabihat'");
+	  $zab_used = mysqli_fetch_assoc($result1);
+
+
+    ?>
+    <tr>
+    <td>96000</td>
+	<td><?php echo $zab_students['Amount']; ?></td>
+	<td><?php echo $zab_used['Amount']; ?></td>
+	<td><?php echo 96000 + $zab_students['Amount'] - $zab_used['Amount'] ; ?></td>
+	</tr>
+  </tbody>
+</table>
+
+
 </div>
+
+<script src="javascript/jquery-2.2.0.min.js"></script>
+    <script src="javascript/bootstrap-3.3.6.min.js"></script>
+    <script src="javascript/moment-2.11.1-min.js"></script>
+    <script src="javascript/moment-hijri.js"></script>
+    <script src="javascript/hijriDate.js"></script>
+    <script src="javascript/index.js"></script>
+    <script src="./src/custom.js"></script>
 <script>
 $(function(){
       $(function(){
@@ -188,7 +228,7 @@ $(function(){
         });
         $.ajax({
           method: 'post',
-          url: '_payhisab.php',
+          url: '_payhisab_new.php',
           async: 'false',
           data: data,
           success: function(data) {
