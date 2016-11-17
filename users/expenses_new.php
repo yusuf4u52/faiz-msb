@@ -141,7 +141,7 @@ foreach ($months as $key => $month) {
   <tbody>
   	
   	<?php
-    $yearly_total_savings = 88000;
+    $yearly_total_savings = 32000;
   	foreach ($months as $key => $value) {
   	  $key == $key + 1;
 	  $result = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM receipts where Date like '%-$key-%'");
@@ -196,10 +196,10 @@ foreach ($months as $key => $month) {
 
     ?>
     <tr>
-    <td>96000</td>
+    <td>32000</td>
 	<td><?php echo $zab_students['Amount']; ?></td>
 	<td><?php echo $zab_used['Amount']; ?></td>
-	<td><?php echo 96000 + $zab_students['Amount'] - $zab_used['Amount'] ; ?></td>
+	<td><?php echo 32000 + $zab_students['Amount'] - $zab_used['Amount'] ; ?></td>
 	</tr>
   </tbody>
 </table>
