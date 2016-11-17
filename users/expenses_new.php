@@ -47,6 +47,7 @@ foreach ($months as $key => $month) {
                     <th>Date</th>
                     <th>Type</th>
                     <th>Amount</th>
+                    <th>Remarks</th>
                     <th>Month</th>
                   </tr>
                 </thead>
@@ -61,6 +62,7 @@ foreach ($months as $key => $month) {
                     <td><?php echo $valuesnew['Date']; ?></td>
                     <td><?php echo $valuesnew['Type']; ?></td>
                     <td><?php echo $valuesnew['Amount']; ?></td>
+                    <td><?php echo $valuesnew['Remarks']; ?></td>
                     <td><?php echo $valuesnew['Month']; ?></td>
                   </tr>                 
                    <?php } ?>
