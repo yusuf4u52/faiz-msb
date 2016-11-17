@@ -90,9 +90,9 @@ foreach ($months as $key => $month) {
       </div>
       <div class="modal-body">
         <div id="hisabform">
-        <input type="number" name="Amount" placeholder="Amount"/>
-        
-        <select name="salary">
+        <input class="form-control" type="text" class="gregdate" name="sf_amount_date" value="<?php echo date("Y-m-d") ?>"/><br>
+        <input class="form-control" type="number" name="Amount" placeholder="Amount"/><br>
+        <select class="form-control" name="salary">
                             <option value='Cash'>Cash</option>
                             <option value='Zabihat'>Zabihat</option>
                             <option value='BB Salary'>BB Salary</option>
@@ -107,9 +107,9 @@ foreach ($months as $key => $month) {
                             <option value='Rent'>Rent</option>
                             <option value='Aapa'>Aapa</option>
                             <option value='Others'>Others</option>
-        </select>
+        </select><br>
         <input type="hidden" name="Month"/>
-        <input type="text" class="gregdate" name="sf_amount_date" value="<?php echo date("Y-m-d") ?>"/>
+        <input class="form-control" type="text" placeholder="Remarks" name="desc"/><br>
       </div>
       </div>
       <div class="modal-footer">
@@ -139,7 +139,7 @@ foreach ($months as $key => $month) {
   <tbody>
   	
   	<?php
-    $yearly_total_savings = 96000;
+    $yearly_total_savings = 88000;
   	foreach ($months as $key => $value) {
   	  $key == $key + 1;
 	  $result = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM receipts where Date like '%-$key-%'");
