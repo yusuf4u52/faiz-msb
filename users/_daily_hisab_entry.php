@@ -2,7 +2,7 @@
 include('connection.php');
 include('adminsession.php');
 
-$result=mysqli_query($link,"SELECT dh.*,SUM(dhi.amount) as total_amount FROM daily_hisab as dh INNER JOIN daily_hisab_items as dhi on dh.`date` = dhi.`date` group by `dhi`.`date` order by `dh`.`date`") or die(mysqli_error($link));
+$result=mysqli_query($link,"SELECT dh.*,SUM(dhi.amount) as total_amount FROM daily_hisab as dh INNER JOIN daily_hisab_items as dhi on dh.`date` = dhi.`date` group by `dhi`.`date` order by `dh`.`date` DESC limit 30") or die(mysqli_error($link));
 
 $result2=mysqli_fetch_assoc(mysqli_query($link,"SELECT SUM(amount) as total FROM sf_hisab where type = 'Dr'"));
 $result3=mysqli_fetch_assoc(mysqli_query($link,"SELECT SUM(amount) as total FROM sf_hisab where type = 'Cr'"));
@@ -22,6 +22,9 @@ $cashinhand = $cash - $spent;
 <body>
 <?php include('_nav.php'); ?>
 <div class="container">
+<button type="button" class="btn btn-primary" data-target="#adddish" data-toggle="modal">Add Dish</button>
+<button type="button" class="btn btn-primary" data-target="#additems" data-toggle="modal">Add Items</button>
+<button type="button" class="btn btn-primary" data-target="#sfhisab" data-toggle="modal">SF Purchases</button><br><br>
 
   <table class="table table-striped table-hover">
   <thead>
@@ -54,9 +57,7 @@ $cashinhand = $cash - $spent;
     <?php } ?>
   </tbody>
 </table>
-<button type="button" class="btn btn-primary" data-target="#adddish" data-toggle="modal">Add Dish</button>
-<button type="button" class="btn btn-primary" data-target="#additems" data-toggle="modal">Add Items</button>
-<button type="button" class="btn btn-primary" data-target="#sfhisab" data-toggle="modal">SF Purchases</button>
+
 </div>
 
 <?php
