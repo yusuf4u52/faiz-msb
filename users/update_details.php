@@ -10,7 +10,8 @@ if ($_POST)
                                       CONTACT='" . $_POST["contact"] . "',
                                       Full_Address='" . $_POST["address"] . "',
                                       WATAN='" . $_POST["watan"] . "',
-                                      ITS_No='" . $_POST["its"] . "'
+                                      ITS_No='" . $_POST["its"] . "',
+                                      WhatsApp='" . $_POST["whatsapp"] . "'
                                       WHERE Email_id = '".$_SESSION['email']."'") or die(mysqli_error($link));
                           
 if ($_POST['address'] != $_SESSION['old_address'])
@@ -25,7 +26,7 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
     }
     else
     {
-    	$query="SELECT Thali, NAME, CONTACT,ITS_No, WATAN, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
+    	$query="SELECT * FROM thalilist where Email_id = '".$_SESSION['email']."'";
 
  
      $data = mysqli_fetch_assoc(mysqli_query($link,$query));
@@ -119,12 +120,24 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
 
                   <div class="form-group">
 
-                    <label for="inputContact" class="col-lg-2 control-label">Contact</label>
+                    <label for="inputContact" class="col-lg-2 control-label">Mobile No.</label>
 
                     <div class="col-lg-10">
 
                       <input type="text" class="form-control" id="inputContact" placeholder="Contact" required='required' name="contact" value='<?php echo $CONTACT;?>'>
                       <input type="hidden" class="gregdate" name="date1" value="<?php echo date("Y-m-d") ?>"/>
+
+                    </div>
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label for="inputwhatsapp" class="col-lg-2 control-label">WhatsApp No.</label>
+
+                    <div class="col-lg-10">
+
+                      <input type="text" class="form-control" id="inputwhatsapp" placeholder="WhatsApp" required='required' name="whatsapp" value='<?php echo $WhatsApp;?>'>
 
                     </div>
 
