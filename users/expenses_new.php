@@ -147,10 +147,10 @@ foreach ($months as $key => $month) {
 	  $result = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM receipts where Date like '%-$key-%'");
 	  $hub_received = mysqli_fetch_assoc($result);
 
-	  $result1 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Month = '".$value."' AND Type = 'Cash'");
+	  $result1 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Month = '".$value."' AND (Type = 'Cash' OR Type = 'Zabihat')");
 	  $cash_paid = mysqli_fetch_assoc($result1);
 
-	  $result2 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Month = '".$value."' AND Type != 'Cash'");
+	  $result2 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Month = '".$value."' AND (Type != 'Cash' AND Type != 'Zabihat')");
 	  $fixed_cost = mysqli_fetch_assoc($result2);
 	  $yearly_total_savings += $hub_received['Amount'] - $cash_paid['Amount'] - $fixed_cost['Amount'];
 	
