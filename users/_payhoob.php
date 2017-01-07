@@ -36,7 +36,7 @@ $sql = mysqli_query($link,"SELECT NAME, Email_ID, CONTACT from thalilist where T
 $row = mysqli_fetch_row($sql);
 $user_name = $row[0];
 $sms_to = $row[2];
-$sms_body = "Mubarak for earning sawab by participating in Faiz Jaman. Moula nu ehsan chhe ke apne jamarwa ma shamil kare chhe. Hub $user_amount/Thali $user_thali/Receipt $user_receipt";
+$sms_body = "Mubarak for earning sawab by participating in FMB. Moula(T.U.S) nu ehsan che ke apne jamarwa ma shamil kare che. Hub $user_amount/Thali $user_thali/Receipt $user_receipt";
 $sms_body = urlencode($sms_body);
 $result = file_get_contents("http://sms.myn2p.com/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$sms_to&message=$sms_body&sender=FAIZST&route=Template");
 //-----------------------------------------
