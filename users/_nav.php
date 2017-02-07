@@ -22,8 +22,15 @@
           <li><a href="/users/requestarchive.txt">CR NR</a></li>
           <li><a href="/users/stopMultipleThaalis.php">Stop Thali</a></li>
           <li><a href="/users/expenses_new.php">Expenses</a></li>
-          <li><a href="/admin/index.php/examples/faiz">Admin</a></li>
-          <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Backend <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/admin/index.php/examples/faiz">Admin</a></li>
+              <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
+              <li><a href="/admin/index.php/examples/daily_hisab_items">Daily Items</a></li>
+              <li><a href="/admin/index.php/examples/sf_hisab">SF Purchases</a></li>
+            </ul>
+          </li>
           <li><a href="/users/notpickedup.php">NotPickedUp</a></li>
           <li><a target="_blank" href="/sms/">SMS</a></li>
           <?php
@@ -38,7 +45,14 @@
         <li><a href="/users/requestarchive.txt">CR NR</a></li>
         <li><a href="/users/stopMultipleThaalis.php">Stop Thali</a></li>
         <li><a href="/users/notpickedup.php">NotPickedUp</a></li>
-        <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Backend <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
+            <li><a href="/admin/index.php/examples/daily_hisab_items">Daily Items</a></li>
+            <li><a href="/admin/index.php/examples/sf_hisab">SF Purchases</a></li>
+          </ul>
+        </li>
         <li><a href="/users/_daily_hisab_entry.php">Daily Hisab</a></li>
         <?php
         }

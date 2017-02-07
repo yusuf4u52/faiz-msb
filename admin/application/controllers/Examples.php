@@ -68,6 +68,42 @@ function notpickedup()
     $this->_example_output($output);
 }
 
+function daily_hisab_items()
+{
+	session_start();
+		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('bscalcuttawala@gmail.com','mesaifee52@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com')))
+		{
+
+		}else
+		 header("Location: http://www.faizstudents.com/users/login.php");
+
+    $crud = new grocery_CRUD();
+    $crud->set_theme('datatables');
+    $crud->set_table('daily_hisab_items');
+
+    $output = $crud->render();
+ 
+    $this->_example_output($output);
+}
+
+function sf_hisab()
+{
+	session_start();
+		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('bscalcuttawala@gmail.com','mesaifee52@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com')))
+		{
+
+		}else
+		 header("Location: http://www.faizstudents.com/users/login.php");
+
+    $crud = new grocery_CRUD();
+    $crud->set_theme('datatables');
+    $crud->set_table('sf_hisab');
+
+    $output = $crud->render();
+ 
+    $this->_example_output($output);
+}
+
 function receipts()
 {
 	session_start();
