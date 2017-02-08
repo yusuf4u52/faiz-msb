@@ -5,7 +5,7 @@ include('adminsession.php');
 $result=mysqli_query($link,"SELECT dh.*,SUM(dhi.amount) as total_amount FROM daily_hisab as dh INNER JOIN daily_hisab_items as dhi on dh.`date` = dhi.`date` group by `dhi`.`date` order by `dh`.`date` DESC limit 30") or die(mysqli_error($link));
 
 $result2=mysqli_fetch_assoc(mysqli_query($link,"SELECT SUM(amount) as total FROM sf_hisab where type = 'Dr'"));
-$result3=mysqli_fetch_assoc(mysqli_query($link,"SELECT SUM(amount) as total FROM sf_hisab where type = 'Cr'"));
+$result3=mysqli_fetch_assoc(mysqli_query($link,"SELECT SUM(Amount) as total FROM account where Type = 'Cash'"));
 $spent = $result2['total'];
 $cash = $result3['total'];
 
