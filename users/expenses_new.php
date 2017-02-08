@@ -92,7 +92,7 @@ foreach ($months as $key => $month) {
       </div>
       <div class="modal-body">
         <div id="hisabform">
-        <input class="form-control" type="text" class="gregdate" name="sf_amount_date" value="<?php echo date("Y-m-d") ?>"/><br>
+        <input class="form-control gregdate" type="text" name="sf_amount_date" value="<?php echo date("Y-m-d") ?>"/><br>
         <input class="form-control" type="number" name="Amount" placeholder="Amount"/><br>
         <select class="form-control" name="salary">
                             <option value='Cash'>Cash</option>
