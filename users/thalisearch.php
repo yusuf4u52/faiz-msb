@@ -165,7 +165,13 @@ if($_GET)
                   ?>
                   <tr>
                     <td><a href="#" data-key="payhoob" data-thali="<?php echo $values['Thali']; ?>">Pay Hoob</a></td>
-                    <td><?php if($values['Active'] == '1'): ?><a href="#" data-key="stopthaali" data-thali="<?php echo $values['Thali']; ?>">Stop Thaali</a><?php endif;?></td>
+                    <td><?php
+                      if($values['Active'] == '1') {?>
+                        <a href="#" data-key="stopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="0">Stop Thaali</a>
+                        <?php }else{ ?>
+                        <a href="#" data-key="stopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="1">Start Thaali</a>
+                        <?php } ?>
+                        </td>
                     <td><?php echo $values['Thali']; ?></td>
                     <td><?php echo $values['NAME']; ?></td>
                     <td><?php echo $values['CONTACT']; ?></td>
@@ -232,7 +238,7 @@ if($_GET)
 
 
       $('[data-key="stopthaali"]').click(function() {
-        stopThali_admin($(this).attr('data-thali'), $('[name="receipt_date"]').val(), function(data){
+        stopThali_admin($(this).attr('data-thali'), $('[name="receipt_date"]').val(), $(this).attr('data-active'), function(data){
           if(data==='success') {
             location.reload();
           }

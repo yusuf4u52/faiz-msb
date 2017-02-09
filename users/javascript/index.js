@@ -20,8 +20,8 @@ $(function(){
 })
 
 
-function stopThali_admin(thaaliId, hijriDate, successCallback, failureCallback) {
-  var data = 'thaali_id=' + thaaliId + '&stop_date=' + hijriDate;
+function stopThali_admin(thaaliId, hijriDate, active, successCallback, failureCallback) {
+  var data = 'thaali_id=' + thaaliId + '&stop_date=' + hijriDate + '&active=' + active;
   $.ajax({
     method: 'post',
     url: '_stop_thali_admin.php',
@@ -29,7 +29,7 @@ function stopThali_admin(thaaliId, hijriDate, successCallback, failureCallback) 
     data: data,
     success: function(data) {
       if (data == 'success') {
-        alert('Thaali #' + thaaliId + 'stopped!');
+        alert('Thaali #' + thaaliId + ' Operation Successfull!');
       } else if (data==='404') {
         alert('Thaali #' + thaaliId + ' does not exists or is already stopped. Contact Mustafa Manawar or Yusuf Rampur for further details.');
       }
