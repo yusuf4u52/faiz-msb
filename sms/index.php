@@ -536,8 +536,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             });
         }
         updateBalance();
-        //http://sms.myn2p.com/api/balance.php?authkey=56933A7SlpSID5577e45a&type=TEMPLATE
-        // balance api
       });
     </script>
   </body>
