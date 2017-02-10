@@ -3,7 +3,7 @@
 include('connection.php');
 include('_authCheck.php');
 
-$query="SELECT Thali, yearly_commitment, NAME, Dues, Paid, yearly_hub, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist where Email_id = '".$_SESSION['email']."'";
+$query="SELECT * FROM thalilist where Email_id = '".$_SESSION['email']."'";
 
 $values = mysqli_fetch_assoc(mysqli_query($link,$query));
 
@@ -12,6 +12,11 @@ $_SESSION['address'] = $values['Full_Address'];
 $_SESSION['name'] = $values['NAME'];
 $_SESSION['contact'] = $values['CONTACT'];
 $_SESSION['transporter'] = $values['Transporter'];
+
+// Redirect users to update details page
+if (empty($values['NAME']) || empty($values['ITS_No']) || empty($values['WATAN']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) {
+    header("Location: update_details.php"); 
+}
 
 if(empty($values['Thali']))
 {
@@ -226,7 +231,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                       ?>
                       <li class="list-group-item">
                           <h6 class="list-group-item-heading text-muted">Start Date</h6>
-                          <p class="list-group-item-text hijridate"><?php echo $values['Thali_start_date']; ?></p>
+                          <p class="list-group-item-text hijridate"><?php echo $values['Thali_Start_Date']; ?></p>
                       </li>
 
                       <?php
@@ -236,7 +241,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                         ?>
                       <li class="list-group-item">
                           <h6 class="list-group-item-heading text-muted">Stop Date</h6>
-                          <p class="list-group-item-text hijridate"><?php echo $values['Thali_stop_date']; ?></p>
+                          <p class="list-group-item-text hijridate"><?php echo $values['Thali_Stop_Date']; ?></p>
                       </li>
 
                       <?php } ?>
