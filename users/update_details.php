@@ -6,7 +6,6 @@ if ($_POST)
     {  
       $_POST['address'] = str_replace("'", "", $_POST['address']);
       mysqli_query($link,"UPDATE thalilist set 
-                                      NAME='" . $_POST["name"] . "',
                                       CONTACT='" . $_POST["contact"] . "',
                                       Full_Address='" . $_POST["address"] . "',
                                       WATAN='" . $_POST["watan"] . "',
@@ -88,7 +87,7 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
 
                     <div class="col-lg-10">
 
-                      <input type="text" class="form-control" id="inputName" placeholder="Name" required='required'  name="name" value='<?php echo $NAME;?>'>
+                      <input type="text" class="form-control" id="inputName" placeholder="Name" required='required'  name="name" value='<?php echo $NAME;?>' disabled>
 
                     </div>
 
@@ -100,7 +99,7 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
 
                     <div class="col-lg-10">
 
-                      <input type="text" class="form-control" id="inputIts" placeholder="its" required='required'  name="its" value='<?php echo $ITS_No;?>'>
+                      <input type="text" pattern="[0-9]{8}" class="form-control" id="inputIts" placeholder="its" required='required'  name="its" value='<?php echo $ITS_No;?>' title="Enter correct ITS ID">
 
                     </div>
 
@@ -124,7 +123,7 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
 
                     <div class="col-lg-10">
 
-                      <input type="text" class="form-control" id="inputContact" placeholder="Contact" required='required' name="contact" value='<?php echo $CONTACT;?>'>
+                      <input type="text" pattern="[0-9]{10}" class="form-control" id="inputContact" placeholder="Contact" required='required' name="contact" value='<?php echo $CONTACT;?>' title="Enter 10 digits">
                       <input type="hidden" class="gregdate" name="date1" value="<?php echo date("Y-m-d") ?>"/>
 
                     </div>
