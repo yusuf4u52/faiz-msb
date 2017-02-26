@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $thali = $record['thali'];
         $name = $record['name'];
         $names = explode(" ", $name, 3);
-        $name = $names[0].$names[1];
+        $name = $names[0]." ".$names[1];
         $amount = $record['amount'];
         $message_formatted = str_replace(array("<THALI>","<NAME>","<AMOUNT>"),array($thali,$name,$amount),$message_raw);
         $message = urlencode($message_formatted);
