@@ -14,7 +14,7 @@ $_SESSION['contact'] = $values['CONTACT'];
 $_SESSION['transporter'] = $values['Transporter'];
 
 // Redirect users to update details page
-if (empty($values['NAME']) || empty($values['ITS_No']) || empty($values['WATAN']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) {
+if (empty($values['ITS_No']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) {
     header("Location: update_details.php"); 
 }
 
