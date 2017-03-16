@@ -57,23 +57,13 @@
         <li><a href="/users/_daily_hisab_entry.php">Daily Hisab</a></li>
         <?php
         }
-        ?>
-        <?php
-        if(in_array($_SESSION['email'], array('mustukotaliya53@gmail.com')))
+        if(in_array($_SESSION['email'], array('yusuf4u52@gmail.com','mustafamnr@gmail.com')))
         {
         ?>
-        <li><a href="/admin/index.php/examples/faiz">My Transport List</a></li>      
+        <li><a href="/users/amount_received_by.php">Received</a></li>      
         <?php
         }
         ?>
-         <?php
-        if(in_array($_SESSION['email'], array('husainpoonawala1995@gmail.com')))
-        {
-        ?>
-        <li><a href="/users/pendingactions.php">Pending Actions</a></li>
-        <?php
-        }
-        ?>              
         <li><a href="/users/update_details.php">Update details</a></li>
         <li><a href="/users/logout.php">Logout</a></li>
       </ul>
