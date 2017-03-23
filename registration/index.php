@@ -1,10 +1,8 @@
 <?php
 include('../users/connection.php');
 require '../users/mailgun-php/vendor/autoload.php';
-include('call_api.php');
 use Mailgun\Mailgun;
 session_start();
-
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -21,10 +19,6 @@ if($_POST)
   extract($data);
 $transport = ($transport == 'Yes') ? 'Transporter' : 'Pick Up';
 $occupation = ($occupation == 'Student') ? 'Student' : 'Working';
-$datafromits = json_decode(CallAPI($its),true);
-$datafromits_name = $datafromits['name'];
-$datafromits_jamaat = $datafromits['jamaat'];
-
 $sql = "INSERT INTO thalilist (
                                         `NAME`,
                                         `CONTACT`,
@@ -42,12 +36,12 @@ $sql = "INSERT INTO thalilist (
                                        ,`Permanent_Residence`
                                         )
                             VALUES (
-                                    '$datafromits_name',
+                                    '$firstname $fathername $lastname',
                                     '$mobile',
                                     '$its',
                                     '$address',
                                     '$email',
-                                    '$datafromits_jamaat',
+                                    '$watan',
                                     '$transport',
                                     '$occupation'
                                     ,'$gender'
@@ -59,23 +53,18 @@ $sql = "INSERT INTO thalilist (
                                     )";
   mysqli_query($link,$sql) or die(mysqli_error($link));
   mysqli_close($link);
-
 $msgvar = "Salaam ".$firstname."bhai,<br><br>New Registration form for Faiz ul Mawaid il Burhaniyah thali has been successfully submitted.<br>
 <b>Please visit faiz with xerox of ITS card and 3000 Hub + 500 Registration to get the thali activated.</b><br><br>
 Faiz Address<br>Shop Near Gold Gym,<br>Lane adjacent to Satyanand Hospital,<br>Between Badshah Nagar and Sheetal Petrol Pump<br><br>
 Office Time - 9 to 11 AM, Monday to Saturday.<br>
 For any concerns mail help@faizstudents.com";
-
 $mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
 $domain = "mg.faizstudents.com";
-
 $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
                                 'to'      =>  $email, 
                                 'subject' => 'New Registration Successful, Visit Faiz to activate the thali',
                                 'html'    => $msgvar));
-
    header("Location: selectyearlyhub.php");
-
 }
 ?>
 <!DOCTYPE html>
@@ -108,10 +97,8 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
             background-clip: border-box;
             padding-top: 1em;
             padding-bottom: 1em;
-
             border: 1px dotted #ddd;
             border-radius: 10px;
-
             -webkit-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.78);
             -moz-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.78);
             box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.78);
@@ -120,11 +107,9 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
         {
           color: red;
         }
-
         .font-size-13-px {
           font-size: 13px;
         }
-
         .color-brown {
           color: brown;
         }
