@@ -54,16 +54,9 @@ if($_POST)
                     <td><?php echo $valuesnew['received_by']; ?></td>
                     <td><?php echo (int)$valuesnew['total_amount'] - (int)$amount_received_already_keyval[$valuesnew['received_by']]; ?></td>
                     <td><form method="post">
-                      <div class="form-group">
-                        <div class="input-group">
                           <input type="hidden" name="email" value="<?php echo $valuesnew['received_by']; ?>">
-                          <span class="input-group-addon">₹</span>
                           <input type="text" name="amount" class="form-control">
-                          <span class="input-group-btn">
-                            <button type="submit" class="btn btn-primary" type="button">Receive</button>
-                          </span>
-                        </div>
-                      </div>
+                          <button type="submit" class="btn btn-primary btn-sm" type="button">Receive</button>
                     </form></td>
                   </tr>                 
                    <?php } ?>
@@ -74,4 +67,6 @@ if($_POST)
 
 </div>
 </body>
+<script src="javascript/jquery-2.2.0.min.js"></script>
+<script src="javascript/bootstrap-3.3.6.min.js"></script>
 </html>
