@@ -2,7 +2,7 @@
 include('connection.php');
 include('adminsession.php');
 
-$result=mysqli_query($link,"SELECT dh.*,SUM(dhi.amount) as total_amount FROM daily_hisab as dh INNER JOIN daily_hisab_items as dhi on dh.`date` = dhi.`date` group by `dhi`.`date` order by `dh`.`date` DESC limit 30") or die(mysqli_error($link));
+$result=mysqli_query($link,"SELECT dh.*,SUM(dhi.amount) as total_amount FROM daily_hisab as dh INNER JOIN daily_hisab_items as dhi on dh.`date` = dhi.`date` group by `dhi`.`date` order by `dh`.`date` DESC") or die(mysqli_error($link));
 
 $result2=mysqli_fetch_assoc(mysqli_query($link,"SELECT SUM(amount) as total FROM sf_hisab where type = 'Dr'"));
 $result3=mysqli_fetch_assoc(mysqli_query($link,"SELECT SUM(Amount) as total FROM account where Type = 'Cash' AND Date >= '1438-02-01'"));
@@ -26,7 +26,7 @@ $cashinhand = $cash - $spent;
 <button type="button" class="btn btn-primary" data-target="#additems" data-toggle="modal">Add Items</button>
 <button type="button" class="btn btn-primary" data-target="#sfhisab" data-toggle="modal">SF Purchases</button><br><br>
 
-  <table class="table table-striped table-hover">
+  <table class="table table-striped table-hover" id="my-table">
   <thead>
     <tr>
       <th>Date</th>
@@ -269,7 +269,10 @@ $cashinhand = $cash - $spent;
   </div>
 </div>
 </div>
-
+<?php include('_bottomJS.php'); ?>
+<script type="text/javascript">
+  $('#my-table').dynatable();
+</script>
 
 </body>
 </html>
