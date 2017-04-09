@@ -49,6 +49,7 @@ if($_POST)
                     <?php
                     while($valuesnew = mysqli_fetch_assoc($amount_received))
                     {
+                      if($valuesnew['received_by']!= "mustafamnr@gmail.com") {
                     ?>
                     <tr>
                     <td><?php echo $valuesnew['received_by']; ?></td>
@@ -59,7 +60,7 @@ if($_POST)
                           <button type="submit" class="btn btn-primary btn-sm" type="button">Receive</button>
                     </form></td>
                   </tr>                 
-                   <?php } ?>
+                   <?php }} ?>
               
                 </tbody>
               </table>
