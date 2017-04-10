@@ -139,6 +139,7 @@ function receipts()
     {
     $crud->unset_delete();
 	}
+    $crud->columns('Receipt_No','Thali_No','name','Amount','Date','received_by');
 
     $output = $crud->render();
  
