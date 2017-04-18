@@ -63,6 +63,7 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
             <div class="page-header">
 
               <h2 id="forms">Update info</h2>
+              <h4 id="forms">Make Sure you fill out all the required field to get to the Home Page</h4>
 
             </div>
 
