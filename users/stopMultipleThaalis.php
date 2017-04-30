@@ -87,7 +87,7 @@ include('adminsession.php');
         for (var i = thaliNumbers.length - 1; i >= 0; i--) {
           var thaliNumber = thaliNumbers[i];
           if(confirm('Stop thaali #' + thaliNumber + ' ?')){
-            stopThali_admin(thaliNumber, $('#stopDate').val());
+            stopThali_admin(thaliNumber, $('#stopDate').val(),0);
           }
         }
       });
