@@ -24,7 +24,7 @@ if(!empty($values['yearly_hub']))
 
     <div class="container">
         <div class="row">
-            <h1 class="col-xs-12">Niyaaz takhmeen for the year of Shehrullah 1437 - Shabaan 1438.</h1>
+            <h1 class="col-xs-12">Niyaaz takhmeen for the year of Shehrullah 1438 - Shabaan 1439.</h1>
             <h4 class="col-xs-12">Please select the total niyaaz amount that you will contribute for the full year.</h4>
         </div>
           <a class="row" href='selectyearlyhub_action.php?option=1'><button type="button" class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>21,000/-</button></a>
