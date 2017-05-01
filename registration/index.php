@@ -1,6 +1,8 @@
 <?php
 include('../users/connection.php');
+require '../sms/_credentials.php';
 require '../users/mailgun-php/vendor/autoload.php';
+include('call_api.php');
 use Mailgun\Mailgun;
 session_start();
 if (mysqli_connect_errno())
@@ -19,6 +21,9 @@ if($_POST)
   extract($data);
 $transport = ($transport == 'Yes') ? 'Transporter' : 'Pick Up';
 $occupation = ($occupation == 'Student') ? 'Student' : 'Working';
+$datafromits = CallAPI($its,$header,$its_url);
+$datafromits_name = $datafromits['name'];
+$datafromits_jamaat = $datafromits['jamaat'];
 $sql = "INSERT INTO thalilist (
                                         `NAME`,
                                         `CONTACT`,
@@ -36,12 +41,12 @@ $sql = "INSERT INTO thalilist (
                                        ,`Permanent_Residence`
                                         )
                             VALUES (
-                                    '$firstname $fathername $lastname',
+                                    '$datafromits_name',
                                     '$mobile',
                                     '$its',
                                     '$address',
                                     '$email',
-                                    '$watan',
+                                    '$datafromits_jamaat',
                                     '$transport',
                                     '$occupation'
                                     ,'$gender'
