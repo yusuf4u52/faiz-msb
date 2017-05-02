@@ -1,13 +1,16 @@
 CREATE TABLE receipts_%month% LIKE receipts;
 INSERT INTO receipts_%month% SELECT * FROM `receipts`;
 TRUNCATE TABLE receipts;
+CREATE TABLE account_%month% LIKE account
+INSERT INTO account_%month% SELECT * FROM `account`;
+TRUNCATE TABLE account;
 CREATE TABLE thalilist_%month% LIKE thalilist;
 INSERT INTO thalilist_%month% SELECT * FROM `thalilist`;
 UPDATE thalilist SET Previous_Due = Total_Pending;
 UPDATE thalilist SET yearly_hub = 0, Dues = 0, Zabihat = 0, Reg_Fee = 0, TranspFee = 0, Paid = 0;
 -- UPDATE thalilist SET Dues = 1800 where Active = 1;
 -- UPDATE thalilist SET TranspFee = 250 where Active = 1 AND Transporter != 'Pick Up';
--- UPDATE settings SET `value` = `value` + 1 WHERE `settings`.`key` = 'current_month';
+UPDATE settings SET `value` = `value` + 1 WHERE `settings`.`key` = 'current_year';
 
 -- Customization
 

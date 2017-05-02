@@ -27,10 +27,32 @@ $months = array(
 </head>
   <body>
 <?php include('_nav.php'); ?>
-
+<form method="POST">
+<select name="year">
+  <?php
+  for ($i=1438;$i<=1450;$i++) { ?>
+    <option value="<?php echo $i; ?>" <?php if($_POST['year'] == $i) echo "selected";?>><?php echo $i; ?></option>
+  <?php } ?>
+</select>
+<input type="submit" value="Submit">
+</form>
 <?php 
+    $result = mysqli_query($link,"SELECT value FROM settings where `key`='current_year'");
+    $current_year = mysqli_fetch_assoc($result);
+
+
+    if ($current_year['value'] == $_POST['year'] || empty($_POST['year'])) {
+      $thalilist_tablename = "thalilist";
+      $account_tablename = "account";
+      $receipts_tablename = "receipts";
+    } else {
+      $thalilist_tablename = "thalilist_".$_POST['year'];
+      $account_tablename = "account_".$_POST['year'];
+      $receipts_tablename = "receipts_".$_POST['year'];
+    }
+
 foreach ($months as $key => $month) {
-  		$sf_breakup = mysqli_query($link, "SELECT * FROM account where Month = '".$month."'") or die(mysqli_error($link));
+  		$sf_breakup = mysqli_query($link, "SELECT * FROM $account_tablename where Month = '".$month."'") or die(mysqli_error($link));
 ?>
 <div class="modal" id="sfbreakup-<?php echo $month; ?>">
   <div class="modal-dialog">
@@ -129,33 +151,51 @@ foreach ($months as $key => $month) {
 <div class="container">
 <table class="table table-striped table-hover table-responsive table-bordered">
   <thead>
+      <tr>
+    <td colspan='3'></td>
+    <td><strong>Previous Year Cash</strong></td>
+    <td class='success'><strong>62292</strong></td>
+    <td colspan='1'></td>
+    </tr>
     <tr>
         <th>Months</th>
         <th>Hub Received</th>
         <th>Amount Given</th>
         <th>Fixed Cost</th>
-        <th class='success'>Total Savings</th>
+        <th>Total Savings</th>
         <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
-  	
+ 
   	<?php
-    $yearly_total_savings = 32000;
+
+    $result3 = mysqli_query($link,"SELECT Amount FROM zabihat_rs_from_maula where year='".$current_year['value']."'");
+    $zab_maula = mysqli_fetch_assoc($result3);
+    
+    $result4 = mysqli_query($link,"SELECT SUM(Zabihat) as Amount FROM $thalilist_tablename");
+    $zab_students = mysqli_fetch_assoc($result4);
+
+    $result5 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM $account_tablename where Type = 'Zabihat'");
+    $zab_used = mysqli_fetch_assoc($result5);
+
+    $yearly_total_savings = $zab_maula['Amount'] + 62292;
+    
   	foreach ($months as $key => $value) {
   	  $key == $key + 1;
-	  $result = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM receipts where Date like '%-$key-%'");
+	  $result = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM $receipts_tablename where Date like '%-$key-%'");
 	  $hub_received = mysqli_fetch_assoc($result);
 
-	  $result1 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Month = '".$value."' AND (Type = 'Cash' OR Type = 'Zabihat')");
+	  $result1 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM $account_tablename where Month = '".$value."' AND (Type = 'Cash' OR Type = 'Zabihat')");
 	  $cash_paid = mysqli_fetch_assoc($result1);
 
-	  $result2 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Month = '".$value."' AND (Type != 'Cash' AND Type != 'Zabihat')");
+	  $result2 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM $account_tablename where Month = '".$value."' AND (Type != 'Cash' AND Type != 'Zabihat')");
 	  $fixed_cost = mysqli_fetch_assoc($result2);
 	  $yearly_total_savings += $hub_received['Amount'] - $cash_paid['Amount'] - $fixed_cost['Amount'];
 	
     ?>
+      
     <tr>
     <td><?php echo $value; ?></td>
 	<td><?php echo $hub_received['Amount']; ?></td>
@@ -168,7 +208,7 @@ foreach ($months as $key => $month) {
 	<tr>
     <td colspan='3'></td>
     <td><strong>Cash In Hand</strong></td>
-    <td class='success'><strong><?php echo $yearly_total_savings; ?></strong></td>
+    <td class='warning'><strong><?php echo $yearly_total_savings; ?></strong></td>
     <td colspan='1'></td>
     </tr>    	
   </tbody>
@@ -178,29 +218,17 @@ foreach ($months as $key => $month) {
   <thead>
     <tr>
 		<th>Zabihat Maula(TUS)</th>
-        <th>Zabihat Students</th>
+    <th>Zabihat Students</th>
 		<th>Used</th>
 		<th>Remaining</th>
     </tr>
   </thead>
-
   <tbody>
-  	
-  	<?php
-    
-	  $result = mysqli_query($link,"SELECT SUM(Zabihat) as Amount FROM thalilist");
-	  $zab_students = mysqli_fetch_assoc($result);
-
-	  $result1 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM account where Type = 'Zabihat'");
-	  $zab_used = mysqli_fetch_assoc($result1);
-
-
-    ?>
-    <tr>
-    <td>32000</td>
+  <tr>
+  <td><?php echo $zab_maula['Amount']; ?></td>
 	<td><?php echo $zab_students['Amount']; ?></td>
 	<td><?php echo $zab_used['Amount']; ?></td>
-	<td><?php echo 32000 + $zab_students['Amount'] - $zab_used['Amount'] ; ?></td>
+	<td><?php echo $zab_maula['Amount'] + $zab_students['Amount'] - $zab_used['Amount'] ; ?></td>
 	</tr>
   </tbody>
 </table>
