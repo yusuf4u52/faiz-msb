@@ -8,6 +8,7 @@ if ($_POST)
       mysqli_query($link,"UPDATE thalilist set 
                                       CONTACT='" . $_POST["contact"] . "',
                                       fathersNo='" . $_POST["fathercontact"] . "',
+                                      fathersITS='" . $_POST["fatherits"] . "',
                                       Full_Address='" . $_POST["address"] . "',
                                       WATAN='" . $_POST["watan"] . "',
                                       ITS_No='" . $_POST["its"] . "',
@@ -127,9 +128,15 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
                     </div>
                   </div>
                   <div class="form-group">
+                    <label for="inputContact" class="col-lg-2 control-label">Fathers ITS</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="inputContact" required='required' name="fatherits" value='<?php echo $fathersITS;?>'>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="inputContact" class="col-lg-2 control-label">Fathers No.</label>
                     <div class="col-lg-10">
-                      <input type="text" class="form-control" id="inputContact" required='required' name="fathercontact" value='<?php echo $fathersNo;?>' title="Enter 10 digits">
+                      <input type="text" class="form-control" id="inputContact" required='required' name="fathercontact" value='<?php echo $fathersNo;?>'>
                     </div>
                   </div>
 
@@ -183,6 +190,31 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
 
     </div>
 
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Update info</h4>
+      </div>
+      <div class="modal-body">
+        <p>Make Sure you fill out all the required field to get to the Home Page</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Message model ends-->
+<?php if(isset($_GET['update_pending_info'])) {?>
+  <script type="text/javascript">
+    $('#myModal').modal('show');
+  </script>
+<?php } ?>
   </body>
 </html>
