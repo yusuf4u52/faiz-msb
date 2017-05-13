@@ -3,7 +3,7 @@ include('connection.php');
 include('adminsession.php');
 
 
-    $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending, Email_Id FROM thalilist";
+    $query="SELECT * FROM thalilist";
     $query_new_transporter = $query . " WHERE Transporter = 'Transporter'  and active = 1 and Thali <> '' and Thali is not null";
     $result = mysqli_query($link,$query_new_transporter);
     $query_new_thali = $query . " WHERE (Thali = ''  or Thali is null) and Active = '0'";
@@ -130,6 +130,7 @@ include('adminsession.php');
                     
                     <th>Thali No</th>
                     <th>Transporter</th>
+                    <th>Hub</th>
                     <th>Address</th>
                     <th>Name</th>
                     <th>Mobile</th>
@@ -174,6 +175,7 @@ include('adminsession.php');
                           }
                           ?>
                     </td>
+                    <td><input type='text' name="hub" size=8 required='required' value="<?php echo $values['yearly_hub']; ?>"></td></td>
                     <td><?php echo $values['Full_Address']; ?></td>
                     <td><?php echo $values['NAME']; ?></td>
                     <td><?php echo $values['CONTACT']; ?></td>
