@@ -8,6 +8,7 @@ if ($_POST)
       mysqli_query($link,"UPDATE thalilist set 
                                       CONTACT='" . $_POST["contact"] . "',
                                       fathersNo='" . $_POST["fathercontact"] . "',
+                                      fathersITS='" . $_POST["fatherits"] . "',
                                       Full_Address='" . $_POST["address"] . "',
                                       WATAN='" . $_POST["watan"] . "',
                                       ITS_No='" . $_POST["its"] . "',
@@ -127,9 +128,15 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
                     </div>
                   </div>
                   <div class="form-group">
+                    <label for="inputContact" class="col-lg-2 control-label">Fathers ITS</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="inputContact" required='required' name="fatherits" value='<?php echo $fathersITS;?>'>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="inputContact" class="col-lg-2 control-label">Fathers No.</label>
                     <div class="col-lg-10">
-                      <input type="text" class="form-control" id="inputContact" required='required' name="fathercontact" value='<?php echo $fathersNo;?>' title="Enter 10 digits">
+                      <input type="text" class="form-control" id="inputContact" required='required' name="fathercontact" value='<?php echo $fathersNo;?>'>
                     </div>
                   </div>
 
