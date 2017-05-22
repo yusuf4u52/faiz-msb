@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 include('connection.php');
 include('_authCheck.php');
 
@@ -222,6 +222,8 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                               }
                               elseif ($values['Transporter'] == "Aziz Bhai") {
                                   echo "".$values['Transporter']." | +919139333422" ;
+                              }else {
+                                  echo "Pick Up";
                               }
                           ?>
                           </p>

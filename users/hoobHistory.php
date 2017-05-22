@@ -19,16 +19,8 @@ include('connection.php');
           <td><b>Date</b></td>
           </tr>
           <?php
-          $query_tables = "SHOW TABLES";
-          $result_tables = mysqli_query($link,$query_tables);
-          $query = "";
-          echo $query;
-          while($row = $result_tables->fetch_array(MYSQLI_NUM)){ 
-            if (strpos($row[0], 'receipts_') !== false) {
-              $query .= "SELECT r.* FROM ".$row[0]." r, thalilist t WHERE r.Thali_No = t.Thali and t.Email_ID ='".$_SESSION['email']."' UNION ";
-            }
-          }
-          $query .= "SELECT r.* FROM receipts r, thalilist t WHERE r.Thali_No = t.Thali and t.Email_ID ='".$_SESSION['email']."' ORDER BY Date DESC";
+         
+          $query = "SELECT r.* FROM receipts r, thalilist t WHERE r.Thali_No = t.Thali and t.Email_ID ='".$_SESSION['email']."' ORDER BY Date ASC";
           $result = mysqli_query($link,$query);
           while($row = mysqli_fetch_assoc($result)){ 
           foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
