@@ -110,7 +110,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
           <div class="col-xs-6 col-sm-3 col-md-2">
 
               <?php
-                if($values['Total_Pending'] <= 3000) {
+                if($values['Previous_Due'] <= 3000) {
                   if($values['Active'] == 0)
                   {
               ?>
@@ -162,7 +162,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                 }} else {
               ?>
                <script type="text/javascript">
-                  alert('You have pending hub of <?php echo $values['Total_Pending']; ?> and so will not see Start thali button. Contact us at help@faizstudents.com');
+                  alert('You have pending hub of <?php echo $values['Previous_Due']; ?> and so will not see Start thali button. Contact us at help@faizstudents.com');
                </script>
               <?php }
               ?>
