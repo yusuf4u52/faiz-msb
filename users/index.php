@@ -3,6 +3,34 @@ error_reporting(0);
 include('connection.php');
 include('_authCheck.php');
 
+function getMiqaats($start_date)
+{
+    $_miqaats = array(
+                    '2017-06-16' => 'Lailatul Qadr (16th June 2017)',
+                    '2017-07-21' => 'Urs Syedi Abdulqadir Hakimuddin (AQ) (21st July 2017)',
+                    '2017-08-19' => 'Milad Of Syedna Taher Saifuddin (RA) (19th August 2017)',
+                    '2017-09-09' => 'Eid-e-Ghadeer-e-Khum (9th September 2017)',
+                    '2017-10-06' => 'Urs Syedna Hatim (RA) (6th October 2017)',
+                    '2017-11-09' => 'Chehlum Imam Husain (S.A) (9th November 2017)',
+                    '2017-11-30' => 'Milad Rasulullah (SAW) (30th November 2017)',
+                    '2018-01-07' => 'Milad Syedna Mohammed Burhanuddin (RA) (7th January 2018)',
+                    '2018-02-01' => '16 Jumadil Awwal (1st February 2018)',
+                    '2018-03-03' => '16 Jumadil Akhar (3rd March 2018)',
+                    '2018-04-01' => '16 Rajab (1st April 2018)',
+                    '2018-05-01' => '16 Shabaan (1st May 2018)'
+                    );
+    $return_array = array();
+    $i = 0;
+    foreach ($_miqaats as $date => $value) {
+      if($start_date <=  $date && $i < 8)
+      {
+         $return_array[$date] = $value;
+         $i++;
+      }
+    }
+    return $return_array;
+}
+
 $query="SELECT * FROM thalilist where Email_id = '".$_SESSION['email']."'";
 
 $values = mysqli_fetch_assoc(mysqli_query($link,$query));
@@ -35,28 +63,15 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
 {
   $reciepts_query_result_total = mysqli_fetch_assoc(mysqli_query($link,"SELECT sum(`Amount`) as total FROM `receipts` where Thali_No = '".$_SESSION['thali']."'"));
   $total_amount_paid = $reciepts_query_result_total['total'];
-  $thaliactivedate_query = mysqli_fetch_assoc(mysqli_query($link,"SELECT Date FROM `change_table` where Thali = '".$_SESSION['thali']."' AND operation = 'Start Thali' ORDER BY id limit 1"));
-  $thaliactivedate = $thaliactivedate_query['Date'];
+  $thaliactivedate_query = mysqli_fetch_assoc(mysqli_query($link,"SELECT DATE(datetime) as datetime FROM `change_table` where Thali = '".$_SESSION['thali']."' AND operation = 'Start Thali' AND id > 3596 ORDER BY id limit 1"));
+  $thaliactivedate = $thaliactivedate_query['datetime'];
+  $_miqaats = getMiqaats($thaliactivedate);
 
-  $_miqaats = array(
-                    '2016-06-27' => 'Lailatul Qadr (27th June 2016)',
-                    '2016-07-31' => 'Urs Syedi Abdulqadir Hakimuddin (AQ) (31st July 2016)',
-                    '2016-08-29' => 'Milad Of Syedna Taher Saifuddin (RA) (29th August 2016)',
-                    '2016-09-19' => 'Eid-e-Ghadeer-e-Khum (19th September 2016)',
-                    '2016-10-17' => 'Urs Syedna Hatim (RA) (17th October 2016)',
-                    '2016-11-20' => 'Chehlum Imam Husain (S.A) (20th November 2016)',
-                    '2016-12-11' => 'Milad Rasulullah (SAW) (11th December 2016)',
-                    '2017-01-18' => 'Milad Syedna Mohammed Burhanuddin (RA) (18th January 2017)'
-                    );
 
-  $installment = (int)($values['Total_Pending'] + $values['Paid'])/8;
+
+  $installment = (int)($values['Total_Pending'] + $values['Paid'])/count($_miqaats);
   $todays_date = date("Y-m-d");
   $miqaat_gone = 0;
-
-  if ($thaliactivedate > '1437-09-23' && !empty($thaliactivedate)) {
-	    $installment = (int)($values['Total_Pending'] + $values['Paid'])/7;
-      $miqaat_gone = 1;
-  }
   
   $miqaats = array();
   $miqaats_past = array();
@@ -294,7 +309,11 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                           ?>
                           <tr>
                             <td><?php echo $miqaat[1]; ?></td>
-                            <td><?php echo $miqaat[2]; ?></td>
+                            <?php if ($miqaat[2] < 0) { ?>
+                            <td>0</td>
+                            <?php }else{ ?>
+                            <td><?php echo $miqaat[2]; ?></td>  
+                            <?php } ?>
                           </tr>
                          <?php } ?>
                         </tbody>
