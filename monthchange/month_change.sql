@@ -1,7 +1,7 @@
 CREATE TABLE receipts_%month% LIKE receipts;
 INSERT INTO receipts_%month% SELECT * FROM `receipts`;
 TRUNCATE TABLE receipts;
-CREATE TABLE account_%month% LIKE account
+CREATE TABLE account_%month% LIKE account;
 INSERT INTO account_%month% SELECT * FROM `account`;
 TRUNCATE TABLE account;
 CREATE TABLE thalilist_%month% LIKE thalilist;
