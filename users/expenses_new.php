@@ -134,6 +134,7 @@ foreach ($months as $key => $month) {
                             <option value='Others'>Others</option>
         </select><br>
         <input type="hidden" name="Month"/>
+        <input type="hidden" name="tablename" value="<?php echo $account_tablename; ?>"/>
         <input class="form-control" type="text" placeholder="Remarks" name="desc"/><br>
       </div>
       </div>
@@ -171,7 +172,7 @@ foreach ($months as $key => $month) {
  
   	<?php
 
-    $result3 = mysqli_query($link,"SELECT Amount FROM zabihat_rs_from_maula where year='".$current_year['value']."'");
+    $result3 = mysqli_query($link,"SELECT value FROM settings where `key`='zabihat_".$_POST['year']."'");
     $zab_maula = mysqli_fetch_assoc($result3);
     
     $result4 = mysqli_query($link,"SELECT SUM(Zabihat) as Amount FROM $thalilist_tablename");
@@ -180,7 +181,7 @@ foreach ($months as $key => $month) {
     $result5 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM $account_tablename where Type = 'Zabihat'");
     $zab_used = mysqli_fetch_assoc($result5);
 
-    $yearly_total_savings = $zab_maula['Amount'] + 62292;
+    $yearly_total_savings = $zab_maula['value'] + 62292;
     
   	foreach ($months as $key => $value) {
   	  $key == $key + 1;
@@ -225,10 +226,10 @@ foreach ($months as $key => $month) {
   </thead>
   <tbody>
   <tr>
-  <td><?php echo $zab_maula['Amount']; ?></td>
+  <td><?php echo $zab_maula['value']; ?></td>
 	<td><?php echo $zab_students['Amount']; ?></td>
 	<td><?php echo $zab_used['Amount']; ?></td>
-	<td><?php echo $zab_maula['Amount'] + $zab_students['Amount'] - $zab_used['Amount'] ; ?></td>
+	<td><?php echo $zab_maula['value'] + $zab_students['Amount'] - $zab_used['Amount'] ; ?></td>
 	</tr>
   </tbody>
 </table>
@@ -265,7 +266,7 @@ $(function(){
           success: function(data) {
             if(data == 'success') {
               hisabform.hide();
-              window.location.href = window.location.href; //reload
+              location.reload();
             // } else if(data == 'DuplicateReceiptNo') {
             //   alert('Receipt number already exists in database');
             }
