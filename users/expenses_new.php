@@ -27,7 +27,7 @@ $months = array(
 </head>
   <body>
 <?php include('_nav.php'); ?>
-<form method="POST">
+<form align="center" method="POST">
 <select name="year">
   <?php
   for ($i=1438;$i<=1450;$i++) { ?>
@@ -37,11 +37,15 @@ $months = array(
 <input type="submit" value="Submit">
 </form>
 <?php 
+    $previous_year = $_POST['year'] - 1;
+    if(!empty($_POST['year'])){
     $result = mysqli_query($link,"SELECT value FROM settings where `key`='current_year'");
     $current_year = mysqli_fetch_assoc($result);
 
+    $result = mysqli_query($link,"SELECT value FROM settings where `key`='cash_in_hand_".$previous_year."'");
+    $previous_balance = mysqli_fetch_assoc($result);
 
-    if ($current_year['value'] == $_POST['year'] || empty($_POST['year'])) {
+    if ($current_year['value'] == $_POST['year']) {
       $thalilist_tablename = "thalilist";
       $account_tablename = "account";
       $receipts_tablename = "receipts";
@@ -155,7 +159,7 @@ foreach ($months as $key => $month) {
       <tr>
     <td colspan='3'></td>
     <td><strong>Previous Year Cash</strong></td>
-    <td class='success'><strong>62292</strong></td>
+    <td class='success'><strong><?php echo $previous_balance['value']; ?></strong></td>
     <td colspan='1'></td>
     </tr>
     <tr>
@@ -181,7 +185,7 @@ foreach ($months as $key => $month) {
     $result5 = mysqli_query($link,"SELECT SUM(Amount) as Amount FROM $account_tablename where Type = 'Zabihat'");
     $zab_used = mysqli_fetch_assoc($result5);
 
-    $yearly_total_savings = $zab_maula['value'] + 62292;
+    $yearly_total_savings = $zab_maula['value'] + $previous_balance['value'];
     
   	foreach ($months as $key => $value) {
   	  $key == $key + 1;
@@ -205,7 +209,9 @@ foreach ($months as $key => $month) {
 	<td class="success"><?php echo $hub_received['Amount'] - $cash_paid['Amount'] - $fixed_cost['Amount']; ?></td>
 	<td><a href="#" data-key="payhisab" data-month="<?php echo $value; ?>"><img src="images/add.png" style="width:20px;height:20px;"></a>&nbsp;
         <a data-key="Monthview" data-month="<?php echo $value; ?>" data-toggle="modal" href="#sfbreakup-<?php echo $value; ?>"><img src="images/view.png" style="width:20px;height:20px;"></a></td>	</tr>
-	<?php } ?>
+	<?php }
+    mysqli_query($link,"UPDATE settings set value ='".$yearly_total_savings."' where `key`= 'cash_in_hand_".$_POST['year']."'") or die(mysqli_error($link));
+   ?>
 	<tr>
     <td colspan='3'></td>
     <td><strong>Cash In Hand</strong></td>
@@ -233,7 +239,7 @@ foreach ($months as $key => $month) {
 	</tr>
   </tbody>
 </table>
-
+<?php } ?>
 
 </div>
 
