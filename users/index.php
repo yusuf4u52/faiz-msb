@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include('connection.php');
 include('_authCheck.php');
 
@@ -66,8 +67,6 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
   $thaliactivedate = $thaliactivedate_query['datetime'];
   $_miqaats = getMiqaats($thaliactivedate);
 
-
-
   $installment = (int)($values['Total_Pending'] + $values['Paid'])/count($_miqaats);
   $todays_date = date("Y-m-d");
   $miqaat_gone = 0;
@@ -124,7 +123,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
           <div class="col-xs-6 col-sm-3 col-md-2">
 
               <?php
-                if($values['Total_Pending'] <= 3000) {
+                if($values['Previous_Due'] <= 3000) {
                   if($values['Active'] == 0)
                   {
               ?>
@@ -176,7 +175,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                 }} else {
               ?>
                <script type="text/javascript">
-                  alert('You have pending hub of <?php echo $values['Total_Pending']; ?> and so will not see Start thali button. Contact us at help@faizstudents.com');
+                  alert('You have pending hub of <?php echo $values['Previous_Due']; ?> and so will not see Start thali button. Contact us at help@faizstudents.com');
                </script>
               <?php }
               ?>
@@ -236,6 +235,8 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                               }
                               elseif ($values['Transporter'] == "Aziz Bhai") {
                                   echo "".$values['Transporter']." | +919139333422" ;
+                              }else {
+                                  echo "Pick Up";
                               }
                           ?>
                           </p>
@@ -317,9 +318,15 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                             }
 
                             ?></td>
-                            <td><?php echo $miqaat[2]; ?></td>
+
+                            <?php if ($miqaat[2] < 0) { ?>
+                            <td>0</td>
+                            <?php }else{ ?>
+                            <td><?php echo $miqaat[2]; ?></td>  
+                            <?php } ?>
+
                             <td><?php
-                                if($i && $values['extension_miqaat'] != $miqaat[0] && (int)$miqaat[2] > 0)
+                                if($i && $values['extension_miqaat'] != $miqaat[0] && (int)$miqaat[2] > 0 && $values['extension_count'] < 3)
                                 {
                                   ?>
                                    <form class="form-horizontal" method="post" action="extend.php">
@@ -345,6 +352,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                                 } 
                                 ?>
                             </td>
+
                           </tr>
                          <?php
                             $i = false;
