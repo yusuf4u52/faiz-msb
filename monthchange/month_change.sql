@@ -11,6 +11,7 @@ UPDATE thalilist SET yearly_hub = 0, Dues = 0, Zabihat = 0, Reg_Fee = 0, TranspF
 -- UPDATE thalilist SET Dues = 1800 where Active = 1;
 -- UPDATE thalilist SET TranspFee = 250 where Active = 1 AND Transporter != 'Pick Up';
 UPDATE settings SET `value` = `value` + 1 WHERE `settings`.`key` = 'current_year';
+INSERT INTO settings (`key`,`value`) values ('cash_in_hand_%month%',0);
 
 -- Customization
 
