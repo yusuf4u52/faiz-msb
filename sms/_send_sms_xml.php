@@ -68,7 +68,7 @@ function send_sms_to_records($conn, $message) {
 	    )
 	);
 	$context  = stream_context_create($options);
-	//$result = file_get_contents($send_url, false, $context);
+	$result = file_get_contents($send_url, false, $context);
 	if ($result === FALSE) { /* Handle error */ echo "error in validating the xml api";}
 	// sample result 376667677537333438353234
 	// executing time was around 3 seconds
