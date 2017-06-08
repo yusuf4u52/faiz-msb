@@ -2,6 +2,8 @@
 include('connection.php');
 require 'mailgun-php/vendor/autoload.php';
 require '../backup/_email_backup.php';
+require '../sms/_sms_automation.php';
+
 use Mailgun\Mailgun;
 error_reporting(0);
 
