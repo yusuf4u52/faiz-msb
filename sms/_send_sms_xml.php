@@ -8,11 +8,12 @@ function send_sms_to_records($conn, $message) {
 	//$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 	//$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$message_raw = $message;
-	$qAmount = "total_pending";
+	$qAmount = "next_install";
 	$qThali = "Thali";
 	$qName = "NAME";
 	$qContact = "CONTACT";
 	$qGender = "Gender";
+	$tablename = "thalilist";
 	//$query = "SELECT $qThali, $qName, $qContact, $qAmount from $tablename where ($qContact is not null and $qAmount>0) or Thali=306";
 	$query = "SELECT $qThali, $qName, $qContact, $qAmount, $qGender from $tablename where $qAmount>0 and $qThali is not null and $qContact is not null";
 	echo $query;
