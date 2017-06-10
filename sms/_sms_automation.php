@@ -1,6 +1,7 @@
 <?php
 require '_credentials.php';
 require '_send_sms_xml.php';
+require '../users/update_next_install.php'
 /*
 
 some functions that i may require
