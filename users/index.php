@@ -314,7 +314,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
 
                             if($values['extension_miqaat'] == $miqaat[0])
                             {
-                                echo '<a style="color:red">(Next extension date:'.date('d M Y',strtotime($values['next_extension_date'])).')<a>';
+                                echo '<a style="color:red">(Extended to :'.date('d M Y',strtotime($values['next_extension_date'])).')<a>';
                             }
 
                             ?></td>

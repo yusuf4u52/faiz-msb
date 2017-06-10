@@ -1,7 +1,7 @@
 <?php
 require '_credentials.php';
 require '_send_sms_xml.php';
-require '../users/update_next_install.php'
+require '../users/update_next_install.php';
 /*
 
 some functions that i may require
@@ -91,7 +91,7 @@ try {
         exit();
     } else {
         $sms_template = $stmt[0];
-        echo "the following message template will be used to fire sms ".$sms_template['template'];
+        // echo "the following message template will be used to fire sms ".$sms_template['template'];
     }
 
     // now replace the message template with proper parameters
@@ -102,8 +102,8 @@ try {
     echo "<br>formatted template:<br>".$template_formatted;
     
     $result = send_sms_to_records($conn, $template_formatted);
-    echo "send sms returned ".$result;
-
+    echo "send sms returned ";
+    print_r($result);
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
