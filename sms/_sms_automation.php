@@ -88,22 +88,17 @@ try {
     
     if(sizeof($stmt) == 0) {
         echo "No SMS to send before $day_diff days";
-        exit();
     } else {
         $sms_template = $stmt[0];
-        // echo "the following message template will be used to fire sms ".$sms_template['template'];
+        $stop_date = get_next_day($next_miqat['miqat_date']);
+        echo $stop_date;
+        $template_formatted = str_replace(array("<DAY>", "<DATE>"),array($day_diff, $stop_date),$sms_template['template']);
+        echo "<br>formatted template:<br>".$template_formatted;
+        
+        $result = send_sms_to_records($conn, $template_formatted);
+        echo "send sms returned ";
+        print_r($result);
     }
-
-    // now replace the message template with proper parameters
-
-    $stop_date = get_next_day($next_miqat['miqat_date']);
-    echo $stop_date;
-    $template_formatted = str_replace(array("<DAY>", "<DATE>"),array($day_diff, $stop_date),$sms_template['template']);
-    echo "<br>formatted template:<br>".$template_formatted;
-    
-    $result = send_sms_to_records($conn, $template_formatted);
-    echo "send sms returned ";
-    print_r($result);
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
