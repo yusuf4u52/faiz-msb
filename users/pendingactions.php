@@ -113,9 +113,27 @@ include('adminsession.php');
             </div>
 
             <?php 
-            $sql = mysqli_query($link,"SELECT MAX(Thali) from thalilist");
+            $sql = mysqli_query($link,"
+            SELECT (
+t1.Thali +1
+) AS gap_starts_at, (
+
+SELECT MIN( t3.Thali ) -1
+FROM thalilist t3
+WHERE t3.Thali > t1.Thali
+) AS gap_ends_at
+FROM thalilist t1
+WHERE NOT 
+EXISTS (
+
+SELECT t2.Thali
+FROM thalilist t2
+WHERE t2.Thali = t1.Thali +1
+)
+HAVING gap_ends_at IS NOT NULL 
+LIMIT 0 , 30");
             $row = mysqli_fetch_row($sql);
-            $plusone = $row[0] + 1;
+            $plusone = $row[0];
 
             echo "Thali No. :: $plusone  can be given" ;
             ?> 
