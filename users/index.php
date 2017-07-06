@@ -123,7 +123,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
           <div class="col-xs-6 col-sm-3 col-md-2">
 
               <?php
-                if($values['Previous_Due'] <= 3000) {
+                if(($values['Previous_Due'] - $values['Paid'])  <= 3000) {
                   if($values['Active'] == 0)
                   {
               ?>
