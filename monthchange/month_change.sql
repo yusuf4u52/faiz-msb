@@ -1,6 +1,9 @@
 CREATE TABLE receipts_%month% LIKE receipts;
 INSERT INTO receipts_%month% SELECT * FROM `receipts`;
 TRUNCATE TABLE receipts;
+CREATE TABLE sf_hisab_%month% LIKE `sf_hisab`;
+INSERT INTO sf_hisab_%month% SELECT * FROM `sf_hisab`;
+TRUNCATE TABLE `sf_hisab`;
 CREATE TABLE account_%month% LIKE account;
 INSERT INTO account_%month% SELECT * FROM `account`;
 TRUNCATE TABLE account;

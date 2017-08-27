@@ -123,7 +123,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
           <div class="col-xs-6 col-sm-3 col-md-2">
 
               <?php
-                if($values['Previous_Due'] <= 3000) {
+                if(($values['Previous_Due'] - $values['Paid'])  <= 3000) {
                   if($values['Active'] == 0)
                   {
               ?>
@@ -314,7 +314,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
 
                             if($values['extension_miqaat'] == $miqaat[0])
                             {
-                                echo '<a style="color:red">(Next extension date:'.date('d M Y',strtotime($values['next_extension_date'])).')<a>';
+                                echo '<a style="color:red">(Extended to :'.date('d M Y',strtotime($values['next_extension_date'])).')<a>';
                             }
 
                             ?></td>
