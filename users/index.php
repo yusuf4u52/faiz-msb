@@ -31,7 +31,7 @@ function getMiqaats($start_date)
     return $return_array;
 }
 
-$query="SELECT * FROM thalilist where Email_id = '".$_SESSION['email']."'";
+$query="SELECT * FROM thalilist LEFT JOIN transporters on thalilist.Transporter = transporters.Name where Email_id = '".$_SESSION['email']."'";
 
 $values = mysqli_fetch_assoc(mysqli_query($link,$query));
 
@@ -221,23 +221,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                           <h6 class="list-group-item-heading text-muted">Transporter</h6>
                           <p class="list-group-item-text">
                           <?php 
-                              if ($values['Transporter'] == "Haider Bhai") {
-                                  echo "".$values['Transporter']." | +918421887642" ;
-                              }    
-                              elseif ($values['Transporter'] == "Burhan Bhai") {
-                                  echo "".$values['Transporter']." | +917083406689" ;
-                              }
-                              elseif ($values['Transporter'] == "Nasir Bhai") {
-                                  echo "".$values['Transporter']." | +919923344709" ;
-                              }
-                              elseif ($values['Transporter'] == "Azhar Bhai") {
-                                  echo "".$values['Transporter']." | +919766262652" ;
-                              }
-                              elseif ($values['Transporter'] == "Aziz Bhai") {
-                                  echo "".$values['Transporter']." | +919139333422" ;
-                              }else {
-                                  echo "Pick Up";
-                              }
+                              echo "".$values['Transporter']." | ".$values['Mobile']."" ;
                           ?>
                           </p>
                       </li>

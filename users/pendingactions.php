@@ -78,11 +78,15 @@ include('adminsession.php');
                     <td>
                           <select class='transporter'>
                             <option>Select</option>
-							              <option value='<?php echo $values['Thali']; ?>|Azhar Bhai'>Azhar Bhai</option>
-                            <option value='<?php echo $values['Thali']; ?>|Aziz Bhai'>Aziz Bhai</option>
-                            <option value='<?php echo $values['Thali']; ?>|Burhan Bhai'>Burhan Bhai</option>
-                            <option value='<?php echo $values['Thali']; ?>|Nasir Bhai'>Nasir Bhai</option>
-                            <option value='<?php echo $values['Thali']; ?>|Haider Bhai'>Haider Bhai</option>
+                            <?php
+                              $query="SELECT Name FROM transporters";
+                              $result1 = mysqli_query($link,$query);
+                              while ($values1 = mysqli_fetch_assoc($result1)) {
+                            ?>
+                                <option value='<?php echo $values['Thali']; ?>|<?php echo $values1['Name']; ?>'><?php echo $values1['Name']; ?></option>
+                            <?php
+                              }
+                            ?>
                           </select>
                     </td>
                     <td><?php echo $values['Full_Address']; ?></td>
