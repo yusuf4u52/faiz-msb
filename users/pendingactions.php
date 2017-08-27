@@ -7,7 +7,14 @@ include('adminsession.php');
     $query_new_transporter = $query . " WHERE Transporter = 'Transporter'  and active = 1 and Thali <> '' and Thali is not null";
     $result = mysqli_query($link,$query_new_transporter);
     $query_new_thali = $query . " WHERE (Thali = ''  or Thali is null) and Active = '0'";
-    $result_new_thali = mysqli_query($link,$query_new_thali);  
+    $result_new_thali = mysqli_query($link,$query_new_thali); 
+
+    $transporter_list = array();
+    $query="SELECT Name FROM transporters";
+    $result1 = mysqli_query($link,$query);
+    while ($values1 = mysqli_fetch_assoc($result1)) {
+      $transporter_list[] = $values1['Name'];
+    } 
 
     
 ?>
@@ -79,11 +86,10 @@ include('adminsession.php');
                           <select class='transporter'>
                             <option>Select</option>
                             <?php
-                              $query="SELECT Name FROM transporters";
-                              $result1 = mysqli_query($link,$query);
-                              while ($values1 = mysqli_fetch_assoc($result1)) {
+                              
+                              foreach($transporter_list as $tname) {
                             ?>
-                                <option value='<?php echo $values['Thali']; ?>|<?php echo $values1['Name']; ?>'><?php echo $values1['Name']; ?></option>
+                                <option value='<?php echo $values['Thali']; ?>|<?php echo $tname; ?>'><?php echo $tname; ?></option>
                             <?php
                               }
                             ?>
@@ -183,12 +189,13 @@ LIMIT 0 , 30");
                         <?php if($values['Transporter'] == 'Transporter') { ?>
                           <select name="transporter"  required='required'>
                             <option value=''>Select</option>
-                            <option value='Ayub Bhai'>Ayub Bhai</option>
-							              <option value='Azhar Bhai'>Azhar Bhai</option>
-                            <option value='Aziz Bhai'>Aziz Bhai</option>
-                            <option value='Burhan Bhai'>Burhan Bhai</option>
-                            <option value='Nasir Bhai'>Nasir Bhai</option>
-                            <option value='Haider Bhai'>Haider Bhai</option>
+                            <?php
+                              foreach($transporter_list as $tname) {
+                            ?>
+                                <option value='<?php echo $tname; ?>'><?php echo $tname; ?></option>
+                            <?php
+                              }
+                            ?>
                           </select>
                           <?php }
                           else
