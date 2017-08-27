@@ -44,6 +44,21 @@ foreach ($request as $transporter_name => $thalis) {
 }
 mysqli_query($link,"update change_table set processed = 1 where id in (".implode(',', $processed).")");
 
+//----------------- Transporter wise count daily----------------------
+
+$msgvar .= "\n<b>Transporter Count</b>\n";
+
+$sql = mysqli_query($link,"SELECT Transporter,count(*) as tcount FROM `thalilist` WHERE Active = 1 and Transporter != 'Transporter' group by Transporter");
+$tomorrow_date = date("Y-m-d", strtotime("+ 1 day"));
+while($row = mysqli_fetch_assoc($sql))
+{
+	$msgvar .= 	sprintf("%s\n",$row['Transporter'].' '.$row['tcount']);
+	$insert_sql = "INSERT INTO transporter_daily_count (`date`, `name`, `count`) VALUES ('" . $tomorrow_date . "','" . $row['Transporter'] . "','" . $row['tcount'] . "')";
+  	mysqli_query($link, $insert_sql) or die(mysqli_error($link));
+}
+
+//-------------------------------------------------------------------
+
 $result = mysqli_query($link,"SELECT * FROM thalilist WHERE Active='1' ");
 $count=mysqli_num_rows($result);
 
