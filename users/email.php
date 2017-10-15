@@ -12,15 +12,16 @@ if ($day == 'Sat') {
 	exit;
 }
 
-$sql = mysqli_query($link,"SELECT t.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id 
+$sql = mysqli_query($link,"SELECT c.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id 
 						from change_table as c
-						inner join thalilist as t on c.Thali = t.Thali
+						left join thalilist as t on c.Thali = t.Thali
 						WHERE c.processed = 0");
 $request = array();
 $processed_ids = array(); 
 echo "<pre>";
 while($row = mysqli_fetch_assoc($sql))
 {
+	if(empty($row['Transporter'])) $row['Transporter']='Stop Permanent'; 
 	$request[$row['Transporter']][$row['Operation']][] = $row;
 	$processed[] = $row['id'];
 }
@@ -35,7 +36,7 @@ foreach ($request as $transporter_name => $thalis) {
 				$msgvar .= 	sprintf("%s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address']);
 			}	
 		}
-		else if(in_array($operation_type, array('Stop Thali','Stop Transport')))
+		else if(in_array($operation_type, array('Stop Thali','Stop Transport','Stop Permanent')))
 		{
 			foreach ($thali_details as $thaliuser) {
 				$msgvar .= 	sprintf("%s\n",$thaliuser['Thali']);
