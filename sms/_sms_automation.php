@@ -64,7 +64,6 @@ try {
     $next_miqat = NULL;
     if(sizeof($stmt) == 0) {
         echo "no such miqat exists";
-        exit();
     } else {
         $next_miqat = $stmt[0];
         echo "next miqat is ".$next_miqat['miqat_description'];
