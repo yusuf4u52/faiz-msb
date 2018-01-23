@@ -175,20 +175,10 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
                     </div>
 
                   </div>
-                  </form>
-
-                  <div class="form-group">
-
-                    <div class="col-lg-10 col-lg-offset-2">
-                      <form class="form-horizontal" method="post" action="stop_permanent.php" onsubmit="return confirm('Are you sure?');">
-                      <button type="submit" class="btn btn-danger" name='stop_permanent'>Stop Thali Permanently</button>
-                      </form>
-
-                    </div>
-
-                  </div>
 
                 </fieldset>
+
+              </form>
 
             </div>
 
