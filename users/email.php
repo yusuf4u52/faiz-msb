@@ -1,8 +1,8 @@
 <?php
 include('connection.php');
-require 'mailgun-php/vendor/autoload.php';
-require '../backup/_email_backup.php';
-require '../sms/_sms_automation.php';
+include 'mailgun-php/vendor/autoload.php';
+include '../backup/_email_backup.php';
+include '../sms/_sms_automation.php';
 
 use Mailgun\Mailgun;
 error_reporting(0);
@@ -77,8 +77,7 @@ $mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
 $domain = "mg.faizstudents.com";
 
 $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
-                                'to'      => 'ummihaider@gmail.com,burhanik72@gmail.com,bscalcuttawala@gmail.com', 
-                                'cc'      => 'help@faizstudents.com',   
+                                'to'      => 'help@faizstudents.com,bscalcuttawala@gmail.com', 
                                 'subject' => 'Start Stop update '.date('d/m/Y'),
                                 'html'    => $msgvar));
 
