@@ -42,6 +42,9 @@ while($row = mysqli_fetch_assoc($result)){
   $thaliactivedate = $thaliactivedate_query['datetime'];
 
   $_miqaats = getMiqaats($thaliactivedate);
+
+  $row['Total_Pending'] = $row['Previous_Due'] + $row['Dues'] + $row['yearly_hub'] + $row['Zabihat'] + $row['Reg_Fee'] + $row['TranspFee'] - $row['Paid'];
+  
   $installment = (int)($row['Total_Pending'] + $row['Paid'])/count($_miqaats);;
   $todays_date = date("Y-m-d");
   $miqaat_gone = 0;

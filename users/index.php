@@ -67,6 +67,8 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
   $thaliactivedate = $thaliactivedate_query['datetime'];
   $_miqaats = getMiqaats($thaliactivedate);
 
+  $values['Total_Pending'] = $values['Previous_Due'] + $values['Dues'] + $values['yearly_hub'] + $values['Zabihat'] + $values['Reg_Fee'] + $values['TranspFee'] - $values['Paid'];
+  
   $installment = (int)($values['Total_Pending'] + $values['Paid'])/count($_miqaats);
   $todays_date = date("Y-m-d");
   $miqaat_gone = 0;

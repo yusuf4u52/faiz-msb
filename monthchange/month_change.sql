@@ -9,7 +9,7 @@ INSERT INTO account_%month% SELECT * FROM `account`;
 TRUNCATE TABLE account;
 CREATE TABLE thalilist_%month% LIKE thalilist;
 INSERT INTO thalilist_%month% SELECT * FROM `thalilist`;
-UPDATE thalilist SET Previous_Due = Total_Pending;
+UPDATE thalilist SET Previous_Due = Previous_Due + Dues + yearly_hub + Zabihat + Reg_Fee + TranspFee - Paid;
 UPDATE thalilist SET yearly_hub = 0, Dues = 0, Zabihat = 0, Reg_Fee = 0, TranspFee = 0, Paid = 0;
 -- UPDATE thalilist SET Dues = 1800 where Active = 1;
 -- UPDATE thalilist SET TranspFee = 250 where Active = 1 AND Transporter != 'Pick Up';

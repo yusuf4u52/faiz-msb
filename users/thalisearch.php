@@ -4,7 +4,7 @@ include('adminsession.php');
 
 if($_GET)
 {
-    $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, Total_Pending FROM thalilist";
+    $query="SELECT Thali, NAME, CONTACT, Active, Transporter, Full_Address, Thali_start_date, Thali_stop_date, (Previous_Due + Dues + yearly_hub + Zabihat + Reg_Fee + TranspFee - Paid) AS Total_Pending FROM thalilist";
 
     if(!empty($_GET['thalino']))
     {
@@ -21,6 +21,7 @@ if($_GET)
     }
 
     $result = mysqli_query($link,$query);
+
     
 }
     
