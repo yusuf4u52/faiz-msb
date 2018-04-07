@@ -69,7 +69,11 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
                                 'to'      =>  $email, 
                                 'subject' => 'New Registration Successful, Visit Faiz to activate the thali',
                                 'html'    => $msgvar));
-   header("Location: selectyearlyhub.php");
+
+echo ("<SCRIPT LANGUAGE='JavaScript'>
+    window.alert('Form has been successfully submitted.You need to visit faiz office with xerox of ITS card and 2700 Hub to get the thali started. Address: Shop Near Gold Gym,Lane adjacent to Satyanand Hospital, Office Time - 9 to 11 AM, For any concerns call 9503054797')
+    window.location.href='index.php';
+    </SCRIPT>");
 }
 ?>
 <!DOCTYPE html>
