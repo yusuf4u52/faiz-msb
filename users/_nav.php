@@ -65,6 +65,7 @@
         <?php
         }
         ?>
+        <li><a href="/users/hoobHistory.php">My Receipts</a></li>
         <li><a href="/users/update_details.php">Update details</a></li>
         <li><a href="/users/logout.php">Logout</a></li>
       </ul>
