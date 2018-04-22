@@ -1,6 +1,21 @@
 <?php
 include('connection.php');
 include('adminsession.php');
+
+if (isset($_GET['stopallthalis'])) {
+    $result = mysqli_query($link,"SELECT Thali from  thalilist WHERE Active='1'") or die(mysqli_error($link));
+    $values = mysqli_fetch_all($result);
+    $all_thali=array_column($values,0);
+    $filter=array_filter($all_thali);
+    $all_thali_as_csv = implode(',', $filter);
+    if (empty($all_thali_as_csv)) {
+      echo "<script>
+            alert('No Active thalis found');
+            window.location = window.location.pathname;
+      </script>";
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +55,12 @@ include('adminsession.php');
 
                     <div class="col-lg-10">
 
-                      <input type="text" class="form-control" id="thaliNumbers" placeholder="Enter comma saperated thaali numbers" >
+                      <input type="text" class="form-control" id="thaliNumbers" placeholder="Enter comma saperated thaali numbers" value="<?php 
+                      if (isset($all_thali_as_csv)) {
+                        echo "$all_thali_as_csv";
+                      }
+                      ?>" >
+                      <a href="stopMultipleThaalis.php?stopallthalis=true">Fill above with all active thalis</a>
                       <input type="hidden" class="gregdate" id="stopDate" value="<?php echo date("Y-m-d") ?>"/>
                     </div>
 
@@ -49,6 +69,7 @@ include('adminsession.php');
 
                     <div class="col-lg-10 col-lg-offset-2">
                       <button type="button" class="btn btn-primary" id="stopThaliButton">Stop Thaali</button>
+
                     </div>
 
                   </div>
@@ -84,12 +105,14 @@ include('adminsession.php');
           return false;
         }
         var thaliNumbers = $('#thaliNumbers').val().replace(/(^,)|(,$)/g, "").split(',');
-        for (var i = thaliNumbers.length - 1; i >= 0; i--) {
-          var thaliNumber = thaliNumbers[i];
-          if(confirm('Stop thaali #' + thaliNumber + ' ?')){
+        thaliNumbers.join(",");
+        if(confirm('Stop thaali # ' + thaliNumbers + ' ?')){
+          for (var i = thaliNumbers.length - 1; i >= 0; i--) {
+            var thaliNumber = thaliNumbers[i];
             stopThali_admin(thaliNumber, $('#stopDate').val(),0);
           }
         }
+        window.location = window.location.pathname;
       });
     });
   </script>

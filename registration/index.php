@@ -71,7 +71,7 @@ $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com',
                                 'html'    => $msgvar));
 
 echo ("<SCRIPT LANGUAGE='JavaScript'>
-    window.alert('Form has been successfully submitted.You need to visit faiz office with xerox of ITS card and 2700 Hub to get the thali started. Address: Shop Near Gold Gym,Lane adjacent to Satyanand Hospital, Office Time - 9 to 11 AM, For any concerns call 9503054797')
+    window.alert('Form has been successfully submitted.You need to visit faiz office with xerox of ITS card and 2700 Hub to get the thali started. Address: Shop Near Gold Gym,Lane adjacent to Satyanand Hospital, Office Time - 9 to 11 AM.')
     window.location.href='index.php';
     </SCRIPT>");
 }
