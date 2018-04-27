@@ -62,6 +62,13 @@ if (isset($_GET['stopallthalis'])) {
                       ?>" >
                       <a href="stopMultipleThaalis.php?stopallthalis=true">Fill above with all active thalis</a>
                       <input type="hidden" class="gregdate" id="stopDate" value="<?php echo date("Y-m-d") ?>"/>
+                      <div>
+                      <input type="checkbox" class="custom-control-input" id="hardStop" onclick="showCommentBox()">
+                      <label class="custom-control-label" for="customCheck1">Check this if you don't want user be able to start.</label>
+                    </div>
+                    <div>
+                      <textarea class="form-control" id="hardStopComment" rows="3" placeholder="Enter your comments here" style="display:none"></textarea>
+                    </div>
                     </div>
 
                   </div>
@@ -104,17 +111,34 @@ if (isset($_GET['stopallthalis'])) {
           alert('Please enter only numbers and comma.');
           return false;
         }
+
+        var hardStop = $('#hardStop').is(':checked');
+        var hardStopComment = $('#hardStopComment').val();
+
         var thaliNumbers = $('#thaliNumbers').val().replace(/(^,)|(,$)/g, "").split(',');
         thaliNumbers.join(",");
         if(confirm('Stop thaali # ' + thaliNumbers + ' ?')){
           for (var i = thaliNumbers.length - 1; i >= 0; i--) {
             var thaliNumber = thaliNumbers[i];
-            stopThali_admin(thaliNumber, $('#stopDate').val(),0);
+            stopThali_admin(thaliNumber, $('#stopDate').val(),0,hardStop,hardStopComment);
           }
         }
         window.location = window.location.pathname;
       });
     });
+
+    function showCommentBox() {
+      // Get the checkbox
+      var checkBox = document.getElementById("hardStop");
+      // Get the output text
+      var text = document.getElementById("hardStopComment");
+      // If the checkbox is checked, display the output text
+      if (checkBox.checked == true){
+        text.style.display = "block";
+      } else {
+        text.style.display = "none";
+      }
+    } 
   </script>
 
 </body></html>

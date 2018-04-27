@@ -239,7 +239,7 @@ if($_GET)
 
 
       $('[data-key="stopthaali"]').click(function() {
-        stopThali_admin($(this).attr('data-thali'), $('[name="receipt_date"]').val(), $(this).attr('data-active'), function(data){
+        stopThali_admin($(this).attr('data-thali'), $('[name="receipt_date"]').val(), $(this).attr('data-active'),false,false, function(data){
           if(data==='success') {
             location.reload();
           }

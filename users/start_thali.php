@@ -6,6 +6,10 @@ if (is_null($_SESSION['fromLogin'])) {
    header("Location: login.php");
 }
 
+$query="SELECT * FROM thalilist where Email_id = '".$_SESSION['email']."'";
+$values = mysqli_fetch_assoc(mysqli_query($link,$query));
+
+if($values['hardstop'] == 1) exit;
 
 mysqli_query($link,"UPDATE thalilist set Active='1' WHERE Email_id = '".$_SESSION['email']."'") or die(mysqli_error($link));
 mysqli_query($link,"UPDATE thalilist set Thali_start_date='" . $_POST['start_date'] . "' WHERE Email_id = '".$_SESSION['email']."'") or die(mysqli_error($link));

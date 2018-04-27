@@ -20,8 +20,12 @@ $(function(){
 })
 
 
-function stopThali_admin(thaaliId, hijriDate, active, successCallback, failureCallback) {
+function stopThali_admin(thaaliId, hijriDate, active, hardStop, hardStopComment, successCallback, failureCallback) {
   var data = 'thaali_id=' + thaaliId + '&stop_date=' + hijriDate + '&active=' + active;
+  if(hardStop)
+  {
+      data += '&hardstop=1&hardstopcomment='+ hardStopComment;
+  }
   $.ajax({
     method: 'post',
     url: '_stop_thali_admin.php',

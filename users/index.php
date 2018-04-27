@@ -128,6 +128,15 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                 if(($values['Previous_Due'] - $values['Paid'])  <= 3000) {
                   if($values['Active'] == 0)
                   {
+                    if($values['hardstop'] == 1)
+                    {
+                      ?>
+                <input type="button" onclick="alert('<?php echo "You are not allowed to start your thali: ".$values['hardstop_comment'] ?>')" name="start_thali" value="Start Thaali"  class="btn btn-success"/>
+               <?php
+
+                    }
+                    else
+                    {
               ?>
 
               <form method="POST" action="start_thali.php" onsubmit='return confirm("Are you sure?");' data-key="LazyLoad" class="hidden">
@@ -136,6 +145,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
               </form>
 
               <?php
+                    }
                     }
                     else
                     {
