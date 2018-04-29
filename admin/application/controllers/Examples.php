@@ -156,6 +156,7 @@ function change()
 	}
 
     $crud = new grocery_CRUD();
+    $crud->columns('id','Thali','Operation','Date','datetime');
     $crud->set_theme('datatables');
     $crud->set_table('change_table');
     $crud->unset_edit();
