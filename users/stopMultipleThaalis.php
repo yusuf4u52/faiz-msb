@@ -54,13 +54,16 @@ if (isset($_GET['stopallthalis'])) {
                     <label for="thaliNumbers" class="col-lg-2 control-label">Thali No</label>
 
                     <div class="col-lg-10">
-
-                      <input type="text" class="form-control" id="thaliNumbers" placeholder="Enter comma saperated thaali numbers" value="<?php 
+                    <textarea class="form-control"
+                      id="thaliNumbers"
+                      placeholder="Enter comma saperated thaali numbers"
+                      rows="3" ><?php 
                       if (isset($all_thali_as_csv)) {
                         echo "$all_thali_as_csv";
                       }
-                      ?>" >
-                      <a href="stopMultipleThaalis.php?stopallthalis=true">Fill above with all active thalis</a>
+                      ?></textarea>
+                    
+                  <a href="stopMultipleThaalis.php?stopallthalis=true">Fill above with all active thalis</a>
                       <input type="hidden" class="gregdate" id="stopDate" value="<?php echo date("Y-m-d") ?>"/>
                       <div>
                       <input type="checkbox" class="custom-control-input" id="hardStop" onclick="showCommentBox()">
@@ -118,10 +121,7 @@ if (isset($_GET['stopallthalis'])) {
         var thaliNumbers = $('#thaliNumbers').val().replace(/(^,)|(,$)/g, "").split(',');
         thaliNumbers.join(",");
         if(confirm('Stop thaali # ' + thaliNumbers + ' ?')){
-          for (var i = thaliNumbers.length - 1; i >= 0; i--) {
-            var thaliNumber = thaliNumbers[i];
-            stopThali_admin(thaliNumber, $('#stopDate').val(),0,hardStop,hardStopComment);
-          }
+          stopThali_admin(thaliNumbers, $('#stopDate').val(),0,hardStop,hardStopComment);
         }
         window.location = window.location.pathname;
       });
