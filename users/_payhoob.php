@@ -2,6 +2,7 @@
 include('connection.php');
 include('adminsession.php');
 include('../sms/_credentials.php');
+include('../sms/_helper.php');
 
 if($_POST)
 {
@@ -38,9 +39,13 @@ $user_receipt = $_POST['receipt_number'];
 $user_date = $_POST['receipt_date'];
 $sql = mysqli_query($link,"SELECT NAME, Email_ID, CONTACT from thalilist where Thali='".$user_thali."'");
 $row = mysqli_fetch_row($sql);
-$user_name = $row[0];
+$user_name = helper_getFirstNameWithSuffix($row[0]);
 $sms_to = $row[2];
-$sms_body = "Mubarak for earning sawab by participating in FMB. Moula(T.U.S) nu ehsan che ke apne jamarwa ma shamil kare che. Hub $user_amount/Thali $user_thali/Receipt $user_receipt";
+$user_pending = helper_getTotalPending($user_thali);
+// use \n in double quoted strings for new line character
+$sms_body = "Mubarak $user_name for contributing Rs. $user_amount (R.No. $user_receipt) in FMB. Moula TUS nu ehsan che ke apne jamarwa ma shamil kare che.\n"
+            ."Thali#:$user_thali\n"
+            ."Pending:$user_pending";
 $sms_body = urlencode($sms_body);
 $result = file_get_contents("http://54.254.154.166/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$sms_to&message=$sms_body&sender=FAIZST&route=Template");
 //-----------------------------------------
