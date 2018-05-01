@@ -43,7 +43,7 @@ $user_name = helper_getFirstNameWithSuffix($row[0]);
 $sms_to = $row[2];
 $user_pending = helper_getTotalPending($user_thali);
 // use \n in double quoted strings for new line character
-$sms_body = "Mubarak $user_name $user_suffix for contributing Rs. $user_amount (R.No. $user_receipt) in FMB. Moula TUS nu ehsan che ke apne jamarwa ma shamil kare che.\n"
+$sms_body = "Mubarak $user_name for contributing Rs. $user_amount (R.No. $user_receipt) in FMB. Moula TUS nu ehsan che ke apne jamarwa ma shamil kare che.\n"
             ."Thali#:$user_thali\n"
             ."Pending:$user_pending";
 $sms_body = urlencode($sms_body);
