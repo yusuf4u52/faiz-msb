@@ -20,7 +20,7 @@ function CallAPIForAll()
 {
 	include('../users/connection.php');
 	require '../sms/_credentials.php';
-	$query="SELECT ITS_No FROM thalilist";
+	$query="SELECT ITS_No FROM thalilist where NAME='' or NAME='0'";
 	$result = mysqli_query($link,$query);
 	if (mysqli_num_rows($result) > 0) {
         // output data of each row
