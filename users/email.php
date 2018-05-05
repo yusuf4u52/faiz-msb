@@ -71,6 +71,8 @@ $txt= date('d/m/Y')."\n".$msgvar."\n";
 fwrite($myfile, $txt);
 fclose($myfile);
 
+mysqli_query($link,"UPDATE thalilist SET thalicount = thalicount + 1 WHERE Active='1'");
+
 $msgvar = str_replace("\n", "<br>", $msgvar);
 
 $mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
