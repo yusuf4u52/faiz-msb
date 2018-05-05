@@ -12,6 +12,7 @@ if ($_POST)
                                       Full_Address='" . $_POST["address"] . "',
                                       WATAN='" . $_POST["watan"] . "',
                                       ITS_No='" . $_POST["its"] . "',
+                                      markaz='".$_POST["markaz"]."',
                                       WhatsApp='" . $_POST["whatsapp"] . "'
                                       WHERE Email_id = '".$_SESSION['email']."'") or die(mysqli_error($link));
                           
@@ -152,7 +153,26 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
 
                   </div>
 
-
+                  <div class="form-group">
+                    <label for="inputwhatsapp" class="col-lg-2 control-label">Ramadan Markaz</label>
+                    <div class="col-lg-10">
+                      <select class="form-control" id="markaz" name="markaz" required>
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="Shabbir Society">Shabbir Society</option>
+                        <option value="Husainy Baug">Husainy Baug</option>
+                        <option value="Bharmal">Bharmal</option>
+                        <option value="City">City</option>
+                        <option value="Fakhri Hills">Fakhri Hills</option>
+                        <option value="Fatima Nagar">Fatima Nagar</option>
+                        <option value="Saif Society">Saif Society</option>
+                        <option value="Burhani Colony">Burhani Colony</option>
+                        <option value="Mitha Nagar">Mitha Nagar</option>
+                        <option value="Salunke Vihar">Salunke Vihar</option>
+                        <option value="Undri">Undri</option>
+                        <option value="(not present in the list)">(not present in the list)</option>
+                      </select>
+                    </div>
+                  </div>
 
                   <div class="form-group">
 
