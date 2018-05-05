@@ -54,7 +54,7 @@ if (isset($_GET['stopallthalis'])) {
                     <label for="thaliNumbers" class="col-lg-2 control-label">Thali No</label>
 
                     <div class="col-lg-10">
-                    <textarea class="form-control"
+                    <textarea class="form-control textarea-height-350px"
                       id="thaliNumbers"
                       placeholder="Enter comma saperated thaali numbers"
                       rows="3" ><?php 
@@ -123,7 +123,7 @@ if (isset($_GET['stopallthalis'])) {
         if(confirm('Stop thaali # ' + thaliNumbers + ' ?')){
           stopThali_admin(thaliNumbers, $('#stopDate').val(),0,hardStop,hardStopComment);
         }
-        window.location = window.location.pathname;
+        //window.location = window.location.pathname;
       });
     });
 

@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
-include('connection.php');
 include('_authCheck.php');
+include('connection.php');
 
 function getMiqaats($start_date)
 {
