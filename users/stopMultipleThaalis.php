@@ -1,7 +1,6 @@
 <?php
 include('connection.php');
 include('adminsession.php');
-
 if (isset($_GET['stopallthalis'])) {
     $result = mysqli_query($link,"SELECT Thali from  thalilist WHERE Active='1'") or die(mysqli_error($link));
     $values = mysqli_fetch_all($result);
@@ -15,7 +14,6 @@ if (isset($_GET['stopallthalis'])) {
       </script>";
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +26,6 @@ if (isset($_GET['stopallthalis'])) {
     <div class="container">
 
       <!-- Forms
-
       ================================================== -->
 
         <div class="row">
@@ -54,16 +51,13 @@ if (isset($_GET['stopallthalis'])) {
                     <label for="thaliNumbers" class="col-lg-2 control-label">Thali No</label>
 
                     <div class="col-lg-10">
-                    <textarea class="form-control textarea-height-350px"
-                      id="thaliNumbers"
-                      placeholder="Enter comma saperated thaali numbers"
-                      rows="3" ><?php 
+
+                      <input type="text" class="form-control" id="thaliNumbers" placeholder="Enter comma saperated thaali numbers" value="<?php 
                       if (isset($all_thali_as_csv)) {
                         echo "$all_thali_as_csv";
                       }
-                      ?></textarea>
-                    
-                  <a href="stopMultipleThaalis.php?stopallthalis=true">Fill above with all active thalis</a>
+                      ?>" >
+                      <a href="stopMultipleThaalis.php?stopallthalis=true">Fill above with all active thalis</a>
                       <input type="hidden" class="gregdate" id="stopDate" value="<?php echo date("Y-m-d") ?>"/>
                       <div>
                       <input type="checkbox" class="custom-control-input" id="hardStop" onclick="showCommentBox()">
@@ -114,19 +108,18 @@ if (isset($_GET['stopallthalis'])) {
           alert('Please enter only numbers and comma.');
           return false;
         }
-
         var hardStop = $('#hardStop').is(':checked');
         var hardStopComment = $('#hardStopComment').val();
-
         var thaliNumbers = $('#thaliNumbers').val().replace(/(^,)|(,$)/g, "").split(',');
         thaliNumbers.join(",");
         if(confirm('Stop thaali # ' + thaliNumbers + ' ?')){
-          stopThali_admin(thaliNumbers, $('#stopDate').val(),0,hardStop,hardStopComment);
+          for (var i = thaliNumbers.length - 1; i >= 0; i--) {
+            var thaliNumber = thaliNumbers[i];
+            stopThali_admin(thaliNumber, $('#stopDate').val(),0,hardStop,hardStopComment);
+          }
         }
-        //window.location = window.location.pathname;
       });
     });
-
     function showCommentBox() {
       // Get the checkbox
       var checkBox = document.getElementById("hardStop");
