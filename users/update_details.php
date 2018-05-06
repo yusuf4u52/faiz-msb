@@ -168,6 +168,7 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
                         <option value="Burhani Colony">Burhani Colony</option>
                         <option value="Mitha Nagar">Mitha Nagar</option>
                         <option value="Salunke Vihar">Salunke Vihar</option>
+                        <option value="Kalimi Masjid">Kalimi Masjid</option>
                         <option value="Undri">Undri</option>
                         <option value="(not present in the list)">(not present in the list)</option>
                       </select>
