@@ -153,24 +153,17 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALU
 
                   </div>
 
+                  <?php
+                  $markazAreas = array('Shabbir Society','Husainy Baug','Badshah Nagar','Bharmal','City','Fakhri Hills','Fatima Nagar','Saif Society','Burhani Colony','Mitha Nagar','Salunke Vihar','Kalimi Masjid','Undri','(not present in the list)');
+                  ?>
                   <div class="form-group">
                     <label for="inputwhatsapp" class="col-lg-2 control-label">Ramadan Markaz</label>
                     <div class="col-lg-10">
                       <select class="form-control" id="markaz" name="markaz" required>
                         <option disabled selected value> -- select an option -- </option>
-                        <option value="Shabbir Society">Shabbir Society</option>
-                        <option value="Husainy Baug">Husainy Baug</option>
-                        <option value="Bharmal">Bharmal</option>
-                        <option value="City">City</option>
-                        <option value="Fakhri Hills">Fakhri Hills</option>
-                        <option value="Fatima Nagar">Fatima Nagar</option>
-                        <option value="Saif Society">Saif Society</option>
-                        <option value="Burhani Colony">Burhani Colony</option>
-                        <option value="Mitha Nagar">Mitha Nagar</option>
-                        <option value="Salunke Vihar">Salunke Vihar</option>
-                        <option value="Kalimi Masjid">Kalimi Masjid</option>
-                        <option value="Undri">Undri</option>
-                        <option value="(not present in the list)">(not present in the list)</option>
+                        <?php foreach($markazAreas as $value) { ?>
+                        <option value="<?php echo $value; ?>" <?php if($value == $markaz) echo 'selected'?>><?php echo $value; ?></option>
+                        <?php } ?>
                       </select>
                     </div>
                   </div>
