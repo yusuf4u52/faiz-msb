@@ -117,6 +117,10 @@ if (isset($_GET['stopallthalis'])) {
             var thaliNumber = thaliNumbers[i];
             stopThali_admin(thaliNumber, $('#stopDate').val(),0,hardStop,hardStopComment);
           }
+          $('#thaliNumbers').val('');
+          $('#hardStopComment').val('');
+          $('#hardStop').prop('checked', false);
+          $('#hardStopComment').hide();
         }
       });
     });
