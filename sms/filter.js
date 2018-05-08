@@ -71,6 +71,7 @@
 	$('#filter').click(function(){
 	//alert("you clicked me");
 	//get the values from user
+	//debugger;
 		$("#query_status").html('<i class="fa fa-refresh fa-spin"></i>');
 		amount_type = $('input[name=amount_type]:checked', '#amount_type_form').val()
 		amount_operator = $('#amount_operator').val();
@@ -79,6 +80,8 @@
 		transporter_operator = $("#transporter_operator").val();
 		transporter_param = getSelectedTransporters();
 		active_operator = $('#active_operator').val();
+		student_param = $("#student_param").val();
+		father_param = $("#father_param").val();
 		requestObj = $.post("index.php", {
 			'amount_type':amount_type,
 			'amount_operator':amount_operator,
@@ -86,7 +89,9 @@
 			'amount_param2':amount_param2,
 			'transporter_operator':transporter_operator,
 			'transporter_param':transporter_param,
-			'active_operator':active_operator
+			'active_operator':active_operator,
+			'student_param':student_param,
+			'father_param':father_param
 		});
 		requestObj.done(function(data){
 			var json = null;
@@ -107,14 +112,51 @@
 				var html = "";
 				var records = json['data'];
 				//alert("total:"+records.length);
+				//debugger;
+
+				var field_studentNo = "CONTACT";
+
+				var getCellHTMLFromField = function(key, value) {
+					html = "";
+					switch(key)
+					{
+						case "CONTACT":
+						html = "<td name='{{key}}'>{{value}}</td>";
+						value = value[0];
+						break;
+						default:
+						html = "<td rowspan = '2' name='{{key}}'>{{value}}</td>";
+					}
+					html = html.replace("{{key}}", key);
+					html = html.replace("{{value}}", value);
+					return html;
+				}
+				var getRowHTMLFromRecord = function(srNo, record) {
+					html = "<tr>";
+					html += getCellHTMLFromField("index", srNo);
+					for(var key in record)
+					{
+						html += getCellHTMLFromField(key, record[key]);
+					}
+					html += "</tr><tr>";
+					//debugger;
+					html += getCellHTMLFromField(field_studentNo, [record[field_studentNo][1]]);
+					return html;
+				}
 				for(index=0; index<records.length; index++)
 				{
-					html+="<tr><td>"+(index+1)+"</td>";
+					/*
+					html+="<tr><td rowspan='2'>"+(index+1)+"</td>";
 					record = records[index];
 					for(var key in record){
 						html+= "<td name = '"+key+"'>"+record[key]+"</td>";
+						if(key == "CONTACT") {
+							html += <td name
+						}
 					}
 					html+="</tr>\n";
+					*/
+					html += getRowHTMLFromRecord(index+1, records[index]);
 				}
 				$('#recipientTableBody').html(html);
 				$('#query_status').html(records.length);

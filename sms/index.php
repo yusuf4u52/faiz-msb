@@ -1,6 +1,6 @@
 <?php
 require '_credentials.php';
-require '../users/update_next_install.php';
+//require '../users/update_next_install.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <link rel="icon" href="/users/images/icon.png">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
     <style>
     .jumbotron {
       padding-right: 30px !important;
@@ -185,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 </div>
                 <div class="btn-group" role="group">
                   <div class='input-group'>
-                    <span class="input-group-addon"><i class='fa  fa-inr fa-lg fa-fw'></i></span>
+                    <span class="input-group-addon"><i class='fas  fa-rupee-sign fa-lg fa-fw'></i></span>
                     <select class='form-control' id='amount_operator'>
                       <option value="none">None</option>
                       <option value="<">Less than</option>
@@ -243,6 +243,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                       <option value = "active">Active</option>
                       <option value = "inactive">Inactive</option>
                       <option value = "all">All</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class='form-group'>
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                  <div class='input-group'>
+                    <span class="input-group-addon"><i class='fas fa-graduation-cap fa-lg fa-fw'></i></span>
+                    <select class='form-control' id='student_param'>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class='form-group'>
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                  <div class='input-group'>
+                    <span class="input-group-addon"><i class='fas fa-user-tie fa-lg fa-fw'></i></span>
+                    <select class='form-control' id='father_param'>
+                      <option value="none">No</option>
+                      <option value="indian">Indian</option>
+                      <option value="foreign">Foreign</option>
+                      <option value="all">All</option>
                     </select>
                   </div>
                 </div>
@@ -559,17 +589,26 @@ else{
     if($amount_type == "Total_Pending"){
       $amount_type = "(Previous_Due + Dues + yearly_hub + Zabihat + Reg_Fee + TranspFee - Paid)";
     }
-    $query = "SELECT Thali, NAME, CONTACT, Transporter, $amount_type from thalilist where CONTACT is not null and ";
-    $condition = "1=1";
+
     $amount_operator = $_REQUEST['amount_operator'];
     $amount_param = $_REQUEST['amount_param'];
     $amount_param2 = $_REQUEST['amount_param2'];
+
     $transporter_operator = $_REQUEST['transporter_operator'];
-    $transporter_param = $_REQUEST['transporter_param']; // this will be an array
-    //var_dump( $transporter_param); returns zero length string
+    $transporter_param = $_REQUEST['transporter_param'];
+    $field_transporter = "Transporter";
+
+    $student_param = $_REQUEST['student_param'];
+    $father_param = $_REQUEST['father_param'];
+    $field_studentNo = "CONTACT";
+    $field_fatherNo = "fathersNo";
+
     $active_operator = $_REQUEST['active_operator'];
     $field_amount = $amount_type;
-    $field_transporter = "Transporter";
+    
+    $query = "SELECT Thali, NAME, $field_studentNo, $field_transporter, $amount_type, $field_fatherNo from thalilist where CONTACT is not null and ";
+    $condition = "1=1";
+
     switch($amount_operator)
     {
         case ">":
@@ -610,7 +649,16 @@ else{
         $condition = '("1", "0")';
     }
     $query = $query.$condition;
+
+    switch($student_param) {
+      case "yes":
+      break;
+      case "no":
+      break;
+    }
+
     //echo "\n\nfinal sql string = ".$query."\n\n";
+
     try{
         $stmt = $conn->prepare($query);
         //$stmt->debugDumpParams();
@@ -618,6 +666,10 @@ else{
 
         // set the resulting array to associative
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($result as $key => $value) {
+          $result[$key][$field_studentNo] = array($value[$field_studentNo], $value[$field_fatherNo]);
+          unset($result[$key][$field_fatherNo]);
+        }       
     }
     catch(PDOException $e)
     {
