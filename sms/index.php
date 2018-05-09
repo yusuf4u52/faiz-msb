@@ -282,7 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <div class='form-group'>
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                  <button class='btn btn-primary btn-lg' id='filter'>Filter <span class="glyphicon glyphicon-filter" aria-hidden="true"></span><span style="float:right;"><span class="badge" id='query_status'></span></span></button>
+                  <button class='btn btn-primary btn-lg' id='filter'>Filter <div class="glyphicon glyphicon-filter" aria-hidden="true"></div><div style="float:right;"><div class="badge" id='query_status'></div></div></button>
                 </div>
               </div>
 
@@ -307,13 +307,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
                 <div class="btn-group btn-group-justified" role="group" id='b_selection'>
                   <div class="btn-group" role="group">
-                    <button id='b_all' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                    <button name='student' type="button" class="btn btn-default sel-all" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button id='b_none' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <button name='student' type="button" class="btn btn-default sel-none" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button id='b_toggle' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+                    <button name='student' type="button" class="btn btn-default sel-toggle" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
                   </div>
                 </div>
 
@@ -328,13 +328,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
                 <div class="btn-group btn-group-justified" role="group" id='b_selection'>
                   <div class="btn-group" role="group">
-                    <button id='b_all' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                    <button name='b_all' type="button" class="btn btn-default sel-all" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button id='b_none' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <button name='b_none' type="button" class="btn btn-default sel-none" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button id='b_toggle' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+                    <button name='b_toggle' type="button" class="btn btn-default sel-toggle" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
                   </div>
                 </div>
 
@@ -344,13 +344,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
                 <div class="btn-group btn-group-justified" role="group" id='b_selection'>
                   <div class="btn-group" role="group">
-                    <button id='b_all' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                    <button name='b_all' type="button" class="btn btn-default sel-all" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button id='b_none' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    <button name='b_none' type="button" class="btn btn-default sel-none" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                   </div>
                   <div class="btn-group" role="group">
-                    <button id='b_toggle' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+                    <button name='b_toggle' type="button" class="btn btn-default sel-toggle" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
                   </div>
                 </div>
 

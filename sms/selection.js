@@ -7,33 +7,36 @@
             $('tbody#recipientTableBody').on('click', 'tr', function(){
                 clickHandler($(this));
             });
-            $('tbody#recipientTableBody').on('mouseenter', 'tr', 
-                function(evt){
-                    if(evt.ctrlKey)
-                    {
+            $('tbody#recipientTableBody').on('mouseenter', 'tr', function(evt){
+                    if(evt.ctrlKey){
                         clickHandler($(this));
                     }
-                });
-            $('#b_toggle').click(function(){
-                $.each($('tbody#recipientTableBody tr'), function(){
-                    clickHandler($(this));
-                    
-                });
             });
-            $('#b_all').click(function(){
-                $.each($('tbody#recipientTableBody tr:not(.success)'), function(){
+            
+            $("button.sel-all").click(function(){
+                var className = $(this).attr("name");
+                $.each($("tbody#recipientTableBody tr."+className+":not(.success)"), function(){
                     //$(this).addClass(highlight_class);
                     //$(this).trigger("bgChange");
                     clickHandler($(this));
                 });
             });
-            $("#b_none").click(function(){
-                $.each($('tbody#recipientTableBody tr.success'), function(){
+            $("button.sel-none").click(function(){
+                var className = $(this).attr("name");
+                $.each($("tbody#recipientTableBody tr."+className+".success"), function(){
                     //$(this).removeClass(highlight_class);
                     //$(this).trigger("bgChange");
                     clickHandler($(this));
                 });
             });
+            $("button.sel-toggle").click(function(){
+                var className = $(this).attr("name");
+                $.each($("tbody#recipientTableBody tr."+className), function(){
+                    clickHandler($(this));
+                    
+                });
+            }); 
+            
             $('tbody#recipientTableBody').on("bgChange", "tr", function(){
                 var selectedRecords = $('tbody#recipientTableBody tr.'+highlight_class);
                 var len = selectedRecords.length;
