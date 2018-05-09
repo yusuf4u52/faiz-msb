@@ -132,15 +132,16 @@
 					return html;
 				}
 				var getRowHTMLFromRecord = function(srNo, record) {
-					html = "<tr>";
+					html = "<tr id='{{id}}' class='student'>".replace("{{id}}", srNo);
 					html += getCellHTMLFromField("index", srNo);
 					for(var key in record)
 					{
 						html += getCellHTMLFromField(key, record[key]);
 					}
-					html += "</tr><tr>";
+					html += "</tr><tr id='{{id}}' class='father'>".replace("{{id}}", srNo);
 					//debugger;
 					html += getCellHTMLFromField(field_studentNo, [record[field_studentNo][1]]);
+					html += "</tr>";
 					return html;
 				}
 				for(index=0; index<records.length; index++)

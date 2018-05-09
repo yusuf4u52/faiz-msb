@@ -300,6 +300,91 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
           <div class='content'>
           <div id = 'selection_status' class="alert alert-info text-center" role="alert">Filter and then Select</div>
+            
+            <div class="row">
+              <div class="col-sm-4 col-sm-offset-0">
+                <span class="input-group-addon"><i class='fas fa-graduation-cap fa-lg fa-fw'></i></span>
+
+                <div class="btn-group btn-group-justified" role="group" id='b_selection'>
+                  <div class="btn-group" role="group">
+                    <button id='b_all' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button id='b_none' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button id='b_toggle' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-sm-8">
+                <span class="input-group-addon"><i class='fas fa-user-tie fa-lg fa-fw'></i></span>
+
+                  <div class="row">
+
+                    <div class="col-sm-6">
+                      <span class="input-group-addon"><i class='fas fa-home fa-lg fa-fw'></i></span>
+
+                <div class="btn-group btn-group-justified" role="group" id='b_selection'>
+                  <div class="btn-group" role="group">
+                    <button id='b_all' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button id='b_none' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button id='b_toggle' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+                  </div>
+                </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                      <span class="input-group-addon"><i class='fas fa-globe fa-lg fa-fw'></i></span>
+
+                <div class="btn-group btn-group-justified" role="group" id='b_selection'>
+                  <div class="btn-group" role="group">
+                    <button id='b_all' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button id='b_none' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button id='b_toggle' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+                  </div>
+                </div>
+
+                    </div>
+
+                  </div>
+
+              </div>
+            </div>
+            
+            <!--
+            <table class="tg">
+              <tr>
+                <th class="tg-031e" colspan="3"><span class="input-group-addon"><i class='fas fa-graduation-cap fa-lg fa-fw'></i></span></th>
+                <th class="tg-yw4l" colspan="6"><span class="input-group-addon"><i class='fas fa-user-tie fa-lg fa-fw'></i></span></th>
+              </tr>
+              <tr>
+                <td class="tg-yw4l" rowspan="2"></td>
+                <td class="tg-yw4l" rowspan="2"></td>
+                <td class="tg-yw4l" rowspan="2"></td>
+                <td class="tg-yw4l" colspan="3"></td>
+                <td class="tg-yw4l" colspan="3"></td>
+              </tr>
+              <tr>
+                <td class="tg-yw4l"></td>
+                <td class="tg-yw4l"></td>
+                <td class="tg-yw4l"></td>
+                <td class="tg-yw4l"></td>
+                <td class="tg-yw4l"></td>
+                <td class="tg-yw4l"></td>
+              </tr>
+            </table>
+          -->
+
             <div class="btn-group btn-group-justified hidden" role="group" id='b_selection'>
               <div class="btn-group" role="group">
                 <button id='b_all' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
@@ -311,6 +396,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <button id='b_toggle' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
               </div>
             </div>
+
             <div class='table-responsiv'> <!-- i have disabled this, non responsive is better -->
               <table class='table' id = 'recipientTable'>
                 <thead>
@@ -589,6 +675,8 @@ else{
     if($amount_type == "Total_Pending"){
       $amount_type = "(Previous_Due + Dues + yearly_hub + Zabihat + Reg_Fee + TranspFee - Paid)";
     }
+    $field_amount = $amount_type;
+    
 
     $amount_operator = $_REQUEST['amount_operator'];
     $amount_param = $_REQUEST['amount_param'];
@@ -604,9 +692,9 @@ else{
     $field_fatherNo = "fathersNo";
 
     $active_operator = $_REQUEST['active_operator'];
-    $field_amount = $amount_type;
     
-    $query = "SELECT Thali, NAME, $field_studentNo, $field_transporter, $amount_type, $field_fatherNo from thalilist where CONTACT is not null and ";
+    
+    $query = "SELECT Thali, NAME, $field_studentNo, $field_transporter, $amount_type as amount, $field_fatherNo from thalilist where CONTACT is not null and ";
     $condition = "1=1";
 
     switch($amount_operator)

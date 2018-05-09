@@ -21,15 +21,17 @@
                 });
             });
             $('#b_all').click(function(){
-                $.each($('tbody#recipientTableBody tr'), function(){
-                    $(this).addClass(highlight_class);
-                    $(this).trigger("bgChange");
+                $.each($('tbody#recipientTableBody tr:not(.success)'), function(){
+                    //$(this).addClass(highlight_class);
+                    //$(this).trigger("bgChange");
+                    clickHandler($(this));
                 });
             });
             $("#b_none").click(function(){
-                $.each($('tbody#recipientTableBody tr'), function(){
-                    $(this).removeClass(highlight_class);
-                    $(this).trigger("bgChange");
+                $.each($('tbody#recipientTableBody tr.success'), function(){
+                    //$(this).removeClass(highlight_class);
+                    //$(this).trigger("bgChange");
+                    clickHandler($(this));
                 });
             });
             $('tbody#recipientTableBody').on("bgChange", "tr", function(){
@@ -42,7 +44,7 @@
                 thaliObjects = $('tr.'+highlight_class+' td[name="Thali"]');
                 nameObjects = $('tr.'+highlight_class+' td[name="NAME"]');
                 contactObjects = $('tr.'+highlight_class+' td[name="CONTACT"]');
-                amountObjects = $('tr.'+highlight_class+' td').filter('[name="Total_Pending"],[name="next_install"],[name="prev_install_pending"]');
+                amountObjects = $('tr.'+highlight_class+' td[name="amount"]');
                 len = thaliObjects.length;
                 selected = []
                 for(i = 0; i<len; i++)
