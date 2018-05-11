@@ -115,6 +115,7 @@
 				//debugger;
 
 				var field_studentNo = "CONTACT";
+				var field_fathersNo = "fathersNo";
 
 				var getCellHTMLFromField = function(key, value) {
 					html = "";
@@ -124,6 +125,10 @@
 						html = "<td name='{{key}}'>{{value}}</td>";
 						value = value[0];
 						break;
+						case "fathersNo":
+						html = "<td name='{{key}}' data-is-indian='"+value['isIndian']+"'>{{value}}</td>";
+						value = value['contact'];
+						//debugger;
 						default:
 						html = "<td rowspan = '2' name='{{key}}'>{{value}}</td>";
 					}
@@ -140,7 +145,7 @@
 					}
 					html += "</tr><tr class='father' name = '{{name}}'>".replace("{{name}}", srNo);
 					//debugger;
-					html += getCellHTMLFromField(field_studentNo, [record[field_studentNo][1]]);
+					html += getCellHTMLFromField(field_fathersNo, record[field_studentNo][1]);
 					html += "</tr>";
 					return html;
 				}

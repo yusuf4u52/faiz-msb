@@ -690,6 +690,7 @@ else{
     $father_param = $_REQUEST['father_param'];
     $field_studentNo = "CONTACT";
     $field_fatherNo = "fathersNo";
+    $field_isIndian = "isIndian";
 
     $active_operator = $_REQUEST['active_operator'];
     
@@ -701,7 +702,7 @@ else{
 
     $inner_query = "select $field_fatherNo from thalilist where $field_fatherNo REGEXP \"$regex_indian\"";
     $field_indian = "IF($field_fatherNo in ($inner_query), \"1\", \"0\")";
-    $query = "SELECT Thali, NAME, $field_studentNo, $field_transporter, $amount_type as amount, $field_fatherNo, $field_indian as isIndian from thalilist where CONTACT is not null and ";
+    $query = "SELECT Thali, NAME, $field_studentNo, $field_transporter, $amount_type as amount, $field_fatherNo, $field_indian as $field_isIndian from thalilist where CONTACT is not null and ";
     $condition = "1=1";
 
     switch($amount_operator)
@@ -762,14 +763,18 @@ else{
         // set the resulting array to associative
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($result as $key => $value) {
-          $result[$key][$field_studentNo] = array($value[$field_studentNo], $value[$field_fatherNo]);
+          $info_fatherNo = array("contact" => $value[$field_fatherNo], $field_isIndian => $value[$field_isIndian]);
+          $result[$key][$field_studentNo] = array($value[$field_studentNo], $info_fatherNo);
+          
           unset($result[$key][$field_fatherNo]);
+          unset($result[$key][$field_isIndian]);
         }       
     }
     catch(PDOException $e)
     {
         echo "error ".$e->getMessage();
     }
+    //ini_set('xdebug.var_display_max_depth', 5);
     //echo var_dump( $result);
     $result2 = array(
         'result' => 'success',
