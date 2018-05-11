@@ -693,8 +693,15 @@ else{
 
     $active_operator = $_REQUEST['active_operator'];
     
-    
-    $query = "SELECT Thali, NAME, $field_studentNo, $field_transporter, $amount_type as amount, $field_fatherNo from thalilist where CONTACT is not null and ";
+    //select fathersno from thalilist where fathersno REGEXP "\\+91 [1-9][0-9]{9}"
+    // select thali, if(fathersno in (select fathersno from thalilist where fathersno REGEXP "\\+91 [1-9][0-9]{9}"), "1", "0") as IsIndian from thalilist ORDER BY `IsIndian` DESC
+
+    $regex_indian = "^\\\\+91 [1-9][0-9]{9}$";
+
+
+    $inner_query = "select $field_fatherNo from thalilist where $field_fatherNo REGEXP \"$regex_indian\"";
+    $field_indian = "IF($field_fatherNo in ($inner_query), \"1\", \"0\")";
+    $query = "SELECT Thali, NAME, $field_studentNo, $field_transporter, $amount_type as amount, $field_fatherNo, $field_indian as isIndian from thalilist where CONTACT is not null and ";
     $condition = "1=1";
 
     switch($amount_operator)
@@ -763,7 +770,7 @@ else{
     {
         echo "error ".$e->getMessage();
     }
-    //print_r( $result);
+    //echo var_dump( $result);
     $result2 = array(
         'result' => 'success',
         'query' => $query,
