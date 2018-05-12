@@ -129,6 +129,7 @@
 						html = "<td name='{{key}}' data-is-indian='"+value['isIndian']+"'>{{value}}</td>";
 						value = value['contact'];
 						//debugger;
+						break;
 						default:
 						html = "<td rowspan = '2' name='{{key}}'>{{value}}</td>";
 					}
