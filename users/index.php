@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
-include('connection.php');
 include('_authCheck.php');
+include('connection.php');
 
 function getMiqaats($start_date)
 {
@@ -42,7 +42,7 @@ $_SESSION['contact'] = $values['CONTACT'];
 $_SESSION['transporter'] = $values['Transporter'];
 
 // Redirect users to update details page
-if (empty($values['ITS_No']) || empty($values['fathersNo']) || empty($values['fathersITS']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) { 
+if (empty($values['ITS_No']) || empty($values['fathersNo']) || empty($values['fathersITS']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address']) || empty($values['markaz'])) { 
     header("Location: update_details.php?update_pending_info"); 
 }
 

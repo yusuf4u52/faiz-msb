@@ -1,7 +1,6 @@
 <?php
 include('connection.php');
 include('adminsession.php');
-
 if (isset($_GET['stopallthalis'])) {
     $result = mysqli_query($link,"SELECT Thali from  thalilist WHERE Active='1'") or die(mysqli_error($link));
     $values = mysqli_fetch_all($result);
@@ -15,7 +14,6 @@ if (isset($_GET['stopallthalis'])) {
       </script>";
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +26,6 @@ if (isset($_GET['stopallthalis'])) {
     <div class="container">
 
       <!-- Forms
-
       ================================================== -->
 
         <div class="row">
@@ -111,10 +108,8 @@ if (isset($_GET['stopallthalis'])) {
           alert('Please enter only numbers and comma.');
           return false;
         }
-
         var hardStop = $('#hardStop').is(':checked');
         var hardStopComment = $('#hardStopComment').val();
-
         var thaliNumbers = $('#thaliNumbers').val().replace(/(^,)|(,$)/g, "").split(',');
         thaliNumbers.join(",");
         if(confirm('Stop thaali # ' + thaliNumbers + ' ?')){
@@ -122,11 +117,13 @@ if (isset($_GET['stopallthalis'])) {
             var thaliNumber = thaliNumbers[i];
             stopThali_admin(thaliNumber, $('#stopDate').val(),0,hardStop,hardStopComment);
           }
+          $('#thaliNumbers').val('');
+          $('#hardStopComment').val('');
+          $('#hardStop').prop('checked', false);
+          $('#hardStopComment').hide();
         }
-        window.location = window.location.pathname;
       });
     });
-
     function showCommentBox() {
       // Get the checkbox
       var checkBox = document.getElementById("hardStop");

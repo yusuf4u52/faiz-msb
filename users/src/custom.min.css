@@ -9,3 +9,7 @@ body>.navbar{-webkit-transition:background-color 300ms ease-in;transition:backgr
 .font-bold {
     font-weight: bold;
 }
+
+.textarea-height-350px {
+    min-height: 350px;
+}
