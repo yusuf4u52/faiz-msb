@@ -1,6 +1,6 @@
 <?php
 require '_credentials.php';
-//require '../users/update_next_install.php';
+require '../users/update_next_install.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
