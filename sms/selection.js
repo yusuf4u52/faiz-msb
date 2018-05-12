@@ -56,27 +56,19 @@
                 $('#selection_status').html(selectionStatusString);
             });
             var getSelected = function(){
-                thaliObjects = $('tr.'+highlight_class+' td[name="Thali"]');
-                nameObjects = $('tr.'+highlight_class+' td[name="NAME"]');
-                studentContactObjects = $("tr."+highlight_class+" td.student");
-                contactObjects = $('tr.'+highlight_class+' td[name="CONTACT"]');
-                amountObjects = $('tr.'+highlight_class+' td[name="amount"]');
-                len = thaliObjects.length;
                 selected = [];
-                for(i = 0; i<len; i++)
-                {
-                    thali = thaliObjects.eq(i).html();
-                    name = nameObjects.eq(i).html();
-                    contact = contactObjects.eq(i).html();
-                    amount = amountObjects.eq(i).html();
-                    //console.log(thali+","+name+","+contact);
-                    selection = {}
-                    selection['thali'] = thali;
-                    selection['name'] = name;
-                    selection['contact'] = contact;
-                    selection['amount'] = amount;
-                    selected.push(selection);
-                }
+                $.each($(strFormat("{} tbody:has(.{})", tableSelector, highlight_class)), function(){
+                    studentRow = $(this).children(".student");
+                    fatherRow = $(this).children(".father");
+                    //debugger;
+                    record = {};
+                    $.each(studentRow.children(), function(){
+                        record[$(this).attr("name")] = $(this).html();
+                    });
+                    record['CONTACT'] = $.map($(this).find("tr.success td[name='CONTACT']"), e => $(e).html());
+                    selected.push(record);
+                });
+                
                 //console.log(selected);
                 return selected;
             }
