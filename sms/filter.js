@@ -79,8 +79,6 @@
 		transporter_operator = $("#transporter_operator").val();
 		transporter_param = getSelectedTransporters();
 		active_operator = $('#active_operator').val();
-		student_param = $("#student_param").val();
-		father_param = $("#father_param").val();
 		requestObj = $.post("index.php", {
 			'amount_type':amount_type,
 			'amount_operator':amount_operator,
@@ -88,9 +86,7 @@
 			'amount_param2':amount_param2,
 			'transporter_operator':transporter_operator,
 			'transporter_param':transporter_param,
-			'active_operator':active_operator,
-			'student_param':student_param,
-			'father_param':father_param
+			'active_operator':active_operator
 		});
 		requestObj.done(function(data){
 			var json = null;
