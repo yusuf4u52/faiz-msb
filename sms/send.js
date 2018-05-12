@@ -89,13 +89,12 @@ var sendSms = function(gateway, extra){
     // console.log("url");
     //console.log(url);
     //console.log(extra);
-    name_field = selected[index]['NAME'];
-    number_field = selected[index]['CONTACT'][0];
-    updateStatus("("+(index+1)+") sending message to "+name_field+" on "+number_field, index);
+    debugger;
+    number_field = params[index].match(/&mobiles=(.*?)&/)[1];
+    updateStatus("("+(index+1)+") sending message to "+number_field, index);
     $.ajax({
         url: url,
         beforeSend: function(jqxhr, settings) {
-            jqxhr.name_field = name_field;
             jqxhr.number_field = number_field;
             jqxhr.index_field = index;
         },
