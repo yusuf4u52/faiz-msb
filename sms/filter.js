@@ -9,10 +9,10 @@
 	  	});
 	});
 	var templates = {
-		"warning": "Salam <NAME> bhai, Thali#<THALI> Ur hub <AMOUNT> is pending for current month. Pls contribute before ^ to get uninterrupted transport.",
-		"urgent": "Salam <NAME> bhai, Thali#<THALI> LAST DAY to contribute your hub <AMOUNT>, Transportation will be discontinued from tomorrow onwards.",
-		"delay": "Salam <NAME> bhai, your transporter ^ is delayed. Your thali (<THALI>) is delayed by ^ hours. Sorry for inconvenience.",
-		"na": "Salam <NAME> bhai, your transporter ^ is ^. Plz pick up your thali(<THALI>) before ^ from Faiz. Sorry for inconvenience."
+		"warning": "Salam <NAME>, Thali#<THALI> Ur hub <AMOUNT> is pending for current month. Pls contribute before ^ to get uninterrupted transport.",
+		"urgent": "Salam <NAME>, Thali#<THALI> LAST DAY to contribute your hub <AMOUNT>, Transportation will be discontinued from tomorrow onwards.",
+		"delay": "Salam <NAME>, your transporter ^ is delayed. Your thali (<THALI>) is delayed by ^ hours. Sorry for inconvenience.",
+		"na": "Salam <NAME>, your transporter ^ is ^. Plz pick up your thali(<THALI>) before ^ from Faiz. Sorry for inconvenience."
 	}
 
 	$("a[id^='template_']").each(function(i, el){
@@ -150,7 +150,7 @@
 					html += "</tr>";
 					return html;
 				}
-				for(index=0; index<records.length; index++)
+				for(var index=0; index<records.length; index++)
 				{
 					/*
 					html+="<tr><td rowspan='2'>"+(index+1)+"</td>";

@@ -343,13 +343,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
                       <div class="btn-group btn-group-justified" role="group" id='b_selection'>
                         <div class="btn-group" role="group">
-                          <button name='b_all' type="button" class="btn btn-default sel-all" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                          <button name='father' data-is-Indian='0' type="button" class="btn btn-default sel-all" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
                         </div>
                         <div class="btn-group" role="group">
-                          <button name='b_none' type="button" class="btn btn-default sel-none" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                          <button name='father' data-is-Indian='0' type="button" class="btn btn-default sel-none" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                         </div>
                         <div class="btn-group" role="group">
-                          <button name='b_toggle' type="button" class="btn btn-default sel-toggle" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+                          <button name='father' data-is-Indian='0' type="button" class="btn btn-default sel-toggle" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
                         </div>
                       </div>
 
@@ -402,7 +402,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <div class='form-group'>
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group hidden" role="group">
-                  <input type="text" class="form-control" placeholder="Chat id or Email" id='send_param2'>
+                  <input type="text" class="form-control" placeholder="Chat id or Email" id='send_param2' value='163349099'>
                 </div>
                 <div class="btn-group" role="group">
                     <button class='btn btn-info' id='balance' data-toggle='tooltip' data-placement='top' data-original-title='Check Balance' disabled="disabled">Balance</button>
@@ -469,163 +469,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="jquery.jqEasyCharCounter.min.js" type="text/javascript"></script>
     <script type="text/javascript">
+      
+      var rootUrls = <?php echo json_encode($root_urls) ?>;
+      
       $(document).ready(function(){
+        
         $('[data-toggle="tooltip"]').tooltip();
         $('.my-tooltip').tooltip();
 
-        var rootUrls = <?php echo json_encode($root_urls) ?>;
-        var params = null;
-        var sid;
-        var index=0;
-        var defaultUrl = rootUrls["real"];
-        var extra = "";
-        var selected = null;
         $.getScript("filter.js");
         $.getScript("selection.js");
-        $('#send_operator').change(function(){
-          switch($(this).val())
-          {
-            case 'sms':
-              $('#send_param2').parent().addClass("hidden");
-              $('#send_param').parent().removeClass("hidden");
-              $("#balance").parent().removeClass("hidden");
-            break;
-            case 'mock':
-              $('#send_param2').parent().removeClass("hidden");
-              $('#send_param').parent().removeClass("hidden");
-              $("#balance").parent().addClass("hidden");
-            break;
-            // default:
-            //   $("#send_param").parent().addClass("hidden");
-            //   $("#send_param2").parent().addClass("hidden");
-          }
-
-        });
-        $("#send").on('click', function(){
-          selected = getSelected();
-          selectedRecords = JSON.stringify(getSelected());
-          timeInterval = $("#send_param").val();
-          message = $('#message').val();
-          requestObj = $.post("send.php", { 
-            records: selectedRecords,
-            message: message
-          });
-          requestObj.done(function(data){
-            var json = null;
-            try{
-              json = JSON.parse(data);
-            }catch(err){
-              document.write(data);
-              return;
-            }
-            if(json['result'] == "success"){
-              params = json['params'];
-              //now our usual logic will go here!
-              timeInterval = parseInt($("#send_param").val());
-              //check what we are sending here?
-              if($("#send_operator").val()=='sms'){
-                $("#sure_modal").modal();
-              }
-              else{
-                // this is a mock message, validate the input first
-                var mock_param = $("#send_param2").val();
-                if(mock_param.match("^[+-]?\\d+$") != null)
-                {
-                    console.log("number");
-                    extra = "&chatid="+mock_param;
-                    url = rootUrls['telegram'];
-                }
-                else if(mock_param.match("^[\\w.]+@[\\w.]+$"))
-                {
-                    console.log("email");
-                    extra = "&email="+mock_param;
-                    url = rootUrls['email'];
-                }
-                else{
-                    alert("Invalid input! either enter a telegram chat id or an email address");
-                    return;
-                }
-                $("#status").html("");
-                updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
-                sid = setInterval(sendSms.bind(null, url, extra), timeInterval); 
-
-              }
-            }
-            else {
-              alert("there was some error in retrieving the urls");
-            }
-          });
-        });
-
-        $("#send_sure").on('click', function(){
-          extra = "&chatid=163349099";
-          timeInterval = parseInt($("#send_param").val());
-          $("#status").html("");
-          updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
-          sid = setInterval(sendSms.bind(null, defaultUrl, extra), timeInterval);  
-        })
-
-        var sendSms = function(gateway, extra){
-            url = gateway+params[index]+extra;
-            // console.log("url");
-            //console.log(url);
-            //console.log(extra);
-            name_field = selected[index]['name'];
-            number_field = selected[index]['contact'];
-            updateStatus("("+(index+1)+") sending message to "+name_field+" on "+number_field, index);
-            $.ajax({
-                url: url,
-                beforeSend: function(jqxhr, settings) {
-                    jqxhr.name_field = name_field;
-                    jqxhr.number_field = number_field;
-                    jqxhr.index_field = index;
-                },
-                type: "GET",
-                complete: function(e) {
-                    // updateStatus("<b>sent to "+e.name_field+" on "+e.number_field +"</b>", e.index_field);
-                    updateStatus(' <span class="label label-success label-as-badge"><i class="fa fa-check fa-lg"></i></span>', e.index_field);
-                },
-                crossDomain:true,
-                error: function(xhrobj, status, text){
-                  console.log(xhrobj);
-                  //console.log(xhrobj.responseText);
-                  console.log(status);
-                  //console.log(text);
-                }
-                });
-            index=index + 1;
-            if(index>=params.length)
-            {
-                clearInterval(sid);
-                updateStatus("stopped timer", -1);
-                index = 0;
-                updateBalance();
-            }
-        }
-
-        var updateStatus = function(status, index){
-            //console.log("updateStatus was called with "+status+" "+index);
-            className='list-group-item';
-            if(index < 0)
-            {
-                $("#status").append("<li class='"+className+"''>"+status+"</li>");
-                return;
-            }
-            var li = $("#status li.classSent"+index);
-            // console.log("li length");
-            // console.log(li.length);
-            if(li.length) 
-                li.append(status);
-            else {
-                $("#status").append("<li class = 'classSent"+index+" "+className+"' >"+status+"</li>");
-            }          
-        }
-        var updateBalance = function() {
-          $.get("_getBalance.php", function(data) {
-              $("#balance").html("<strong>Bal: </strong>"+data);
-            });
-        }
-        updateBalance();
+        $.getScript("send.js");
       });
     </script>
   </body>

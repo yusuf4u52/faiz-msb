@@ -63,7 +63,7 @@
                 contactObjects = $('tr.'+highlight_class+' td[name="CONTACT"]');
                 amountObjects = $('tr.'+highlight_class+' td[name="amount"]');
                 len = thaliObjects.length;
-                selected = []
+                selected = [];
                 for(i = 0; i<len; i++)
                 {
                     thali = thaliObjects.eq(i).html();
