@@ -114,7 +114,7 @@
 				//alert("total:"+records.length);
 				//debugger;
 
-				var field_studentNo = "CONTACT";
+				var field_contactInfo = "CONTACT";
 				var field_fathersNo = "fathersNo";
 
 				var getCellHTMLFromField = function(key, value) {
@@ -146,7 +146,7 @@
 					}
 					html += "</tr><tr class='father' name = '{{name}}'>".replace("{{name}}", srNo);
 					//debugger;
-					html += getCellHTMLFromField(field_fathersNo, record[field_studentNo][1]);
+					html += getCellHTMLFromField(field_fathersNo, record[field_contactInfo][1]);
 					html += "</tr>";
 					return html;
 				}
