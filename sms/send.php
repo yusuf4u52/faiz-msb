@@ -19,16 +19,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach($records as $record)
     {
         //extract($record);
-        $number = $record['contact'];
-        $thali = $record['thali'];
-        $name = $record['name'];
+        $numbers = $record['CONTACT'];
+        $thali = $record['Thali'];
+        $name = $record['NAME'];
         $names = explode(" ", $name, 3);
         $name = $names[0]." ".$names[1];
         $amount = $record['amount'];
         $message_formatted = str_replace(array("<THALI>","<NAME>","<AMOUNT>"),array($thali,$name,$amount),$message_raw);
         $message = urlencode($message_formatted);
-        $param = "user=mustafamnr&password=$smspassword&mobiles=$number&message=$message&sender=FAIZST&route=Template";
-        array_push($params,$param);
+        foreach($numbers as $num)
+        {
+            $param = "user=mustafamnr&password=$smspassword&mobiles=$num&message=$message&sender=FAIZST&route=Template";
+            array_push($params,$param);
+        }
+        
     }
     $data = array('result' => "success", 'params' => $params);
     echo json_encode($data);

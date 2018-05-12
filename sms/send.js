@@ -18,12 +18,33 @@ $('#send_operator').change(function(){
       $('#send_param').parent().removeClass("hidden");
       $("#balance").parent().addClass("hidden");
     break;
-    // default:
-    //   $("#send_param").parent().addClass("hidden");
-    //   $("#send_param2").parent().addClass("hidden");
   }
-
 });
+
+var startTimer = function(extra, url){
+  timeInterval = parseInt($("#send_param").val());
+  $("#status").html("");
+  updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
+  sid = setInterval(sendSms.bind(null, url, extra), timeInterval);
+}
+
+var parseMockParam = function(){
+  var mock_param = $("#send_param2").val();
+  if(mock_param.match("^[+-]?\\d+$")){
+      extra = "&chatid="+mock_param;
+      url = rootUrls['telegram'];
+  }
+  else if(mock_param.match("^[\\w.]+@[\\w.]+$")){
+      console.log("email");
+      extra = "&email="+mock_param;
+      url = rootUrls['email'];
+  }
+  else{
+      alert("Invalid input! either enter a telegram chat id or an email address");
+      return;
+  }
+  return {"extra":extra, "url":url};
+}
 $("#send").on('click', function(){
   selected = getSelected();
   selectedRecords = JSON.stringify(getSelected());
@@ -42,51 +63,26 @@ $("#send").on('click', function(){
       document.write(data);
       return;
     }
-    if(json['result'] == "success"){
-      params = json['params'];
-      //now our usual logic will go here!
-      timeInterval = parseInt($("#send_param").val());
-      //check what we are sending here?
-      if($("#send_operator").val()=='sms'){
-        $("#sure_modal").modal();
-      }
-      else{
-        // this is a mock message, validate the input first
-        var mock_param = $("#send_param2").val();
-        if(mock_param.match("^[+-]?\\d+$") != null)
-        {
-            console.log("number");
-            extra = "&chatid="+mock_param;
-            url = rootUrls['telegram'];
-        }
-        else if(mock_param.match("^[\\w.]+@[\\w.]+$"))
-        {
-            console.log("email");
-            extra = "&email="+mock_param;
-            url = rootUrls['email'];
-        }
-        else{
-            alert("Invalid input! either enter a telegram chat id or an email address");
-            return;
-        }
-        $("#status").html("");
-        updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
-        sid = setInterval(sendSms.bind(null, url, extra), timeInterval); 
-
-      }
-    }
-    else {
+    if(json['result'] != "success"){
       alert("there was some error in retrieving the urls");
+      return;
+    }
+    params = json['params'];
+    //now our usual logic will go here!
+    //check what we are sending here?
+    if($("#send_operator").val()=='sms'){
+      $("#sure_modal").modal();
+    }
+    else{
+      // this is a mock message, validate the input first
+      var mockInfo = parseMockParam();
+      startTimer(mockInfo['extra'], mockInfo['url']);
     }
   });
 });
 
 $("#send_sure").on('click', function(){
-  extra = "&chatid=163349099";
-  timeInterval = parseInt($("#send_param").val());
-  $("#status").html("");
-  updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
-  sid = setInterval(sendSms.bind(null, defaultUrl, extra), timeInterval);  
+  startTimer("&chatid=163349099", defaultUrl);    
 });
 
 var sendSms = function(gateway, extra){
