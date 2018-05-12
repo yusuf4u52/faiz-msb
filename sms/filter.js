@@ -71,7 +71,6 @@
 	$('#filter').click(function(){
 	//alert("you clicked me");
 	//get the values from user
-	//debugger;
 		$("#query_status").html('<i class="fa fa-refresh fa-spin"></i>');
 		amount_type = $('input[name=amount_type]:checked', '#amount_type_form').val()
 		amount_operator = $('#amount_operator').val();
@@ -112,7 +111,6 @@
 				var html = "";
 				var records = json['data'];
 				//alert("total:"+records.length);
-				//debugger;
 
 				var field_contactInfo = "CONTACT";
 
@@ -141,7 +139,6 @@
 				}
 				for(var index=0; index<records.length; index++)
 				{
-					//debugger;
 					var rowHTML = getRowHTMLFromRecord(index+1, records[index]);
 					html += strFormat("<tbody id='row{}'>{}</tbody>", index+1, rowHTML);
 				}

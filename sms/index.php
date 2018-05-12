@@ -252,36 +252,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <div class='form-group'>
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                  <div class='input-group'>
-                    <span class="input-group-addon"><i class='fas fa-graduation-cap fa-lg fa-fw'></i></span>
-                    <select class='form-control' id='student_param'>
-                      <option value="yes">Yes</option>
-                      <option value="no">No</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class='form-group'>
-              <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                  <div class='input-group'>
-                    <span class="input-group-addon"><i class='fas fa-user-tie fa-lg fa-fw'></i></span>
-                    <select class='form-control' id='father_param'>
-                      <option value="none">No</option>
-                      <option value="indian">Indian</option>
-                      <option value="foreign">Foreign</option>
-                      <option value="all">All</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class='form-group'>
-              <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">
                   <button class='btn btn-primary btn-lg' id='filter'>Filter <div class="glyphicon glyphicon-filter" aria-hidden="true"></div><div style="float:right;"><div class="badge" id='query_status'></div></div></button>
                 </div>
               </div>
@@ -526,8 +496,6 @@ else{
     $transporter_param = $_REQUEST['transporter_param'];
     $field_transporter = "Transporter";
 
-    $student_param = $_REQUEST['student_param'];
-    $father_param = $_REQUEST['father_param'];
     $field_studentNo = "CONTACT";
     $field_fatherNo = "fathersNo";
     $field_isIndian = "isIndian";
@@ -585,13 +553,6 @@ else{
         $condition = '("1", "0")';
     }
     $query = $query.$condition;
-
-    switch($student_param) {
-      case "yes":
-      break;
-      case "no":
-      break;
-    }
 
     //echo "\n\nfinal sql string = ".$query."\n\n";
 

@@ -32,7 +32,6 @@
                 });
             });
             $("button.sel-none").click(function(){
-                //debugger;
                 var contactType = $(this).attr("name");
                 var isIndian = $(this).attr("data-is-indian");
                 filerString = getSelector(contactType, isIndian)+".success";
@@ -60,7 +59,6 @@
                 $.each($(strFormat("{} tbody:has(.{})", tableSelector, highlight_class)), function(){
                     studentRow = $(this).children(".student");
                     fatherRow = $(this).children(".father");
-                    //debugger;
                     record = {};
                     $.each(studentRow.children(), function(){
                         record[$(this).attr("name")] = $(this).html();

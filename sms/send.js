@@ -58,7 +58,6 @@ $("#send").on('click', function(){
     var json = null;
     try{
       json = JSON.parse(data);
-      //debugger;
     }catch(err){
       document.write(data);
       return;
@@ -90,9 +89,8 @@ var sendSms = function(gateway, extra){
     // console.log("url");
     //console.log(url);
     //console.log(extra);
-    debugger;
-    name_field = selected[index]['name'];
-    number_field = selected[index]['contact'];
+    name_field = selected[index]['NAME'];
+    number_field = selected[index]['CONTACT'][0];
     updateStatus("("+(index+1)+") sending message to "+name_field+" on "+number_field, index);
     $.ajax({
         url: url,
