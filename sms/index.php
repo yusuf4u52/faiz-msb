@@ -373,11 +373,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
             <div class='table-responsiv'> <!-- i have disabled this, non responsive is better -->
               <table class='table' id = 'recipientTable'>
-                <thead>
-                    <tr><th>#</th><th>Thali No.</th><th>Name</th><th>Mob No.</th><th>Transporter</th><th>Amount</th></tr>
-                </thead>
-                <tbody id = 'recipientTableBody'>
-                </tbody>
               </table>
             </div>
           </div>
@@ -471,7 +466,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <script type="text/javascript">
       
       var rootUrls = <?php echo json_encode($root_urls) ?>;
-      
+      var strFormat = function(...args) {
+        len = args.length;
+        if(len < 1){
+          console.log("Formatter requires atleast one string argument");
+          return;
+        }
+
+        var str = args[0];
+        if((str.match(/\{\}/g) || []).length != len-1) {
+          console.log("Formatter detected a count mismatch between args and {}");
+          return;
+        }
+        for(var i=1; i<len; i++){
+          str = str.replace("{}", args[i]);
+        }
+        return str;
+      }
+
       $(document).ready(function(){
         
         $('[data-toggle="tooltip"]').tooltip();

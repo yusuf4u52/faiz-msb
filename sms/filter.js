@@ -115,57 +115,40 @@
 				//debugger;
 
 				var field_contactInfo = "CONTACT";
-				var field_fathersNo = "fathersNo";
 
 				var getCellHTMLFromField = function(key, value) {
-					html = "";
-					switch(key)
-					{
-						case "CONTACT":
-						html = "<td name='{{key}}'>{{value}}</td>";
+					var rowspan = ""
+					if(key == field_contactInfo){
 						value = value[0];
-						break;
-						case "fathersNo":
-						html = "<td name='{{key}}'>{{value}}</td>";
-						value = value['contact'];
-						//debugger;
-						break;
-						default:
-						html = "<td rowspan = '2' name='{{key}}'>{{value}}</td>";
+					} else {
+						rowspan = " rowspan='2'";
 					}
-					html = html.replace("{{key}}", key);
-					html = html.replace("{{value}}", value);
+					var html = strFormat("<td{} name='{}'>{}</td>", rowspan, key, value);
 					return html;
 				}
 				var getRowHTMLFromRecord = function(srNo, record) {
-					html = "<tr class='student' name = '{{name}}'>".replace("{{name}}", srNo);
+					var html = "<tr class='student'>";
 					html += getCellHTMLFromField("index", srNo);
 					for(var key in record)
 					{
 						html += getCellHTMLFromField(key, record[key]);
 					}
-					html += "</tr><tr class='father' name = '{{name}}' data-is-indian='"+record[field_contactInfo][1]['isIndian']+"'>".replace("{{name}}", srNo);
-					//debugger;
-					html += getCellHTMLFromField(field_fathersNo, record[field_contactInfo][1]);
-					html += "</tr>";
+					var fatherInfo = record[field_contactInfo][1];
+					html += strFormat("</tr><tr class='father' data-is-indian='{}'>{}</tr>", 
+						fatherInfo['isIndian'],
+						getCellHTMLFromField(field_contactInfo, [fatherInfo['contact']]));
 					return html;
 				}
 				for(var index=0; index<records.length; index++)
 				{
-					/*
-					html+="<tr><td rowspan='2'>"+(index+1)+"</td>";
-					record = records[index];
-					for(var key in record){
-						html+= "<td name = '"+key+"'>"+record[key]+"</td>";
-						if(key == "CONTACT") {
-							html += <td name
-						}
-					}
-					html+="</tr>\n";
-					*/
-					html += getRowHTMLFromRecord(index+1, records[index]);
+					//debugger;
+					var rowHTML = getRowHTMLFromRecord(index+1, records[index]);
+					html += strFormat("<tbody id='row{}'>{}</tbody>", index+1, rowHTML);
 				}
-				$('#recipientTableBody').html(html);
+				var tableHeads = ["#", "Thali No.", "Name", "Contact", "Transporter", "Amount"].map(head => "<th>"+head+"</th>").join();
+				var tableHeader = strFormat("<thead>{}</thead>", tableHeads );
+				html = tableHeader + html;
+				$('#recipientTable').html(html);
 				$('#query_status').html(records.length);
 				if(records.length > 0) {
 					$('#b_selection').removeClass("hidden");

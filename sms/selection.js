@@ -1,28 +1,26 @@
             
             var highlight_class = "success";
+            var tableSelector = "table#recipientTable";
             var clickHandler = function(row){
                 row.toggleClass(highlight_class);
                 row.trigger("bgChange");
             }
             var getSelector = function(contactType, isIndian) {
-                var selector = "tbody#recipientTableBody tr{{nationalitySelector}}{{contactSelector}}";
-                var contactSelector = "."+contactType;
                 var nationalitySelector = "";
-                if(isIndian)
-                {
-                    nationalitySelector = "[data-is-indian='"+isIndian+"']";
+                if(isIndian){
+                    nationalitySelector = strFormat("[data-is-indian='{}']", isIndian);
                 }
-                selector = selector.replace("{{nationalitySelector}}", nationalitySelector);
-                selector = selector.replace("{{contactSelector}}", contactSelector);
+                var selector = strFormat("{} tr{}.{}", 
+                    tableSelector, nationalitySelector, contactType);
                 return selector;
             }
-            $('tbody#recipientTableBody').on('click', 'tr', function(){
+            $(tableSelector).on('click', 'tr', function(){
                 clickHandler($(this));
             });
-            $('tbody#recipientTableBody').on('mouseenter', 'tr', function(evt){
-                    if(evt.ctrlKey){
-                        clickHandler($(this));
-                    }
+            $(tableSelector).on('mouseenter', 'tr', function(evt){
+                if(evt.ctrlKey){
+                    clickHandler($(this));
+                }
             });
             
             $("button.sel-all").click(function(){
@@ -51,8 +49,8 @@
                 });
             }); 
             
-            $('tbody#recipientTableBody').on("bgChange", "tr", function(){
-                var selectedRecords = $('tbody#recipientTableBody tr.'+highlight_class);
+            $(tableSelector).on("bgChange", "tr", function(){
+                var selectedRecords = $('table#recipientTable tr.'+highlight_class);
                 var len = selectedRecords.length;
                 var selectionStatusString = "Selected "+len+" record(s).";
                 $('#selection_status').html(selectionStatusString);
@@ -60,6 +58,7 @@
             var getSelected = function(){
                 thaliObjects = $('tr.'+highlight_class+' td[name="Thali"]');
                 nameObjects = $('tr.'+highlight_class+' td[name="NAME"]');
+                studentContactObjects = $("tr."+highlight_class+" td.student");
                 contactObjects = $('tr.'+highlight_class+' td[name="CONTACT"]');
                 amountObjects = $('tr.'+highlight_class+' td[name="amount"]');
                 len = thaliObjects.length;

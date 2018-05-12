@@ -37,7 +37,7 @@ $("#send").on('click', function(){
     var json = null;
     try{
       json = JSON.parse(data);
-      debugger;
+      //debugger;
     }catch(err){
       document.write(data);
       return;
