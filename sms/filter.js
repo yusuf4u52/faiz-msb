@@ -126,7 +126,7 @@
 						value = value[0];
 						break;
 						case "fathersNo":
-						html = "<td name='{{key}}' data-is-indian='"+value['isIndian']+"'>{{value}}</td>";
+						html = "<td name='{{key}}'>{{value}}</td>";
 						value = value['contact'];
 						//debugger;
 						break;
@@ -144,7 +144,7 @@
 					{
 						html += getCellHTMLFromField(key, record[key]);
 					}
-					html += "</tr><tr class='father' name = '{{name}}'>".replace("{{name}}", srNo);
+					html += "</tr><tr class='father' name = '{{name}}' data-is-indian='"+record[field_contactInfo][1]['isIndian']+"'>".replace("{{name}}", srNo);
 					//debugger;
 					html += getCellHTMLFromField(field_fathersNo, record[field_contactInfo][1]);
 					html += "</tr>";

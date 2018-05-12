@@ -327,13 +327,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
                       <div class="btn-group btn-group-justified" role="group" id='b_selection'>
                         <div class="btn-group" role="group">
-                          <button name='b_all' type="button" class="btn btn-default sel-all" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                          <button name='father' data-is-Indian='1' type="button" class="btn btn-default sel-all" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
                         </div>
                         <div class="btn-group" role="group">
-                          <button name='b_none' type="button" class="btn btn-default sel-none" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                          <button name='father' data-is-Indian='1' type="button" class="btn btn-default sel-none" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                         </div>
                         <div class="btn-group" role="group">
-                          <button name='b_toggle' type="button" class="btn btn-default sel-toggle" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+                          <button name='father' data-is-Indian='1' type="button" class="btn btn-default sel-toggle" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
                         </div>
                       </div>
 

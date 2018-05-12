@@ -4,6 +4,18 @@
                 row.toggleClass(highlight_class);
                 row.trigger("bgChange");
             }
+            var getSelector = function(contactType, isIndian) {
+                var selector = "tbody#recipientTableBody tr{{nationalitySelector}}{{contactSelector}}";
+                var contactSelector = "."+contactType;
+                var nationalitySelector = "";
+                if(isIndian)
+                {
+                    nationalitySelector = "[data-is-indian='"+isIndian+"']";
+                }
+                selector = selector.replace("{{nationalitySelector}}", nationalitySelector);
+                selector = selector.replace("{{contactSelector}}", contactSelector);
+                return selector;
+            }
             $('tbody#recipientTableBody').on('click', 'tr', function(){
                 clickHandler($(this));
             });
@@ -14,26 +26,28 @@
             });
             
             $("button.sel-all").click(function(){
-                var className = $(this).attr("name");
-                $.each($("tbody#recipientTableBody tr."+className+":not(.success)"), function(){
-                    //$(this).addClass(highlight_class);
-                    //$(this).trigger("bgChange");
+                var contactType = $(this).attr("name");
+                var isIndian = $(this).attr("data-is-indian");
+                filerString = getSelector(contactType, isIndian)+":not(.success)";
+                $.each($(filerString), function(){
                     clickHandler($(this));
                 });
             });
             $("button.sel-none").click(function(){
-                var className = $(this).attr("name");
-                $.each($("tbody#recipientTableBody tr."+className+".success"), function(){
-                    //$(this).removeClass(highlight_class);
-                    //$(this).trigger("bgChange");
+                //debugger;
+                var contactType = $(this).attr("name");
+                var isIndian = $(this).attr("data-is-indian");
+                filerString = getSelector(contactType, isIndian)+".success";
+                $.each($(filerString), function(){
                     clickHandler($(this));
                 });
             });
             $("button.sel-toggle").click(function(){
-                var className = $(this).attr("name");
-                $.each($("tbody#recipientTableBody tr."+className), function(){
-                    clickHandler($(this));
-                    
+                var contactType = $(this).attr("name");
+                var isIndian = $(this).attr("data-is-indian");
+                filerString = getSelector(contactType, isIndian);
+                $.each($(filerString), function(){
+                    clickHandler($(this));                    
                 });
             }); 
             
