@@ -1,6 +1,6 @@
 <?php
 require '_credentials.php';
-//require '../users/update_next_install.php';
+require '../users/update_next_install.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
@@ -367,7 +367,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <div class='form-group'>
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group hidden" role="group">
-                  <input type="text" class="form-control" placeholder="Chat id or Email" id='send_param2' value='163349099'>
+                  <input type="text" class="form-control" placeholder="Chat id or Email" id='send_param2'>
                 </div>
                 <div class="btn-group" role="group">
                     <button class='btn btn-info' id='balance' data-toggle='tooltip' data-placement='top' data-original-title='Check Balance' disabled="disabled">Balance</button>
