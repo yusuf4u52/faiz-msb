@@ -65,7 +65,15 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
   $total_amount_paid = $reciepts_query_result_total['total'];
   $thaliactivedate_query = mysqli_fetch_assoc(mysqli_query($link,"SELECT DATE(datetime) as datetime FROM `change_table` where Thali = '".$_SESSION['thali']."' AND operation = 'Start Thali' AND id > 3596 ORDER BY id limit 1"));
   $thaliactivedate = $thaliactivedate_query['datetime'];
-  $_miqaats = getMiqaats($thaliactivedate);
+  //$_miqaats = getMiqaats($thaliactivedate);
+
+  $sql = mysqli_query($link,"select miqat_date,miqat_description from sms_date");
+
+  while($record = mysqli_fetch_assoc($sql))
+    {
+      $_miqaats[$record['miqat_date']] = $record['miqat_description'];
+    } 
+
 
   $values['Total_Pending'] = $values['Previous_Due'] + $values['Dues'] + $values['yearly_hub'] + $values['Zabihat'] + $values['Reg_Fee'] + $values['TranspFee'] - $values['Paid'];
   
@@ -282,7 +290,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                   </div>
                   <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="panel-body">
-                      <h5 class="col-xs-12">The niyaaz amount will be payable throughout the year on the following 8 miqaats. You can either pay the whole amount in Lailat ul Qadr or pay it during the year.</h5>
+                      <h5 class="col-xs-12">The niyaaz amount will be payable throughout the year on the following 3 miqaats. If possible do contribute the whole amount in Lailat ul Qadr</h5>
                       <table class='table table-striped'>
                         <thead>
                           <tr>
