@@ -9,10 +9,10 @@
 	  	});
 	});
 	var templates = {
-		"warning": "Salam <NAME> bhai, Thali#<THALI> Ur hub <AMOUNT> is pending for current month. Pls contribute before ^ to get uninterrupted transport.",
-		"urgent": "Salam <NAME> bhai, Thali#<THALI> LAST DAY to contribute your hub <AMOUNT>, Transportation will be discontinued from tomorrow onwards.",
-		"delay": "Salam <NAME> bhai, your transporter ^ is delayed. Your thali (<THALI>) is delayed by ^ hours. Sorry for inconvenience.",
-		"na": "Salam <NAME> bhai, your transporter ^ is ^. Plz pick up your thali(<THALI>) before ^ from Faiz. Sorry for inconvenience."
+		"warning": "Salam <NAME>, Thali#<THALI> Ur hub <AMOUNT> is pending for current month. Pls contribute before ^ to get uninterrupted transport.",
+		"urgent": "Salam <NAME>, Thali#<THALI> LAST DAY to contribute your hub <AMOUNT>, Transportation will be discontinued from tomorrow onwards.",
+		"delay": "Salam <NAME>, your transporter ^ is delayed. Your thali (<THALI>) is delayed by ^ hours. Sorry for inconvenience.",
+		"na": "Salam <NAME>, your transporter ^ is ^. Plz pick up your thali(<THALI>) before ^ from Faiz. Sorry for inconvenience."
 	}
 
 	$("a[id^='template_']").each(function(i, el){
@@ -107,16 +107,41 @@
 				var html = "";
 				var records = json['data'];
 				//alert("total:"+records.length);
-				for(index=0; index<records.length; index++)
-				{
-					html+="<tr><td>"+(index+1)+"</td>";
-					record = records[index];
-					for(var key in record){
-						html+= "<td name = '"+key+"'>"+record[key]+"</td>";
+
+				var field_contactInfo = "CONTACT";
+
+				var getCellHTMLFromField = function(key, value) {
+					var rowspan = ""
+					if(key == field_contactInfo){
+						value = value[0];
+					} else {
+						rowspan = " rowspan='2'";
 					}
-					html+="</tr>\n";
+					var html = strFormat("<td{} name='{}'>{}</td>", rowspan, key, value);
+					return html;
 				}
-				$('#recipientTableBody').html(html);
+				var getRowHTMLFromRecord = function(srNo, record) {
+					var html = "<tr class='student'>";
+					html += getCellHTMLFromField("index", srNo);
+					for(var key in record)
+					{
+						html += getCellHTMLFromField(key, record[key]);
+					}
+					var fatherInfo = record[field_contactInfo][1];
+					html += strFormat("</tr><tr class='father' data-is-indian='{}'>{}</tr>", 
+						fatherInfo['isIndian'],
+						getCellHTMLFromField(field_contactInfo, [fatherInfo['contact']]));
+					return html;
+				}
+				for(var index=0; index<records.length; index++)
+				{
+					var rowHTML = getRowHTMLFromRecord(index+1, records[index]);
+					html += strFormat("<tbody id='row{}'>{}</tbody>", index+1, rowHTML);
+				}
+				var tableHeads = ["#", "Thali No.", "Name", "Contact", "Transporter", "Amount"].map(head => "<th>"+head+"</th>").join();
+				var tableHeader = strFormat("<thead>{}</thead>", tableHeads );
+				html = tableHeader + html;
+				$('#recipientTable').html(html);
 				$('#query_status').html(records.length);
 				if(records.length > 0) {
 					$('#b_selection').removeClass("hidden");

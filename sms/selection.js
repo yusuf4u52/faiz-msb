@@ -1,64 +1,72 @@
             
             var highlight_class = "success";
+            var tableSelector = "table#recipientTable";
             var clickHandler = function(row){
                 row.toggleClass(highlight_class);
                 row.trigger("bgChange");
             }
-            $('tbody#recipientTableBody').on('click', 'tr', function(){
+            var getSelector = function(contactType, isIndian) {
+                var nationalitySelector = "";
+                if(isIndian){
+                    nationalitySelector = strFormat("[data-is-indian='{}']", isIndian);
+                }
+                var selector = strFormat("{} tr{}.{}", 
+                    tableSelector, nationalitySelector, contactType);
+                return selector;
+            }
+            $(tableSelector).on('click', 'tr', function(){
                 clickHandler($(this));
             });
-            $('tbody#recipientTableBody').on('mouseenter', 'tr', 
-                function(evt){
-                    if(evt.ctrlKey)
-                    {
-                        clickHandler($(this));
-                    }
-                });
-            $('#b_toggle').click(function(){
-                $.each($('tbody#recipientTableBody tr'), function(){
+            $(tableSelector).on('mouseenter', 'tr', function(evt){
+                if(evt.ctrlKey){
                     clickHandler($(this));
-                    
+                }
+            });
+            
+            $("button.sel-all").click(function(){
+                var contactType = $(this).attr("name");
+                var isIndian = $(this).attr("data-is-indian");
+                filerString = getSelector(contactType, isIndian)+":not(.success)";
+                $.each($(filerString), function(){
+                    clickHandler($(this));
                 });
             });
-            $('#b_all').click(function(){
-                $.each($('tbody#recipientTableBody tr'), function(){
-                    $(this).addClass(highlight_class);
-                    $(this).trigger("bgChange");
+            $("button.sel-none").click(function(){
+                var contactType = $(this).attr("name");
+                var isIndian = $(this).attr("data-is-indian");
+                filerString = getSelector(contactType, isIndian)+".success";
+                $.each($(filerString), function(){
+                    clickHandler($(this));
                 });
             });
-            $("#b_none").click(function(){
-                $.each($('tbody#recipientTableBody tr'), function(){
-                    $(this).removeClass(highlight_class);
-                    $(this).trigger("bgChange");
+            $("button.sel-toggle").click(function(){
+                var contactType = $(this).attr("name");
+                var isIndian = $(this).attr("data-is-indian");
+                filerString = getSelector(contactType, isIndian);
+                $.each($(filerString), function(){
+                    clickHandler($(this));                    
                 });
-            });
-            $('tbody#recipientTableBody').on("bgChange", "tr", function(){
-                var selectedRecords = $('tbody#recipientTableBody tr.'+highlight_class);
+            }); 
+            
+            $(tableSelector).on("bgChange", "tr", function(){
+                var selectedRecords = $('table#recipientTable tr.'+highlight_class);
                 var len = selectedRecords.length;
                 var selectionStatusString = "Selected "+len+" record(s).";
                 $('#selection_status').html(selectionStatusString);
             });
             var getSelected = function(){
-                thaliObjects = $('tr.'+highlight_class+' td[name="Thali"]');
-                nameObjects = $('tr.'+highlight_class+' td[name="NAME"]');
-                contactObjects = $('tr.'+highlight_class+' td[name="CONTACT"]');
-                amountObjects = $('tr.'+highlight_class+' td').filter('[name="Total_Pending"],[name="next_install"],[name="prev_install_pending"]');
-                len = thaliObjects.length;
-                selected = []
-                for(i = 0; i<len; i++)
-                {
-                    thali = thaliObjects.eq(i).html();
-                    name = nameObjects.eq(i).html();
-                    contact = contactObjects.eq(i).html();
-                    amount = amountObjects.eq(i).html();
-                    //console.log(thali+","+name+","+contact);
-                    selection = {}
-                    selection['thali'] = thali;
-                    selection['name'] = name;
-                    selection['contact'] = contact;
-                    selection['amount'] = amount;
-                    selected.push(selection);
-                }
+                selected = [];
+                $.each($(strFormat("{} tbody:has(.{})", tableSelector, highlight_class)), function(){
+                    studentRow = $(this).children(".student");
+                    fatherRow = $(this).children(".father");
+                    record = {};
+                    $.each(studentRow.children(), function(){
+                        record[$(this).attr("name")] = $(this).html();
+                    });
+                    record['CONTACT'] = $.map($(this).find("tr.success td[name='CONTACT']"), e => $(e).html());
+                    selected.push(record);
+                });
+                
                 //console.log(selected);
                 return selected;
             }

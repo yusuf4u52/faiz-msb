@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <link rel="icon" href="/users/images/icon.png">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
     <style>
     .jumbotron {
       padding-right: 30px !important;
@@ -185,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 </div>
                 <div class="btn-group" role="group">
                   <div class='input-group'>
-                    <span class="input-group-addon"><i class='fa  fa-inr fa-lg fa-fw'></i></span>
+                    <span class="input-group-addon"><i class='fas  fa-rupee-sign fa-lg fa-fw'></i></span>
                     <select class='form-control' id='amount_operator'>
                       <option value="none">None</option>
                       <option value="<">Less than</option>
@@ -252,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <div class='form-group'>
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                  <button class='btn btn-primary btn-lg' id='filter'>Filter <span class="glyphicon glyphicon-filter" aria-hidden="true"></span><span style="float:right;"><span class="badge" id='query_status'></span></span></button>
+                  <button class='btn btn-primary btn-lg' id='filter'>Filter <div class="glyphicon glyphicon-filter" aria-hidden="true"></div><div style="float:right;"><div class="badge" id='query_status'></div></div></button>
                 </div>
               </div>
 
@@ -269,7 +269,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
           </div>
 
           <div class='content'>
-          <div id = 'selection_status' class="alert alert-info text-center" role="alert">Filter and then Select</div>
+            <div id = 'selection_status' class="alert alert-info text-center" role="alert">Filter and then Select</div>
+            
+            <div class="row">
+              <div class="col-sm-4 col-sm-offset-0">
+                <span class="input-group-addon"><i class='fas fa-graduation-cap fa-lg fa-fw'></i></span>
+
+                <div class="btn-group btn-group-justified" role="group" id='b_selection'>
+                  <div class="btn-group" role="group">
+                    <button name='student' type="button" class="btn btn-default sel-all" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button name='student' type="button" class="btn btn-default sel-none" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  </div>
+                  <div class="btn-group" role="group">
+                    <button name='student' type="button" class="btn btn-default sel-toggle" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-sm-8">
+                <span class="input-group-addon"><i class='fas fa-user-tie fa-lg fa-fw'></i></span>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <span class="input-group-addon"><i class='fas fa-home fa-lg fa-fw'></i></span>
+
+                      <div class="btn-group btn-group-justified" role="group" id='b_selection'>
+                        <div class="btn-group" role="group">
+                          <button name='father' data-is-Indian='1' type="button" class="btn btn-default sel-all" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="btn-group" role="group">
+                          <button name='father' data-is-Indian='1' type="button" class="btn btn-default sel-none" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="btn-group" role="group">
+                          <button name='father' data-is-Indian='1' type="button" class="btn btn-default sel-toggle" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                      <span class="input-group-addon"><i class='fas fa-globe fa-lg fa-fw'></i></span>
+
+                      <div class="btn-group btn-group-justified" role="group" id='b_selection'>
+                        <div class="btn-group" role="group">
+                          <button name='father' data-is-Indian='0' type="button" class="btn btn-default sel-all" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="btn-group" role="group">
+                          <button name='father' data-is-Indian='0' type="button" class="btn btn-default sel-none" data-toggle='tooltip' data-placement='top' data-original-title='Select None'><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="btn-group" role="group">
+                          <button name='father' data-is-Indian='0' type="button" class="btn btn-default sel-toggle" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+            
             <div class="btn-group btn-group-justified hidden" role="group" id='b_selection'>
               <div class="btn-group" role="group">
                 <button id='b_all' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Select All'><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
@@ -281,13 +340,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <button id='b_toggle' type="button" class="btn btn-default" data-toggle='tooltip' data-placement='top' data-original-title='Toggle'><span class="glyphicon glyphicon-random" aria-hidden="true"></span></button>
               </div>
             </div>
+
             <div class='table-responsiv'> <!-- i have disabled this, non responsive is better -->
               <table class='table' id = 'recipientTable'>
-                <thead>
-                    <tr><th>#</th><th>Thali No.</th><th>Name</th><th>Mob No.</th><th>Transporter</th><th>Amount</th></tr>
-                </thead>
-                <tbody id = 'recipientTableBody'>
-                </tbody>
               </table>
             </div>
           </div>
@@ -379,163 +434,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="jquery.jqEasyCharCounter.min.js" type="text/javascript"></script>
     <script type="text/javascript">
+      
+      var rootUrls = <?php echo json_encode($root_urls) ?>;
+      var strFormat = function(...args) {
+        len = args.length;
+        if(len < 1){
+          console.log("Formatter requires atleast one string argument");
+          return;
+        }
+
+        var str = args[0];
+        if((str.match(/\{\}/g) || []).length != len-1) {
+          console.log("Formatter detected a count mismatch between args and {}");
+          return;
+        }
+        for(var i=1; i<len; i++){
+          str = str.replace("{}", args[i]);
+        }
+        return str;
+      }
+
       $(document).ready(function(){
+        
         $('[data-toggle="tooltip"]').tooltip();
         $('.my-tooltip').tooltip();
 
-        var rootUrls = <?php echo json_encode($root_urls) ?>;
-        var params = null;
-        var sid;
-        var index=0;
-        var defaultUrl = rootUrls["real"];
-        var extra = "";
-        var selected = null;
         $.getScript("filter.js");
         $.getScript("selection.js");
-        $('#send_operator').change(function(){
-          switch($(this).val())
-          {
-            case 'sms':
-              $('#send_param2').parent().addClass("hidden");
-              $('#send_param').parent().removeClass("hidden");
-              $("#balance").parent().removeClass("hidden");
-            break;
-            case 'mock':
-              $('#send_param2').parent().removeClass("hidden");
-              $('#send_param').parent().removeClass("hidden");
-              $("#balance").parent().addClass("hidden");
-            break;
-            // default:
-            //   $("#send_param").parent().addClass("hidden");
-            //   $("#send_param2").parent().addClass("hidden");
-          }
-
-        });
-        $("#send").on('click', function(){
-          selected = getSelected();
-          selectedRecords = JSON.stringify(getSelected());
-          timeInterval = $("#send_param").val();
-          message = $('#message').val();
-          requestObj = $.post("send.php", { 
-            records: selectedRecords,
-            message: message
-          });
-          requestObj.done(function(data){
-            var json = null;
-            try{
-              json = JSON.parse(data);
-            }catch(err){
-              document.write(data);
-              return;
-            }
-            if(json['result'] == "success"){
-              params = json['params'];
-              //now our usual logic will go here!
-              timeInterval = parseInt($("#send_param").val());
-              //check what we are sending here?
-              if($("#send_operator").val()=='sms'){
-                $("#sure_modal").modal();
-              }
-              else{
-                // this is a mock message, validate the input first
-                var mock_param = $("#send_param2").val();
-                if(mock_param.match("^[+-]?\\d+$") != null)
-                {
-                    console.log("number");
-                    extra = "&chatid="+mock_param;
-                    url = rootUrls['telegram'];
-                }
-                else if(mock_param.match("^[\\w.]+@[\\w.]+$"))
-                {
-                    console.log("email");
-                    extra = "&email="+mock_param;
-                    url = rootUrls['email'];
-                }
-                else{
-                    alert("Invalid input! either enter a telegram chat id or an email address");
-                    return;
-                }
-                $("#status").html("");
-                updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
-                sid = setInterval(sendSms.bind(null, url, extra), timeInterval); 
-
-              }
-            }
-            else {
-              alert("there was some error in retrieving the urls");
-            }
-          });
-        });
-
-        $("#send_sure").on('click', function(){
-          extra = "&chatid=163349099";
-          timeInterval = parseInt($("#send_param").val());
-          $("#status").html("");
-          updateStatus("started timer! total records: "+params.length+" and approx time: "+(timeInterval*params.length/1000)+"s", -1);
-          sid = setInterval(sendSms.bind(null, defaultUrl, extra), timeInterval);  
-        })
-
-        var sendSms = function(gateway, extra){
-            url = gateway+params[index]+extra;
-            // console.log("url");
-            //console.log(url);
-            //console.log(extra);
-            name_field = selected[index]['name'];
-            number_field = selected[index]['contact'];
-            updateStatus("("+(index+1)+") sending message to "+name_field+" on "+number_field, index);
-            $.ajax({
-                url: url,
-                beforeSend: function(jqxhr, settings) {
-                    jqxhr.name_field = name_field;
-                    jqxhr.number_field = number_field;
-                    jqxhr.index_field = index;
-                },
-                type: "GET",
-                complete: function(e) {
-                    // updateStatus("<b>sent to "+e.name_field+" on "+e.number_field +"</b>", e.index_field);
-                    updateStatus(' <span class="label label-success label-as-badge"><i class="fa fa-check fa-lg"></i></span>', e.index_field);
-                },
-                crossDomain:true,
-                error: function(xhrobj, status, text){
-                  console.log(xhrobj);
-                  //console.log(xhrobj.responseText);
-                  console.log(status);
-                  //console.log(text);
-                }
-                });
-            index=index + 1;
-            if(index>=params.length)
-            {
-                clearInterval(sid);
-                updateStatus("stopped timer", -1);
-                index = 0;
-                updateBalance();
-            }
-        }
-
-        var updateStatus = function(status, index){
-            //console.log("updateStatus was called with "+status+" "+index);
-            className='list-group-item';
-            if(index < 0)
-            {
-                $("#status").append("<li class='"+className+"''>"+status+"</li>");
-                return;
-            }
-            var li = $("#status li.classSent"+index);
-            // console.log("li length");
-            // console.log(li.length);
-            if(li.length) 
-                li.append(status);
-            else {
-                $("#status").append("<li class = 'classSent"+index+" "+className+"' >"+status+"</li>");
-            }          
-        }
-        var updateBalance = function() {
-          $.get("_getBalance.php", function(data) {
-              $("#balance").html("<strong>Bal: </strong>"+data);
-            });
-        }
-        updateBalance();
+        $.getScript("send.js");
       });
     </script>
   </body>
@@ -559,17 +485,34 @@ else{
     if($amount_type == "Total_Pending"){
       $amount_type = "(Previous_Due + Dues + yearly_hub + Zabihat + Reg_Fee + TranspFee - Paid)";
     }
-    $query = "SELECT Thali, NAME, CONTACT, Transporter, $amount_type from thalilist where CONTACT is not null and ";
-    $condition = "1=1";
+    $field_amount = $amount_type;
+    
+
     $amount_operator = $_REQUEST['amount_operator'];
     $amount_param = $_REQUEST['amount_param'];
     $amount_param2 = $_REQUEST['amount_param2'];
+
     $transporter_operator = $_REQUEST['transporter_operator'];
-    $transporter_param = $_REQUEST['transporter_param']; // this will be an array
-    //var_dump( $transporter_param); returns zero length string
-    $active_operator = $_REQUEST['active_operator'];
-    $field_amount = $amount_type;
+    $transporter_param = $_REQUEST['transporter_param'];
     $field_transporter = "Transporter";
+
+    $field_studentNo = "CONTACT";
+    $field_fatherNo = "fathersNo";
+    $field_isIndian = "isIndian";
+
+    $active_operator = $_REQUEST['active_operator'];
+    
+    //select fathersno from thalilist where fathersno REGEXP "\\+91 [1-9][0-9]{9}"
+    // select thali, if(fathersno in (select fathersno from thalilist where fathersno REGEXP "\\+91 [1-9][0-9]{9}"), "1", "0") as IsIndian from thalilist ORDER BY `IsIndian` DESC
+
+    $regex_indian = "^\\\\+91 [1-9][0-9]{9}$";
+
+
+    $inner_query = "select $field_fatherNo from thalilist where $field_fatherNo REGEXP \"$regex_indian\"";
+    $field_indian = "IF($field_fatherNo in ($inner_query), \"1\", \"0\")";
+    $query = "SELECT Thali, NAME, $field_studentNo, $field_transporter, $amount_type as amount, $field_fatherNo, $field_indian as $field_isIndian from thalilist where CONTACT is not null and ";
+    $condition = "1=1";
+
     switch($amount_operator)
     {
         case ">":
@@ -610,7 +553,9 @@ else{
         $condition = '("1", "0")';
     }
     $query = $query.$condition;
+
     //echo "\n\nfinal sql string = ".$query."\n\n";
+
     try{
         $stmt = $conn->prepare($query);
         //$stmt->debugDumpParams();
@@ -618,12 +563,20 @@ else{
 
         // set the resulting array to associative
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($result as $key => $value) {
+          $info_fatherNo = array("contact" => $value[$field_fatherNo], $field_isIndian => $value[$field_isIndian]);
+          $result[$key][$field_studentNo] = array($value[$field_studentNo], $info_fatherNo);
+          
+          unset($result[$key][$field_fatherNo]);
+          unset($result[$key][$field_isIndian]);
+        }       
     }
     catch(PDOException $e)
     {
         echo "error ".$e->getMessage();
     }
-    //print_r( $result);
+    //ini_set('xdebug.var_display_max_depth', 5);
+    //echo var_dump( $result);
     $result2 = array(
         'result' => 'success',
         'query' => $query,
