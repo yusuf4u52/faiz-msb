@@ -41,7 +41,13 @@ while($row = mysqli_fetch_assoc($result)){
   $thaliactivedate_query = mysqli_fetch_assoc(mysqli_query($link,"SELECT Date(datetime) as datetime FROM `change_table` where Thali = '".$row['Thali']."' AND operation = 'Start Thali' AND id > 3596 ORDER BY id limit 1"));
   $thaliactivedate = $thaliactivedate_query['datetime'];
 
-  $_miqaats = getMiqaats($thaliactivedate);
+  //$_miqaats = getMiqaats($thaliactivedate);
+  $sql = mysqli_query($link,"select miqat_date,miqat_description from sms_date");
+
+  while($record = mysqli_fetch_assoc($sql))
+    {
+      $_miqaats[$record['miqat_date']] = $record['miqat_description'];
+    }
 
   $row['Total_Pending'] = $row['Previous_Due'] + $row['Dues'] + $row['yearly_hub'] + $row['Zabihat'] + $row['Reg_Fee'] + $row['TranspFee'] - $row['Paid'];
   
