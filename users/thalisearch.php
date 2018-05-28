@@ -143,8 +143,10 @@ if($_GET)
              <?php 
              if(mysqli_num_rows($result) > 1)
                 include('_thalisearch_multiple.php');
-              else
+              else if(mysqli_num_rows($result) == 1)
                 include('_thalisearch_single.php');
+              else
+                echo "No records found";
              ?>
               
             </div>
