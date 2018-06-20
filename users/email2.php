@@ -6,9 +6,9 @@ include 'mailgun-php/vendor/autoload.php';
 use Mailgun\Mailgun;
 error_reporting(0);
 $day = date("D");
-/*if ($day == 'Sat') {
+if ($day == 'Sat') {
 	exit;
-}*/
+}
 $sql = mysqli_query($link,"SELECT t.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id,t.markaz 
 						from change_table as c
 						inner join thalilist as t on c.Thali = t.Thali
