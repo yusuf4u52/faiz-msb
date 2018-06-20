@@ -1,8 +1,8 @@
 <?php
 include('connection.php');
 include 'mailgun-php/vendor/autoload.php';
-//include '../backup/_email_backup.php';
-//include '../sms/_sms_automation.php';
+include '../backup/_email_backup.php';
+include '../sms/_sms_automation.php';
 use Mailgun\Mailgun;
 error_reporting(0);
 $day = date("D");
