@@ -16,7 +16,6 @@ $cashinhand = $cash - $spent;
 <html>
 <head>
 <?php include('_head.php'); ?>
-<script src="./src/custom.js"></script>
 </head>
 <body>
 <?php include('_nav.php'); ?>

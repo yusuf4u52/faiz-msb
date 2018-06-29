@@ -99,7 +99,6 @@ if (isset($_GET['stopallthalis'])) {
 
     </div>
   <?php include('_bottomJS.php'); ?>
-  <script src="./src/custom.js"></script>
   <script>
     $(function(){
       $('#stopThaliButton').click(function() {

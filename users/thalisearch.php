@@ -159,7 +159,6 @@ if($_GET)
 
     </div>
   <?php include('_bottomJS.php'); ?>
-  <script src="./src/custom.js"></script>
   <script>
     $(function(){
       var receiptForm = $('#receiptForm');
