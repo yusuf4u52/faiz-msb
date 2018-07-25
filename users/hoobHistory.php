@@ -21,7 +21,7 @@ include('connection.php');
           </tr>
           <?php
          
-          $query = "SELECT r.* FROM receipts r, thalilist t WHERE r.Thali_No = t.Thali and t.Email_ID ='".$_SESSION['email']."' ORDER BY Date ASC";
+          $query = "SELECT r.* FROM receipts r, thalilist t WHERE r.userid = t.id and t.Email_ID ='".$_SESSION['email']."' ORDER BY Date ASC";
           $result = mysqli_query($link,$query);
           while($row = mysqli_fetch_assoc($result)){ 
           foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 

@@ -61,7 +61,7 @@ $values = mysqli_fetch_assoc($result);
           <td><b>Date</b></td>
           </tr>
           <?php
-          $query = "SELECT r.* FROM receipts r, thalilist t WHERE r.Thali_No = t.Thali and t.Thali ='".$values['Thali']."' ORDER BY Date ASC";
+          $query = "SELECT r.* FROM receipts r, thalilist t WHERE r.userid = t.id and t.Thali ='".$values['Thali']."' ORDER BY Date ASC";
           $result = mysqli_query($link,$query);
           while($row = mysqli_fetch_assoc($result)){ 
               foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 

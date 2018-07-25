@@ -7,11 +7,11 @@ include('../sms/_helper.php');
 if($_POST)
 {
 
-  $sql = "select NAME from thalilist WHERE thali = '" . $_POST['receipt_thali'] . "'";
+  $sql = "select NAME,id from thalilist WHERE thali = '" . $_POST['receipt_thali'] . "'";
   $result = mysqli_query($link, $sql) or die(mysqli_error($link));
   $name = mysqli_fetch_assoc($result);
 
-  $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`,`name`, `Amount`, `Date`, `received_by`) VALUES ('" . $_POST['receipt_number'] . "','" . $_POST['receipt_thali'] . "','" . $name['NAME'] . "','" . $_POST['receipt_amount'] . "', '" . $_POST['receipt_date'] . "','" . $_SESSION['email'] . "')";
+  $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`, `userid` ,`name`, `Amount`, `Date`, `received_by`) VALUES ('" . $_POST['receipt_number'] . "','" . $_POST['receipt_thali'] . "','" . $name['id'] . "','" . $name['NAME'] . "','" . $_POST['receipt_amount'] . "', '" . $_POST['receipt_date'] . "','" . $_SESSION['email'] . "')";
   mysqli_query($link, $sql) or die(mysqli_error($link));
 
   $sql = "UPDATE thalilist set Paid = Paid + '" . $_POST['receipt_amount'] . "' WHERE thali = '" . $_POST['receipt_thali']."'";
