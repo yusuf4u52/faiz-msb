@@ -12,6 +12,14 @@ function isResponseReceived($eventid)
 	else
 		return false;
 }
+function getResponse($eventid)
+{
+	include('connection.php');
+	$sql = "select * from event_response where eventid='".$eventid."' and thaliid = '".$_SESSION['thaliid']."'";
+	$result= mysqli_query($link,$sql);
+	if (mysqli_num_rows($result) > 0)
+		return mysqli_fetch_assoc($result);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,6 +51,12 @@ function isResponseReceived($eventid)
 		      <td>Will You Attend?
 				<button type="button" <?php echo isResponseReceived($values['id']) ? 'disabled' : ''; ?> data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" data-response="yes" class="btn btn-info btn-sm">Yes</button>
 				<button type="button" <?php echo isResponseReceived($values['id']) ? 'disabled' : ''; ?>  data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" data-response="no" class="btn btn-info btn-sm">No</button>
+				<p class="text-muted"><small>
+				<?php
+					$response = getResponse($values['id']);
+					echo "You said [".$response['response']."] on ".$response['date'];
+				?>
+				</small></p>
 		      </td>
 		    </tr>
 		    <?php } ?>
