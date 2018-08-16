@@ -35,11 +35,8 @@ $query="SELECT * FROM thalilist LEFT JOIN transporters on thalilist.Transporter 
 
 $values = mysqli_fetch_assoc(mysqli_query($link,$query));
 
+$_SESSION['thaliid'] = $values['id'];
 $_SESSION['thali'] = $values['Thali'];
-$_SESSION['address'] = $values['Full_Address'];
-$_SESSION['name'] = $values['NAME'];
-$_SESSION['contact'] = $values['CONTACT'];
-$_SESSION['transporter'] = $values['Transporter'];
 
 // Redirect users to update details page
 if (empty($values['ITS_No']) || empty($values['fathersNo']) || empty($values['fathersITS']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) { 
