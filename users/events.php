@@ -30,6 +30,45 @@ function getResponse($eventid)
 </head>
 <body>
 	<?php include('_nav.php'); ?>
+
+	<!-- Modal Window to add friends -->
+	<div class="modal" id="modal">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <form method="post" action="event_add_friend.php">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Add a friend</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+			  <fieldset>
+			    <div class="form-group">
+			      <label for="exampleInputEmail1">ITS</label>
+			      <input type="text" class="form-control" name="its" required placeholder="Enter ITS">
+			    </div>
+			    <div class="form-group">
+			      <label for="exampleInputEmail1">Full Name</label>
+			      <input type="text" class="form-control" name="name" required placeholder="Enter Full Name">
+			    </div>
+			    <div class="form-group">
+			      <label for="exampleInputEmail1">Mobile</label>
+			      <input type="text" class="form-control" name="mobile" required placeholder="Enter Mobile">
+			    </div>
+			    <input type="hidden" name="reference_id" id="add_friend_refid">
+			    <input type="hidden" name="eventid" id="add_friend_eventid">
+			  </fieldset>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="submit" class="btn btn-primary">Save changes</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
 	<div class="container">
 		<table class="table table-hover">
 		  <thead>
@@ -37,6 +76,7 @@ function getResponse($eventid)
 		      <th scope="col">Event Name</th>
 		      <th scope="col">Date/Venue/Time</th>
 		      <th scope="col">Confirmation</th>
+		      <th scope="col">Actions</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -49,14 +89,26 @@ function getResponse($eventid)
 		      <th scope="row"><?php echo $values['name']; ?></th>
 		      <td><?php echo $values['venue']; ?></td>
 		      <td>Will You Attend?
-				<button type="button" <?php echo isResponseReceived($values['id']) ? 'disabled' : ''; ?> data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" data-response="yes" class="btn btn-info btn-sm">Yes</button>
-				<button type="button" <?php echo isResponseReceived($values['id']) ? 'disabled' : ''; ?>  data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" data-response="no" class="btn btn-info btn-sm">No</button>
-				<p class="text-muted"><small>
+				<button type="button" <?php echo isResponseReceived($values['id']) ? 'disabled' : ''; ?> data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" data-response="yes" class="btn btn-primary btn-sm btn-response action-<?php echo $values['id']; ?>">Yes</button>
+				<button type="button" <?php echo isResponseReceived($values['id']) ? 'disabled' : ''; ?>  data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" data-response="no" class="btn btn-primary btn-sm btn-response action-<?php echo $values['id']; ?>">No</button>
+				<p <?php echo isResponseReceived($values['id']) ? '' : 'hidden'; ?> class="text-muted"><small>
 				<?php
 					$response = getResponse($values['id']);
 					echo "You said [".$response['response']."] on ".$response['date'];
 				?>
 				</small></p>
+		      </td>
+		      <td>
+		      	<button type="button" data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" class="btn btn-primary btn-sm" id="add_friend">Add Friend</button>
+		      	<?php
+		      		$result1=mysqli_query($link,"select * from event_response where reference_id=".$_SESSION['thaliid']." and eventid=".$values['id']);
+		      		echo "<br>Registered Friends:<br>";
+		      		echo "<p class=\"text-muted\">";
+		      		while($values1 = mysqli_fetch_assoc($result1)) {
+		      			echo $values1['name']."<br>";
+		      		}
+		      		echo "</p>";
+		      	?>
 		      </td>
 		    </tr>
 		    <?php } ?>
@@ -66,8 +118,8 @@ function getResponse($eventid)
 </body>
 <script>
 $(document).ready(function(){
-    $("button").click(function(){
-    	$("button").attr("disabled", true);
+    $(".btn-response").click(function(){
+    	$(".action-" + $(this).data("eventid")).attr("disabled", true);
         $.post("event_response.php",
         {
           Response: $(this).data("response"),
@@ -77,6 +129,12 @@ $(document).ready(function(){
         function(data,status){
             alert("Response Submitted Successfully");
         });
+    });
+
+    $("#add_friend").click(function(){
+    	$('#add_friend_refid').val($(this).data('thaliid'));
+    	$('#add_friend_eventid').val($(this).data('eventid'));
+    	$("#modal").modal();
     });
 });
 </script>
