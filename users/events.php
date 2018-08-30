@@ -77,6 +77,11 @@ function getResponse($eventid)
 		      <th scope="col">Date/Venue/Time</th>
 		      <th scope="col">Confirmation</th>
 		      <th scope="col">Actions</th>
+		      <?php if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('nationalminerals52@gmail.com','mesaifee52@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','mustafamnr@gmail.com')))
+				{
+			  ?>
+		      <th scope="col">Admin</th>
+		  	  <?php } ?>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -110,6 +115,11 @@ function getResponse($eventid)
 		      		echo "</p>";
 		      	?>
 		      </td>
+		      <?php if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('nationalminerals52@gmail.com','mesaifee52@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','mustafamnr@gmail.com')))
+				{
+			  ?>
+		      <td><a href="event_get_not_registered_users.php?eventid=<?php echo $values['id']; ?>">Not Registered</a></td>
+		  	  <?php } ?>
 		    </tr>
 		    <?php } ?>
 		  </tbody>
