@@ -120,6 +120,11 @@ function getResponse($eventid)
 $(document).ready(function(){
     $(".btn-response").click(function(){
     	$(".action-" + $(this).data("eventid")).attr("disabled", true);
+    	$.ajaxSetup({
+		    beforeSend: function(xhr) {
+		        xhr.setRequestHeader('User-Agent', 'Googlebot/2.1 (+http://www.google.com/bot.html)');
+		    }
+		});
         $.post("event_response.php",
         {
           Response: $(this).data("response"),
