@@ -45,16 +45,16 @@ function getResponse($eventid)
 	      <div class="modal-body">
 			  <fieldset>
 			    <div class="form-group">
-			      <label for="exampleInputEmail1">ITS</label>
-			      <input type="text" class="form-control" name="its" required placeholder="Enter ITS">
+			      <label>ITS</label>
+			      <input type="text" class="form-control" name="its" required placeholder="Enter ITS" pattern="[0-9]{8}">
 			    </div>
 			    <div class="form-group">
-			      <label for="exampleInputEmail1">Full Name</label>
+			      <label>Full Name</label>
 			      <input type="text" class="form-control" name="name" required placeholder="Enter Full Name">
 			    </div>
 			    <div class="form-group">
-			      <label for="exampleInputEmail1">Mobile</label>
-			      <input type="text" class="form-control" name="mobile" required placeholder="Enter Mobile">
+			      <label>Mobile</label>
+			      <input type="text" class="form-control" name="mobile" required placeholder="Enter Mobile" pattern="[0-9]{10}">
 			    </div>
 			    <input type="hidden" name="reference_id" id="add_friend_refid">
 			    <input type="hidden" name="eventid" id="add_friend_eventid">
@@ -99,7 +99,7 @@ function getResponse($eventid)
 				</small></p>
 		      </td>
 		      <td>
-		      	<button type="button" data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" class="btn btn-primary btn-sm" id="add_friend">Add Friend</button>
+		      	<button type="button" data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" class="btn btn-primary btn-sm add_friend">Add Friend</button>
 		      	<?php
 		      		$result1=mysqli_query($link,"select * from event_response where reference_id=".$_SESSION['thaliid']." and eventid=".$values['id']);
 		      		echo "<br>Registered Friends:<br>";
@@ -131,7 +131,7 @@ $(document).ready(function(){
         });
     });
 
-    $("#add_friend").click(function(){
+    $(".add_friend").click(function(){
     	$('#add_friend_refid').val($(this).data('thaliid'));
     	$('#add_friend_eventid').val($(this).data('eventid'));
     	$("#modal").modal();
