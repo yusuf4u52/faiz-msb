@@ -27,6 +27,7 @@ $event = mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM events where id=$e
 		      <th scope="col">ITS</th>
 		      <th scope="col">Name</th>
 		      <th scope="col">Mobile</th>
+		      <th scope="col">Whatsapp</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -40,6 +41,7 @@ $event = mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM events where id=$e
 		      <td><?php echo $values['ITS_No']; ?></td>
 		      <td><?php echo $values['NAME']; ?></td>
 		      <td><?php echo $values['CONTACT']; ?></td>
+		      <td><a href="https://wa.me/91<?php echo $values['CONTACT']; ?>?text=Salaam%2C%0AYou%20have%20not%20yet%20registered%20for%20the%20OHBAT%20Majlis%20on%20Sunday%202nd%20Sep.%0APlease%20do%20it%20as%20soon%20as%20possible">WhatsApp</a></td>
 		    </tr>
 		    <?php } ?>
 		  </tbody>
