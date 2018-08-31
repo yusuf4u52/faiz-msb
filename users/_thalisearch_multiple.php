@@ -5,6 +5,7 @@
     <tr>
       <th>Pay Hoob</th>
       <th>Stop Thaali</th>
+      <th>Stop Permanant</th>
       <th>Thali No</th>
       <th>Name</th>
       <th>Mobile No</th>
@@ -30,7 +31,12 @@
           <?php }else{ ?>
           <a href="#" data-key="stopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="1">Start Thaali</a>
           <?php } ?>
-          </td>
+      </td>
+      <td><?php
+        if($values['Active'] != '2') {?>
+          <a href="#" data-key="stoppermanant" data-thali="<?php echo $values['Thali']; ?>">Stop Permanant</a>
+        <?php } ?>
+      </td>
       <td><?php echo $values['Thali']; ?></td>
       <td><?php echo $values['NAME']; ?></td>
       <td><?php echo $values['CONTACT']; ?></td>

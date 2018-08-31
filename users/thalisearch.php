@@ -207,6 +207,19 @@ if($_GET)
           }
         });
       });
+
+      $('[data-key="stoppermanant"]').click(function() {
+        $.post("stop_permanant.php",
+        {
+          Thaliid: $(this).data("thali"),
+          date: $('[name="receipt_date"]').val()
+        },
+        function(data,status){
+            alert("Thali Stopped Successfully and Number released to be re-used");
+            location.reload();
+        });
+      });
+
       <?php if($_GET): ?>
         window.location = '#tables';
       <?php endif; ?>

@@ -9,10 +9,13 @@ $values = mysqli_fetch_assoc($result);
           <a href="#" data-key="payhoob" data-thali="<?php echo $values['Thali']; ?>">Pay Hoob</a> | 
           <?php
         if($values['Active'] == '1') {?>
-          <a href="#" data-key="stopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="0">Stop Thaali</a>
+          <a href="#" data-key="stopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="0">Stop Thaali</a> | 
           <?php }else{ ?>
-          <a href="#" data-key="stopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="1">Start Thaali</a>
-          <?php } ?>
+          <a href="#" data-key="stopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="1">Start Thaali</a> | 
+          <?php } 
+          if($values['Active'] != '2') {?>
+          <a href="#" data-key="stoppermanant" data-thali="<?php echo $values['Thali']; ?>">Stop Permanant</a>
+        <?php } ?>
         </li>
         <li class="list-group-item">
             <h6 class="list-group-item-head ing text-muted">Thaali Number</h6>
