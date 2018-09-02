@@ -33,7 +33,7 @@ foreach ($request as $transporter_name => $thalis) {
 				// $msgvar .= 	sprintf("%s - %s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address'],$thaliuser['markaz']);
 			}	
 		}
-		else if(in_array($operation_type, array('Stop Thali','Stop Transport')))
+		else if(in_array($operation_type, array('Stop Thali','Stop Transport','Stop Permanent')))
 		{
 			foreach ($thali_details as $thaliuser) {
 				$msgvar .= 	sprintf("%s\n",$thaliuser['Thali']);
