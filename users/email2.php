@@ -9,10 +9,10 @@ $day = date("D");
 if ($day == 'Sat') {
 	exit;
 }
-$sql = mysqli_query($link,"SELECT t.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id,t.markaz 
+$sql = mysqli_query($link,"SELECT c.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id,t.markaz
 						from change_table as c
-						inner join thalilist as t on c.Thali = t.Thali
-						WHERE c.processed = 0");
+						inner join thalilist as t on (c.Thali = t.Thali or c.Thali = t.old_thali)
+						WHERE c.processed = 0 and c.Thali !=''");
 $request = array();
 $processed_ids = array(); 
 echo "<pre>";
