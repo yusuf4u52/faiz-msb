@@ -1,5 +1,6 @@
 <?php
 include('connection.php');
+include 'stop_permanent_automate.php';
 include 'mailgun-php/vendor/autoload.php';
 include '../backup/_email_backup.php';
 include '../sms/_sms_automation.php';
