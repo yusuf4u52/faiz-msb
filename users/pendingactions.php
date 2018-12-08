@@ -179,6 +179,7 @@ LIMIT 0 , 30");
                     
                     <td>
                       <input type='hidden' value='<?php echo $values['Email_ID']; ?>' name='email'>
+                      <input type='hidden' value='<?php echo $values['id']; ?>' name='id'>
                       <input type='hidden' value='<?php echo $values['NAME']; ?>' name='name'>
                       <input type='hidden' value='<?php echo $values['CONTACT']; ?>' name='contact'>
                       <input type='hidden' value='<?php echo $values['Full_Address']; ?>' name='address'>

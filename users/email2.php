@@ -10,10 +10,10 @@ $day = date("D");
 if ($day == 'Sat') {
 	exit;
 }
-$sql = mysqli_query($link,"SELECT c.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id,t.markaz
+$sql = mysqli_query($link,"SELECT t.id, c.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id,t.markaz
 						from change_table as c
-						inner join thalilist as t on (c.Thali = t.Thali or c.Thali = t.old_thali)
-						WHERE c.processed = 0 and c.Thali !=''");
+						inner join thalilist as t on (c.userid = t.id)
+						WHERE c.processed = 0");
 $request = array();
 $processed_ids = array(); 
 echo "<pre>";
@@ -34,10 +34,19 @@ foreach ($request as $transporter_name => $thalis) {
 				// $msgvar .= 	sprintf("%s - %s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address'],$thaliuser['markaz']);
 			}	
 		}
-		else if(in_array($operation_type, array('Stop Thali','Stop Transport','Stop Permanent')))
+		else if(in_array($operation_type, array('Stop Thali','Stop Transport')))
 		{
 			foreach ($thali_details as $thaliuser) {
 				$msgvar .= 	sprintf("%s\n",$thaliuser['Thali']);
+
+				// To add markaz
+				// $msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['markaz']);
+			}
+		}
+		else if(in_array($operation_type, array('Stop Permanent')))
+		{
+			foreach ($thali_details as $thaliuser) {
+				$msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['NAME']);
 
 				// To add markaz
 				// $msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['markaz']);

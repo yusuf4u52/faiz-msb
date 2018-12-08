@@ -60,7 +60,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
 {
   $reciepts_query_result_total = mysqli_fetch_assoc(mysqli_query($link,"SELECT sum(`Amount`) as total FROM `receipts` where Thali_No = '".$_SESSION['thali']."'"));
   $total_amount_paid = $reciepts_query_result_total['total'];
-  $thaliactivedate_query = mysqli_fetch_assoc(mysqli_query($link,"SELECT DATE(datetime) as datetime FROM `change_table` where Thali = '".$_SESSION['thali']."' AND operation = 'Start Thali' AND id > 3596 ORDER BY id limit 1"));
+  $thaliactivedate_query = mysqli_fetch_assoc(mysqli_query($link,"SELECT DATE(datetime) as datetime FROM `change_table` where userid = '".$_SESSION['thaliid']."' AND operation = 'Start Thali' ORDER BY id limit 1"));
   $thaliactivedate = $thaliactivedate_query['datetime'];
   //$_miqaats = getMiqaats($thaliactivedate);
 

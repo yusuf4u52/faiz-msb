@@ -17,9 +17,9 @@ if ($_POST)
                           
 if ($_POST['address'] != $_SESSION['old_address'])
 {
-mysqli_query($link,"UPDATE thalilist set Transporter='Transporter' where Email_id = '".$_SESSION['email']."'");
-mysqli_query($link,"update change_table set processed = 1 where Thali = '" . $_SESSION['thali'] . "' and `Operation` in ('Update Thali') and processed = 0") or die(mysqli_error($link));
-mysqli_query($link,"INSERT INTO change_table (`Thali`, `Operation`, `Date`) VALUES ('" . $_SESSION['thali'] . "', 'Update Address','" . $_POST['date1'] . "')") or die(mysqli_error($link));
+mysqli_query($link,"UPDATE thalilist set Transporter='Transporter' where id ='".$_SESSION['thaliid']."'");
+mysqli_query($link,"update change_table set processed = 1 where userid = '".$_SESSION['thaliid']."' and `Operation` in ('Update Address') and processed = 0") or die(mysqli_error($link));
+mysqli_query($link,"INSERT INTO change_table (`Thali`,`userid`, `Operation`, `Date`) VALUES ('" . $_SESSION['thali'] . "','".$_SESSION['thaliid']."', 'Update Address','" . $_POST['date1'] . "')") or die(mysqli_error($link));
 }
 
         unset($_SESSION['old_address']);                 
