@@ -6,7 +6,7 @@ include('adminsession.php');
     $query="SELECT * FROM thalilist";
     $query_new_transporter = $query . " WHERE Transporter = 'Transporter'  and active = 1 and Thali <> '' and Thali is not null";
     $result = mysqli_query($link,$query_new_transporter);
-    $query_new_thali = $query . " WHERE (Thali = ''  or Thali is null) and Active = '0'";
+    $query_new_thali = $query . " WHERE Thali is null and Active is null";
     $result_new_thali = mysqli_query($link,$query_new_thali); 
 
     $transporter_list = array();
