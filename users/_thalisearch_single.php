@@ -56,6 +56,11 @@ $values = mysqli_fetch_assoc($result);
             <h6 class="list-group-item-head ing text-muted">Hub Pending</h6>
             <p class="list-group-item-text"><strong><?php echo $values['Total_Pending']; ?></strong></p>
         </li>
+
+        <li class="list-group-item">
+            <h6 class="list-group-item-head ing text-muted">Thali Delivered</h6>
+            <p class="list-group-item-text"><strong><?php echo round($values['thalicount'] * 100 / $max_days[0]); ?>% of days</strong></p>
+        </li>
         <li class="list-group-item">
           <table class="table table-striped table-hover">
           <tr>
