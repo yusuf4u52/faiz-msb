@@ -54,7 +54,7 @@ $values = mysqli_fetch_assoc($result);
 
         <li class="list-group-item">
             <h6 class="list-group-item-head ing text-muted">Hub Pending</h6>
-            <p class="list-group-item-text"><strong><?php echo $values['Total_Pending']; ?></strong></p>
+            <p class="list-group-item-text"><?php echo $values['Total_Pending'] + $values['Paid']; ?> - <a href="hoobHistory.php"><strong><?php echo $values['Paid']; ?></strong></a> = <?php echo $values['Total_Pending']; ?></p>
         </li>
 
         <li class="list-group-item">

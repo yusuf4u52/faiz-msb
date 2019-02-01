@@ -228,7 +228,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                       </li>
                       <li class="list-group-item">
                           <h5 class="list-group-item-heading text-muted">Pending Hoob</h5>
-                          <p class="list-group-item-text"><a href="hoobHistory.php"><strong><?php echo $values['Total_Pending']; ?></strong></a></p>
+                          <p class="list-group-item-text"><?php echo $values['Total_Pending'] + $values['Paid']; ?> - <a href="hoobHistory.php"><strong><?php echo $values['Paid']; ?></strong></a> = <?php echo $values['Total_Pending']; ?></p>
                       </li>
                       <li class="list-group-item">
                           <h6 class="list-group-item-heading text-muted">Is Active?</h6>
