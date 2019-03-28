@@ -208,10 +208,23 @@ if($_GET)
       });
 
       $('[data-key="stoppermanant"]').click(function() {
+        var c = confirm("Are you sure you want to permanently stop this thali?");
+        if (c == false) {
+          return;
+        }
+        var clearHub;
+        var r = confirm("Press OK to clear pending hub or CANCEL to go ahead with stop permanent without clearing!");
+        if (r == true) {
+          clearHub = "true";
+        } else {
+          clearHub = "false";
+        }
+
         $.post("stop_permanant.php",
         {
           Thaliid: $(this).data("thali"),
-          date: $('[name="receipt_date"]').val()
+          date: $('[name="receipt_date"]').val(),
+          clear: clearHub
         },
         function(data,status){
             alert("Thali Stopped Successfully and Number released to be re-used");

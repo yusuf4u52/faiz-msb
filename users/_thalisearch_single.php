@@ -54,7 +54,7 @@ $values = mysqli_fetch_assoc($result);
 
         <li class="list-group-item">
             <h6 class="list-group-item-head ing text-muted">Hub Pending</h6>
-            <p class="list-group-item-text"><?php echo $values['Total_Pending'] + $values['Paid']; ?> - <a href="hoobHistory.php"><strong><?php echo $values['Paid']; ?></strong></a> = <?php echo $values['Total_Pending']; ?></p>
+            <p class="list-group-item-text"><strong><?php echo $values['Total_Pending'] + $values['Paid']; ?> - <?php echo $values['Paid']; ?> = <?php echo $values['Total_Pending']; ?></strong></p>
         </li>
 
         <li class="list-group-item">
@@ -69,7 +69,7 @@ $values = mysqli_fetch_assoc($result);
           <td><b>Date</b></td>
           </tr>
           <?php
-          $query = "SELECT r.* FROM receipts r, thalilist t WHERE r.userid = t.id and t.Thali ='".$values['Thali']."' ORDER BY Date ASC";
+          $query = "SELECT r.* FROM receipts r, thalilist t WHERE r.userid = t.id and t.id ='".$values['id']."' ORDER BY Date ASC";
           $result = mysqli_query($link,$query);
           while($row = mysqli_fetch_assoc($result)){ 
               foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
