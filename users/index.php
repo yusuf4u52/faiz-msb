@@ -52,10 +52,6 @@ if(empty($values['Thali']))
   $status = "Sorry! Either $some_email is not registered with us OR your thali is not active. Send and email to help@faizstudents.com";
   header("Location: login.php?status=$status");
 }
-else if($values['yearly_commitment'] == 1 && empty($values['yearly_hub']) && $values['Active'] == 1)
-{
-  header("Location: selectyearlyhub.php"); 
-}
 else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
 {
   $reciepts_query_result_total = mysqli_fetch_assoc(mysqli_query($link,"SELECT sum(`Amount`) as total FROM `receipts` where Thali_No = '".$_SESSION['thali']."'"));
