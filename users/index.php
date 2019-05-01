@@ -289,7 +289,6 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                           <tr>
                             <th>Date</th>
                             <th>Amount</th>
-                            <th>Extension</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -297,7 +296,6 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                           ?>
                           <tr>
                             <td><?php echo $miqaat; ?></td>
-                            <td>--</td>
                             <td>--</td>
                           </tr>
                          <?php } ?>
@@ -307,49 +305,13 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
                           foreach ($miqaats as $miqaat) {
                           ?>
                           <tr>
-                            <td><?php echo $miqaat[1];
-
-                            if($values['extension_miqaat'] == $miqaat[0])
-                            {
-                                echo '<a style="color:red">(Extended to :'.date('d M Y',strtotime($values['next_extension_date'])).')<a>';
-                            }
-
-                            ?></td>
+                            <td><?php echo $miqaat[1];?></td>
 
                             <?php if ($miqaat[2] < 0) { ?>
                             <td>0</td>
                             <?php }else{ ?>
                             <td><?php echo $miqaat[2]; ?></td>  
                             <?php } ?>
-
-                            <td><?php
-                                if($i && $values['extension_miqaat'] != $miqaat[0] && (int)$miqaat[2] > 0 && $values['extension_count'] < 3)
-                                {
-                                  ?>
-                                   <form class="form-horizontal" method="post" action="extend.php">
-                                    <select name='no_of_days'>
-                                      <option value="1">1 Day</option>
-                                      <option value="2">2 Day</option>
-                                      <option value="3">3 Day</option>
-                                      <option value="4">4 Day</option>
-                                      <option value="5">5 Day</option>
-                                      <option value="6">6 Day</option>
-                                      <option value="7">7 Day</option>
-                                      <option value="8">8 Day</option>
-                                      <option value="9">9 Day</option>
-                                      <option value="10">10 Day</option>
-                                    </select>
-                                    <input type='hidden' name='miqaat' value='<?php echo $miqaat[0]; ?>'>
-                                    <input type='submit' class='button' value='extend'>
-                                  </form>
-                                  <?php
-                                }
-                                else{
-                                  echo "--";
-                                } 
-                                ?>
-                            </td>
-
                           </tr>
                          <?php
                             $i = false;
