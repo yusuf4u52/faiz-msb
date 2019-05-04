@@ -12,6 +12,7 @@ if ($_POST)
                                       Full_Address='" . $_POST["address"] . "',
                                       WATAN='" . $_POST["watan"] . "',
                                       ITS_No='" . $_POST["its"] . "',
+                                      markaz='".$_POST["markaz"]."',
                                       WhatsApp='" . $_POST["whatsapp"] . "'
                                       WHERE Email_id = '".$_SESSION['email']."'") or die(mysqli_error($link));
                           
@@ -150,6 +151,21 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`,`userid`, `Operation`, `Da
 
                     </div>
 
+                  </div>
+
+                  <?php
+                  $markazAreas = array('Badshah Nagar','Fakhri Hills','Mitha Nagar','Kalimi Masjid','Camp');
+                  ?>
+                  <div class="form-group">
+                    <label for="inputwhatsapp" class="col-lg-2 control-label">Ramadan Nearby Markaz</label>
+                    <div class="col-lg-10">
+                      <select class="form-control" id="markaz" name="markaz" required>
+                        <option disabled selected value> -- select an option -- </option>
+                        <?php foreach($markazAreas as $value) { ?>
+                        <option value="<?php echo $value; ?>" <?php if($value == $markaz) echo 'selected'?>><?php echo $value; ?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
                   </div>
 
                   <div class="form-group">

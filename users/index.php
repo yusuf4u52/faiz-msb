@@ -39,7 +39,7 @@ $_SESSION['thaliid'] = $values['id'];
 $_SESSION['thali'] = $values['Thali'];
 
 // Redirect users to update details page
-if (empty($values['ITS_No']) || empty($values['fathersNo']) || empty($values['fathersITS']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) { 
+if (empty($values['markaz']) || empty($values['ITS_No']) || empty($values['fathersNo']) || empty($values['fathersITS']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) { 
     header("Location: update_details.php?update_pending_info"); 
 }
 
@@ -126,7 +126,7 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
           <div class="col-xs-6 col-sm-3 col-md-2">
 
               <?php
-                if(($values['Previous_Due'] - $values['Paid'])  <= 3000) {
+                if($values['yearly_hub'] != 0) {
                   if($values['Active'] == 0)
                   {
                     if($values['hardstop'] == 1)
@@ -187,9 +187,9 @@ else if($values['yearly_commitment'] == 1 && !empty($values['yearly_hub']))
               <?php
                 }} else {
               ?>
-               <script type="text/javascript">
-                  alert('You have pending hub of <?php echo $values['Previous_Due']; ?> and so will not see Start thali button. Contact us at help@faizstudents.com');
-               </script>
+               <form>
+                <h5>You have not done hub takhmeen and so will not see START THALI button</h5>
+              </form>
               <?php }
               ?>
           </div>
