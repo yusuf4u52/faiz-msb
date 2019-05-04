@@ -7,9 +7,9 @@ include '../sms/_sms_automation.php';
 use Mailgun\Mailgun;
 error_reporting(0);
 $day = date("D");
-if ($day == 'Sat') {
-	exit;
-}
+//if ($day == 'Sat') {
+//	exit;
+//}
 $sql = mysqli_query($link,"SELECT t.id, c.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id,t.markaz
 						from change_table as c
 						inner join thalilist as t on (c.userid = t.id)
@@ -19,7 +19,10 @@ $processed_ids = array();
 echo "<pre>";
 while($row = mysqli_fetch_assoc($sql))
 {
-	$request[$row['Transporter']][$row['Operation']][] = $row;
+    // $request[$row['Transporter']][$row['Operation']][] = $row;
+    // To add Markaz
+	$request[$row['markaz']][$row['Operation']][] = $row;
+    
 	$processed[] = $row['id'];
 }
 foreach ($request as $transporter_name => $thalis) {
@@ -29,27 +32,25 @@ foreach ($request as $transporter_name => $thalis) {
 		if(in_array($operation_type, array('Start Thali','Start Transport','Update Address','New Thali')))
 		{
 			foreach ($thali_details as $thaliuser) {
-				$msgvar .= 	sprintf("%s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address']);
+				//$msgvar .= 	sprintf("%s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address']);
 				// To add Markaz
-				// $msgvar .= 	sprintf("%s - %s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address'],$thaliuser['markaz']);
+				$msgvar .= 	sprintf("%s - %s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address'],$thaliuser['markaz']);
 			}	
 		}
 		else if(in_array($operation_type, array('Stop Thali','Stop Transport')))
 		{
 			foreach ($thali_details as $thaliuser) {
-				$msgvar .= 	sprintf("%s\n",$thaliuser['Thali']);
-
+				//$msgvar .= 	sprintf("%s\n",$thaliuser['Thali']);
 				// To add markaz
-				// $msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['markaz']);
+				$msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['markaz']);
 			}
 		}
 		else if(in_array($operation_type, array('Stop Permanent')))
 		{
 			foreach ($thali_details as $thaliuser) {
-				$msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['NAME']);
-
+				//$msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['NAME']);
 				// To add markaz
-				// $msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['markaz']);
+				$msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['markaz']);
 			}
 		}
 		$msgvar .= 	"\n";
