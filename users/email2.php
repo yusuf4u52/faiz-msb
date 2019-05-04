@@ -32,25 +32,19 @@ foreach ($request as $transporter_name => $thalis) {
 		if(in_array($operation_type, array('Start Thali','Start Transport','Update Address','New Thali')))
 		{
 			foreach ($thali_details as $thaliuser) {
-				//$msgvar .= 	sprintf("%s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address']);
-				// To add Markaz
-				$msgvar .= 	sprintf("%s - %s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address'],$thaliuser['markaz']);
+				$msgvar .= 	sprintf("%s - %s - %s - %s - %s\n",$thaliuser['Thali'],$thaliuser['NAME'],$thaliuser['CONTACT'],$thaliuser['Transporter'],$thaliuser['Full_Address']);
 			}	
 		}
 		else if(in_array($operation_type, array('Stop Thali','Stop Transport')))
 		{
 			foreach ($thali_details as $thaliuser) {
-				//$msgvar .= 	sprintf("%s\n",$thaliuser['Thali']);
-				// To add markaz
-				$msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['markaz']);
+				$msgvar .= 	sprintf("%s\n",$thaliuser['Thali']);
 			}
 		}
 		else if(in_array($operation_type, array('Stop Permanent')))
 		{
 			foreach ($thali_details as $thaliuser) {
-				//$msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['NAME']);
-				// To add markaz
-				$msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['markaz']);
+				$msgvar .= 	sprintf("%s - %s\n",$thaliuser['Thali'],$thaliuser['NAME']);
 			}
 		}
 		$msgvar .= 	"\n";
