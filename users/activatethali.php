@@ -8,7 +8,6 @@ use Mailgun\Mailgun;
 // print_r($_POST); exit;
 $values[] = "Thali = '".addslashes($_POST['thalino'])."'";
 $values[] = "Active = '1'";
-$values[] = "Reg_Fee = '500'";
 $values[] = "Thali_Start_Date = '".($_POST['start_date'])."'";
 $values[] = "yearly_hub = '".($_POST['hub'])."'";
 
