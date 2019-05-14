@@ -1,13 +1,16 @@
 <?php
-  session_start();
+session_start();
 
 if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('mesaifee52@gmail.com','husainpoonawala1995@gmail.com','nationalminerals52@gmail.com','murtaza52@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','hzfshakir199@gmail.com','murtaza.sh@gmail.com','mustafamnr@gmail.com', 'ismailsidhpuri@gmail.com'))) {
- 
 } elseif (!empty($_POST['mobile'])) {
 	// set email based on mobile number
-  $sql = mysqli_query($link,"SELECT * from users where mobile='".$_POST['mobile']."'");
+  $sql = mysqli_query($link,"SELECT email from users where mobile='".$_POST['mobile']."'");
   $row = mysqli_fetch_row($sql);
-  $_SESSION['email'] = $row['email'];
+  if (!empty($row[0])) {
+  	$_SESSION['email'] = $row[0];
+  } else {
+  	echo "You are not authorized to do this operation.";
+  }
 }
 else {
   header("Location: login.php");

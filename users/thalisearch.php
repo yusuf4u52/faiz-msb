@@ -169,7 +169,7 @@ if($_GET)
           async: 'false',
           data: data,
           success: function(data) {
-            if(data.includes("success")) {
+            if(data.includes("Success")) {
               alert('Hoob sucessfully updated.');
               receiptForm.hide();
               location.reload();

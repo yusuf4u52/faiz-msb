@@ -41,7 +41,7 @@ if($_POST)
 
   
   if ($amount == $paid){
-    echo "success";
+    echo "Success\n";
   }
 
 $user_amount = $_POST['receipt_amount'];
@@ -57,8 +57,8 @@ $user_pending = helper_getTotalPending($user_thali);
 $sms_body = "Mubarak $user_name for contributing Rs. $user_amount (R.No. $user_receipt) in FMB. Moula TUS nu ehsan che ke apne jamarwa ma shamil kare che.\n"
             ."Thali#:$user_thali\n"
             ."Pending:$user_pending";
-$sms_body = urlencode($sms_body);
-$result = file_get_contents("http://54.254.154.166/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$sms_to&message=$sms_body&sender=FAIZST&route=Template");
+$sms_body_encoded = urlencode($sms_body);
+$result = file_get_contents("http://54.254.154.166/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$sms_to&message=$sms_body_encoded&sender=FAIZST&route=Template");
 
 echo $sms_body;
 }
