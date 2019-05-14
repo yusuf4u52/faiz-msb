@@ -124,15 +124,7 @@ if($_GET)
 
             <div class="bs-component">
 
-            <?php 
-            $sql = mysqli_query($link,"SELECT MAX(`Receipt_No`) from receipts");
-            $row = mysqli_fetch_row($sql);
-            $plusone = $row[0] + 1;
-            ?> 
-
       <div id="receiptForm">
-        <input type="number" name="receipt_number" value="<?php echo $plusone ?>"/>
-        <input type="number" name="zabihat" value="0"/>
         <input type="number" name="receipt_amount" placeholder="Receipt Amount"/>
         <input type="hidden" class="gregdate" name="receipt_date" value="<?php echo date("Y-m-d") ?>"/>
         <input type="hidden" name="receipt_thali"/>
@@ -177,7 +169,7 @@ if($_GET)
           async: 'false',
           data: data,
           success: function(data) {
-            if(data == 'success') {
+            if(data.includes("success")) {
               alert('Hoob sucessfully updated.');
               receiptForm.hide();
               location.reload();

@@ -6,18 +6,29 @@ include('../sms/_helper.php');
 
 if($_POST)
 {
+  // getting receipt number
+  $sql = mysqli_query($link,"SELECT MAX(`Receipt_No`) from receipts");
+  $row = mysqli_fetch_row($sql);
+  $receipt_number = $row[0] + 1;
 
+  // validation
+  if ($receipt_number == 1) {
+    echo "Receipt Number cannot be 1, check with administrator";
+    exit();
+  }
   $sql = "select NAME,id from thalilist WHERE thali = '" . $_POST['receipt_thali'] . "'";
   $result = mysqli_query($link, $sql) or die(mysqli_error($link));
   $name = mysqli_fetch_assoc($result);
 
-  $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`, `userid` ,`name`, `Amount`, `Date`, `received_by`) VALUES ('" . $_POST['receipt_number'] . "','" . $_POST['receipt_thali'] . "','" . $name['id'] . "','" . $name['NAME'] . "','" . $_POST['receipt_amount'] . "', '" . $_POST['receipt_date'] . "','" . $_SESSION['email'] . "')";
+  // validation
+  if (empty($name)) {
+    echo "Unable to find details of the thali #".$_POST['receipt_thali'];
+    exit;
+  }
+  $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`, `userid` ,`name`, `Amount`, `Date`, `received_by`) VALUES ('" . $receipt_number . "','" . $_POST['receipt_thali'] . "','" . $name['id'] . "','" . $name['NAME'] . "','" . $_POST['receipt_amount'] . "', '" . $_POST['receipt_date'] . "','" . $_SESSION['email'] . "')";
   mysqli_query($link, $sql) or die(mysqli_error($link));
 
   $sql = "UPDATE thalilist set Paid = Paid + '" . $_POST['receipt_amount'] . "' WHERE thali = '" . $_POST['receipt_thali']."'";
-  mysqli_query($link, $sql) or die(mysqli_error($link));
-
-  $sql = "UPDATE thalilist set Zabihat = Zabihat + '" . $_POST['zabihat'] . "' WHERE thali = '" . $_POST['receipt_thali']."'";
   mysqli_query($link, $sql) or die(mysqli_error($link));
 
   $sql = mysqli_query($link,"SELECT SUM(`Amount`) from receipts");
@@ -30,12 +41,12 @@ if($_POST)
 
   
   if ($amount == $paid){
-  echo "success";
+    echo "success";
   }
 
 $user_amount = $_POST['receipt_amount'];
 $user_thali = $_POST['receipt_thali'];
-$user_receipt = $_POST['receipt_number'];
+$user_receipt = $receipt_number;
 $user_date = $_POST['receipt_date'];
 $sql = mysqli_query($link,"SELECT NAME, Email_ID, CONTACT from thalilist where Thali='".$user_thali."'");
 $row = mysqli_fetch_row($sql);
@@ -48,5 +59,6 @@ $sms_body = "Mubarak $user_name for contributing Rs. $user_amount (R.No. $user_r
             ."Pending:$user_pending";
 $sms_body = urlencode($sms_body);
 $result = file_get_contents("http://54.254.154.166/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$sms_to&message=$sms_body&sender=FAIZST&route=Template");
-//-----------------------------------------
+
+echo $sms_body;
 }
