@@ -5,7 +5,7 @@ if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('mesa
  
 } elseif (!empty($_POST['mobile'])) {
 	// set email based on mobile number
-  $sql = mysqli_query($link,"SELECT * from users where mobile='".$_POST('mobile')."'");
+  $sql = mysqli_query($link,"SELECT * from users where mobile='".$_POST['mobile']."'");
   $row = mysqli_fetch_row($sql);
   $_SESSION['email'] = $row['email'];
 }
