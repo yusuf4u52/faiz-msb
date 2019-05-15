@@ -10,6 +10,7 @@ if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('mesa
   	$_SESSION['email'] = $row[0];
   } else {
   	echo "You are not authorized to do this operation.";
+  	exit();
   }
 }
 else {
