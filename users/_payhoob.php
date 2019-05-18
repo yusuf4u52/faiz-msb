@@ -3,6 +3,13 @@ include('connection.php');
 include('adminsession.php');
 include('../sms/_credentials.php');
 include('../sms/_helper.php');
+include 'mailgun-php/vendor/autoload.php';
+
+use GeniusTS\HijriDate\Date;
+
+$toStringFormat = 'Y-m-d';
+Date::setToStringFormat($toStringFormat);
+$today = \GeniusTS\HijriDate\Date::today();
 
 if($_POST)
 {
@@ -25,7 +32,7 @@ if($_POST)
     echo "Unable to find details of the thali #".$_POST['receipt_thali'];
     exit;
   }
-  $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`, `userid` ,`name`, `Amount`, `Date`, `received_by`) VALUES ('" . $receipt_number . "','" . $_POST['receipt_thali'] . "','" . $name['id'] . "','" . $name['NAME'] . "','" . $_POST['receipt_amount'] . "', '" . $_POST['receipt_date'] . "','" . $_SESSION['email'] . "')";
+  $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`, `userid` ,`name`, `Amount`, `Date`, `received_by`) VALUES ('" . $receipt_number . "','" . $_POST['receipt_thali'] . "','" . $name['id'] . "','" . $name['NAME'] . "','" . $_POST['receipt_amount'] . "', '" . $today . "','" . $_SESSION['email'] . "')";
   mysqli_query($link, $sql) or die(mysqli_error($link));
 
   $sql = "UPDATE thalilist set Paid = Paid + '" . $_POST['receipt_amount'] . "' WHERE thali = '" . $_POST['receipt_thali']."'";
