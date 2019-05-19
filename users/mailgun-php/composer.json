@@ -1,6 +1,8 @@
 {
     "require": {
-        "mailgun/mailgun-php": "~1.7.2",
-        "geniusts/hijri-dates": "^1.1"
+        "geniusts/hijri-dates": "^1.1",
+        "mailgun/mailgun-php": "^2.8",
+        "php-http/guzzle6-adapter": "^1.1",
+        "php-http/message": "^1.7"
     }
 }
