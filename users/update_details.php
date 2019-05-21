@@ -1,6 +1,13 @@
 <?php
 include('_authCheck.php');
 include('connection.php');
+include 'mailgun-php/vendor/autoload.php';
+
+use GeniusTS\HijriDate\Date;
+
+$toStringFormat = 'Y-m-d';
+Date::setToStringFormat($toStringFormat);
+$today = \GeniusTS\HijriDate\Date::today();
 
 if ($_POST)
     {  
@@ -20,7 +27,7 @@ if ($_POST['address'] != $_SESSION['old_address'])
 {
 mysqli_query($link,"UPDATE thalilist set Transporter='Transporter' where id ='".$_SESSION['thaliid']."'");
 mysqli_query($link,"update change_table set processed = 1 where userid = '".$_SESSION['thaliid']."' and `Operation` in ('Update Address') and processed = 0") or die(mysqli_error($link));
-mysqli_query($link,"INSERT INTO change_table (`Thali`,`userid`, `Operation`, `Date`) VALUES ('" . $_SESSION['thali'] . "','".$_SESSION['thaliid']."', 'Update Address','" . $_POST['date1'] . "')") or die(mysqli_error($link));
+mysqli_query($link,"INSERT INTO change_table (`Thali`,`userid`, `Operation`, `Date`) VALUES ('" . $_SESSION['thali'] . "','".$_SESSION['thaliid']."', 'Update Address','" . $today . "')") or die(mysqli_error($link));
 }
 
         unset($_SESSION['old_address']);                 
@@ -125,7 +132,6 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`,`userid`, `Operation`, `Da
                     <label for="inputContact" class="col-lg-2 control-label">Mobile No.</label>
                     <div class="col-lg-10">
                       <input type="text" pattern="[0-9]{10}" class="form-control" id="inputContact" placeholder="Contact" required='required' name="contact" value='<?php echo $CONTACT;?>' title="Enter 10 digits">
-                      <input type="hidden" class="gregdate" name="date1" value="<?php echo date("Y-m-d") ?>"/>
                     </div>
                   </div>
                   <div class="form-group">
