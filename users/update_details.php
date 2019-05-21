@@ -8,7 +8,6 @@ use GeniusTS\HijriDate\Date;
 $toStringFormat = 'Y-m-d';
 Date::setToStringFormat($toStringFormat);
 $today = \GeniusTS\HijriDate\Date::today();
-
 if ($_POST)
     {  
       $_POST['address'] = str_replace("'", "", $_POST['address']);
