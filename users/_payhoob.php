@@ -65,7 +65,7 @@ $sms_body = "Mubarak $user_name for contributing Rs. $user_amount (R.No. $user_r
             ."Thali#:$user_thali\n"
             ."Pending:$user_pending";
 $sms_body_encoded = urlencode($sms_body);
-$result = file_get_contents("http://54.254.154.166/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$sms_to&message=$sms_body_encoded&sender=FAIZST&route=Template");
+$result = file_get_contents("http://sms.myn2p.com/sendhttp.php?authkey=$smsauthkey&mobiles=$sms_to&message=$sms_body_encoded&sender=FAIZST&route=Template");
 
 echo $sms_body;
 }

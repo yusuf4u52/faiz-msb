@@ -18,7 +18,7 @@ if($_POST)
 		$sms_to = $row[0];
 		$sms_body = "Thali $thali, You did not pickup your thali today.You have been fined Rs 200 for not treating maulas neamat with respect it deserves.";
 		$sms_body = urlencode($sms_body);
-		$result = file_get_contents("http://sms.myn2p.com/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$sms_to&message=$sms_body&sender=FAIZST&route=Template");
+		$result = file_get_contents("http://sms.myn2p.com/sendhttp.php?authkey=$smsauthkey&mobiles=$sms_to&message=$sms_body&sender=FAIZST&route=Template");
 	}
 	echo ("<SCRIPT LANGUAGE='JavaScript'>
     window.alert('Fine of 200 added successfully');

@@ -75,7 +75,7 @@ $sms_body = "Mubarak for earning sawab by participating in Faiz Jaman. Moula nu 
           'reject_reason' => null
     */
     $sms_body = urlencode($sms_body);
-    $result = file_get_contents("http://sms.myn2p.com/sendhttp.php?user=mustafamnr&password=$smspassword&mobiles=$sms_to&message=$sms_body&sender=FAIZST&route=Template");
+    $result = file_get_contents("http://sms.myn2p.com/sendhttp.php?authkey=$smsauthkey&mobiles=$sms_to&message=$sms_body&sender=FAIZST&route=Template");
 } catch(Mandrill_Error $e) {
     echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
     throw $e;
