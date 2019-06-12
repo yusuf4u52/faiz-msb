@@ -53,7 +53,7 @@ function getMobilesString($numbers)
 
     from their documentation:
     Keep numbers in international format (with country code), multiple numbers should be separated by comma (,)
-    http://sms.myn2p.com/api/sendhttp.php?authkey=YourAuthKey&mobiles=919999999990,919999999999&message=message&sender=ABCDEF&route=4&country=0
+    http://sms1.almasaarr.com/api/sendhttp.php?authkey=YourAuthKey&mobiles=919999999990,919999999999&message=message&sender=ABCDEF&route=4&country=0
     */
     $regex_international_phone_number = '/^\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1) (\d{1,14})$/';
 
