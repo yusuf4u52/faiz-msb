@@ -39,7 +39,7 @@ require_once ('libraries/Google/autoload.php');
 //You can get it from : https://console.developers.google.com/
 $client_id = '765033679687-his12u278lmi6g3q7ltdmjsi64on8t0i.apps.googleusercontent.com'; 
 $client_secret = 'BsR0zpEufi97oah8pZ_H1XA6';
-$redirect_uri = 'http://www.faizstudents.com/users/login.php';
+$redirect_uri = 'https://faizstudents.com/users/login.php';
 
 /************************************************
   Make an API request on behalf of a user. In
