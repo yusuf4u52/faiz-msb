@@ -18,7 +18,6 @@ if ($_POST)
                                       Full_Address='" . $_POST["address"] . "',
                                       WATAN='" . $_POST["watan"] . "',
                                       ITS_No='" . $_POST["its"] . "',
-                                      markaz='".$_POST["markaz"]."',
                                       WhatsApp='" . $_POST["whatsapp"] . "'
                                       WHERE Email_id = '".$_SESSION['email']."'") or die(mysqli_error($link));
                           
@@ -158,7 +157,7 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`,`userid`, `Operation`, `Da
 
                   </div>
 
-                  <?php
+                  <!-- <?php
                   $markazAreas = array('Badshah Nagar','Fakhri Hills','Mitha Nagar','Kalimi Masjid','Camp');
                   ?>
                   <div class="form-group">
@@ -171,7 +170,7 @@ mysqli_query($link,"INSERT INTO change_table (`Thali`,`userid`, `Operation`, `Da
                         <?php } ?>
                       </select>
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="form-group">
 
