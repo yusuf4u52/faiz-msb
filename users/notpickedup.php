@@ -2,6 +2,9 @@
 include('connection.php');
 include('adminsession.php');
 include('../sms/_credentials.php');
+include('getHijriDate.php');
+
+$today = getTodayDateHijri();
 
 if($_POST)
 {
@@ -11,7 +14,7 @@ if($_POST)
    	foreach($singlethali as $thali) 
    	{
 		mysqli_query($link,"UPDATE thalilist set Reg_Fee = Reg_Fee + 200 WHERE Thali = '$thali'") or die(mysqli_error($link)) or die(mysqli_error($link));
-		mysqli_query($link,"INSERT INTO not_picked_up (`Thali_no`, `Date`, `Reason`, `Fine` ) VALUES ( '$thali', '" . $_POST['fineDate'] . "' , 'Not Picked Up' , 200)") or die(mysqli_error($link));
+		mysqli_query($link,"INSERT INTO not_picked_up (`Thali_no`, `Date`, `Reason`, `Fine` ) VALUES ( '$thali', '" . $today . "' , 'Not Picked Up' , 200)") or die(mysqli_error($link));
 
 		$sql = mysqli_query($link,"SELECT CONTACT from thalilist where Thali='$thali'");
 		$row = mysqli_fetch_row($sql);
@@ -72,7 +75,6 @@ if($_POST)
                     <div class="col-lg-10">
 
                       <input type="text" class="form-control" id="inputThalino" placeholder="e.g. 508,37"  name="thalino">
-                      <input type="hidden" class="gregdate" id="fineDate" name="fineDate" value="<?php echo date("Y-m-d") ?>"/>
 
                     </div>
 
