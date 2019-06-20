@@ -2,7 +2,7 @@
 include('connection.php');
 include('_authCheck.php');
 
-$sql = "select id, (Previous_Due + Dues + yearly_hub + Zabihat + Reg_Fee + TranspFee - Paid) AS Total_Pending from thalilist WHERE Thali = '" . $_POST['Thaliid'] . "'";
+$sql = "select id, Total_Pending from thalilist WHERE Thali = '" . $_POST['Thaliid'] . "'";
 $result = mysqli_query($link, $sql) or die(mysqli_error($link));
 $name = mysqli_fetch_assoc($result);
 

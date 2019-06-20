@@ -481,13 +481,7 @@ else{
         echo "Connection failed: " . $e->getMessage();
     //return;
     }
-    $amount_type = $_REQUEST['amount_type'];
-    if($amount_type == "Total_Pending"){
-      $amount_type = "(Previous_Due + Dues + yearly_hub + Zabihat + Reg_Fee + TranspFee - Paid)";
-    }
-    $field_amount = $amount_type;
-    
-
+    $field_amount = $_REQUEST['amount_type'];
     $amount_operator = $_REQUEST['amount_operator'];
     $amount_param = $_REQUEST['amount_param'];
     $amount_param2 = $_REQUEST['amount_param2'];
