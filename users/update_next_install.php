@@ -2,34 +2,6 @@
 
 include('connection.php');
 
-function getMiqaats($start_date)
-{
-    $_miqaats = array(
-                    '2017-06-16' => 'Lailatul Qadr (16th June 2017)',
-                    '2017-07-21' => 'Urs Syedi Abdulqadir Hakimuddin (AQ) (21st July 2017)',
-                    '2017-08-19' => 'Milad Of Syedna Taher Saifuddin (RA) (19th August 2017)',
-                    '2017-09-09' => 'Eid-e-Ghadeer-e-Khum (9th September 2017)',
-                    '2017-10-06' => 'Urs Syedna Hatim (RA) (6th October 2017)',
-                    '2017-11-09' => 'Chehlum Imam Husain (S.A) (9th November 2017)',
-                    '2017-11-30' => 'Milad Rasulullah (SAW) (30th November 2017)',
-                    '2018-01-07' => 'Milad Syedna Mohammed Burhanuddin (RA) (7th January 2018)',
-                    '2018-02-01' => '16 Jumadil Awwal (1st February 2018)',
-                    '2018-03-03' => '16 Jumadil Akhar (3rd March 2018)',
-                    '2018-04-01' => '16 Rajab (1st April 2018)',
-                    '2018-05-01' => '16 Shabaan (1st May 2018)'
-                    );
-    $return_array = array();
-    $i = 0;
-    foreach ($_miqaats as $date => $value) {
-      if($start_date <=  $date && $i < 8)
-      {
-         $return_array[$date] = $value;
-         $i++;
-      }
-    }
-    return $return_array;
-}
-
 $query = "SELECT * FROM thalilist";
 $result = mysqli_query($link,$query) or die(mysqli_error($link));
 
@@ -41,7 +13,6 @@ while($row = mysqli_fetch_assoc($result)){
   $thaliactivedate_query = mysqli_fetch_assoc(mysqli_query($link,"SELECT Date(datetime) as datetime FROM `change_table` where Thali = '".$row['Thali']."' AND operation = 'Start Thali' ORDER BY id limit 1"));
   $thaliactivedate = $thaliactivedate_query['datetime'];
 
-  //$_miqaats = getMiqaats($thaliactivedate);
   $sql = mysqli_query($link,"select miqat_date,miqat_description from sms_date");
 
   while($record = mysqli_fetch_assoc($sql))
