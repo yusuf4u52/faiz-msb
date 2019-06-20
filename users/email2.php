@@ -7,9 +7,9 @@ include '../sms/_sms_automation.php';
 use Mailgun\Mailgun;
 error_reporting(0);
 $day = date("D");
-//if ($day == 'Sat') {
-//	exit;
-//}
+if ($day == 'Sat') {
+	exit;
+}
 $sql = mysqli_query($link,"SELECT t.id, c.Thali, t.NAME, t.CONTACT, t.Transporter, t.Full_Address, c.Operation,c.id,t.markaz
 						from change_table as c
 						inner join thalilist as t on (c.userid = t.id)
@@ -19,9 +19,9 @@ $processed_ids = array();
 echo "<pre>";
 while($row = mysqli_fetch_assoc($sql))
 {
-    // $request[$row['Transporter']][$row['Operation']][] = $row;
+    $request[$row['Transporter']][$row['Operation']][] = $row;
     // To add Markaz
-	$request[$row['markaz']][$row['Operation']][] = $row;
+	// $request[$row['markaz']][$row['Operation']][] = $row;
     
 	$processed[] = $row['id'];
 }
