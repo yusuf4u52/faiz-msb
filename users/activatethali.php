@@ -3,12 +3,15 @@
 include('connection.php');
 include('adminsession.php');
 require 'mailgun-php/vendor/autoload.php';
+include('getHijriDate.php');
+
 use Mailgun\Mailgun;
 
+$today = getTodayDateHijri();
 // print_r($_POST); exit;
 $values[] = "Thali = '".addslashes($_POST['thalino'])."'";
 $values[] = "Active = '1'";
-$values[] = "Thali_Start_Date = '".($_POST['start_date'])."'";
+$values[] = "Thali_Start_Date = '".($today)."'";
 $values[] = "yearly_hub = '".($_POST['hub'])."'";
 
 if(isset($_POST['transporter']))
