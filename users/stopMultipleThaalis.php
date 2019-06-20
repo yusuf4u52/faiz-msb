@@ -58,7 +58,6 @@ if (isset($_GET['stopallthalis'])) {
                       }
                       ?>" >
                       <a href="stopMultipleThaalis.php?stopallthalis=true">Fill above with all active thalis</a>
-                      <input type="hidden" class="gregdate" id="stopDate" value="<?php echo date("Y-m-d") ?>"/>
                       <div>
                       <input type="checkbox" class="custom-control-input" id="hardStop" onclick="showCommentBox()">
                       <label class="custom-control-label" for="customCheck1">Check this if you don't want user be able to start.</label>
@@ -114,7 +113,7 @@ if (isset($_GET['stopallthalis'])) {
         if(confirm('Stop thaali # ' + thaliNumbers + ' ?')){
           for (var i = thaliNumbers.length - 1; i >= 0; i--) {
             var thaliNumber = thaliNumbers[i];
-            stopThali_admin(thaliNumber, $('#stopDate').val(),0,hardStop,hardStopComment);
+            stopThali_admin(thaliNumber,0,hardStop,hardStopComment);
           }
           $('#thaliNumbers').val('');
           $('#hardStopComment').val('');

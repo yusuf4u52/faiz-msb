@@ -191,7 +191,7 @@ if($_GET)
 
 
       $('[data-key="stopthaali"]').click(function() {
-        stopThali_admin($(this).attr('data-thali'), $('[name="receipt_date"]').val(), $(this).attr('data-active'),false,false, function(data){
+        stopThali_admin($(this).attr('data-thali'),$(this).attr('data-active'),false,false, function(data){
           if(data==='success') {
             location.reload();
           }
@@ -214,7 +214,6 @@ if($_GET)
         $.post("stop_permanant.php",
         {
           Thaliid: $(this).data("thali"),
-          date: $('[name="receipt_date"]').val(),
           clear: clearHub
         },
         function(data,status){
