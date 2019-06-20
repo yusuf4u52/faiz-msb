@@ -35,7 +35,7 @@ $result = mysqli_query($link,$query) or die(mysqli_error($link));
 
 while($row = mysqli_fetch_assoc($result)){   
 
-  if($row['yearly_commitment'] == 1 && !empty($row['yearly_hub'])) {
+  if(!empty($row['yearly_hub'])) {
   $reciepts_query_result_total = mysqli_fetch_assoc(mysqli_query($link,"SELECT sum(`Amount`) as total FROM `receipts` where Thali_No = '".$row['Thali']."'"));
   $total_amount_paid = $reciepts_query_result_total['total'];
   $thaliactivedate_query = mysqli_fetch_assoc(mysqli_query($link,"SELECT Date(datetime) as datetime FROM `change_table` where Thali = '".$row['Thali']."' AND operation = 'Start Thali' ORDER BY id limit 1"));
