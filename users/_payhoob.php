@@ -4,12 +4,9 @@ include('adminsession.php');
 include('../sms/_credentials.php');
 include('../sms/_helper.php');
 include 'mailgun-php/vendor/autoload.php';
+include('getHijriDate.php')
 
-use GeniusTS\HijriDate\Date;
-
-$toStringFormat = 'Y-m-d';
-Date::setToStringFormat($toStringFormat);
-$today = \GeniusTS\HijriDate\Date::today();
+$today = getTodayDateHijri();
 
 if($_POST)
 {

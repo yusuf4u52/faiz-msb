@@ -21,14 +21,14 @@ if($_POST)
   extract($data);
 $transport = ($transport == 'Yes') ? 'Transporter' : 'Pick Up';
 $occupation = ($occupation == 'Student') ? 'Student' : 'Working';
-$datafromits = CallAPI($its,$header,$its_url);
-if (!empty($datafromits)) {
-  $datafromits_name = $datafromits['name'];
-  $datafromits_jamaat = $datafromits['jamaat'];
-} else {
+// $datafromits = CallAPI($its,$header,$its_url);
+// if (!empty($datafromits)) {
+//   $datafromits_name = $datafromits['name'];
+//   $datafromits_jamaat = $datafromits['jamaat'];
+// } else {
   $datafromits_name = $firstname." ".$fathername." ".$lastname;
   $datafromits_jamaat = $watan;
-}
+// }
 
 $sql = "INSERT INTO thalilist (
                                         `NAME`,
