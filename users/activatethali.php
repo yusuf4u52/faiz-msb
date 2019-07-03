@@ -20,8 +20,8 @@ if(isset($_POST['transporter']))
 } 
 
 mysqli_query($link,"UPDATE thalilist set ".implode(',', $values)." WHERE id = '".$_POST['id']."'") or die(mysqli_error($link));
-mysqli_query($link,"INSERT INTO change_table (`Thali`,`userid`, `Operation`, `Date`,`processed`) VALUES ('" . $_POST['thalino'] . "','".$_POST['id']."', 'New Thali','" . $_POST['start_date'] . "',0)") or die(mysqli_error($link));
-mysqli_query($link,"INSERT INTO change_table (`Thali`,`userid`, `Operation`, `Date`,`processed`) VALUES ('" . $_POST['thalino'] . "','".$_POST['id']."', 'Start Thali','" . $_POST['start_date'] . "',1)") or die(mysqli_error($link));
+mysqli_query($link,"INSERT INTO change_table (`Thali`,`userid`, `Operation`, `Date`,`processed`) VALUES ('" . $_POST['thalino'] . "','".$_POST['id']."', 'New Thali','" . $today . "',0)") or die(mysqli_error($link));
+mysqli_query($link,"INSERT INTO change_table (`Thali`,`userid`, `Operation`, `Date`,`processed`) VALUES ('" . $_POST['thalino'] . "','".$_POST['id']."', 'Start Thali','" . $today . "',1)") or die(mysqli_error($link));
 mysqli_query($link,"update change_table set processed = 1 where userid = '" . $_POST['id'] . "' and `Operation` in ('Stop Permanent') and processed = 0") or die(mysqli_error($link));
 
 
