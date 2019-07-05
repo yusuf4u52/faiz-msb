@@ -36,7 +36,7 @@ function get_day_diff($miqat_date) {
     return $day_diff;
 }
 
-$real = "http://sms1.almasaarr.com/sendhttp.php?";
+$real = "https://sms1.almasaarr.com/sendhttp.php?";
 $telegram = "http://murtazafaizstudent.pythonanywhere.com/sendhttp.php?";
 $email = "http://murtazafaizstudent.pythonanywhere.com/sendsmtp?";
 
