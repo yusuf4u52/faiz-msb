@@ -124,17 +124,19 @@ foreach ($months as $key => $month) {
         <select class="form-control" name="salary">
                             <option value='Cash'>Cash</option>
                             <option value='Zabihat'>Zabihat</option>
-                            <option value='BB Salary'>BB Salary</option>
-                            <option value='SF Salary'>SF Salary</option>
-                            <option value='BurhanBhai Tr'>BurhanBhai Tr</option>
-                            <option value='HaiderBhai Tr'>HaiderBhai Tr</option>
-                            <option value='AzharBhai Tr'>AzharBhai Tr</option>
-                            <option value='AzizBhai Tr'>AzizBhai Tr</option>
-                            <option value='NasirBhai Tr'>NasirBhai Tr</option>
-                            <option value='Miraj Salary'>Miraj Salary</option>
+                            <option value='Manager Salary'>Manager Salary</option>
+                            <option value='Cook Salary'>Cook Salary</option>
                             <option value='Light Bill'>Light Bill</option>
                             <option value='Rent'>Rent</option>
                             <option value='Aapa'>Aapa</option>
+                            <?php
+                              $result1 = mysqli_query($link,"SELECT Name FROM transporters where Name!='Pick Up'");
+                              while ($values1 = mysqli_fetch_assoc($result1)) {
+                            ?>
+                            <option value='<?php echo $values1['Name']; ?>'><?php echo $values1['Name']; ?></option>
+                            <?php
+                              }
+                            ?>
                             <option value='Others'>Others</option>
         </select><br>
         <input type="hidden" name="Month"/>
