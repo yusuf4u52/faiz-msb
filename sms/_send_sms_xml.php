@@ -4,7 +4,7 @@
 // from the XML api call
 function send_sms_to_records($conn, $message) {
 	require '_credentials.php';
-	$send_url = "https://sms1.almasaarr.com/api/postsms.php";
+	$send_url = "http://sms1.almasaarr.com/api/postsms.php";
 	//$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 	//$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$message_raw = $message;
