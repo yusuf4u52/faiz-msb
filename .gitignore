@@ -4,3 +4,4 @@ users/connection.php
 users/*.txt
 .idea
 sms/_credentials.php
+.htaccess
