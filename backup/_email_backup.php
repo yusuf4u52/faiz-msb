@@ -1,7 +1,6 @@
 <?php 
 
-require '../users/mailgun-php/vendor/autoload.php';
-use Mailgun\Mailgun;
+require '../users/_sendMail.php';
 require '../sms/_credentials.php';
     //ENTER THE RELEVANT INFO BELOW
     $mysqlUserName      = $username;
@@ -89,21 +88,7 @@ require '../sms/_credentials.php';
     
     $content = Export_Database($mysqlHostName,$mysqlUserName,$mysqlPassword,$DbName,  $tables=false, $backup_name=false );
     $subject = 'database backup '.date('d/m/Y');
-    $file_name = "backup.sql";
-    $myfile = fopen($file_name, "w") or die("Unable to open file!");
-    fwrite($myfile, $content);
-    fclose($myfile);
-    $remoteName = "backup ".date('d-m-Y').".sql";
     echo "now sending email";
-    $mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
-    $domain = "mg.faizstudents.com";
-    $mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
-                                    'to'      => 'help@faizstudents.com', 
-                                    'subject' => $subject,
-                                    'html'    => "Please find the attachment named $remoteName"
-                                    ), array(
-                                        'attachment' => array(array('filePath' => $file_name, 'remoteName' => $remoteName))
-                                    ));
-
+    sendEmail('yusuf4u52@gmail.com', $subject, "Please find the attachment", $content);
     echo "##########completed##############";
 ?>	

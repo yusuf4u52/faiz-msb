@@ -1,13 +1,9 @@
 <?php
 include('_authCheck.php');
 include('connection.php');
-include 'mailgun-php/vendor/autoload.php';
+include('getHijriDate.php');
 
-use GeniusTS\HijriDate\Date;
-
-$toStringFormat = 'Y-m-d';
-Date::setToStringFormat($toStringFormat);
-$today = \GeniusTS\HijriDate\Date::today();
+$today = getTodayDateHijri();
 if ($_POST)
     {  
       $_POST['address'] = str_replace("'", "", $_POST['address']);

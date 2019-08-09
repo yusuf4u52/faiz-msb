@@ -2,10 +2,9 @@
 
 include('connection.php');
 include('adminsession.php');
-require 'mailgun-php/vendor/autoload.php';
 include('getHijriDate.php');
+require '_sendMail.php';
 
-use Mailgun\Mailgun;
 
 $today = getTodayDateHijri();
 // print_r($_POST); exit;
@@ -48,39 +47,7 @@ Abeede Sayedna (TUS)<br>
 Faiz Khidmat Team<br>";
 
 $msgvar = str_replace(array('%thali%','%name%','%email%'), array($_POST['thalino'],$_POST['name'],$_POST['email']), $msgvar);
-
-$mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
-$domain = "mg.faizstudents.com";
-
-# Now, compose and send your message.
-$mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
-                                'to'      =>  $_POST['email'], 
-                                'cc'      => 'help@faizstudents.com',
-                                'subject' => "Student's Faiz - Thali Activated", 
-                                'html'    => $msgvar));
-
-
-// try {
-//     $mandrill = new Mandrill('BWDHEoe1pGlJ9yiH5xvUGw');
-//     $message = array(
-//         'html' => $msgvar,
-//         'subject' => "Student's Faiz - Thali activated",
-//         'from_email' => 'admin@faizstudents.com',
-//         'to' => array(
-//             array(
-//                 'email' => $_POST['email']
-//                  ),
-//             array(
-//                 'email' => 'help@faizstudents.com'
-//                  )
-//            )
-//      );
-
-//     $result = $mandrill->messages->send($message);
-// } catch(Mandrill_Error $e) {
-//     echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
-//     throw $e;
-// }
+sendEmail($_POST['email'], 'Thali Activated', $msgvar, null);
 
 header("Location: pendingactions.php");
 ?>

@@ -1,5 +1,5 @@
 <?php
-include 'mailgun-php/vendor/autoload.php';
+include '../vendor/autoload.php';
 use GeniusTS\HijriDate\Date;
 
 function getTodayDateHijri()

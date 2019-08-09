@@ -1,9 +1,9 @@
 <?php
 include('../users/connection.php');
 require '../sms/_credentials.php';
-require '../users/mailgun-php/vendor/autoload.php';
 include('call_api.php');
-use Mailgun\Mailgun;
+require '../users/_sendMail.php';
+
 session_start();
 if (mysqli_connect_errno())
   {
@@ -65,17 +65,11 @@ $sql = "INSERT INTO thalilist (
   mysqli_query($link,$sql) or die(mysqli_error($link));
   mysqli_close($link);
 $msgvar = "Salaam ".$firstname."bhai,<br><br>New Registration form for Faiz ul Mawaid il Burhaniyah thali has been successfully submitted.<br>
-<b>Please visit faiz with xerox of ITS card to get the thali activated.</b><br><br>
+<b>Please visit faiz with xerox of ITS card and 8000 Hub to get the thali activated.</b><br><br>
 Faiz Address<br>Shop Near Gold Gym,<br>Lane adjacent to Satyanand Hospital,<br>Between Badshah Nagar and Sheetal Petrol Pump<br><br>
 Office Time - 9 to 11 AM, Monday to Saturday.<br>
 For any concerns mail help@faizstudents.com";
-$mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
-$domain = "mg.faizstudents.com";
-$mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
-                                'to'      =>  $email, 
-                                'subject' => 'New Registration Successful, Visit Faiz to activate the thali',
-                                'html'    => $msgvar));
-
+sendEmail($email, 'New Registration Successful, Visit Faiz to activate the thali', $msgvar, null);
 echo ("<SCRIPT LANGUAGE='JavaScript'>
     window.alert('Form has been successfully submitted.You need to visit faiz office with xerox of ITS card and 8000 Hub to get the thali started. Address: Shop Near Gold Gym,Lane adjacent to Satyanand Hospital, Office Time - 9 to 11 AM.')
     window.location.href='index.php';

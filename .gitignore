@@ -1,7 +1,7 @@
 _credentials.php
-backup.sql
 users/connection.php
 users/*.txt
 .idea
 sms/_credentials.php
 .htaccess
+vendor

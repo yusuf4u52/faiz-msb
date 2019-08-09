@@ -1,10 +1,10 @@
 <?php
 include('connection.php');
 include 'stop_permanent_automate.php';
-include 'mailgun-php/vendor/autoload.php';
 include '../backup/_email_backup.php';
 include '../sms/_sms_automation.php';
-use Mailgun\Mailgun;
+require '_sendMail.php';
+
 error_reporting(0);
 $day = date("D");
 if ($day == 'Sat') {
@@ -71,11 +71,5 @@ fwrite($myfile, $txt);
 fclose($myfile);
 mysqli_query($link,"UPDATE thalilist SET thalicount = thalicount + 1 WHERE Active='1'");
 $msgvar = str_replace("\n", "<br>", $msgvar);
-$mg = new Mailgun("key-e3d5092ee6f3ace895af4f6a6811e53a");
-$domain = "mg.faizstudents.com";
-$mg->sendMessage($domain, array('from'    => 'admin@faizstudents.com', 
-                                'to'      => 'saifuddincalcuttawala@gmail.com', 
-                                'cc'      => 'help@faizstudents.com',
-                                'subject' => 'Start Stop update '.date('d/m/Y'),
-                                'html'    => $msgvar));
+sendEmail('saifuddincalcuttawala@gmail.com', 'Start Stop update '.date('d/m/Y'), $msgvar, null);
 ?>	

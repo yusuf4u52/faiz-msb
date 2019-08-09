@@ -3,7 +3,6 @@ include('connection.php');
 include('adminsession.php');
 include('../sms/_credentials.php');
 include('../sms/_helper.php');
-include 'mailgun-php/vendor/autoload.php';
 include('getHijriDate.php');
 
 $today = getTodayDateHijri();
