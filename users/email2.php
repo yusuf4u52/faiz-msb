@@ -3,7 +3,7 @@ include('connection.php');
 include 'stop_permanent_automate.php';
 include '../backup/_email_backup.php';
 include '../sms/_sms_automation.php';
-require '_sendMail.php';
+require_once '_sendMail.php';
 
 error_reporting(0);
 $day = date("D");

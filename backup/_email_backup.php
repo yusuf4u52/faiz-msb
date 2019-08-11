@@ -1,6 +1,6 @@
 <?php 
 
-require '../users/_sendMail.php';
+require_once '../users/_sendMail.php';
 require '../sms/_credentials.php';
     //ENTER THE RELEVANT INFO BELOW
     $mysqlUserName      = $username;
