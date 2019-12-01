@@ -6,3 +6,4 @@
 <script src="javascript/hijriDate.js?v=1"></script>
 <script src="javascript/index.js?v=1"></script>
 <script src="src/custom.js?v=1"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

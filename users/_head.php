@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="/users/src/custom.min.css" />
 <link rel="stylesheet" href="/users/src/jquery.dynatable.css" />
 <link rel="icon" href="/users/images/icon.png">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style type="text/css">
 	.well {
 		background-color: #fff;

@@ -9,6 +9,11 @@ include('_authCheck.php');
 	<title>Musaid Home</title>
 	<?php include('_head.php'); ?>
 	<?php include('_bottomJS.php'); ?>
+	<script>
+	  $( function() {
+	    $( ".datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
+	  } );
+  	</script>
 </head>
 <body>
 	<?php include('_nav.php'); ?>
@@ -61,6 +66,7 @@ include('_authCheck.php');
 		      <th scope="col">Total Hub</th>
 		      <th scope="col">Pending</th>
 		      <th scope="col">Action</th>
+		      <th scope="col">Commited Date</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -76,6 +82,7 @@ include('_authCheck.php');
 		      <td><?php echo $values['yearly_hub']; ?></td>
 		      <td><?php echo $values['total_pending']; ?></td>
 		      <td><a target="_blank" href="https://wa.me/91<?php echo $values['contact']; ?>?text=">WhatsApp</a></td>
+		      <td><input type="text" class="datepicker"></td>
 		    </tr>
 		    <?php } ?>
 		  </tbody>
