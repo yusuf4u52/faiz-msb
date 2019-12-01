@@ -1,7 +1,6 @@
 <?php
 error_reporting(0);
 include('_authCheck.php');
-include('connection.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

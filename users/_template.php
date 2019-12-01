@@ -1,6 +1,5 @@
 <?php
 include('_authcheck.php');
-include('connection.php');
 //TODO:Do your DB operations and other processing here
 ?>
 <!DOCTYPE html>

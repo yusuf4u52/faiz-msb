@@ -1,6 +1,5 @@
 <?php
 include('_authCheck.php');
-include('adminsession.php');
 include('_bottomJS.php');
 include('../registration/call_api.php');
 

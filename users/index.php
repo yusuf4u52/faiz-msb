@@ -1,7 +1,6 @@
 <?php
 error_reporting(0);
 include('_authCheck.php');
-include('connection.php');
 
 $query="SELECT * FROM thalilist LEFT JOIN transporters on thalilist.Transporter = transporters.Name where Email_id = '".$_SESSION['email']."'";
 

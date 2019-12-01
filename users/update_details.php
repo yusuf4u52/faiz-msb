@@ -1,6 +1,5 @@
 <?php
 include('_authCheck.php');
-include('connection.php');
 include('getHijriDate.php');
 
 $today = getTodayDateHijri();
