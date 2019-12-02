@@ -5,6 +5,7 @@ include('connection.php');
 session_start();
 if (!isset($_SESSION['fromLogin'])) {
  	header("Location: login.php");
+ 	exit;
 }
 
 // check if user has right to access the page
