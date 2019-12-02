@@ -19,14 +19,13 @@ $rights = array(
 );	
 // fetch user role
 $sql = mysqli_query($link,"SELECT role from users where email='".$_SESSION['email']."'");
-$row = mysqli_fetch_row($sql);
-if (!empty($row[0])) {
-	$role= $row[0];
-	if (!in_array($_SERVER['REQUEST_URI'], $rights[$role]) && !in_array($_SERVER['REQUEST_URI'], $rights['all'])) {
+
+if ($row = mysqli_fetch_assoc($sql)) {
+	if (!in_array($_SERVER['REQUEST_URI'], $rights[$row['role']]) && !in_array($_SERVER['REQUEST_URI'], $rights['all'])) {
 		echo "You are not an authorized to get this page";
 		header("Location: index.php");
 	}
-} else {
+} else if(!in_array($_SERVER['REQUEST_URI'], $rights['all'])){
 	echo "You are not an authorized user.";
 	header("Location: index.php");
 }
