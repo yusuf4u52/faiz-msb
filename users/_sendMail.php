@@ -1,6 +1,5 @@
 <?php
-
-function sendEmail($to, $subject, $msg, $attachment,$attachmentObj = false) {
+function sendEmail($to, $subject, $msg, $attachment,$attachmentObj = false, $addAllRecipents = true) {
 	require '../vendor/autoload.php'; 
 	require '../sms/_credentials.php';
 
@@ -8,12 +7,15 @@ function sendEmail($to, $subject, $msg, $attachment,$attachmentObj = false) {
 	$email->setFrom("no-reply@faizstudents.com", "FMB (Poona Students)");
 	$email->setSubject($subject);
 	$email->addTo($to);
-	$email->addTo("help@faizstudents.com");
-	$email->addTo("mesaifee52@gmail.com");
-	$email->addTo("yusuf4u52@gmail.com");
-	$email->addTo("mustafamnr@gmail.com");
-	$email->addTo("tzabuawala@gmail.com");
-	$email->addTo("ahmedi.murtaza@gmail.com");
+
+	if($addAllRecipents){
+		$email->addTo("help@faizstudents.com");
+		$email->addTo("mesaifee52@gmail.com");
+		$email->addTo("yusuf4u52@gmail.com");
+		$email->addTo("mustafamnr@gmail.com");
+		$email->addTo("tzabuawala@gmail.com");
+		$email->addTo("ahmedi.murtaza@gmail.com");
+	}
 
 	$email->addContent(
 	    "text/html", $msg
