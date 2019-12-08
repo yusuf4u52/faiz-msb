@@ -6,6 +6,8 @@ $query="SELECT * FROM thalilist LEFT JOIN transporters on thalilist.Transporter 
 
 $values = mysqli_fetch_assoc(mysqli_query($link,$query));
 
+$musaid_details = mysqli_fetch_assoc(mysqli_query($link,"SELECT NAME, CONTACT FROM thalilist where Email_id = '".$values['musaid']."'")); 
+
 $_SESSION['thaliid'] = $values['id'];
 $_SESSION['thali'] = $values['Thali'];
 
@@ -185,6 +187,12 @@ else if(!empty($values['yearly_hub']))
                           <h6 class="list-group-item-heading text-muted">Mobile Number</h6>
                           <p class="list-group-item-text"><strong><?php echo $values['CONTACT']; ?></strong></p>
                       </li>
+                      <?php if($musaid_details) { ?>
+                      <li class="list-group-item">
+                          <h6 class="list-group-item-heading text-muted">Musaid</h6>
+                          <p class="list-group-item-text"><strong><?php echo $musaid_details['NAME']; ?> | <a href="tel:<?php echo $musaid_details['CONTACT']; ?>"><?php echo $musaid_details['CONTACT']; ?></a></strong></p>
+                      </li>
+                      <?php } ?>
                       <li class="list-group-item">
                           <h5 class="list-group-item-heading text-muted">Pending Hoob</h5>
                           <p class="list-group-item-text"><?php echo $values['Total_Pending'] + $values['Paid']; ?> - <a href="hoobHistory.php"><strong><?php echo $values['Paid']; ?></strong></a> = <?php echo $values['Total_Pending']; ?></p>
