@@ -1,6 +1,6 @@
 <?php
 
-function sendEmail($to, $subject, $msg, $attachment) {
+function sendEmail($to, $subject, $msg, $attachment,$attachmentObj = false) {
 	require '../vendor/autoload.php'; 
 	require '../sms/_credentials.php';
 
@@ -8,10 +8,17 @@ function sendEmail($to, $subject, $msg, $attachment) {
 	$email->setFrom("no-reply@faizstudents.com", "FMB (Poona Students)");
 	$email->setSubject($subject);
 	$email->addTo($to);
-	$email->addCc("help@faizstudents.com");
+	$email->addTo("help@faizstudents.com");
 	$email->addContent(
 	    "text/html", $msg
 	);
+
+	if($attachmentObj)
+	{
+		foreach ($attachmentObj as $value) {
+			$email->addAttachment($value);
+		}
+	}
 
 	if ($attachment != null) {
 		$attach = new \SendGrid\Mail\Attachment();
