@@ -16,7 +16,7 @@ $rights = array(
 		"/users/stop_permanant.php",
 		"/users/thalisearch.php"
 	),
-	"all" => array("/users/index.php","/users/hoobHistory.php","/users/events.php","/users/update_details.php?update_pending_info")
+	"all" => array("/users/index.php","/users/hoobHistory.php","/users/events.php","/users/update_details.php", "/users/update_details.php?update_pending_info")
 );	
 // fetch user role
 $sql = mysqli_query($link,"SELECT role from users where email='".$_SESSION['email']."'");
