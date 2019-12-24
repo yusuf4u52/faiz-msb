@@ -157,6 +157,24 @@ function change()
     $this->_example_output($output);
 }
 
+function event_response()
+{
+	session_start();
+		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('nationalminerals52@gmail.com','mesaifee52@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com')))
+		{
+
+		}else
+		 header("Location: http://www.faizstudents.com/users/login.php");
+
+    $crud = new grocery_CRUD();
+    $crud->set_theme('datatables');
+    $crud->set_table('event_response');
+    $crud->unset_edit();
+    $crud->unset_delete();
+    $output = $crud->render();
+    $this->_example_output($output);
+}
+
 	public function index()
 	{
 		$this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
