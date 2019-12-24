@@ -92,7 +92,7 @@ function getResponse($eventid)
 		    <tr>
 		      <th scope="row"><?php echo $values['name']; ?></th>
 		      <td><?php echo $values['venue']; ?></td>
-		      <td>Will You Attend?
+		      <td>Tame shamil thaso?
 				<button type="button" <?php echo isResponseReceived($values['id']) ? 'disabled' : ''; ?> data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" data-response="yes" class="btn btn-primary btn-sm btn-response action-<?php echo $values['id']; ?>">Yes</button>
 				<button type="button" <?php echo isResponseReceived($values['id']) ? 'disabled' : ''; ?>  data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" data-response="no" class="btn btn-primary btn-sm btn-response action-<?php echo $values['id']; ?>">No</button>
 				<p <?php echo isResponseReceived($values['id']) ? '' : 'hidden'; ?> class="text-muted"><small>
