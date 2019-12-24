@@ -75,7 +75,7 @@ function getResponse($eventid)
 		      <th scope="col">Event Name</th>
 		      <th scope="col">Date/Venue/Time</th>
 		      <th scope="col">Confirmation</th>
-		      <th scope="col">Actions</th>
+		      <!-- <th scope="col">Actions</th> -->
 		      <?php if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('nationalminerals52@gmail.com','mesaifee52@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','mustafamnr@gmail.com')))
 				{
 			  ?>
@@ -102,7 +102,7 @@ function getResponse($eventid)
 				?>
 				</small></p>
 		      </td>
-		      <td>
+		      <!-- <td>
 		      	<button type="button" data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" class="btn btn-primary btn-sm add_friend">Add Friend</button>
 		      	<?php
 		      		$result1=mysqli_query($link,"select * from event_response where reference_id=".$_SESSION['thaliid']." and eventid=".$values['id']);
@@ -113,7 +113,7 @@ function getResponse($eventid)
 		      		}
 		      		echo "</p>";
 		      	?>
-		      </td>
+		      </td> -->
 		      <?php if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('nationalminerals52@gmail.com','mesaifee52@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','mustafamnr@gmail.com')))
 				{
 			  ?>
