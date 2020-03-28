@@ -132,6 +132,10 @@ function getResponse($eventid)
 <script>
 $(document).ready(function(){
     $(".btn-response").click(function(){
+		if(!$('textarea#comments').val()) {
+			alert('Please provide comments');
+			exit;
+    	}
     	$(".action-" + $(this).data("eventid")).attr("disabled", true);
     	$.ajaxSetup({
 		    beforeSend: function(xhr) {
