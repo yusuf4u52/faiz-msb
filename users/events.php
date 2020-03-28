@@ -74,6 +74,7 @@ function getResponse($eventid)
 		    <tr>
 		      <th scope="col">Event Name</th>
 		      <th scope="col">Date/Venue/Time</th>
+			  <th scope="col">Comments</th>
 		      <th scope="col">Confirmation</th>
 		      <!-- <th scope="col">Actions</th> -->
 		      <?php if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('nationalminerals52@gmail.com','mesaifee52@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','mustafamnr@gmail.com')))
@@ -92,6 +93,9 @@ function getResponse($eventid)
 		    <tr>
 		      <th scope="row"><?php echo $values['name']; ?></th>
 		      <td><?php echo $values['venue']; ?></td>
+			  <td>
+      			<textarea class="form-control" id="comments" rows="3"></textarea>
+			  </td>
 		      <td>
 				<button type="button" <?php echo isResponseReceived($values['id']) ? 'disabled' : ''; ?> data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" data-response="yes" class="btn btn-primary btn-sm btn-response action-<?php echo $values['id']; ?>">Yes</button>
 				<button type="button" <?php echo isResponseReceived($values['id']) ? 'disabled' : ''; ?>  data-eventid="<?php echo $values['id']; ?>" data-thaliid="<?php echo $_SESSION['thaliid']; ?>" data-response="no" class="btn btn-primary btn-sm btn-response action-<?php echo $values['id']; ?>">No</button>
@@ -138,7 +142,8 @@ $(document).ready(function(){
         {
           Response: $(this).data("response"),
           Thaliid: $(this).data("thaliid"),
-          Eventid: $(this).data("eventid")
+          Eventid: $(this).data("eventid"),
+		  Comments: $('textarea#comments').val()
         },
         function(data,status){
             alert("Response Submitted Successfully");
