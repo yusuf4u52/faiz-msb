@@ -28,7 +28,8 @@
             <ul class="dropdown-menu" role="menu">
               <li><a href="/admin/index.php/examples/faiz">Admin</a></li>
               <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
-              <li><a href="/admin/index.php/examples/change">User History</a></li>
+              <li><a href="/admin/index.php/examples/change">CR NR</a></li>
+              <li><a href="/admin/index.php/examples/event_response">Event Response</a></li>
               <li><a href="/admin/index.php/examples/daily_hisab_items">Daily Items</a></li>
               <li><a href="/admin/index.php/examples/daily_menu_count">Menu-Count</a>
               <li><a href="/admin/index.php/examples/sf_hisab">SF Purchases</a></li>
