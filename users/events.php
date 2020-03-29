@@ -86,7 +86,7 @@ function getResponse($eventid)
 		  </thead>
 		  <tbody>
 				<?php
-				$result=mysqli_query($link,"SELECT * FROM events order by id DESC limit 1");
+				$result=mysqli_query($link,"SELECT * FROM events where enabled='1' order by id");
 		      while($values = mysqli_fetch_assoc($result))
 		      {
 		    ?>
