@@ -32,41 +32,26 @@ if(!empty($values['yearly_hub']))
         <div class="row"><a href='selectyearlyhub_action.php?option=3' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>26,000/-</a></div>
         <div class="row"><a href='selectyearlyhub_action.php?option=4' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>27,000/-</a></div>
         <div class="row"><a href='selectyearlyhub_action.php?option=5' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>53,000/-</a></div>
-        <div class="row"><a href='#' id="otherOptionAnchor" class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>Other</a></div>
-        <div class="row" id="contactNumbers" style="display:none">
-          <p>Please contact one of the members</p>
-          <address class="col-6">
-            <strong>Mustafa bhai Saifee</strong>
-            <br>mesaifee52@gmail.com
-            <br>
-            <strong>7028045252</strong>
-          </address>
-          <address class="col-6">
-            <strong>Mustafa Shk Hatim bhai Manawarwala</strong>
-            <br>mustafamnr@gmail.com
-            <br>
-            <strong>9049378652</strong>
-          </address>
-          <address class="col-6">
-            <strong>Yusuf Husain bhai Rampurwala</strong>
-            <br>yusuf4u52@gmail.com
-            <br>
-            <strong>9503054797</strong>
-          </address>
+
+        <div class="row">
+        <hr>
+         <div class="form-group">
+            <form method="post" action="selectyearlyhub_action.php">
+              <label for="inputEmail" class="col-lg control-label">Other ( > 24,000/-)</label>
+              <div class="col-lg">
+                <input type="number" class="form-control" name="other_takhmeen" min="24000"/>
+              </div>
+              <br>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </form>
+          </div>
         </div>
+
+        
     </div>
 
     <?php include('_bottomJS.php'); ?>
-    <script>
-    $(function() {
-      $('#otherOptionAnchor').click(function(e){
-        e.preventDefault();
-        $('#contactNumbers').fadeIn(1000);
-        window.location.hash = 'contactNumbers';
-      })
-    })
-    </script>
-
+  
     <div align="center">
     <a href="mailto:help@faizstudents.com">help@faizstudents.com</a><br><br>
     </div>

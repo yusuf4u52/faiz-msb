@@ -21,17 +21,19 @@ $rights = array(
 		"/users/events.php",
 		"/users/update_details.php",
 		"/users/update_details.php?update_pending_info",
-		"/users/selectyearlyhub.php")
+		"/users/selectyearlyhub.php",
+		"/users/selectyearlyhub_action.php")
 );	
 // fetch user role
 $sql = mysqli_query($link,"SELECT role from users where email='".$_SESSION['email']."'");
 
+$requet_path = explode('?',$_SERVER['REQUEST_URI'])[0];
+
 if ($row = mysqli_fetch_assoc($sql)) {
-	if (!in_array($_SERVER['REQUEST_URI'], $rights[$row['role']]) && !in_array($_SERVER['REQUEST_URI'], $rights['all'])) {
-		echo "You are not an authorized to get this page";
+	if (!in_array($requet_path, $rights[$row['role']]) && !in_array($requet_path, $rights['all'])) {
 		header("Location: index.php");
 	}
-} else if(!in_array($_SERVER['REQUEST_URI'], $rights['all'])){
+} else if(!in_array($requet_path, $rights['all'])){
 	echo "You are not an authorized user.";
 	header("Location: index.php");
 }
