@@ -1,6 +1,7 @@
 <?php
 error_reporting(0);
 include('_authCheck.php');
+include('_common.php');
 
 $query="SELECT * FROM thalilist LEFT JOIN transporters on thalilist.Transporter = transporters.Name where Email_id = '".$_SESSION['email']."'";
 
@@ -11,11 +12,7 @@ $musaid_details = mysqli_fetch_assoc(mysqli_query($link,"SELECT NAME, CONTACT FR
 $_SESSION['thaliid'] = $values['id'];
 $_SESSION['thali'] = $values['Thali'];
 
-// Redirect users to update details page
-if (empty($values['ITS_No']) || empty($values['fathersNo']) || empty($values['fathersITS']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) { 
-    header("Location: update_details.php?update_pending_info"); 
-}
-
+// Check if users gmail id is registered with us and has got a thali number against it 
 if(empty($values['Thali']))
 {
   $some_email = $_SESSION['email'];
@@ -25,11 +22,29 @@ if(empty($values['Thali']))
   $status = "Sorry! Either $some_email is not registered with us OR your thali is not active. Send and email to help@faizstudents.com";
   header("Location: login.php?status=$status");
 }
-else if(empty($values['yearly_hub']))
+
+// Check if takhmeen is done for the year
+if(empty($values['yearly_hub']))
 {
   header("Location: selectyearlyhub.php"); 
 }
-else if(!empty($values['yearly_hub']))
+
+// Redirect users to update details page if any details are missing
+if (empty($values['ITS_No']) || empty($values['fathersNo']) || empty($values['fathersITS']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) { 
+  header("Location: update_details.php?update_pending_info"); 
+}
+
+// Check if there is any enabled event that needs users response
+$enabled_events_query=mysqli_query($link,"SELECT * FROM events where enabled='0' order by id limit 1");
+$enabled_events_values = mysqli_fetch_assoc($enabled_events_query);
+
+if (!empty($enabled_events_values) && !isResponseReceived($enabled_events_values['id']))
+{
+  header("Location: events.php"); 
+}
+
+// show the index page with hub miqaat breakdown
+if(!empty($values['yearly_hub']))
 {
   $reciepts_query_result_total = mysqli_fetch_assoc(mysqli_query($link,"SELECT sum(`Amount`) as total FROM `receipts` where Thali_No = '".$_SESSION['thali']."'"));
   $total_amount_paid = $reciepts_query_result_total['total'];
