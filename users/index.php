@@ -21,17 +21,20 @@ if(empty($values['Thali']))
 
   $status = "Sorry! Either $some_email is not registered with us OR your thali is not active. Send and email to help@faizstudents.com";
   header("Location: login.php?status=$status");
+  exit;
 }
 
 // Check if takhmeen is done for the year
 if(empty($values['yearly_hub']))
 {
-  header("Location: selectyearlyhub.php"); 
+  header("Location: selectyearlyhub.php");
+  exit;
 }
 
 // Redirect users to update details page if any details are missing
 if (empty($values['ITS_No']) || empty($values['fathersNo']) || empty($values['fathersITS']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) { 
   header("Location: update_details.php?update_pending_info"); 
+  exit;
 }
 
 // Check if there is any enabled event that needs users response
@@ -41,6 +44,7 @@ $enabled_events_values = mysqli_fetch_assoc($enabled_events_query);
 if (!empty($enabled_events_values) && !isResponseReceived($enabled_events_values['id']))
 {
   header("Location: events.php"); 
+  exit;
 }
 
 // show the index page with hub miqaat breakdown
