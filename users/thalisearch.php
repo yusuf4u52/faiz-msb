@@ -1,8 +1,19 @@
 <?php
 include('connection.php');
 include('adminsession.php');
+$current_year = mysqli_fetch_assoc(mysqli_query($link,"SELECT value FROM settings where `key`='current_year'"));
+
+
 if ($_GET) {
-  $query = "SELECT id, Thali, NAME, CONTACT, Active, Transporter, thalicount, Full_Address, Thali_start_date, Thali_stop_date, Paid, Total_Pending FROM thalilist";
+  if ($current_year['value'] == $_GET['year']) {
+    $thalilist_tablename = "thalilist";
+    $receipts_tablename = "receipts";
+  } else {
+    $thalilist_tablename = "thalilist_".$_GET['year'];
+    $receipts_tablename = "receipts_".$_GET['year'];
+  }
+
+  $query = "SELECT id, Thali, NAME, CONTACT, Active, Transporter, thalicount, Full_Address, Thali_start_date, Thali_stop_date, Paid, Total_Pending FROM $thalilist_tablename";
   if (!empty($_GET['thalino'])) {
     $query .= " WHERE Thali = '" . addslashes($_GET['thalino']) . "'";
   } else if (!empty($_GET['general'])) {
@@ -14,7 +25,7 @@ if ($_GET) {
                 ";
   }
   $result = mysqli_query($link, $query);
-  $max_days = mysqli_fetch_row(mysqli_query($link, "SELECT MAX(thalicount) as max FROM `thalilist`"));
+  $max_days = mysqli_fetch_row(mysqli_query($link, "SELECT MAX(thalicount) as max FROM `$thalilist_tablename`"));
 }
 ?>
 <!DOCTYPE html>
@@ -44,9 +55,19 @@ if ($_GET) {
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputGeneral" class="col-lg-2 control-label">Contact/ ITS no / Email / Name</label>
+                  <label for="inputGeneral" class="col-lg-2 control-label">Other</label>
                   <div class="col-lg-10">
                     <input type="text" class="form-control" id="inputGeneral" placeholder="Contact/ ITS no / Email / Name" name="general">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="year" class="col-lg-2 control-label">Year</label>
+                  <div class="col-lg-10">
+                    <select class="form-control" id="year" name="year">
+                      <?php for ($i=1438;$i<=1450;$i++) { ?>
+                        <option value="<?php echo $i; ?>" <?php if($current_year['value'] == $i) echo "selected";?>><?php echo $i; ?></option>
+                      <?php } ?>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">

@@ -20,7 +20,6 @@ $rights = array(
 		"/users/hoobHistory.php",
 		"/users/events.php",
 		"/users/update_details.php",
-		"/users/update_details.php?update_pending_info",
 		"/users/selectyearlyhub.php",
 		"/users/selectyearlyhub_action.php")
 );	
