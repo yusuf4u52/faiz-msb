@@ -1,6 +1,20 @@
 <?php
 include('connection.php');
 include('adminsession.php');
+
+if($_POST){
+  if($_POST['comment']){
+    $clean_comment = strip_tags($_POST['comment']);
+    $clean_comment = htmlentities($clean_comment, ENT_QUOTES, 'UTF-8');
+
+    $comment_insert_query = "INSERT INTO `comments`(`author_id`,`user_id`,`comment`) values('".$_SESSION['thaliid']."','".$_POST['user_id']."','$clean_comment')";
+
+    mysqli_query($link,$comment_insert_query);
+
+    header("Location: thalisearch.php?thalino=".$_GET['thalino']."&general=".$_GET['general']."&year=".$_GET['year']);
+  }
+}
+
 $current_year = mysqli_fetch_assoc(mysqli_query($link,"SELECT value FROM settings where `key`='current_year'"));
 
 
