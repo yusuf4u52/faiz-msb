@@ -91,7 +91,7 @@ $comments_result = mysqli_query($link,$comments_query);
 
       <!-- Comment section starts-->
       <div class="row bootstrap snippets">
-        <div class="col-md-6 col-md-offset-2 col-sm-12">
+        <div class="col-md-12 col-sm-12">
           <div class="comment-wrapper">
             <div class="panel panel-info">
               <div class="panel-heading">
