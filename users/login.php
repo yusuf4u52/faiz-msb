@@ -33,6 +33,7 @@
 <?php
 session_start(); //session start
 
+include('connection.php');
 require_once ('libraries/Google/autoload.php');
 
 /************************************************
