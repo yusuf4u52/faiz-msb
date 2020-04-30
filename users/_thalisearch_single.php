@@ -1,5 +1,10 @@
 <?php
 $values = mysqli_fetch_assoc($result);
+
+$comments_query = "SELECT `comments`.*, `thalilist`.`NAME` FROM `comments` INNER JOIN `thalilist` on `comments`.`author_id` = `thalilist`.`id`
+WHERE `comments`.`user_id` = '".$values['id']."' ORDER BY `comments`.`created` DESC ";
+$comments_result = mysqli_query($link,$comments_query);
+
 ?>
 <div class="panel panel-default">
   <div aria-labelledby="headingOne">
@@ -83,6 +88,50 @@ $values = mysqli_fetch_assoc($result);
           </table>
         </li>
       </ul>  
+
+      <!-- Comment section starts-->
+      <div class="row bootstrap snippets">
+        <div class="col-md-12 col-sm-12">
+          <div class="comment-wrapper">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                Comments
+              </div>
+              <div class="panel-body">
+                <form method="post">
+                  <textarea name="comment" class="form-control" placeholder="write a comment..." rows="3"></textarea>
+                  <input type="hidden" name="user_id" value="<?php echo $values['id']; ?>">
+                  <br>
+                  <button type="submit" class="btn btn-info pull-right">Post</button>
+                </form>
+                <div class="clearfix"></div>
+                <hr>
+                <ul class="media-list">
+
+                <?php
+                  while($comment = mysqli_fetch_assoc($comments_result)) {
+                ?>
+                  <li class="media">
+                    <div class="media-body">
+                      <span class="text-muted pull-right">
+                        <small class="text-muted"><?php echo $comment['created']; ?></small>
+                      </span>
+                      <strong class="text-success"><?php echo $comment['NAME']; ?></strong>
+                      <p><?php echo $comment['comment']; ?></p>
+                    </div>
+                  </li>
+
+                  <?php
+                  }
+                  ?>
+
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- Comment section ends-->
+
     </div>
   </div>
   </div>
