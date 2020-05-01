@@ -29,6 +29,7 @@ $sql = mysqli_query($link,"SELECT role from users where email='".$_SESSION['emai
 $requet_path = explode('?',$_SERVER['REQUEST_URI'])[0];
 
 if ($row = mysqli_fetch_assoc($sql)) {
+	$_SESSION['commitee_member'] = "true";
 	if (!in_array($requet_path, $rights[$row['role']]) && !in_array($requet_path, $rights['all'])) {
 		header("Location: index.php");
 	}
