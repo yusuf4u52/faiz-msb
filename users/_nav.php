@@ -13,19 +13,10 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <?php
-        if (isset($_SESSION['commitee_member'])) {
-        ?>
-          <li><a href="/users/musaid.php">Musaid</a></li>
-        <?php
-        }
-        ?>
-        <?php
-
-        ?>
-        <?php
         if (in_array($_SESSION['email'], array('nationalminerals52@gmail.com', 'mesaifee52@gmail.com', 'murtaza52@gmail.com', 'murtaza.sh@gmail.com', 'yusuf4u52@gmail.com', 'tzabuawala@gmail.com', 'mustafamnr@gmail.com', 'ismailsidhpuri@gmail.com'))) {
         ?>
           <li><a href="/users/pendingactions.php">Pending Actions</a></li>
+          <li><a href="/users/musaid.php">Musaid</a></li>
           <li><a href="/users/_daily_hisab_entry.php">Daily Hisab</a></li>
           <li><a href="/users/thalisearch.php">Thaali Search</a></li>
           <li><a href="/users/requestarchive.txt">CR NR</a></li>
