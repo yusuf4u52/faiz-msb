@@ -29,8 +29,11 @@ $sql = mysqli_query($link,"SELECT role from users where email='".$_SESSION['emai
 $requet_path = explode('?',$_SERVER['REQUEST_URI'])[0];
 
 if ($row = mysqli_fetch_assoc($sql)) {
-	if (!in_array($requet_path, $rights[$row['role']]) && !in_array($requet_path, $rights['all'])) {
-		header("Location: index.php");
+	$_SESSION['role'] = $row['role'];
+	if($row['role'] !== 'superadmin'){
+		if (!in_array($requet_path, $rights[$row['role']]) && !in_array($requet_path, $rights['all'])) {
+			header("Location: index.php");
+		}
 	}
 } else if(!in_array($requet_path, $rights['all'])){
 	echo "You are not an authorized user.";
