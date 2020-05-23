@@ -16,6 +16,7 @@ include('adminsession.php');
       $transporter_list[] = $values1['Name'];
     } 
 
+    $musaid_list = mysqli_fetch_all(mysqli_query($link,"SELECT username, email FROM users"), MYSQLI_ASSOC);
     
 ?>
 <!DOCTYPE html>
@@ -158,6 +159,7 @@ LIMIT 0 , 30");
                     
                     <th>Thali No</th>
                     <th>Transporter</th>
+                    <th>Musaid</th>
                     <th>Hub</th>
                     <th>Address</th>
                     <th>Name</th>
@@ -203,6 +205,18 @@ LIMIT 0 , 30");
                             echo "Pick up";
                           }
                           ?>
+                    </td>
+                    <td>
+                      <select name="musaid"  required='required'>
+                        <option value=''>Select</option>
+                        <?php
+                          foreach($musaid_list as $musaid) {
+                        ?>
+                            <option value='<?php echo $musaid['email']; ?>'><?php echo $musaid['username']; ?></option>
+                        <?php
+                          }
+                        ?>
+                      </select>
                     </td>
                     <td><input type='text' name="hub" size=8 required='required' value="<?php echo $values['yearly_hub']; ?>"></td></td>
                     <td><?php echo $values['Full_Address']; ?></td>

@@ -9,6 +9,7 @@ require '_sendMail.php';
 $today = getTodayDateHijri();
 // print_r($_POST); exit;
 $values[] = "Thali = '".addslashes($_POST['thalino'])."'";
+$values[] = "musaid = '".addslashes($_POST['musaid'])."'";
 $values[] = "Active = '1'";
 $values[] = "Thali_Start_Date = '".($today)."'";
 $values[] = "yearly_hub = '".($_POST['hub'])."'";
