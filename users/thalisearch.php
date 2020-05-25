@@ -58,7 +58,7 @@ if ($_GET) {
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <div class="well bs-component">
             <form class="form-horizontal">
               <fieldset>

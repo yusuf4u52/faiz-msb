@@ -10,11 +10,15 @@ if (!isset($_SESSION['fromLogin'])) {
 
 // check if user has right to access the page
 $rights = array(
-	"musaid" => array("/users/musaid.php"),
+	"musaid" => array(
+		"/users/musaid.php",
+		"/users/_stop_thali_admin.php"
+	),
 	"admin" => array("/users/musaid.php",
 		"/users/admin_scripts.php",
 		"/users/stop_permanant.php",
-		"/users/thalisearch.php"
+		"/users/thalisearch.php",
+		"/users/_stop_thali_admin.php"
 	),
 	"all" => array("/users/index.php",
 		"/users/hoobHistory.php",
