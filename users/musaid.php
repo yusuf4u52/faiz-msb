@@ -117,7 +117,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 																<a href="#" data-key="startstopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="1">Start Thaali</a>
 															<?php } ?>
 														</td>
-														<td><?php echo $values['Active'] ? 'Active' : 'Inactive'; ?></td>
+														<td><?php echo $values['Active'] ? '<span class="label label-success">Active</span>' : '<span class="label label-danger">Inactive</span>'; ?></td>
 														<td><?php echo $values['Name']; ?></td>
 														<td><?php echo $values['ITS_No']; ?></td>
 														<td><?php echo $values['contact']; ?></td>
