@@ -42,14 +42,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 <head>
 	<title>Musaid Home</title>
 	<?php include('_head.php'); ?>
-	<?php include('_bottomJS.php'); ?>
-	<script>
-		$(function() {
-			$(".datepicker").datepicker({
-				dateFormat: 'yy-mm-dd'
-			});
-		});
-	</script>
+	<style type="text/css">
+		.panel-body {
+			overflow-x: scroll;
+		}
+	</style>
 </head>
 
 <body>
@@ -59,7 +56,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 				<?php
 				foreach ($musaid_list as $musaid) {
-					$result = mysqli_query($link, "SELECT id, Thali, Name, ITS_No, contact, fathersNo, yearly_hub, total_pending, Previous_Due, Paid, thalicount, WhatsApp FROM thalilist where musaid='" . $musaid['email'] . "'");
+					$result = mysqli_query($link, "SELECT id, Thali, Active, Name, ITS_No, contact, fathersNo, yearly_hub, total_pending, Previous_Due, Paid, thalicount, WhatsApp FROM thalilist where musaid='" . $musaid['email'] . "'");
 					$thali_details = mysqli_fetch_all($result, MYSQLI_ASSOC);
 					$musaid_thali_count = count($thali_details);
 					if ($musaid_thali_count > 0) {
@@ -72,19 +69,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 									</a>
 								</h4>
 							</div>
-							<div id="collapse<?php echo $musaid['id']; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $musaid['id']; ?>">
+							<div id="collapse<?php echo $musaid['id']; ?>" class="panel-collapse collapse <?php if(count($musaid_list) == 1) echo "in"; ?>" role="tabpanel" aria-labelledby="heading<?php echo $musaid['id']; ?>">
 								<div class="panel-body">
 									<table class="table table-hover">
 										<thead>
 											<tr>
 												<th scope="col">Thali#</th>
+												<th scope="col">Action</th>
+												<th scope="col">Active</th>
 												<th scope="col">Name</th>
 												<th scope="col">ITS No</th>
 												<th scope="col">Contact</th>
 												<th scope="col">Father Contact</th>
 												<th scope="col">Total Hub</th>
 												<th scope="col">Pending</th>
-												<th scope="col">Action</th>
 												<th scope="col">Commited Date/RS</th>
 												<th scope="col">Comments</th>
 												<th scope="col">Action</th>
@@ -110,13 +108,22 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 																<img src="images/view.png" style="width:20px;height:20px;">
 															</a>
 														</td>
+														<td>
+															<a target="_blank" href="https://wa.me/91<?php echo explode(" ", $values['WhatsApp'])[1]; ?>?text=Salaam Bhai, Tamari FMB ni hub pending che. Tame kivar tak ada karso?">WhatsApp</a> |
+															<?php
+															if ($values['Active'] == '1') { ?>
+																<a href="#" data-key="startstopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="0">Stop Thaali</a>
+															<?php } else { ?>
+																<a href="#" data-key="startstopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="1">Start Thaali</a>
+															<?php } ?>
+														</td>
+														<td><?php echo $values['Active'] ? 'Active' : 'Inactive'; ?></td>
 														<td><?php echo $values['Name']; ?></td>
 														<td><?php echo $values['ITS_No']; ?></td>
 														<td><?php echo $values['contact']; ?></td>
 														<td><?php echo $values['fathersNo']; ?></td>
 														<td><?php echo $values['yearly_hub']; ?></td>
 														<td><?php echo $values['total_pending']; ?></td>
-														<td><a target="_blank" href="https://wa.me/91<?php echo explode(" ", $values['WhatsApp'])[1]; ?>?text=Salaam Bhai, Tamari FMB ni hub pending che. Tame kivar tak ada karso?">WhatsApp</a></td>
 														<td><?php echo "<pre>" . implode(",\n", $all_dates) . "</pre>"; ?><input type="text" name="date" class="datepicker" autocomplete="off"><input type="number" name="rs"></td>
 														<td><?php echo "<pre>" . implode(",\n", $all_comments) . "</pre>"; ?><textarea name="comment" class="form-control" rows="3"></textarea></td>
 														<td><input type='submit' value="Save"></td>
@@ -140,6 +147,24 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 			</div>
 		</div>
 	</div>
+	<?php include('_bottomJS.php'); ?>
+	<script>
+		$(function() {
+			$(".datepicker").datepicker({
+				dateFormat: 'yy-mm-dd'
+			});
+
+			$('[data-key="startstopthaali"]').click(function() {
+				if (confirm("Are you sure?")) {
+					stopThali_admin($(this).attr('data-thali'), $(this).attr('data-active'), false, false, function(data) {
+						if (data === 'success') {
+							location.reload();
+						}
+					});
+				}
+			});
+		});
+	</script>
 </body>
 
 </html>
