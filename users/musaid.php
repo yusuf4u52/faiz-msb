@@ -65,7 +65,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 							<div class="panel-heading" role="tab" id="heading<?php echo $musaid['id']; ?>">
 								<h4 class="panel-title">
 									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $musaid['id']; ?>" aria-expanded="false" aria-controls="collapse<?php echo $musaid['id']; ?>">
-										<?php echo $musaid['username']; ?> - (<?php echo $musaid_thali_count; ?>) <span class="text-muted" style="font-size: 12px; float: right;">(Click to Expand/Collapse)</span>
+										<?php echo $musaid['username']; ?> - (<?php echo $musaid_thali_count; ?>)
 									</a>
 								</h4>
 							</div>
