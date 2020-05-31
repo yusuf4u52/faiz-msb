@@ -78,9 +78,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 												<th scope="col">Action</th>
 												<th scope="col">Active</th>
 												<th scope="col">Name</th>
-												<th scope="col">ITS No</th>
-												<th scope="col">Contact</th>
-												<th scope="col">Father Contact</th>
 												<th scope="col">Total Hub</th>
 												<th scope="col">Pending</th>
 												<th scope="col">Commited Date/RS</th>
@@ -117,9 +114,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 														</td>
 														<td><?php echo $values['Active'] ? '<span class="label label-success">Active</span>' : '<span class="label label-danger">Inactive</span>'; ?></td>
 														<td><?php echo $values['Name']; ?></td>
-														<td><?php echo $values['ITS_No']; ?></td>
-														<td><?php echo $values['contact']; ?></td>
-														<td><?php echo $values['fathersNo']; ?></td>
 														<td><?php echo $values['yearly_hub']; ?></td>
 														<td><?php echo $values['total_pending']; ?></td>
 														<td><?php echo "<pre>" . implode(",\n", $all_dates) . "</pre>"; ?><input type="text" name="date" class="datepicker" autocomplete="off"><input type="number" name="rs"></td>
