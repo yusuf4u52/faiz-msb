@@ -21,8 +21,9 @@ $musaid_details = mysqli_fetch_assoc(mysqli_query($link,"SELECT NAME, CONTACT FR
           <a href="#" data-key="stopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="1">Start Thaali</a> | 
           <?php } 
           if($values['Active'] != '2') {?>
-          <a href="#" data-key="stoppermanant" data-thali="<?php echo $values['Thali']; ?>">Stop Permanant</a>
+          <a href="#" data-key="stoppermanant" data-thali="<?php echo $values['Thali']; ?>">Stop Permanent</a> |
         <?php } ?>
+        <a data-toggle="modal" href="#changeMusaid">Change Musaid</a>
         </li>
         <li class="list-group-item">
             <h6 class="list-group-item-head ing text-muted">Thaali Number</h6>
