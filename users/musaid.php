@@ -3,13 +3,13 @@ include('_authCheck.php');
 if ($_POST) {
 	if (!empty($_POST['date']) && !empty($_POST['rs']) && !empty($_POST['comment'])) {
 		echo "1sst";
-		mysqli_query($link, "INSERT INTO `hub_commitment` (`thali`, `comments`, `commit_date`, `rs`) VALUES ('" . $_POST['Thali'] . "', '" . $_POST['comment'] . "', '" . $_POST['date'] . "', '" . $_POST['rs'] . "')") or die(mysqli_error($link));
+		mysqli_query($link, "INSERT INTO `hub_commitment` (`author_id`, `thali`, `comments`, `commit_date`, `rs`) VALUES ('" . $_SESSION['thaliid'] . "', '" . $_POST['Thali'] . "', '" . $_POST['comment'] . "', '" . $_POST['date'] . "', '" . $_POST['rs'] . "')") or die(mysqli_error($link));
 	} else if (!empty($_POST['date'] && !empty($_POST['rs']))) {
 		echo "2ndt";
-		mysqli_query($link, "INSERT INTO `hub_commitment` (`thali`, `commit_date`, `rs`) VALUES ('" . $_POST['Thali'] . "', '" . $_POST['date'] . "', '" . $_POST['rs'] . "')") or die(mysqli_error($link));
+		mysqli_query($link, "INSERT INTO `hub_commitment` (`author_id`,`thali`, `commit_date`, `rs`) VALUES ('" . $_SESSION['thaliid'] . "', '" . $_POST['Thali'] . "', '" . $_POST['date'] . "', '" . $_POST['rs'] . "')") or die(mysqli_error($link));
 	} else if (!empty($_POST['comment'])) {
 		echo "3rd";
-		mysqli_query($link, "INSERT INTO `hub_commitment` (`thali`, `comments`) VALUES ('" . $_POST['Thali'] . "', '" . $_POST['comment'] . "')") or die(mysqli_error($link));
+		mysqli_query($link, "INSERT INTO `hub_commitment` (`author_id`,`thali`, `comments`) VALUES ('" . $_SESSION['thaliid'] . "', '" . $_POST['Thali'] . "', '" . $_POST['comment'] . "')") or die(mysqli_error($link));
 	}
 	header("Location: musaid.php");
 	exit;
@@ -69,7 +69,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 									</a>
 								</h4>
 							</div>
-							<div id="collapse<?php echo $musaid['id']; ?>" class="panel-collapse collapse <?php if(count($musaid_list) == 1) echo "in"; ?>" role="tabpanel" aria-labelledby="heading<?php echo $musaid['id']; ?>">
+							<div id="collapse<?php echo $musaid['id']; ?>" class="panel-collapse collapse <?php if (count($musaid_list) == 1) echo "in"; ?>" role="tabpanel" aria-labelledby="heading<?php echo $musaid['id']; ?>">
 								<div class="panel-body">
 									<table class="table table-hover">
 										<thead>
@@ -94,9 +94,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 												$commit = mysqli_query($link, "SELECT concat(commit_date, ' / ', rs) FROM hub_commitment where rs !=0 and thali='" . $values['Thali'] . "'");
 												$all_data = mysqli_fetch_all($commit);
 												$all_dates = array_column($all_data, 0);
-												$comments = mysqli_query($link, "SELECT comments FROM hub_commitment where comments is not null and thali='" . $values['Thali'] . "'");
-												$all = mysqli_fetch_all($comments);
-												$all_comments = array_column($all, 0);
+												$comments = mysqli_fetch_all(mysqli_query($link, "SELECT `hub_commitment`.`comments`, `hub_commitment`.`timestamp`, `thalilist`.`NAME` FROM hub_commitment INNER JOIN `thalilist` on `hub_commitment`.`author_id` = `thalilist`.`id` where comments is not null and `hub_commitment`.`thali`='" . $values['Thali'] . "' ORDER BY `timestamp` DESC"), MYSQLI_ASSOC);
 											?>
 												<form method="post">
 													<tr>
@@ -109,7 +107,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 															</a>
 														</td>
 														<td>
-															<a target="_blank" href="https://wa.me/91<?php echo explode(" ", $values['WhatsApp'])[1]; ?>?text=Salaam Bhai, Tamari FMB ni hub pending che. Tame kivar tak ada karso?">WhatsApp</a> |
+															<a target="_blank" href="https://wa.me/91<?php echo explode(" ", $values['WhatsApp'])[1]; ?>?text=Salaam Bhai">WhatsApp</a> |
 															<?php
 															if ($values['Active'] == '1') { ?>
 																<a href="#" data-key="startstopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="0">Stop Thaali</a>
@@ -125,7 +123,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 														<td><?php echo $values['yearly_hub']; ?></td>
 														<td><?php echo $values['total_pending']; ?></td>
 														<td><?php echo "<pre>" . implode(",\n", $all_dates) . "</pre>"; ?><input type="text" name="date" class="datepicker" autocomplete="off"><input type="number" name="rs"></td>
-														<td><?php echo "<pre>" . implode(",\n", $all_comments) . "</pre>"; ?><textarea name="comment" class="form-control" rows="3"></textarea></td>
+														<td>
+															<?php
+															foreach ($comments as $comment) {
+															?>
+																<?php echo  $comment['comments']; ?> <br><br>
+																- <?php echo  $comment['NAME']; ?><br>
+																- <?php echo date('d/m/Y H:i', strtotime($comment['timestamp'])); ?>
+																<hr>
+															<?php
+															}
+															?>
+
+															<textarea name="comment" class="form-control" rows="3"></textarea>
+														</td>
 														<td><input type='submit' value="Save"></td>
 													</tr>
 												</form>
