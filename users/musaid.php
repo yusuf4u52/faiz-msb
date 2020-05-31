@@ -122,7 +122,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 															foreach ($comments as $comment) {
 															?>
 																<?php echo  $comment['comments']; ?><br>
-																<span style="color: grey">- <?php echo explode('@',$comment['Email_ID'])[0]; ?> | <?php echo date('d/m/Y', strtotime($comment['timestamp'])); ?></span>
+																<span style="color: grey">- <?php echo explode('@',$comment['Email_ID'])[0]; ?> <?php echo date('d/m/Y', strtotime($comment['timestamp'])); ?></span>
 																<br></br>
 															<?php
 															}
