@@ -91,7 +91,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 												$commit = mysqli_query($link, "SELECT concat(commit_date, ' / ', rs) FROM hub_commitment where rs !=0 and thali='" . $values['Thali'] . "'");
 												$all_data = mysqli_fetch_all($commit);
 												$all_dates = array_column($all_data, 0);
-												$comments = mysqli_fetch_all(mysqli_query($link, "SELECT `hub_commitment`.`comments`, `hub_commitment`.`timestamp`, `thalilist`.`NAME` FROM hub_commitment INNER JOIN `thalilist` on `hub_commitment`.`author_id` = `thalilist`.`id` where comments is not null and `hub_commitment`.`thali`='" . $values['Thali'] . "' ORDER BY `timestamp` DESC"), MYSQLI_ASSOC);
+												$comments = mysqli_fetch_all(mysqli_query($link, "SELECT `hub_commitment`.`comments`, `hub_commitment`.`timestamp`, `thalilist`.`Email_ID` FROM hub_commitment INNER JOIN `thalilist` on `hub_commitment`.`author_id` = `thalilist`.`id` where comments is not null and `hub_commitment`.`thali`='" . $values['Thali'] . "' ORDER BY `timestamp` DESC"), MYSQLI_ASSOC);
 											?>
 												<form method="post">
 													<tr>
@@ -121,9 +121,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'superadmin') {
 															<?php
 															foreach ($comments as $comment) {
 															?>
-																<?php echo  $comment['comments']; ?> <br><br>
-																- <?php echo  $comment['NAME']; ?><br>
-																- <?php echo date('d/m/Y H:i', strtotime($comment['timestamp'])); ?>
+																<?php echo  $comment['comments']; ?><br>
+																<span style="color: grey">- <?php echo explode('@',$comment['Email_ID'])[0]; ?> | <?php echo date('d/m/Y', strtotime($comment['timestamp'])); ?></span>
 																<hr>
 															<?php
 															}
