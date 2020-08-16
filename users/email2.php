@@ -1,5 +1,6 @@
 <?php
 include('connection.php');
+include('getHijriDate.php');
 include 'stop_permanent_automate.php';
 include '../backup/_email_backup.php';
 include '../sms/_sms_automation.php';
@@ -64,6 +65,10 @@ while($row = mysqli_fetch_assoc($sql))
 //-------------------------------------------------------------------
 $result = mysqli_query($link,"SELECT * FROM thalilist WHERE Active='1' ");
 $count=mysqli_num_rows($result);
+$hijridate = getTodayDateHijri();
+$gregoraindate = date("Y-m-d");
+mysqli_query($link,"INSERT INTO daily_thali_count (`Date`, `Hijridate`, `Count`) VALUES ('".$gregoraindate."','".$hijridate."',".$count.")") or die(mysqli_error($link));
+
 $msgvar .= "\n Count \n $count ";
 $myfile = fopen("requestarchive.txt", "a") or die("Unable to open file!");
 $txt= date('d/m/Y')."\n".$msgvar."\n";
