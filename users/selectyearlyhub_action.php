@@ -20,7 +20,9 @@ if(isset($_GET['option']))
 }
 
 if(isset($hub_amount)){
-	$update = mysqli_query($link,"UPDATE thalilist set yearly_hub='".$hub_amount."' WHERE Email_id = '".$_SESSION['email']."'") or die(mysqli_error($link));
+	$thali_details = mysqli_fetch_assoc(mysqli_query($link,"SELECT musaid FROM thalilist WHERE Email_ID = '".$_SESSION['email']."'"));
+	$musaid_name = !empty($thali_details['musaid']) ? $thali_details['musaid'] : 'mustafamnr@gmail.com';
+	$update = mysqli_query($link,"UPDATE thalilist set yearly_hub='$hub_amount', musaid='$musaid_name' WHERE Email_id = '".$_SESSION['email']."'") or die(mysqli_error($link));
 }
 
 header("Location: index.php");

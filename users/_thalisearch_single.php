@@ -5,6 +5,8 @@ $comments_query = "SELECT `comments`.*, `thalilist`.`NAME` FROM `comments` INNER
 WHERE `comments`.`user_id` = '".$values['id']."' ORDER BY `comments`.`created` DESC ";
 $comments_result = mysqli_query($link,$comments_query);
 
+$musaid_details = mysqli_fetch_assoc(mysqli_query($link,"SELECT NAME, CONTACT FROM thalilist where Email_id = '".$values['musaid']."'"));
+
 ?>
 <div class="panel panel-default">
   <div aria-labelledby="headingOne">
@@ -19,8 +21,9 @@ $comments_result = mysqli_query($link,$comments_query);
           <a href="#" data-key="stopthaali" data-thali="<?php echo $values['Thali']; ?>" data-active="1">Start Thaali</a> | 
           <?php } 
           if($values['Active'] != '2') {?>
-          <a href="#" data-key="stoppermanant" data-thali="<?php echo $values['Thali']; ?>">Stop Permanant</a>
+          <a href="#" data-key="stoppermanant" data-thali="<?php echo $values['Thali']; ?>">Stop Permanent</a> |
         <?php } ?>
+        <a data-toggle="modal" href="#changeMusaid">Change Musaid</a>
         </li>
         <li class="list-group-item">
             <h6 class="list-group-item-head ing text-muted">Thaali Number</h6>
@@ -34,6 +37,12 @@ $comments_result = mysqli_query($link,$comments_query);
             <h6 class="list-group-item-head ing text-muted">Mobile No</h6>
             <p class="list-group-item-text"><strong><?php echo $values['CONTACT']; ?></strong></p>
         </li>
+        <?php if($musaid_details) { ?>
+        <li class="list-group-item">
+            <h6 class="list-group-item-head ing text-muted">Musaid</h6>
+            <p class="list-group-item-text"><strong><?php echo $musaid_details['NAME']; ?> | <a href="tel:<?php echo $musaid_details['CONTACT']; ?>"><?php echo $musaid_details['CONTACT']; ?></a></strong></p>
+        </li>
+        <?php } ?>         
         <li class="list-group-item">
             <h6 class="list-group-item-head ing text-muted">Active</h6>
             <p class="list-group-item-text"><strong><?php echo ($values['Active'] == '1') ? 'Yes' : 'No'; ?></strong></p>

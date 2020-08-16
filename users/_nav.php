@@ -12,12 +12,13 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <?php
-        if(in_array($_SESSION['email'], array('nationalminerals52@gmail.com','mesaifee52@gmail.com','murtaza52@gmail.com','murtaza.sh@gmail.com','yusuf4u52@gmail.com','tzabuawala@gmail.com','mustafamnr@gmail.com', 'ismailsidhpuri@gmail.com')))
-        {
-          ?>
-          <li><a href="/users/pendingactions.php">Pending Actions</a></li>
+        <?php if ($_SESSION['role']) { ?>
           <li><a href="/users/musaid.php">Musaid</a></li>
+        <?php } ?>
+        <?php
+        if (in_array($_SESSION['email'], array('nationalminerals52@gmail.com', 'mesaifee52@gmail.com', 'murtaza52@gmail.com', 'murtaza.sh@gmail.com', 'yusuf4u52@gmail.com', 'tzabuawala@gmail.com', 'mustafamnr@gmail.com', 'ismailsidhpuri@gmail.com'))) {
+        ?>
+          <li><a href="/users/pendingactions.php">Pending Actions</a></li>
           <li><a href="/users/_daily_hisab_entry.php">Daily Hisab</a></li>
           <li><a href="/users/thalisearch.php">Thaali Search</a></li>
           <li><a href="/users/requestarchive.txt">CR NR</a></li>
@@ -38,34 +39,13 @@
           </li>
           <li><a href="/users/notpickedup.php">NotPickedUp</a></li>
           <li><a target="_blank" href="/sms/">SMS</a></li>
-          <?php
+        <?php
         }
         ?>
         <?php
-        if(in_array($_SESSION['email'], array('bscalcuttawala@gmail.com')))
-        {
+        if (in_array($_SESSION['email'], array('yusuf4u52@gmail.com', 'mustafamnr@gmail.com'))) {
         ?>
-        <li><a href="/users/pendingactions.php">Pending Actions</a></li>
-        <li><a href="/users/thalisearch.php">Thaali Search</a></li>
-        <li><a href="/users/requestarchive.txt">CR NR</a></li>
-        <li><a href="/users/stopMultipleThaalis.php">Stop Thali</a></li>
-        <li><a href="/users/notpickedup.php">NotPickedUp</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Backend <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="/admin/index.php/examples/receipts">Receipts</a></li>
-            <li><a href="/admin/index.php/examples/daily_hisab_items">Daily Items</a></li>
-            <li><a href="/admin/index.php/examples/daily_menu_count">Menu-Count</a>
-            <li><a href="/admin/index.php/examples/sf_hisab">SF Purchases</a></li>
-          </ul>
-        </li>
-        <li><a href="/users/_daily_hisab_entry.php">Daily Hisab</a></li>
-        <?php
-        }
-        if(in_array($_SESSION['email'], array('yusuf4u52@gmail.com','mustafamnr@gmail.com')))
-        {
-        ?>
-        <li><a href="/users/amount_received_by.php">Received</a></li>      
+          <li><a href="/users/amount_received_by.php">Received</a></li>
         <?php
         }
         ?>

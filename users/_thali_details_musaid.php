@@ -15,6 +15,21 @@ $previous_values = mysqli_fetch_assoc(
                 <h4 class="modal-title">Details - Thali# <?php echo $values['Thali']; ?> <?php echo $values['Name']; ?></h4>
             </div>
             <div class="modal-body">
+                <h2>Thali Details</h2>
+                <ul class="list-group col">
+                    <li class="list-group-item">
+                        <h6 class="list-group-item-head ing text-muted">ITS No</h6>
+                        <p class="list-group-item-text"><strong><?php echo $values['ITS_No']; ?></strong></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="list-group-item-head ing text-muted">Contact</h6>
+                        <p class="list-group-item-text"><strong><?php echo $values['contact']; ?></strong></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h6 class="list-group-item-head ing text-muted">Father Contact</h6>
+                        <p class="list-group-item-text"><strong><?php echo $values['fathersNo']; ?></strong></p>
+                    </li>
+                </ul>
 
                 <h2>Year <?php echo $previous_year; ?></h2>
                 <ul class="list-group col">

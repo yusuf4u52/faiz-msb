@@ -10,11 +10,15 @@ if (!isset($_SESSION['fromLogin'])) {
 
 // check if user has right to access the page
 $rights = array(
-	"musaid" => array("/users/musaid.php"),
+	"musaid" => array(
+		"/users/musaid.php",
+		"/users/_stop_thali_admin.php"
+	),
 	"admin" => array("/users/musaid.php",
 		"/users/admin_scripts.php",
 		"/users/stop_permanant.php",
-		"/users/thalisearch.php"
+		"/users/thalisearch.php",
+		"/users/_stop_thali_admin.php"
 	),
 	"all" => array("/users/index.php",
 		"/users/hoobHistory.php",
@@ -29,8 +33,11 @@ $sql = mysqli_query($link,"SELECT role from users where email='".$_SESSION['emai
 $requet_path = explode('?',$_SERVER['REQUEST_URI'])[0];
 
 if ($row = mysqli_fetch_assoc($sql)) {
-	if (!in_array($requet_path, $rights[$row['role']]) && !in_array($requet_path, $rights['all'])) {
-		header("Location: index.php");
+	$_SESSION['role'] = $row['role'];
+	if($row['role'] !== 'superadmin'){
+		if (!in_array($requet_path, $rights[$row['role']]) && !in_array($requet_path, $rights['all'])) {
+			header("Location: index.php");
+		}
 	}
 } else if(!in_array($requet_path, $rights['all'])){
 	echo "You are not an authorized user.";
