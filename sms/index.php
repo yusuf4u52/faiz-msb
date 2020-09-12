@@ -1,6 +1,7 @@
 <?php
 require '_credentials.php';
 require '../users/update_next_install.php';
+header("Access-Control-Allow-Origin: sms1.almasaarr.com");
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
