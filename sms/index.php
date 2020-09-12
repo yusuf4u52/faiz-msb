@@ -89,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       float: right;
     }
     body { padding-bottom: 70px; }
-    }
     </style>
   </head>
   <body>
