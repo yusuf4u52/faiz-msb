@@ -89,7 +89,6 @@ var sendSms = function(gateway, extra){
     // console.log("url");
     //console.log(url);
     //console.log(extra);
-    debugger;
     number_field = params[index].match(/&mobiles=(.*?)&/)[1];
     updateStatus("("+(index+1)+") sending message to "+number_field, index);
     $.ajax({
