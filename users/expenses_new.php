@@ -1,6 +1,6 @@
 <?php
 include('connection.php');
-include('adminsession.php');
+include('_authCheck.php');
 error_reporting(0);
 
 $months = array(

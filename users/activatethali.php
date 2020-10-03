@@ -1,7 +1,7 @@
 <?php
 
 include('connection.php');
-include('adminsession.php');
+include('_authCheck.php');
 include('getHijriDate.php');
 require '_sendMail.php';
 

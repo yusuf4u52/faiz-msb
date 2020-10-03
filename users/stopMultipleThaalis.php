@@ -1,6 +1,6 @@
 <?php
 include('connection.php');
-include('adminsession.php');
+include('_authCheck.php');
 if (isset($_GET['stopallthalis'])) {
     $result = mysqli_query($link,"SELECT Thali from  thalilist WHERE Active='1'") or die(mysqli_error($link));
     $values = mysqli_fetch_all($result);

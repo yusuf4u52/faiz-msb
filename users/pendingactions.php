@@ -1,6 +1,6 @@
 <?php
 include('connection.php');
-include('adminsession.php');
+include('_authCheck.php');
 
 
     $query="SELECT * FROM thalilist";

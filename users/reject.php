@@ -1,7 +1,7 @@
 <?php
 
 include('connection.php');
-include('adminsession.php');
+include('_authCheck.php');
 require '_sendMail.php';
 
 mysqli_query($link,"Update thalilist set Active='2' WHERE Email_id = '".$_POST['email']."'") or die(mysqli_error($link));

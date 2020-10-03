@@ -1,6 +1,6 @@
 <?php
 include('connection.php');
-include('adminsession.php');
+include('_authCheck.php');
 
 $eventid=$_GET['eventid'];
 $event = mysqli_fetch_assoc(mysqli_query($link,"SELECT * FROM events where id=$eventid"));
