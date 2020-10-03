@@ -1,11 +1,8 @@
 <?php
 include('connection.php');
+include('_authCheck.php');
 error_reporting(0);
 session_start();
-
-if(!is_null($_SESSION['fromLogin']) && !in_array($_SESSION['email'], array('yusuf4u52@gmail.com','mustafamnr@gmail.com'))) {
-  header("Location: index.php"); 
-}
 
 if($_POST)
 {
@@ -58,9 +55,9 @@ if($_POST)
                           <input type="text" name="amount" class="form-control">
                           <button type="submit" class="btn btn-primary btn-sm" type="button">Receive</button>
                     </form></td>
-                  </tr>                 
+                  </tr>
                    <?php } ?>
-              
+
                 </tbody>
               </table>
 
