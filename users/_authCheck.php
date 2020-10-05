@@ -18,6 +18,7 @@ $rights = array(
 		"/users/admin_scripts.php",
 		"/users/stop_permanant.php",
 		"/users/thalisearch.php",
+		"/users/pendingactions.php",
 		"/users/_stop_thali_admin.php"
 	),
 	"all" => array("/users/index.php",
