@@ -7,35 +7,18 @@
 foreach($css_files as $file): ?>
 	<link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
 <?php endforeach; ?>
-<?php foreach($js_files as $file): ?>
-	<script src="<?php echo $file; ?>"></script>
-<?php endforeach; ?>
-<style type='text/css'>
-body
-{
-	font-family: Arial;
-	font-size: 14px;
-}
-a {
-    color: blue;
-    text-decoration: none;
-    font-size: 14px;
-}
-a:hover
-{
-	text-decoration: underline;
-}
-</style>
 <?php include('../users/_head.php'); ?>
-
 </head>
 <body>
 <?php include('../users/_nav.php'); ?>
-	
 	<div style='height:20px;'></div>  
-    <div>
+    <div style="padding: 10px">
 		<?php echo $output; ?>
     </div>
-    <script src="/users/javascript/bootstrap-3.3.6.min.js"></script>
+    <?php foreach($js_files as $file): ?>
+        <script src="<?php echo $file; ?>"></script>
+	<?php endforeach; ?>
+	<script src="/users/javascript/bootstrap-3.3.6.min.js"></script>
+
 </body>
 </html>

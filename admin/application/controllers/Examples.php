@@ -33,7 +33,6 @@ class Examples extends CI_Controller {
 		 header("Location: http://www.faizstudents.com/users/login.php");
 
     $crud = new grocery_CRUD();
-    $crud->set_theme('datatables');
     $crud->set_table('thalilist');
 
     $output = $crud->render();
@@ -51,7 +50,6 @@ function notpickedup()
 		 header("Location: http://www.faizstudents.com/users/login.php");
 
     $crud = new grocery_CRUD();
-    $crud->set_theme('datatables');
     $crud->set_table('not_picked_up');
 
     $output = $crud->render();
@@ -69,7 +67,6 @@ function daily_hisab_items()
 		 header("Location: http://www.faizstudents.com/users/login.php");
 
     $crud = new grocery_CRUD();
-    $crud->set_theme('datatables');
     $crud->set_table('daily_hisab_items');
 
     $output = $crud->render();
@@ -87,7 +84,6 @@ function daily_menu_count()
 		 header("Location: http://www.faizstudents.com/users/login.php");
 
     $crud = new grocery_CRUD();
-    $crud->set_theme('datatables');
     $crud->set_table('daily_hisab');
 
     $output = $crud->render();
@@ -105,7 +101,6 @@ function sf_hisab()
 		 header("Location: http://www.faizstudents.com/users/login.php");
 
     $crud = new grocery_CRUD();
-    $crud->set_theme('datatables');
     $crud->set_table('sf_hisab');
 
     $output = $crud->render();
@@ -123,7 +118,6 @@ function receipts()
 		 header("Location: http://www.faizstudents.com/users/login.php");
 
     $crud = new grocery_CRUD();
-    $crud->set_theme('datatables');
     $crud->set_table('receipts');
     $crud->unset_edit();
     if ($_SESSION['email'] =='bscalcuttawala@gmail.com')
@@ -148,7 +142,6 @@ function change()
 
     $crud = new grocery_CRUD();
     $crud->columns('id','Thali','Operation','Date','datetime');
-    $crud->set_theme('datatables');
     $crud->set_table('change_table');
     $crud->unset_edit();
     $crud->unset_delete();
@@ -167,7 +160,6 @@ function event_response()
 		 header("Location: http://www.faizstudents.com/users/login.php");
 
     $crud = new grocery_CRUD();
-    $crud->set_theme('datatables');
     $crud->set_table('event_response');
     $crud->unset_edit();
     $crud->unset_delete();
