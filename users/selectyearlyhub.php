@@ -5,7 +5,7 @@ include('_authCheck.php');
 if (isset($_GET['message'])) {
 ?>
   <script type="text/javascript">
-    alert('<?php echo "Please talk to your musaid or please call us on numbers listed here http://studentsfaiz/#contactUs" ; ?>');
+    alert('<?php echo "Please talk to your musaid or please call us on numbers listed here https://www.faizstudents.com/#contactUs" ; ?>');
   </script>
 <?php
 }
