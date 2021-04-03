@@ -2,6 +2,13 @@
 include('connection.php');
 include('_authCheck.php');
 
+if (isset($_GET['message'])) {
+?>
+  <script type="text/javascript">
+    alert('<?php echo "Please talk to your musaid or please call us on numbers listed here http://studentsfaiz/#contactUs" ; ?>');
+  </script>
+<?php
+}
 $query = "SELECT yearly_hub FROM thalilist where Email_id = '" . $_SESSION['email'] . "'";
 
 $values = mysqli_fetch_assoc(mysqli_query($link, $query));
@@ -38,7 +45,7 @@ if (!empty($values['yearly_hub'])) {
         <form method="post" action="selectyearlyhub_action.php">
           <label for="inputEmail" class="col-lg control-label">Other ( > 30,000/-)</label>
           <div class="col-lg">
-            <input type="number" class="form-control" name="other_takhmeen" min="24000" />
+            <input type="number" class="form-control" name="other_takhmeen" />
           </div>
           <br>
           <button type="submit" class="btn btn-primary">Save changes</button>
