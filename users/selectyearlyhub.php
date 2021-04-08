@@ -40,6 +40,11 @@ if (!empty($values['yearly_hub'])) {
     <div class="row"><a href='selectyearlyhub_action.php?option=4' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>53,000/-</a></div>
 
     <div class="row">
+      <h1 class="col-xs-12">Only for sherullah.</h1>
+    </div>
+    <div class="row"><a href='selectyearlyhub_action.php?option=5' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>5,300/-</a></div>
+
+    <div class="row">
       <hr>
       <div class="form-group">
         <form method="post" action="selectyearlyhub_action.php">

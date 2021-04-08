@@ -7,7 +7,8 @@ if (isset($_GET['option'])) {
 		1 => '30000',
 		2 => '35000',
 		3 => '40000',
-		4 => '53000'
+		4 => '53000',
+		5 => '5300'
 	);
 	$hub_amount = $huboptions[$_GET['option']];
 } else if (isset($_POST['other_takhmeen'])) {
