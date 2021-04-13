@@ -67,7 +67,7 @@ if ($_POST) {
   For any concerns mail help@faizstudents.com";
   sendEmail($email, 'New Registration Successful, Visit Faiz to activate the thali', $msgvar, null);
   echo ("<SCRIPT LANGUAGE='JavaScript'>
-    window.alert('$msgvar')
+    window.alert('New Registration form for Faiz ul Mawaid il Burhaniyah thali has been successfully submitted. Please contact Saifuddinbhai on +919975305980 to activate your thali. For any concerns mail help@faizstudents.com')
     window.location.href='index.php';
     </SCRIPT>");
 }
