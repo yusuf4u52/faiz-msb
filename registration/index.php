@@ -67,7 +67,7 @@ if ($_POST) {
   For any concerns mail help@faizstudents.com";
   sendEmail($email, 'New Registration Successful, Visit Faiz to activate the thali', $msgvar, null);
   echo ("<SCRIPT LANGUAGE='JavaScript'>
-    window.alert('Form has been successfully submitted.You need to visit faiz office with xerox of ITS card and 8000 Hub to get the thali started. Address: Shop Near Gold Gym,Lane adjacent to Satyanand Hospital, Office Time - 9 to 11 AM.')
+    window.alert('$msgvar')
     window.location.href='index.php';
     </SCRIPT>");
 }
