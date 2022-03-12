@@ -9,13 +9,13 @@ if (isset($_GET['message'])) {
   </script>
 <?php
 }
-// $query = "SELECT yearly_hub FROM thalilist where Email_id = '" . $_SESSION['email'] . "'";
+$query = "SELECT yearly_hub FROM thalilist where Email_id = '" . $_SESSION['email'] . "'";
 
-// $values = mysqli_fetch_assoc(mysqli_query($link, $query));
+$values = mysqli_fetch_assoc(mysqli_query($link, $query));
 
-// if (!empty($values['yearly_hub'])) {
-//   header("Location: index.php");
-// }
+if (!empty($values['next_year_hub'])) {
+  header("Location: index.php");
+}
 
 ?>
 <!DOCTYPE html>
