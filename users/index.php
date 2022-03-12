@@ -23,8 +23,8 @@ if (empty($values['Thali'])) {
   exit;
 }
 
-// Check if takhmeen is done for the year
-if (empty($values['yearly_hub'])) {
+// Check if takhmeen is done for the year or the next
+if (empty($values['yearly_hub']) || empty($values['next_year_hub'])) {
   header("Location: selectyearlyhub.php");
   exit;
 }

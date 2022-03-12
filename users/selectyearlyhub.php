@@ -5,17 +5,17 @@ include('_authCheck.php');
 if (isset($_GET['message'])) {
 ?>
   <script type="text/javascript">
-    alert('<?php echo "Please talk to your musaid or please call us on numbers listed here https://www.faizstudents.com/#contactUs" ; ?>');
+    alert('<?php echo "Please talk to your musaid or please call us on numbers listed here https://www.faizstudents.com/#contactUs"; ?>');
   </script>
 <?php
 }
-$query = "SELECT yearly_hub FROM thalilist where Email_id = '" . $_SESSION['email'] . "'";
+// $query = "SELECT yearly_hub FROM thalilist where Email_id = '" . $_SESSION['email'] . "'";
 
-$values = mysqli_fetch_assoc(mysqli_query($link, $query));
+// $values = mysqli_fetch_assoc(mysqli_query($link, $query));
 
-if (!empty($values['yearly_hub'])) {
-  header("Location: index.php");
-}
+// if (!empty($values['yearly_hub'])) {
+//   header("Location: index.php");
+// }
 
 ?>
 <!DOCTYPE html>
@@ -35,9 +35,9 @@ if (!empty($values['yearly_hub'])) {
       <h4 class="col-xs-12">Please select the total niyaaz amount that you will contribute for the this year.</h4>
     </div>
     <div class="row"><a href='selectyearlyhub_action.php?option=1' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>30,000/-</a></div>
-    <div class="row"><a href='selectyearlyhub_action.php?option=2' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>35,000/-</a></div>
-    <div class="row"><a href='selectyearlyhub_action.php?option=3' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>40,000/-</a></div>
-    <div class="row"><a href='selectyearlyhub_action.php?option=4' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>53,000/-</a></div>
+    <div class="row"><a href='selectyearlyhub_action.php?option=2' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>32,000/-</a></div>
+    <div class="row"><a href='selectyearlyhub_action.php?option=3' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>35,000/-</a></div>
+    <div class="row"><a href='selectyearlyhub_action.php?option=4' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>40,000/-</a></div>
 
     <div class="row">
       <h1 class="col-xs-12">Only for sherullah.</h1>

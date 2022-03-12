@@ -5,9 +5,9 @@ include('_authCheck.php');
 if (isset($_GET['option'])) {
 	$huboptions = array(
 		1 => '30000',
-		2 => '35000',
-		3 => '40000',
-		4 => '53000',
+		2 => '32000',
+		3 => '35000',
+		4 => '40000',
 		5 => '5300'
 	);
 	$hub_amount = $huboptions[$_GET['option']];
