@@ -31,7 +31,7 @@ if (!empty($values['next_year_hub'])) {
 
   <div class="container">
     <div class="row">
-      <h1 class="col-xs-12">FMB takhmeen for full year from this Shehrullah to Shabaan.</h1>
+      <h1 class="col-xs-12">FMB takhmeen for full year from this Shehrullah(2nd April 2022) to Shabaan(21st March 2023).</h1>
       <h4 class="col-xs-12">Please select the total niyaaz amount that you will contribute for the this year.</h4>
     </div>
     <div class="row"><a href='selectyearlyhub_action.php?option=1' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>30,000/-</a></div>
@@ -39,10 +39,10 @@ if (!empty($values['next_year_hub'])) {
     <div class="row"><a href='selectyearlyhub_action.php?option=3' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>35,000/-</a></div>
     <div class="row"><a href='selectyearlyhub_action.php?option=4' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>40,000/-</a></div>
 
-    <div class="row">
+    <!-- <div class="row">
       <h1 class="col-xs-12">Only for sherullah.</h1>
     </div>
-    <div class="row"><a href='selectyearlyhub_action.php?option=5' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>5,300/-</a></div>
+    <div class="row"><a href='selectyearlyhub_action.php?option=5' class="col-xs-12 col-sm-10 col-md-6 col-lg-4 btn btn-primary" style='margin:5px'>5,300/-</a></div> -->
 
     <div class="row">
       <hr>
