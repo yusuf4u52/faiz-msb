@@ -17,7 +17,7 @@ session_start();
     <select name="year">
       <?php
       for ($i = 1438; $i <= 1450; $i++) { ?>
-        <option value="<?php echo $i; ?>" <?php if ($_POST['year'] == $i) echo "selected"; ?>><?php echo $i; ?></option>
+        <option value="<?php echo $i; ?>" <?php if ($_POST['year'] == $i) echo "selected"; ?>><?php echo $i - 1 . ' - ' . $i; ?></option>
       <?php } ?>
     </select>
     <input type="submit" value="Submit">
