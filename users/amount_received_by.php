@@ -44,7 +44,7 @@ session_start();
       $amount_received_already_keyval[$received['email']] = $received['total_amount'];
     }
     // print_r($amount_received_already_keyval); exit();
-    $amount_received = mysqli_query($link, "SELECT received_by,sum(Amount) as total_amount FROM $receipts_tablename where received_by != '' GROUP BY received_by") or die(mysqli_error($link));
+    $amount_received = mysqli_query($link, "SELECT received_by,sum(Amount) as total_amount FROM $receipts_tablename where payment_type='Cash' and received_by != '' GROUP BY received_by") or die(mysqli_error($link));
   }
   ?>
 
