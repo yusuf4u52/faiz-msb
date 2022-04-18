@@ -9,6 +9,18 @@ $today = getTodayDateHijri();
 
 if($_POST)
 {
+  //validate payment type is provided
+  if (empty($_POST['payment'])) {
+    echo "Provide payment type (Bank or Cash)";
+    exit();
+  }
+
+  //validate if payment is by bank then transaction ID is also provided.
+  if ($_POST['payment'] == 'Bank' && empty($_POST['transaction_id'])) {
+    echo "Provide payment transaction ID of the transfer";
+    exit();
+  }
+
   // getting receipt number
   $sql = mysqli_query($link,"SELECT MAX(`Receipt_No`) from receipts");
   $row = mysqli_fetch_row($sql);
@@ -28,7 +40,7 @@ if($_POST)
     echo "Unable to find details of the thali #".$_POST['receipt_thali'];
     exit;
   }
-  $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`, `userid` ,`name`, `Amount`, `Date`, `received_by`) VALUES ('" . $receipt_number . "','" . $_POST['receipt_thali'] . "','" . $name['id'] . "','" . $name['NAME'] . "','" . $_POST['receipt_amount'] . "', '" . $today . "','" . $_SESSION['email'] . "')";
+  $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`, `userid` ,`name`, `Amount`, `payment_type`, `trasaction_id`, `Date`, `received_by`) VALUES ('" . $receipt_number . "','" . $_POST['receipt_thali'] . "','" . $name['id'] . "','" . $name['NAME'] . "','" . $_POST['receipt_amount'] . "','" . $_POST['payment']."','" . $_POST['transaction_id']."', '" . $today . "','" . $_SESSION['email'] . "')";
   mysqli_query($link, $sql) or die(mysqli_error($link));
 
   $sql = "UPDATE thalilist set Paid = Paid + '" . $_POST['receipt_amount'] . "' WHERE thali = '" . $_POST['receipt_thali']."'";
@@ -65,4 +77,3 @@ $result = file_get_contents("http://sms1.almasaarr.com/sendhttp.php?authkey=$sms
 
 echo $sms_body;
 }
-?>
