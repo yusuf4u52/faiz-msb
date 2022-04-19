@@ -112,8 +112,6 @@ class Examples extends CI_Controller
 		if (in_array($_SESSION['email'], array('nationalminerals52@gmail.com', 'mesaifee52@gmail.com', 'bscalcuttawala@gmail.com', 'murtaza52@gmail.com', 'murtaza.sh@gmail.com', 'tzabuawala@gmail.com', 'mustafamnr@gmail.com'))) {
 			$crud->unset_delete();
 		}
-		$crud->columns('Receipt_No', 'Thali_No', 'name', 'Amount', 'Date', 'received_by');
-
 		$output = $crud->render();
 
 		$this->_example_output($output);
