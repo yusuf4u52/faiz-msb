@@ -21,6 +21,12 @@ if($_POST)
     exit();
   }
 
+  //validate if payment is by bank then transaction ID is also provided.
+  if (empty($_POST['receipt_amount'])) {
+    echo "Provide receipt amount";
+    exit();
+  }
+
   // getting receipt number
   $sql = mysqli_query($link,"SELECT MAX(`Receipt_No`) from receipts");
   $row = mysqli_fetch_row($sql);
