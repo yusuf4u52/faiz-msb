@@ -32,7 +32,7 @@ if ($_GET) {
     $receipts_tablename = "receipts_" . $_GET['year'];
   }
 
-  $query = "SELECT id, Thali, NAME, CONTACT, Active, musaid, Transporter, thalicount, Full_Address, Thali_start_date, Thali_stop_date, Paid, Total_Pending FROM $thalilist_tablename";
+  $query = "SELECT * FROM $thalilist_tablename";
   if (!empty($_GET['thalino'])) {
     $query .= " WHERE Thali = '" . addslashes($_GET['thalino']) . "'";
   } else if (!empty($_GET['general'])) {
