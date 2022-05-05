@@ -21,6 +21,12 @@ if($_POST)
     exit();
   }
 
+  //validate if payment is by bank then transaction ID is also provided.
+  if (empty($_POST['receipt_amount'])) {
+    echo "Provide receipt amount";
+    exit();
+  }
+
   // getting receipt number
   $sql = mysqli_query($link,"SELECT MAX(`Receipt_No`) from receipts");
   $row = mysqli_fetch_row($sql);
@@ -40,7 +46,14 @@ if($_POST)
     echo "Unable to find details of the thali #".$_POST['receipt_thali'];
     exit;
   }
-  $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`, `userid` ,`name`, `Amount`, `payment_type`, `trasaction_id`, `Date`, `received_by`) VALUES ('" . $receipt_number . "','" . $_POST['receipt_thali'] . "','" . $name['id'] . "','" . $name['NAME'] . "','" . $_POST['receipt_amount'] . "','" . $_POST['payment']."','" . $_POST['transaction_id']."', '" . $today . "','" . $_SESSION['email'] . "')";
+
+  $sql = "";
+  if ($_POST['payment']  == 'Bank'){
+    $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`, `userid` ,`name`, `Amount`, `payment_type`, `trasaction_id`, `Date`, `received_by`) VALUES ('" . $receipt_number . "','" . $_POST['receipt_thali'] . "','" . $name['id'] . "','" . $name['NAME'] . "','" . $_POST['receipt_amount'] . "','" . $_POST['payment']."','" . $_POST['transaction_id']."', '" . $today . "','" . $_SESSION['email'] . "')";
+  } else {
+    $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`, `userid` ,`name`, `Amount`, `payment_type`, `Date`, `received_by`) VALUES ('" . $receipt_number . "','" . $_POST['receipt_thali'] . "','" . $name['id'] . "','" . $name['NAME'] . "','" . $_POST['receipt_amount'] . "','" . $_POST['payment']."', '" . $today . "','" . $_SESSION['email'] . "')";
+  }
+
   mysqli_query($link, $sql) or die(mysqli_error($link));
 
   $sql = "UPDATE thalilist set Paid = Paid + '" . $_POST['receipt_amount'] . "' WHERE thali = '" . $_POST['receipt_thali']."'";
