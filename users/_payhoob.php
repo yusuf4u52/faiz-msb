@@ -22,7 +22,7 @@ if($_POST)
   }
 
   //validate if payment is by bank then transaction ID is also provided.
-  if (empty($_POST['receipt_amount'])) {
+  if (is_null($_POST['receipt_amount'])) {
     echo "Provide receipt amount";
     exit();
   }
