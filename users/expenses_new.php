@@ -123,6 +123,7 @@ foreach ($months as $key => $month) {
         <input class="form-control" type="number" name="Amount" placeholder="Amount"/><br>
         <select class="form-control" name="salary">
                             <option value='Cash'>Cash</option>
+                            <option value='Cheque'>Cheque</option>
                             <option value='Zabihat'>Zabihat</option>
                             <option value='Manager Salary'>Manager Salary</option>
                             <option value='Cook Salary'>Cook Salary</option>
