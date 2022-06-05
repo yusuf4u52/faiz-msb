@@ -117,6 +117,21 @@ class Examples extends CI_Controller
 		$this->_example_output($output);
 	}
 
+	function payments()
+	{
+		session_start();
+		if (!is_null($_SESSION['fromLogin']) && in_array($_SESSION['email'], array('nationalminerals52@gmail.com', 'mesaifee52@gmail.com', 'bscalcuttawala@gmail.com', 'murtaza52@gmail.com', 'murtaza.sh@gmail.com', 'yusuf4u52@gmail.com', 'tzabuawala@gmail.com', 'mustafamnr@gmail.com'))) {
+		} else
+			header("Location: http://www.faizstudents.com/users/login.php");
+
+		$crud = new grocery_CRUD();
+		$crud->set_table('account');
+
+		$output = $crud->render();
+
+		$this->_example_output($output);
+	}
+
 	function change()
 	{
 		session_start();
