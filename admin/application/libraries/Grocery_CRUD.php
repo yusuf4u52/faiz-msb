@@ -4318,7 +4318,7 @@ class Grocery_CRUD extends grocery_CRUD_States
 				$this->columns = array();
 				foreach($field_types as $field)
 				{
-					if( !isset($field->db_extra) || $field->db_extra != 'auto_increment' )
+					// if( !isset($field->db_extra) || $field->db_extra != 'auto_increment' )
 						$this->columns[] = $field->name;
 				}
 			}
