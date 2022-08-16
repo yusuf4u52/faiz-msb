@@ -77,5 +77,4 @@ fclose($myfile);
 mysqli_query($link,"UPDATE thalilist SET thalicount = thalicount + 1 WHERE Active='1'");
 $msgvar = str_replace("\n", "<br>", $msgvar);
 sendEmail('saifuddincalcuttawala@gmail.com', 'Start Stop update '.date('d/m/Y'), $msgvar, null);
-sendEmail('tzabuawala@gmail.com', 'Start Stop update '.date('d/m/Y'), $msgvar, null);
 ?>	
