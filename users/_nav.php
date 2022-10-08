@@ -21,6 +21,7 @@
           <li><a href="/users/pendingactions.php">Pending Actions</a></li>
           <li><a href="/users/_daily_hisab_entry.php">Daily Hisab</a></li>
           <li><a href="/users/thalisearch.php">Thaali Search</a></li>
+          <li><a href="/users/generate_receipt_pdf.php">Export Receipts PDF</a></li>
           <li><a href="/users/requestarchive.txt">CR NR</a></li>
           <li><a href="/users/stopMultipleThaalis.php">Stop Thali</a></li>
           <li><a href="/users/expenses_new.php">Expenses</a></li>
