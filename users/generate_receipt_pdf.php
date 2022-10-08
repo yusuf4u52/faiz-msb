@@ -53,10 +53,10 @@ $dompdf->loadHtml($pdfContent);
 // $dompdf->setPaper('A4', 'landscape');
 $dompdf->setPaper(array(0,0,720,550));
 $dompdf->render();
-$dompdf->stream("",array("Attachment" => false));
+// $dompdf->stream("",array("Attachment" => false));
 
 
-// $dompdf->stream("attach.pdf",array("Attachment" => false));
+$dompdf->stream("receipts.pdf");
 
 
 // $output = $dompdf->output();
