@@ -18,7 +18,7 @@ $dompdf = new \Dompdf\Dompdf();
 $dompdf->loadHtml($pdfContent);
 
 // $dompdf->setPaper('A4', 'landscape');
-$dompdf->setPaper(array(0,0,720,550));
+$dompdf->setPaper(array(0,0,720,600));
 $dompdf->render();
 // $dompdf->stream("",array("Attachment" => false));
 

@@ -30,9 +30,6 @@
                     <div style="float:right;">Receipt Number: <span style="font-weight: bold;">{RECEIPT_NO}</span></div>
                     <div>Date: <span style="font-weight: bold;">{RECEIPT_DATE}</span></div>
                 </div>
-                <div style="margin-top: ;">
-                   
-                </div>
             </div>
     
             <div style="margin:25px 0 0;line-height: 24px; font-size:20px;">
@@ -41,19 +38,18 @@
                 <div>Thaali Number: <span style="font-weight: bold;  text-decoration: underline;">{THALI_NO}</span></div>
                 <div>ITS Number: <span style="font-weight: bold;  text-decoration: underline;">{ITS_NO}</span></div>
                 <div>Address: <span style="font-weight: bold;  text-decoration: underline;">{ADDRESS}</span></div>
-                for making a voluntary contribution of
+                <br>
+                <br>
+                Baad As Salaam il Jamil
+                Aap taraf si 
                 <span style="font-weight: bold;">INR</span>
                 <span style="font-weight: bold;  text-decoration: underline;">{AMOUNT}</span>/-
                 (<span style="font-weight: bold;text-transform: capitalize;  text-decoration: underline;">{AMOUNT_IN_WORDS}</span>)
-                <span style="font-weight: italic;">only</span>.
+                <div>Paid As: <span style="font-weight: bold;text-transform: capitalize;">{PAYMENT_TYPE}</span></div>
+                    {PAYMENT_DETAILS}
+                <span style="font-weight: italic;">for making a voluntary contribution of only</span>.
             </div>
 
-            <div style="margin:25px 0 0;line-height: 24px; display: flex;justify-content: space-between; font-size:16px;">
-                <div>
-                    <div>Paid As: <span style="font-weight: bold;text-transform: capitalize;">{PAYMENT_TYPE}</span></div>
-                    {PAYMENT_DETAILS}
-                </div>
-            </div>
             <div style="margin:25px 0 5px;line-height: 18px; font-size:12px;text-align: center;">
                 {BOTTOM_TITLE}
             </div>
