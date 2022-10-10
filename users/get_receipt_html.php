@@ -1,5 +1,8 @@
 <?php
+require_once '../vendor/autoload.php'; 
+
 function getReceiptHtml($link, $receiptTemplate, $receiptDetails) {
+    
     $ntw = new \NTWIndia\NTWIndia();
     $thaliDetailsSql = "select ITS_No, Full_Address from thalilist WHERE Thali = '" . $receiptDetails['Thali_No'] . "'";
     $thaliDetails= mysqli_fetch_assoc(mysqli_query($link,$thaliDetailsSql));
@@ -23,7 +26,7 @@ function getReceiptHtml($link, $receiptTemplate, $receiptDetails) {
         '{ITS_NO}' => $thaliDetails['ITS_No'],
         '{NAME}' => $receiptDetails['name'],
         '{AMOUNT}' => $receiptDetails['Amount'],
-        '{AMOUNT_IN_WORDS}' => $ntw->numToWord( $receiptDetails['Amount'] ),
+        '{AMOUNT_IN_WORDS}' => $ntw->numToWord( intval($receiptDetails['Amount']) ),
         '{PAYMENT_TYPE}' => $paymentType,
         '{PAYMENT_DETAILS}' => $paymentDetails,
         '{BOTTOM_TITLE}' => $bottomTitle,

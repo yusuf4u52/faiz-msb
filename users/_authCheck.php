@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+require_once('connection.php');
 
 // check if user didn't hit this page directly and is coming from login page
 session_start();
@@ -26,7 +26,10 @@ $rights = array(
 		"/users/events.php",
 		"/users/update_details.php",
 		"/users/selectyearlyhub.php",
-		"/users/selectyearlyhub_action.php")
+		"/users/selectyearlyhub_action.php",
+		"/users/checkout.php",
+		"/users/payment.php",
+		"/users/return.php")
 );	
 // fetch user role
 $sql = mysqli_query($link,"SELECT role from users where email='".$_SESSION['email']."'");
