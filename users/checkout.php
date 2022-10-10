@@ -62,7 +62,8 @@ if ($resp["code"] != 200) {
     $server_message = $resp["data"]["message"];
     $server_error_code = $resp["data"]["code"];
     $server_error_type = $resp["data"]["type"];
-    var_dump($resp);
+    error_log("error while creating order - check if payment gateway is down?");
+    error_log(var_export($resp, true));
     // TODO: display message
     // echo json_encode($resp["data"]);
     // exit out - most likely the payment gateway is down
@@ -86,64 +87,3 @@ $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
 $paymentLink = $data["payment_link"];
 header("Location: $paymentLink");
-
-
-/*
-Order: create link with
-
-Flow:
-Order is created:
-    1. store order id in Transaction table along with other necessary details, customer_id mobile_number, etc
-    2. wait for PG to call return.php
-    3. update Txn table with status from PG response
-        > success: create receipt
-        > failure: send back to payment.php giving reason why it failed
-    4. create receipt (and also download/whatsapp)
-Failure scenarios to be tested/implemented
-    > Abort if any issue creating the order
-    > Abort if you cannot update transaction table (sql error)
-    > Disable double click on "Pay Now" (payment.php)
-
-createOrder returns this:
-array (size=2)
-  'code' => int 200
-  'data' => 
-    array (size=17)
-      'cf_order_id' => int 2439764
-      'order_id' => string 'order_10325729BDUMTFEIOfJ9nBaPrAV27u4gl' (length=39)
-      'entity' => string 'order' (length=5)
-      'order_currency' => string 'INR' (length=3)
-      'order_amount' => float 5
-      'order_expiry_time' => string '2022-06-14T06:49:59+05:30' (length=25)
-      'customer_details' => 
-        array (size=4)
-          'customer_id' => string '859' (length=3)
-          'customer_name' => null
-          'customer_email' => string 'abc@xyz.com' (length=19)
-          'customer_phone' => string '1234567890' (length=10)
-      'order_meta' => 
-        array (size=3)
-          'return_url' => string 'https://1123-60-254-88-207.in.ngrok.io/users/return.php?orderId={order_id}&token={order_token}' (length=98)
-          'notify_url' => null
-          'payment_methods' => null
-      'settlements' => 
-        array (size=1)
-          'url' => string 'https://sandbox.cashfree.com/pg/orders/order_10325729BDUMTFEIOfJ9nBaPrAV27u4gl/settlements' (length=90)
-      'payments' => 
-        array (size=1)
-          'url' => string 'https://sandbox.cashfree.com/pg/orders/order_10325729BDUMTFEIOfJ9nBaPrAV27u4gl/payments' (length=87)
-      'refunds' => 
-        array (size=1)
-          'url' => string 'https://sandbox.cashfree.com/pg/orders/order_10325729BDUMTFEIOfJ9nBaPrAV27u4gl/refunds' (length=86)
-      'order_status' => string 'ACTIVE' (length=6)
-      'order_token' => string 'PBEqMMTJZLCgKbbNOsDE' (length=20)
-      'order_note' => null
-      'payment_link' => string 'https://payments-test.cashfree.com/order/#PBEqMMTJZLCgKbbNOsDE' (length=62)
-      'order_tags' => 
-        array (size=1)
-          'paymentType' => string 'thali' (length=5)
-      'order_splits' => 
-        array (size=0)
-          empty
-
-*/

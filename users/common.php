@@ -11,8 +11,8 @@ function doPost($url, $headers, $data)
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
     // remove below properties in production
-    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
     $resp = curl_exec($curl);
     if ($resp === false) {
@@ -32,8 +32,8 @@ function doGet($url, $headers)
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     // remove below properties in production
-    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
     $resp = curl_exec($curl);
     if ($resp === false) {
         throw new \Exception("Unable to get to cashfree");

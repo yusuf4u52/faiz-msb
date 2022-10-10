@@ -20,9 +20,9 @@ if($_GET) {
         die("Couldn't find the receipt details for this order");
     }
     $receiptTemplate = file_get_contents("receipt.html");
-    $pdfContent =  getReceiptHtml($link,$receiptTemplate, $row);
+    $htmlContent =  getReceiptHtml($link,$receiptTemplate, $row);
 
-    generate_pdf($pdfContent);
+    generate_pdf($htmlContent);
 } else {
     die ("Wrong protocol");
 }

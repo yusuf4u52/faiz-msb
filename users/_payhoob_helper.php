@@ -15,8 +15,9 @@ function createReceipt($thali, $receiptAmount, $paymentType, $createdByEmailId, 
   
   // validation
   if ($receiptNumber == 1) {
-    echo "Receipt Number cannot be 1, check with administrator";
-    exit();
+    $msg = "Receipt Number cannot be 1, check with administrator";
+    error_log($msg);
+    die($msg);
   }
   $sql = "select NAME,id from thalilist WHERE thali = '" . $thali . "'";
   $result = mysqli_query($link, $sql) or die(mysqli_error($link));
@@ -24,8 +25,9 @@ function createReceipt($thali, $receiptAmount, $paymentType, $createdByEmailId, 
   
   // validation
   if (empty($name)) {
-    echo "Unable to find details of the thali #" . $thali;
-    exit;
+    $msg = "Unable to find details of the thali #" . $thali;
+    error_log($msg);
+    die($msg);
   }
   
   $sql = mysqli_query($link, "SELECT SUM(`Amount`) from receipts");
@@ -38,8 +40,9 @@ function createReceipt($thali, $receiptAmount, $paymentType, $createdByEmailId, 
   
   
   if ($amount != $paid) {
-    error_log("Database is not in sync. Please contact administrator");
-    exit;
+    $msg = "Database is not in sync. Please contact administrator";
+    error_log($msg);
+    die($msg);
   }
   
   $sql = "";
