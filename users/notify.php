@@ -40,6 +40,9 @@ if ($_POST) {
     error_log($msg);
     die($msg);
   }
+
+  error_log(var_export($_POST, true));
+
   $orderId = $_POST["orderId"];
   $query = "select * from order_details where gw_order_id='$orderId'";
   $result = mysqli_query($link, $query);
@@ -76,6 +79,9 @@ if ($_POST) {
     $bankreferenceid = is_null($payment["data"][0]["bank_reference"]) ? "" : $payment["data"][0]["bank_reference"];
     // create_receipt_in_sheet($_SESSION['thali'], $response_body["order_amount"], $bankreferenceid, $orderId);
     $receiptNumber = createReceipt($orderDetails['thali_id'], $orderDetails['amount'], 'Bank', 'help@faizstudents.com', $bankreferenceid);
+    
+    error_log("Generated receipt no: $receiptNumber against orderId $orderId");
+    
     $query = "update order_details set Receipt_No='$receiptNumber' where gw_order_id='$orderId'";
     $result = mysqli_query($link, $query);
     if (!$result) {
