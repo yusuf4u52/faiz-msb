@@ -2,8 +2,8 @@
 
 function helper_getTotalPending($user_thali)
 {
-  require("_credentials.php");
-  require("../users/connection.php");
+  require_once("_credentials.php");
+  require_once("../users/connection.php");
   $query = "SELECT Total_Pending FROM thalilist where Thali='$user_thali'";
   $result = mysqli_query($link,$query);
   if($result)
