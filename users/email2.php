@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+require_once('connection.php');
 include('getHijriDate.php');
 include 'stop_permanent_automate.php';
 include '../backup/_email_backup.php';

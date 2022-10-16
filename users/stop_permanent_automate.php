@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+require_once('connection.php');
 
 $query = mysqli_query($link,"SELECT c.Thali, t.id, MAX(c.datetime) as last_activity from change_table as c inner join thalilist as t on c.Thali = t.Thali WHERE t.Active=0 GROUP BY c.Thali HAVING last_activity < DATE_SUB(now(), INTERVAL 6 MONTH)") or die(mysqli_error($link));
 
