@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+require_once('connection.php');
 include('_authCheck.php');
 
 $result=mysqli_query($link,"SELECT dh.*,SUM(dhi.amount) as total_amount FROM daily_hisab as dh INNER JOIN daily_hisab_items as dhi on dh.`date` = dhi.`date` group by `dhi`.`date` order by `dh`.`date` DESC") or die(mysqli_error($link));

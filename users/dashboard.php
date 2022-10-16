@@ -17,7 +17,7 @@
 /* Include the `fusioncharts.php` file that contains functions  to embed the charts. */
 
   include("fusioncharts.php");
-  include('connection.php');
+  require_once('connection.php');
 
   // Form the SQL query that returns the top 10 most populous countries
   $query = "SELECT Thali, Total_Pending FROM thalilist where Active='1' ORDER BY Total_Pending DESC LIMIT 10";

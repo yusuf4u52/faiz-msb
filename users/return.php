@@ -1,6 +1,6 @@
 <?php
 require_once "common.php";
-include('connection.php');
+require_once('connection.php');
 // include('googlesheet.php');
 require 'get_receipt_html.php';
 require 'get_receipt_pdf.php';

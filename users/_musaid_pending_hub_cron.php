@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+require_once('connection.php');
 require_once '_sendMail.php';
 require '../vendor/autoload.php'; 
 

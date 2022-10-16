@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+require_once('connection.php');
 if ($faiz_api_key != $_GET['api_key']) {
     echo "You are not authorized";
     exit;

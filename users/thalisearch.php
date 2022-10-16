@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+require_once('connection.php');
 include('_authCheck.php');
 
 if ($_POST) {

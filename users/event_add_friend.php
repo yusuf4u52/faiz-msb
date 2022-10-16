@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+require_once('connection.php');
 $sql= "Select * from thalilist where ITS_No='".$_POST['its']."' AND Active in ('0','1')";
 $result = mysqli_query($link,$sql);
 

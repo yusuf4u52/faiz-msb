@@ -1,5 +1,5 @@
 <?php
-include('connection.php');
+require_once('connection.php');
 $query = "Select * from thalilist where id='".$_POST['Thaliid']."'";
 $result= mysqli_query($link,$query);
 $values = mysqli_fetch_assoc($result);

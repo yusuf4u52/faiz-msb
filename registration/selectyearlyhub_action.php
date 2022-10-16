@@ -1,5 +1,5 @@
 <?php
-include('../users/connection.php');
+require_once('../users/connection.php');
 session_start();
 
 if(isset($_GET['option']))

@@ -18,7 +18,7 @@ function CallAPI($itsid,$header,$its_url)
 
 function CallAPIForAll()
 {
-	include('../users/connection.php');
+	require_once('../users/connection.php');
 	require '../sms/_credentials.php';
 	$query="SELECT ITS_No FROM thalilist where NAME='' or NAME='0'";
 	$result = mysqli_query($link,$query);

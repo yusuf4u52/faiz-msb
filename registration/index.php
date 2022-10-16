@@ -1,5 +1,5 @@
 <?php
-include('../users/connection.php');
+require_once('../users/connection.php');
 require '../sms/_credentials.php';
 include('call_api.php');
 require '../users/_sendMail.php';

@@ -5,7 +5,7 @@
  <body>
 
   <?php
-  include('connection.php');
+  require_once('connection.php');
 
   $sql = mysqli_query($link,"SELECT SUM(`Amount`) from receipts");
   $row = mysqli_fetch_row($sql);

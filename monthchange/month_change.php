@@ -1,5 +1,5 @@
 <?php
-include('../users/connection.php');
+require_once('../users/connection.php');
 include('../users/adminsession.php');
 if($_POST) {
 $query = file_get_contents("month_change.sql");
