@@ -4,8 +4,7 @@ include('adminsession.php');
 include('../sms/_helper.php');
 require_once('_payhoob_helper.php');
 
-if($_POST)
-{
+if ($_POST) {
   //validate payment type is provided
   if (empty($_POST['payment'])) {
     echo "Provide payment type (Bank or Cash)";
@@ -23,22 +22,26 @@ if($_POST)
     echo "Provide receipt amount";
     exit();
   }
-  
+
+  if ($_POST['payment'] == 'Cash') {
+    $_POST['transaction_id'] = null;
+  }
+
   $receiptNumber = createReceipt($_POST['receipt_thali'], $_POST['receipt_amount'], $_POST['payment'], $_SESSION['email'], $_POST['transaction_id']);
-  if ($receiptNumber){
+  if ($receiptNumber) {
     echo "Success\n";
   }
   $userThali = $_POST['receipt_thali'];
   $userAmount = $_POST['receipt_amount'];
-  $sql = mysqli_query($link,"SELECT NAME, CONTACT from thalilist where Thali='".$userThali."'");
+  $sql = mysqli_query($link, "SELECT NAME, CONTACT from thalilist where Thali='" . $userThali . "'");
   $row = mysqli_fetch_row($sql);
   $userName = helper_getFirstNameWithSuffix($row[0]);
   $smsTo = $row[1];
   $userPending = helper_getTotalPending($userThali);
   // use \n in double quoted strings for new line character
   $smsBody = "Mubarak $userName for contributing Rs. $userAmount (R.No. $receiptNumber) in FMB. Moula TUS nu ehsan che ke apne jamarwa ma shamil kare che.\n"
-              ."Thali#:$userThali\n"
-              ."Pending:$userPending";
+    . "Thali#:$userThali\n"
+    . "Pending:$userPending";
   sendSms($smsBody, $smsTo);
   echo $smsBody;
 }
