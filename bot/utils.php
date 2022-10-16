@@ -1,6 +1,6 @@
 <?php
 
-require_once "../users/_credentials.php";
+require_once "../sms/_credentials.php";
 require_once "../users/common.php";
 require_once "../users/connection.php";
 
