@@ -52,7 +52,7 @@ function createReceipt($thali, $receiptAmount, $paymentType, $createdByEmailId, 
     $sql = "INSERT INTO receipts (`Receipt_No`, `Thali_No`, `userid` ,`name`, `Amount`, `payment_type`, `Date`, `received_by`) VALUES ('" . $receiptNumber . "','" . $thali . "','" . $name['id'] . "','" . $name['NAME'] . "','" . $receiptAmount . "','" . $paymentType . "', '" . $today . "','" . $createdByEmailId . "')";
   }
 
-  mysqli_query($link, $sql);
+  $result = mysqli_query($link, $sql);
   if (!$result) {
     $msg = mysqli_error($link);
     error_log($msg);
@@ -60,13 +60,12 @@ function createReceipt($thali, $receiptAmount, $paymentType, $createdByEmailId, 
   }
 
   $sql = "UPDATE thalilist set Paid = Paid + '" . $receiptAmount . "' WHERE thali = '" . $thali . "'";
-  mysqli_query($link, $sql);
+  $result = mysqli_query($link, $sql);
   if (!$result) {
     $msg = mysqli_error($link);
     error_log($msg);
     die($msg);
   }
-
 
   return $receiptNumber;
 }
