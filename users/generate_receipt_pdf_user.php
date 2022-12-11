@@ -9,7 +9,7 @@ $receiptTemplate = file_get_contents("receipt.html");
 $sql = "";
 
 if (!empty($_GET['receiptno'])) {
-    $sql = "select * from receipts WHERE Receipt_No  = ". mysqli_real_escape_string($link,$_GET['receiptno']) . " AND Thali_No in (select Thali from thalilist where Email_ID = " . $_SESSION['email'] .") ORDER BY Receipt_No ASC";
+    $sql = "select * from receipts WHERE Receipt_No  = ". mysqli_real_escape_string($link,$_GET['receiptno']) . " AND Thali_No in (select Thali from thalilist where Email_ID = \"" . $_SESSION['email'] ."\") ORDER BY Receipt_No ASC";
 } else {
     exit(1);
 }
@@ -22,6 +22,6 @@ while($values = mysqli_fetch_assoc($result))
     $pdfContent .=  getReceiptHtml($link,$receiptTemplate, $values);
 }
 
-generate_pdf($pdfContent);
+generate_pdf($pdfContent, "receipt_". mysqli_real_escape_string($link,$_GET['receiptno']) . ".pdf" );
 
 exit(0);

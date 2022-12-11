@@ -27,6 +27,7 @@ $rights = array(
 		"/users/update_details.php",
 		"/users/selectyearlyhub.php",
 		"/users/selectyearlyhub_action.php",
+		"/users/generate_receipt_pdf_user.php",
 		"/users/checkout.php",
 		"/users/payment.php",
 		"/users/return.php")
