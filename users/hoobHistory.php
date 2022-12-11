@@ -17,6 +17,7 @@ include('_authCheck.php');
           <td><b>Receipt No</b></td>
           <td><b>Amount</b></td>
           <td><b>Date</b></td>
+          <td><b>Receipt</b></td>
           </tr>
           <?php
          
@@ -28,6 +29,7 @@ include('_authCheck.php');
             echo "<td>" . nl2br( $row['Receipt_No']) . "</td>";  
             echo "<td>" . nl2br( $row['Amount']) . "</td>";  
             echo "<td class=\"hijridate\">" . nl2br( $row['Date']) . "</td>";  
+            echo "<td><a href=\"/users/generate_receipt_pdf_user.php?receiptno=". $row['Receipt_No'] .  "\">Download</a></td>";  
             echo "</tr>"; 
           } 
           ?>
