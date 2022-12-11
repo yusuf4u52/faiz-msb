@@ -16,6 +16,10 @@ if (!empty($_GET['receiptno'])) {
 
 $result= mysqli_query($link,$sql);
 
+$rowcount = mysqli_num_rows($result);
+
+if($rowcount < 0) exit(1);
+
 $pdfContent = "";
 while($values = mysqli_fetch_assoc($result))
 {
