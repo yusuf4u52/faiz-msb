@@ -92,6 +92,12 @@ $musaid_details = mysqli_fetch_assoc(mysqli_query($link, "SELECT NAME, CONTACT F
           <h6 class="list-group-item-head ing text-muted">Thali Delivered</h6>
           <p class="list-group-item-text"><strong><?php echo round($values['thalicount'] * 100 / $max_days[0]); ?>% of days</strong></p>
         </li>
+
+        <li class="list-group-item">
+          <h6 class="list-group-item-head ing text-muted">Receipts</h6>
+          <p class="list-group-item-text"><a href="/users/generate_receipt_pdf.php?thalino=<?php echo $values['Thali']; ?>">Export Receipts</a></p>
+        </li>
+
         <li class="list-group-item">
           <table class="table table-striped table-hover">
             <tr>

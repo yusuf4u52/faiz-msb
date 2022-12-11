@@ -9,7 +9,7 @@ $receiptTemplate = file_get_contents("receipt.html");
 $sql = "";
 
 if (!empty($_GET['thalino'])) {
-    $sql = "select * from receipts WHERE Thali_No = ". real_escape_string($_GET['thalino']) . " ORDER BY Receipt_No ASC";
+    $sql = "select * from receipts WHERE Thali_No = ". mysqli_real_escape_string($link,$_GET['thalino']) . " ORDER BY Receipt_No ASC";
 } else {
     $sql = "select * from receipts ORDER BY Receipt_No ASC";
 }
