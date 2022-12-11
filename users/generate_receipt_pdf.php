@@ -6,7 +6,14 @@ require 'get_receipt_pdf.php';
 
 
 $receiptTemplate = file_get_contents("receipt.html");
-$sql = "select * from receipts ORDER BY Receipt_No ASC";
+$sql = "";
+
+if (!empty($_GET['thalino'])) {
+    $sql = "select * from receipts WHERE Thali_No = ". real_escape_string($_GET['thalino']) . " ORDER BY Receipt_No ASC";
+} else {
+    $sql = "select * from receipts ORDER BY Receipt_No ASC";
+}
+
 $result= mysqli_query($link,$sql);
 
 $pdfContent = "";
