@@ -214,6 +214,7 @@ if (!empty($values['yearly_hub'])) {
                 <?php } ?>
                 <li class="list-group-item">
                   <h5 class="list-group-item-heading text-muted">Pending Hoob</h5>
+                  <p class="list-group-item-text"><a href="hoobHistory.php">Receipts</a></p>
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       Previous Year Pending
