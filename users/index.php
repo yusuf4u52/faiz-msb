@@ -24,10 +24,10 @@ if (empty($values['Thali'])) {
 }
 
 // Check if takhmeen is done for the year or the next
-if (empty($values['yearly_hub'])) {
-  header("Location: selectyearlyhub.php");
-  exit;
-}
+//if (empty($values['yearly_hub'])) {
+//  header("Location: selectyearlyhub.php");
+//  exit;
+//}
 
 // Redirect users to update details page if any details are missing
 if (empty($values['ITS_No']) || empty($values['fathersNo']) || empty($values['fathersITS']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) {
