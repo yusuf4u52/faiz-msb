@@ -14,6 +14,8 @@ $values = mysqli_fetch_assoc(mysqli_query($link,$query));
 
 if($values['hardstop'] == 1) exit;
 
+if($values['yearly_hub'] == 0) exit;
+
 mysqli_query($link,"UPDATE thalilist set Active='1' WHERE id = '".$_SESSION['thaliid']."'") or die(mysqli_error($link));
 mysqli_query($link,"UPDATE thalilist set Thali_start_date='" . $today . "' WHERE id = '".$values['id']."'") or die(mysqli_error($link));
 
