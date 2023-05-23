@@ -1,14 +1,15 @@
 <?php
-function sendEmail($to, $subject, $msg, $attachment,$attachmentObj = false, $addAllRecipents = true) {
-	require '../vendor/autoload.php'; 
+function sendEmail($to, $subject, $msg, $attachment, $attachmentObj = null, $addTransporter = false)
+{
+	require '../vendor/autoload.php';
 	require '../sms/_credentials.php';
 
-	$email = new \SendGrid\Mail\Mail(); 
+	$email = new \SendGrid\Mail\Mail();
 	$email->setFrom("no-reply@faizstudents.com", "FMB (Poona Students)");
 	$email->setSubject($subject);
 	$email->addTo($to);
 
-	if($addAllRecipents){
+	if ($addTransporter) {
 		$email->addTo("help@faizstudents.com");
 		$email->addTo("mesaifee52@gmail.com");
 		$email->addTo("yusuf4u52@gmail.com");
@@ -18,11 +19,11 @@ function sendEmail($to, $subject, $msg, $attachment,$attachmentObj = false, $add
 	}
 
 	$email->addContent(
-	    "text/html", $msg
+		"text/html",
+		$msg
 	);
 
-	if($attachmentObj)
-	{
+	if ($attachmentObj) {
 		foreach ($attachmentObj as $value) {
 			$email->addAttachment($value);
 		}
@@ -30,20 +31,18 @@ function sendEmail($to, $subject, $msg, $attachment,$attachmentObj = false, $add
 
 	if ($attachment != null) {
 		$attach = new \SendGrid\Mail\Attachment();
-	    $attach->setContent(base64_encode($attachment));
-	    $attach->setType("application/text");
-	    $attach->setFilename("backup.sql");
-	    $attach->setDisposition("attachment");
-	    $attach->setContentId("Database Backup");
-	    $email->addAttachment($attach);
+		$attach->setContent(base64_encode($attachment));
+		$attach->setType("application/text");
+		$attach->setFilename("backup.sql");
+		$attach->setDisposition("attachment");
+		$attach->setContentId("Database Backup");
+		$email->addAttachment($attach);
 	}
 
 	$sendgrid = new \SendGrid($SENDGRID_API_KEY);
 	try {
-	    $sendgrid->send($email);
+		$sendgrid->send($email);
 	} catch (Exception $e) {
-	    echo 'Caught exception: '. $e->getMessage() ."\n";
+		echo 'Caught exception: ' . $e->getMessage() . "\n";
 	}
 }
-
-?>
