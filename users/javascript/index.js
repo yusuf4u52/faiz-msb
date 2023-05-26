@@ -37,7 +37,7 @@ function stopThali_admin(
     async: true,
     data: data,
     success: function (data) {
-      if (data == "success") {
+      if (data.includes("success")) {
         alert("Thaali #" + thaaliId + " Operation Successfull!");
       } else if (data === "404") {
         alert(
