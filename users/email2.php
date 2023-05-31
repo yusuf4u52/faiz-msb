@@ -45,7 +45,6 @@ foreach ($request as $transporter_name => $thalis) {
 		$msgvar .= 	"\n";
 	}
 }
-mysqli_query($link, "update change_table set processed = 1 where id in (" . implode(',', $processed) . ")");
 //----------------- Transporter wise count daily----------------------
 $msgvar .= "\n<b>Transporter Count</b>\n";
 $sql = mysqli_query($link, "SELECT Transporter,count(*) as tcount FROM `thalilist` WHERE Active = 1 and Transporter != 'Transporter' group by Transporter");
@@ -69,4 +68,6 @@ fwrite($myfile, $txt);
 fclose($myfile);
 mysqli_query($link, "UPDATE thalilist SET thalicount = thalicount + 1 WHERE Active='1'");
 $msgvar = str_replace("\n", "<br>", $msgvar);
-sendEmail('saifuddincalcuttawala@gmail.com', 'Start Stop update ' . date('d/m/Y'), $msgvar, null);
+sendEmail('help@faizstudents.com', 'Start Stop update ' . $tomorrow_date, $msgvar, null, null, true);
+mysqli_query($link, "update change_table set processed = 1 where id in (" . implode(',', $processed) . ")");
+
