@@ -9,6 +9,23 @@ if (is_null($_SESSION['fromLogin'])) {
    header("Location: login.php");
 }
 
+// check if request is in cut off time
+date_default_timezone_set('Asia/Kolkata');
+$cutoffTime = '18:00'; //Cut off time
+$startTime = '23:59'; //reset back to open at midnight
+
+$time = new DateTime($cutoffTime);
+$time1 = date_format($time, 'H:i');
+$time = new DateTime($startTime);
+$time2 = date_format($time, 'H:i');
+
+$current = date("H:i");
+if ($current > $time1 && $current < $time2) {
+  $cutoffmessage =  'Start thali not allowed post 6 PM.';
+  header("Location: index.php?status=$cutoffmessage");
+  exit;
+}
+
 $query="SELECT * FROM thalilist where id = '".$_SESSION['thaliid']."'";
 $values = mysqli_fetch_assoc(mysqli_query($link,$query));
 
