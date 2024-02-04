@@ -42,6 +42,6 @@ if ($_POST) {
   $smsBody = "Mubarak $userName for contributing Rs. $userAmount (R.No. $receiptNumber) in FMB. Moula TUS nu ehsan che ke apne jamarwa ma shamil kare che.\n"
     . "Thali#:$userThali\n"
     . "Pending:$userPending";
-  sendSms($smsBody, $smsTo);
+  sendWhatsapp($smsBody, $smsTo);
   echo $smsBody;
 }

@@ -78,3 +78,12 @@ function sendSms($smsBody, $smsTo)
   $result = file_get_contents("http://sms1.almasaarr.com/sendhttp.php?authkey=$smsauthkey&mobiles=$smsTo&message=$smsBodyEncoded&sender=FAIZST&route=Template");
   return $result;
 }
+
+function sendWhatsapp($smsBody, $smsTo)
+{
+  global $whatsappauthkey;
+
+  $smsBodyEncoded = urlencode($smsBody);
+  $result = file_get_contents("https://api.ultramsg.com/instance76946/messages/chat?token=$whatsappauthkey&to=+91$smsTo&body=$smsBodyEncoded&priority=10");
+  return $result;
+}
