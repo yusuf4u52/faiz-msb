@@ -39,9 +39,9 @@ if ($_POST) {
   $smsTo = $row[1];
   $userPending = helper_getTotalPending($userThali);
   // use \n in double quoted strings for new line character
-  $smsBody = "Mubarak $userName for contributing Rs. $userAmount (R.No. $receiptNumber) in FMB. Moula TUS nu ehsan che ke apne jamarwa ma shamil kare che.\n"
-    . "Thali#:$userThali\n"
-    . "Pending:$userPending";
+  $smsBody = "Mubarak *$userName* for contributing Rs. *$userAmount* (R.No. *$receiptNumber*) in FMB. Moula TUS nu ehsan che ke apne jamarwa ma shamil kare che.\n"
+    . "Thali#: *$userThali*\n"
+    . "Pending: *$userPending*";
   sendWhatsapp($smsBody, $smsTo);
   echo $smsBody;
 }
