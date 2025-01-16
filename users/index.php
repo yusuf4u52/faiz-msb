@@ -155,17 +155,17 @@ if (!empty($values['yearly_hub'])) {
           if ($values['Transporter'] == 'Pick Up' && $values['Active'] == 1) {
         ?>
 
-          <form method="POST" action="start_transport.php" onsubmit='return confirm("Are you sure?");' data-key="LazyLoad" class="hidden">
+          <!-- <form method="POST" action="start_transport.php" onsubmit='return confirm("Are you sure?");' data-key="LazyLoad" class="hidden">
             <input type="submit" name="start_transport" value="Request Transport" class="btn btn-success" />
-          </form>
+          </form> -->
 
         <?php
           } else if ($values['Active'] == 1) {
         ?>
 
-          <form method="POST" action="stop_transport.php" onsubmit='return confirm("Are you sure?");' data-key="LazyLoad" class="hidden">
+          <!-- <form method="POST" action="stop_transport.php" onsubmit='return confirm("Are you sure?");' data-key="LazyLoad" class="hidden">
             <input type="submit" name="stop_transport" value="Request Pickup" class="btn btn-danger" />
-          </form>
+          </form> -->
 
         <?php
           }
@@ -275,7 +275,7 @@ if (!empty($values['yearly_hub'])) {
 
         <!-- Break down -->
         <?php
-        if (isset($installment)) :
+        if ($values['yearly_hub'] != 1) :
         ?>
 
           <div class="panel panel-default" style="margin-top: 20px;">
