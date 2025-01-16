@@ -30,10 +30,10 @@ if (empty($values['Thali'])) {
 //}
 
 // Redirect users to update details page if any details are missing
-if (empty($values['ITS_No']) || empty($values['fathersNo']) || empty($values['fathersITS']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) {
-  header("Location: update_details.php?update_pending_info");
-  exit;
-}
+// if (empty($values['ITS_No']) || empty($values['fathersNo']) || empty($values['fathersITS']) || empty($values['CONTACT']) || empty($values['WhatsApp']) || empty($values['Full_Address'])) {
+//   header("Location: update_details.php?update_pending_info");
+//   exit;
+// }
 
 // Check if there is any enabled event that needs users response
 $enabled_events_query = mysqli_query($link, "SELECT * FROM events where enabled='1' order by id limit 1");
