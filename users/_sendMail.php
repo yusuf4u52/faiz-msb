@@ -5,17 +5,14 @@ function sendEmail($to, $subject, $msg, $attachment, $attachmentObj = null, $add
 	require '../sms/_credentials.php';
 
 	$email = new \SendGrid\Mail\Mail();
-	$email->setFrom("no-reply@faizstudents.com", "FMB (Poona Students)");
+	$email->setFrom("no-reply@faizstudents.com", "FMB (MSB)");
 	$email->setSubject($subject);
 	$email->addTo($to);
 
 	if ($addTransporter) {
+		$email->addTo("mohammedizzy@msbinstitute.com");
 		$email->addTo("help@faizstudents.com");
-		$email->addTo("mesaifee52@gmail.com");
-		$email->addTo("yusuf4u52@gmail.com");
-		$email->addTo("mustafamnr@gmail.com");
-		$email->addTo("tzabuawala@gmail.com");
-		$email->addTo("ahmedi.murtaza@gmail.com");
+		$email->addTo("punemasool@msbinstitute.com");
 	}
 
 	$email->addContent(
