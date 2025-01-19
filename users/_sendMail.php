@@ -11,7 +11,7 @@ function sendEmail($to, $subject, $msg, $attachment, $attachmentObj = null, $add
 
 	if ($addTransporter) {
 		$email->addTo("mohammedizzy@msbinstitute.com");
-		$email->addTo("help@faizstudents.com");
+		$email->addTo("yusuf4u52@gmail.com");
 		$email->addTo("punemasool@msbinstitute.com");
 	}
 
